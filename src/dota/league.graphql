@@ -1,0 +1,32 @@
+query League($id: Int!) {
+  league(id: $id) {
+    displayName
+    region
+    stats {
+      matchCount
+    }
+    nodeGroups {
+      nodes {
+        scheduledTime
+        hasStarted
+        isCompleted
+        nodeType
+
+        teamOneWins
+        teamTwoWins
+        teamOne {
+          id
+          name
+        }
+        teamTwo {
+          id
+          name
+        }
+
+        matches {
+          id
+        }
+      }
+    }
+  }
+}

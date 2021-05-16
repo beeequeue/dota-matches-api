@@ -1,0 +1,16 @@
+schema:
+  - https://api.stratz.com/graphql:
+      headers:
+        Authorization: "Bearer ${STRATZ_TOKEN}"
+
+documents: "./src/dota/*.graphql"
+
+generates:
+  src/dota/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+
+  schema.graphql:
+    plugins:
+      - schema-ast

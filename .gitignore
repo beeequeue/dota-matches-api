@@ -1,0 +1,11 @@
+node_modules
+
+schema.graphql
+
+.DS_Store
+.idea
+dist
+dist-ssr
+.env
+
+.vercel
