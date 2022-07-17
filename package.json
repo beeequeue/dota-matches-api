@@ -4,9 +4,9 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@7.5.1",
+  "packageManager": "pnpm@7.5.2",
   "engines": {
-    "node": ">=16.15"
+    "node": ">=18"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
