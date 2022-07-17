@@ -7133,7 +7133,6 @@ export type YogurtQueryTeamMembersArgs = {
 
 export type TeamsQueryVariables = Exact<{
   ids: ReadonlyArray<Scalars["Int"]> | Scalars["Int"]
-  after: InputMaybe<Scalars["Long"]>
 }>
 
 export type TeamsQuery = {
@@ -7142,16 +7141,20 @@ export type TeamsQuery = {
     readonly __typename?: "TeamType"
     readonly id: number
     readonly name: string | null
-    readonly matches: ReadonlyArray<{
-      readonly __typename?: "MatchType"
-      readonly id: number | null
-      readonly statsDateTime: number | null
-      readonly radiantTeam: {
+    readonly series: ReadonlyArray<{
+      readonly __typename?: "SeriesType"
+      readonly id: number
+      readonly type: Series | null
+      readonly matches: ReadonlyArray<{
+        readonly __typename?: "MatchType"
+        readonly startDateTime: number | null
+      } | null> | null
+      readonly teamOne: {
         readonly __typename?: "TeamType"
         readonly id: number
         readonly name: string | null
       } | null
-      readonly direTeam: {
+      readonly teamTwo: {
         readonly __typename?: "TeamType"
         readonly id: number
         readonly name: string | null

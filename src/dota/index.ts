@@ -10,12 +10,9 @@ const stratzClient = mande("https://api.stratz.com", {
   },
 })
 
-const TWO_WEEKS = 60 * 60 * 24 * 14
-
 const fetchLeagueMatches = async (ids: number[]): Promise<TeamsQuery> => {
   const variables: TeamsQueryVariables = {
     ids,
-    after: Math.round(Date.now() / 1000) - TWO_WEEKS,
   }
   const result = await stratzClient
     .post<{ data: TeamsQuery }>("/graphql", {
@@ -33,8 +30,6 @@ const fetchLeagueMatches = async (ids: number[]): Promise<TeamsQuery> => {
     })
     throw new Error("!")
   }
-
-  console.log(result)
 
   return result.data
 }

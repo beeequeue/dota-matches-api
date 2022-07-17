@@ -1,16 +1,20 @@
 export const teamsQuery = /* GraphQL */ `
-  query Teams($ids: [Int!]!, $after: Long) {
+  query Teams($ids: [Int!]!) {
     teams(teamIds: $ids) {
       id
       name
-      matches(request: { take: 100, skip: 0, startDateTime: $after }) {
+      series(request: { take: 20, skip: 0 }) {
         id
-        statsDateTime
-        radiantTeam {
+        type
+        matches {
+          startDateTime
+        }
+
+        teamOne {
           id
           name
         }
-        direTeam {
+        teamTwo {
           id
           name
         }
