@@ -1,26 +1,42 @@
-import { $fetch } from "ohmyfetch"
+import { mande, MandeError } from "mande"
 
-import leagueQuery from "./league.graphql"
-import { LeagueQuery } from "./types"
+import { teamsQuery } from "./queries"
+import { TeamsQuery, TeamsQueryVariables } from "./types"
 
-const $stratz = $fetch.create({
-  baseURL: "https://api.stratz.com/graphql",
+const stratzClient = mande("https://api.stratz.com", {
+  responseAs: "json",
   headers: {
     Authorization: `Bearer ${process.env.STRATZ_TOKEN!}`,
   },
 })
 
-const fetchLeagueMatches = async (id: number): Promise<LeagueQuery> => {
-  const response = await $stratz<{ data: LeagueQuery }>("/", {
-    method: "POST",
-    responseType: "json",
-    body: {
-      query: leagueQuery,
-      variables: { id },
-    },
-  })
+const TWO_WEEKS = 60 * 60 * 24 * 14
 
-  return response.data
+const fetchLeagueMatches = async (ids: number[]): Promise<TeamsQuery> => {
+  const variables: TeamsQueryVariables = {
+    ids,
+    after: Math.round(Date.now() / 1000) - TWO_WEEKS,
+  }
+  const result = await stratzClient
+    .post<{ data: TeamsQuery }>("/graphql", {
+      query: teamsQuery,
+      variables,
+    })
+    .catch((error: MandeError) => error)
+
+  if (result instanceof Error) {
+    console.error({
+      status: result.response.status,
+      body: await result.response
+        .json()
+        .catch(() => result.response.text().catch(() => null)),
+    })
+    throw new Error("!")
+  }
+
+  console.log(result)
+
+  return result.data
 }
 
-export const Dota = { fetchLeague: fetchLeagueMatches }
+export const Dota = { fetchTeamsData: fetchLeagueMatches }

@@ -3,10 +3,24 @@ schema:
       headers:
         Authorization: "Bearer ${STRATZ_TOKEN}"
 
-documents: "./src/dota/*.graphql"
+documents: "./src/**/*.ts"
+
+hooks:
+  afterAllFileWrite:
+    - pnpm prettier --write src/dota/types.ts
 
 generates:
   src/dota/types.ts:
+    config:
+      immutableTypes: true
+      avoidOptionals: true
+      scalars:
+        Guid: string
+        DateTime: string
+        Decimal: number
+        Long: number
+        Short: number
+        UShort: number
     plugins:
       - typescript
       - typescript-operations
