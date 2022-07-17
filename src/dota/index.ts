@@ -6,7 +6,7 @@ import { TeamsQuery, TeamsQueryVariables } from "./types"
 const stratzClient = mande("https://api.stratz.com", {
   responseAs: "json",
   headers: {
-    Authorization: `Bearer ${process.env.STRATZ_TOKEN!}`,
+    Authorization: `Bearer ${STRATZ_TOKEN}`,
   },
 })
 

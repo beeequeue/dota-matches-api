@@ -22,8 +22,7 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "lib": ["es2020"],
-    "types": []
+    "types": ["@cloudflare/workers-types"]
   },
 
   "include": ["src/**/*.ts"]

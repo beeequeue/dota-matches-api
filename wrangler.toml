@@ -1,0 +1,13 @@
+name = "dpc-schedule"
+type = "javascript"
+compatibility_date = "2022-07-17"
+usage_model = "bundled"
+
+main = "./dist/index.mjs"
+
+[build]
+command = "pnpm --silent build"
+# The directory to watch for changes while using `wrangler dev`, defaults to the current working directory
+watch_dir = "dist"
+[build.upload]
+format = "service-worker"

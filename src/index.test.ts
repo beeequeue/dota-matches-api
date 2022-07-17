@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest"
 
-import { hello } from "./index"
+import { hello } from "./handler"
 
 describe("test", () => {
   test("test", () => {
