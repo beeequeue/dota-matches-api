@@ -10,4 +10,4 @@ command = "pnpm --silent build"
 # The directory to watch for changes while using `wrangler dev`, defaults to the current working directory
 watch_dir = "dist"
 [build.upload]
-format = "service-worker"
+format = "modules"

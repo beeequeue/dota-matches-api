@@ -1,5 +1,7 @@
 import { handler } from "./handler"
 
-addEventListener("fetch", (event) => {
-  event.respondWith(handler(event.request))
-})
+const worker: ExportedHandler = {
+  fetch: handler,
+}
+
+export default worker
