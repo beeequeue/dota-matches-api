@@ -17,7 +17,7 @@
     ]
   },
   "scripts": {
-    "dev": "miniflare --watch --build-watch-path src dist/index.mjs",
+    "dev": "miniflare --watch",
     "build": "tsup",
     "lint": "eslint src",
     "test": "vitest run",

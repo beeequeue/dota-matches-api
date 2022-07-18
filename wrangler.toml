@@ -5,9 +5,14 @@ usage_model = "bundled"
 
 main = "./dist/index.mjs"
 
+kv_namespaces = [
+  { binding = "CACHE", id = "<ignored>", preview_id = "<ignored>" }
+]
+
 [build]
 command = "pnpm --silent build"
 # The directory to watch for changes while using `wrangler dev`, defaults to the current working directory
-watch_dir = "dist"
+watch_dir = "src"
 [build.upload]
 format = "modules"
+main = "index.mjs"
