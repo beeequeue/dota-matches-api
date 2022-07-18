@@ -1,31 +1,19 @@
 import { defineConfig } from "tsup"
-import { Miniflare } from "miniflare"
 
-export default defineConfig(async ({ watch }) => {
-  if (watch) {
-    new Miniflare({
-      envPath: true,
-      packagePath: true,
-      wranglerConfigPath: true,
+export default defineConfig({
+  entryPoints: ["src/index.ts"],
 
-      scriptPath: "dist/index.mjs",
-    })
-  }
+  define: {
+    // @ts-ignore
+    STRATZ_TOKEN: JSON.stringify(process.env.STRATZ_TOKEN),
+  },
 
-  return {
-    entryPoints: ["src/index.ts", "src/run.ts"],
+  bundle: true,
+  splitting: false,
+  sourcemap: true,
+  target: "node18",
+  format: ["esm"],
 
-    define: {
-      STRATZ_TOKEN: JSON.stringify(process.env.STRATZ_TOKEN),
-    },
-
-    bundle: true,
-    splitting: false,
-    sourcemap: true,
-    target: "node18",
-    format: ["esm"],
-
-    clean: true,
-    minify: true,
-  }
+  clean: true,
+  minify: true,
 })
