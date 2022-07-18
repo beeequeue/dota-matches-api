@@ -1,6 +1,6 @@
 import { handler } from "./handler"
 
-const worker: ExportedHandler = {
+const worker: ExportedHandler<Env> = {
   fetch: handler,
 }
 

@@ -1,4 +1,7 @@
+import { config } from "dotenv"
 import { defineConfig } from "tsup"
+
+config()
 
 export default defineConfig({
   entryPoints: ["src/index.ts"],

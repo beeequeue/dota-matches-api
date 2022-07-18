@@ -7,10 +7,12 @@ specifiers:
   '@graphql-codegen/typescript': 2.7.1
   '@graphql-codegen/typescript-operations': 2.5.1
   '@tsconfig/node16': 1.0.3
+  '@worker-tools/response-creators': 1.2.0-pre.6
   c8: 7.11.3
   dotenv: 16.0.1
   eslint: 8.19.0
   graphql: 16.5.0
+  itty-router: 2.6.1
   lint-staged: 13.0.3
   mande: 2.0.2
   miniflare: 2.6.0
@@ -28,10 +30,12 @@ devDependencies:
   '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
   '@graphql-codegen/typescript-operations': 2.5.1_graphql@16.5.0
   '@tsconfig/node16': 1.0.3
+  '@worker-tools/response-creators': 1.2.0-pre.6
   c8: 7.11.3
   dotenv: 16.0.1
   eslint: 8.19.0
   graphql: 16.5.0
+  itty-router: 2.6.1
   lint-staged: 13.0.3
   mande: 2.0.2
   miniflare: 2.6.0
@@ -1581,6 +1585,10 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.26.0
       eslint-visitor-keys: 3.3.0
+    dev: true
+
+  /@worker-tools/response-creators/1.2.0-pre.6:
+    resolution: {integrity: sha512-tY9CvyegTXzI0dCmvw25CwmctFa8ojhjmTLZmvPNPF2ETT3U4o4TvgFZd3eHcr9PKB4fF55TYZeHfgIsjCQ6Qw==}
     dev: true
 
   /abort-controller/3.0.0:
@@ -4054,6 +4062,10 @@ packages:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
+    dev: true
+
+  /itty-router/2.6.1:
+    resolution: {integrity: sha512-l9gxWe5TOLUESYnBn85Jxd6tIZLWdRX5YKkHIBfSgbNQ7UFPNUGuWihRV+LlEbfJJIzgLmhwAbaWRi5yWJm8kg==}
     dev: true
 
   /joycon/3.1.1:

@@ -1,6 +1,6 @@
-declare module "*.graphql" {
-  const content: string
-  export default content
-}
-
 declare const STRATZ_TOKEN: string
+
+declare type Env = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  CACHE: KVNamespace
+}
