@@ -6,6 +6,8 @@ import { isNotNil } from "../utils"
 import { teamsQuery } from "./queries"
 import { TeamsQuery, TeamsQueryVariables } from "./types"
 
+const THREE_HOURS = 60 * 60 * 3
+
 export type Match = {
   id: number
   startsAt: Date
@@ -140,7 +142,7 @@ const getTeamsData = async (env: Env, ids: number[]) => {
     await Promise.all(
       Object.entries(matchesByTeam).map(async ([teamId, newMatches]) => {
         await env.CACHE.put(teamId, JSON.stringify(newMatches), {
-          expirationTtl: 60 * 60 * 3,
+          expirationTtl: THREE_HOURS,
         })
 
         matches.push(...newMatches)
