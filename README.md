@@ -6,7 +6,7 @@ Caches team matches for 3 hours after initially fetching them.
 
 ## API
 
-**Base URL:** `https://dpc-schedule.beequeue.workers.dev/`
+**Base URL:** `https://dpc-schedule.beequeue.workers.dev`
 
 ```ts
 type Match = {
