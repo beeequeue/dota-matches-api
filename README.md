@@ -1,17 +1,42 @@
-# Minimal Node/Web Project
+# Dota 2 Team Matches API
 
-<!--
-[![npm](https://img.shields.io/npm/v/NAME_HERE)](https://www.npmjs.com/package/NAME_HERE)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/NAME_HERE)
-![node-current](https://img.shields.io/node/v/NAME_HERE)
-[![Codecov](https://img.shields.io/codecov/c/github/BeeeQueue/NAME_HERE?token=TOKEN_HERE)](https://app.codecov.io/github/BeeeQueue/NAME_HERE)
--->
+A simple API that fetches, caches and formats data about upcoming and previous matches for Dota 2 teams within a 48 hour interval centered around right now.
 
-This is my minimal template that I use for all my new projects.
+Caches team matches for 3 hours after initially fetching them.
 
-It has:
+## API
 
-- [tsup](https://tsup.egoist.sh/) for easily bundling code
-- [vitest](https://vitest.dev/) for testing
-- All the editor configurations you might need
-- Automatic code formatting on committing with prettier and simple-git-hooks
+**Base URL:** `https://dpc-schedule.beequeue.workers.dev/`
+
+```ts
+type Match = {
+  id: number
+  startsAt: Date
+  steams: Array<{
+    name: string
+    language: Language
+    url: string
+  }>
+  teams: [
+    {
+      id: number
+      name: string
+    },
+    {
+      id: number
+      name: string
+    },
+  ]
+}
+```
+
+### `GET /v1/matches`
+
+```ts
+type QueryParams = {
+  /** Comma-separated list of team IDs to fetch matches for */
+  ids: string
+}
+
+type ResponseBody = Match[]
+```
