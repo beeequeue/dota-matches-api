@@ -1,12 +1,9 @@
 name = "dpc-schedule"
-type = "javascript"
 compatibility_date = "2022-07-17"
 usage_model = "bundled"
 
-main = "./dist/index.mjs"
-
 kv_namespaces = [
-  { binding = "CACHE", id = "<ignored>", preview_id = "<ignored>" }
+  { binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }
 ]
 
 [build]

@@ -7,7 +7,8 @@
     },
     "type": {
       "type": "string",
-      "enum": ["javascript", "webpack", "rust"]
+      "enum": ["javascript", "webpack", "rust"],
+      "deprecationMessage": "Most common features now work out of the box with wrangler, including modules, jsx, typescript, etc. If you need anything more, use a custom build."
     },
     "account_id": {
       "type": "string"
@@ -52,7 +53,8 @@
           "properties": {
             "format": {
               "type": "string",
-              "enum": ["modules"]
+              "enum": ["modules"],
+              "deprecationMessage": "The format is inferred automatically from the code."
             },
             "dir": {
               "type": "string",
