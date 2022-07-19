@@ -6,6 +6,7 @@ export const teamsQuery = /* GraphQL */ `
       series(request: { take: 20, skip: 0 }) {
         id
         type
+
         matches {
           startDateTime
         }
@@ -21,6 +22,11 @@ export const teamsQuery = /* GraphQL */ `
 
         league {
           displayName
+          streams {
+            name
+            languageId
+            streamUrl
+          }
         }
       }
     }

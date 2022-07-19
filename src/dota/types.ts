@@ -7162,6 +7162,12 @@ export type TeamsQuery = {
       readonly league: {
         readonly __typename?: "LeagueType"
         readonly displayName: string | null
+        readonly streams: ReadonlyArray<{
+          readonly __typename?: "LeagueStreamType"
+          readonly name: string | null
+          readonly languageId: Language | null
+          readonly streamUrl: string | null
+        } | null> | null
       } | null
     } | null> | null
   } | null> | null

@@ -4,13 +4,18 @@ import { mande, MandeError } from "mande"
 import { isNotNil } from "../utils"
 
 import { teamsQuery } from "./queries"
-import { TeamsQuery, TeamsQueryVariables } from "./types"
+import { Language, TeamsQuery, TeamsQueryVariables } from "./types"
 
 const THREE_HOURS = 60 * 60 * 3
 
 export type Match = {
   id: number
   startsAt: Date
+  steams: Array<{
+    name: string
+    language: Language
+    url: string
+  }>
   teams: [
     {
       id: number
@@ -47,6 +52,12 @@ const cleanMatchData = (
   return {
     id: series.id,
     startsAt: new Date(firstGameStartTime * 1000),
+    steams:
+      series.league?.streams?.map((stream) => ({
+        name: stream!.name!,
+        language: stream!.languageId!,
+        url: stream!.streamUrl!,
+      })) ?? [],
     teams: [
       {
         id: series.teamOne!.id,
