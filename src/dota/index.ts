@@ -36,7 +36,6 @@ const cleanMatchData = (
     null as number | null,
   )
 
-  // TODO: Add time cutoff here
   if (firstGameStartTime == null) return null
 
   return {
@@ -83,13 +82,15 @@ const fetchLeagueMatches = async (ids: number[]): Promise<TeamsQuery> => {
 
   if (result instanceof Error) {
     const body = await result.response
-      .json()
+      .json<Record<string, unknown>>()
       .catch(() => result.response.text().catch(() => null))
     console.error({
       status: result.response.status,
       body,
     })
-    throw new Error(`Failed to fetch matches: ${result.response.status}, ${body}`)
+    throw new Error(
+      `Failed to fetch matches: ${result.response.status}, ${JSON.stringify(body!)}`,
+    )
   }
 
   return result.data
@@ -131,11 +132,12 @@ const getTeamsData = async (env: Env, ids: number[]) => {
 
     console.log(`Caching ${Object.keys(matchesByTeam).length} teams...`)
     await Promise.all(
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      Object.entries(matchesByTeam).map(async ([teamId, matches]) => {
-        await env.CACHE.put(teamId, JSON.stringify(matches))
+      Object.entries(matchesByTeam).map(async ([teamId, newMatches]) => {
+        await env.CACHE.put(teamId, JSON.stringify(newMatches), {
+          expirationTtl: 60 * 60 * 3,
+        })
 
-        matches.push(...matches)
+        matches.push(...newMatches)
       }),
     )
   }
