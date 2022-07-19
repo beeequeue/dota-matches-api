@@ -1,3 +1,4 @@
+import { differenceInHours } from "date-fns"
 import { mande, MandeError } from "mande"
 
 import { isNotNil } from "../utils"
@@ -19,6 +20,9 @@ export type Match = {
     },
   ]
 }
+
+const isMatchRelevant = (match: Match): boolean =>
+  Math.abs(differenceInHours(new Date(), match.startsAt)) <= 24
 
 const cleanMatchData = (
   series: NonNullable<
@@ -124,7 +128,9 @@ const getTeamsData = async (env: Env, ids: number[]) => {
 
       accum[team.id.toString()] ??= []
 
-      const newMatches = team.series.map(cleanMatchData).filter(isNotNil)
+      const newMatches = team.series
+        .map(cleanMatchData)
+        .filter((match): match is Match => isNotNil(match) && isMatchRelevant(match))
       accum[team.id.toString()].push(...newMatches)
 
       return accum
