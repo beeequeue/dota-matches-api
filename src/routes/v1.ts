@@ -5,8 +5,9 @@ import { json } from "../utils"
 
 export const v1Router = Router<Request, IHTTPMethods>({ base: "/v1" })
 
-v1Router.get("/matches", async (_request, env: Env) => {
-  const data = await Dota.getMatches(env)
+v1Router.get("/matches", async (request: Request, env: Env) => {
+  const country = request.cf?.country ?? "UNKNOWN"
+  const data = await Dota.getMatches(env, country)
 
   return json(data)
 })

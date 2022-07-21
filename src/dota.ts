@@ -24,7 +24,6 @@ const liquipediaClient = mande("https://liquipedia.net/dota2", {
   },
   headers: {
     /* eslint-disable @typescript-eslint/naming-convention */
-    "User-Agent": `dota-matches-api/${GIT_SHA}`,
     "Accept-Encoding": "gzip",
   },
 })
@@ -59,9 +58,12 @@ const extractTeam = (team$: HTMLElement): Team => {
   }
 }
 
-const fetchTeamsData = async () => {
+const fetchTeamsData = async (country: string) => {
   const data = await liquipediaQueue.add(() =>
     liquipediaClient.get<LiquipediaBody>("/api.php", {
+      headers: {
+        "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+      },
       query: {
         action: "parse",
         page: "Liquipedia:Upcoming_and_ongoing_matches",
@@ -97,7 +99,7 @@ const fetchTeamsData = async () => {
 
 const CACHE_KEY = "liquipedia-matches"
 
-const getMatches = async (env: Env): Promise<Match[]> => {
+const getMatches = async (env: Env, country: string): Promise<Match[]> => {
   console.log(`Getting match data...`)
 
   const cached = await env.CACHE.get(CACHE_KEY)
@@ -105,7 +107,7 @@ const getMatches = async (env: Env): Promise<Match[]> => {
     return JSON.parse(cached)
   }
 
-  const matches = await fetchTeamsData()
+  const matches = await fetchTeamsData(country)
 
   await env.CACHE.put(CACHE_KEY, JSON.stringify(matches), {
     expirationTtl: THREE_HOURS,
