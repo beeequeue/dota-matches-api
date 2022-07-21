@@ -28,7 +28,7 @@
   "devDependencies": {
     "@beequeue/eslint-plugin": "0.6.0",
     "@cloudflare/workers-types": "3.14.1",
-    "@graphql-codegen/cli": "2.9.0",
+    "@graphql-codegen/cli": "2.9.1",
     "@graphql-codegen/typescript": "2.7.2",
     "@graphql-codegen/typescript-operations": "2.5.2",
     "@tsconfig/node16": "1.0.3",
