@@ -1,176 +1,116 @@
-import { differenceInHours } from "date-fns"
-import { mande, MandeError } from "mande"
-
-import { isNotNil } from "../utils"
-
-import { teamsQuery } from "./queries"
-import { Language, TeamsQuery, TeamsQueryVariables } from "./types"
+import { mande } from "mande"
+import { HTMLElement, parse } from "node-html-parser"
+import PQueue from "p-queue"
 
 const THREE_HOURS = 60 * 60 * 3
 
+type Team = {
+  name: string | null
+  url: string | null
+}
+
 export type Match = {
-  id: number
-  startsAt: Date
-  steams: Array<{
-    name: string
-    language: Language
-    url: string
-  }>
-  teams: [
-    {
-      id: number
-      name: string
-    },
-    {
-      id: number
-      name: string
-    },
-  ]
+  teams: [Team, Team]
+
+  startsAt: Date | null
+  streamUrl: string | null
 }
 
-const isMatchRelevant = (match: Match): boolean =>
-  Math.abs(differenceInHours(new Date(), match.startsAt)) <= 24
-
-const cleanMatchData = (
-  series: NonNullable<
-    NonNullable<NonNullable<TeamsQuery["teams"]>[number]>["series"]
-  >[number],
-): Match | null => {
-  if (series == null) return null
-
-  const firstGameStartTime = series.matches?.reduce(
-    (accum, match) =>
-      (accum ?? Number.NEGATIVE_INFINITY) <
-      (match!.startDateTime ?? Number.POSITIVE_INFINITY)
-        ? match!.startDateTime
-        : accum,
-    null as number | null,
-  )
-
-  if (firstGameStartTime == null) return null
-
-  return {
-    id: series.id,
-    startsAt: new Date(firstGameStartTime * 1000),
-    steams:
-      series.league?.streams?.map((stream) => ({
-        name: stream!.name!,
-        language: stream!.languageId!,
-        url: stream!.streamUrl!,
-      })) ?? [],
-    teams: [
-      {
-        id: series.teamOne!.id,
-        name: series.teamOne!.name!,
-      },
-      {
-        id: series.teamTwo!.id,
-        name: series.teamTwo!.name!,
-      },
-    ],
-  }
-}
-
-const stratzClient = mande("https://api.stratz.com", {
+const liquipediaQueue = new PQueue({ intervalCap: 1, interval: 1500 })
+const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
+  query: {
+    format: "json",
+  },
   headers: {
-    Authorization: `Bearer ${STRATZ_TOKEN}`,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "User-Agent": "dpc-schedule/097btnv52",
   },
 })
 
-const fetchLeagueMatches = async (ids: number[]): Promise<TeamsQuery> => {
-  if (ids.length === 0) {
-    return {
-      teams: [],
+type LiquipediaBody = {
+  parse: {
+    title: string
+    pageid: number
+    revid: number
+    text: {
+      ["*"]: string
     }
+    langlinks: string[]
+    categories: unknown[]
+    links: unknown[]
+    templates: unknown[]
+    images: string[]
+    externallinks: string[]
   }
-
-  console.log(`Fetching ${ids.join(", ")}...`)
-
-  const variables: TeamsQueryVariables = {
-    ids,
-  }
-  const result = await stratzClient
-    .post<{ data: TeamsQuery }>("/graphql", {
-      query: teamsQuery,
-      variables,
-    })
-    .catch((error: MandeError) => error)
-
-  if (result instanceof Error) {
-    const body = await result.response
-      .json<Record<string, unknown>>()
-      .catch(() => result.response.text().catch(() => null))
-    console.error({
-      status: result.response.status,
-      body,
-    })
-    throw new Error(
-      `Failed to fetch matches: ${result.response.status}, ${JSON.stringify(body!)}`,
-    )
-  }
-
-  return result.data
 }
 
-const getTeamsData = async (env: Env, ids: number[]) => {
-  console.log(`Getting match data for ${ids.join(", ")}...`)
+const extractTeam = (team$: HTMLElement): Team => {
+  const name = team$
+    .querySelector(".team-template-text > a")
+    ?.attrs?.title?.replace(/\(.*?\)/g, "")
+    ?.trim()
+  const urlPath = team$.querySelector("[href^='/dota2/']")?.attrs?.href
 
-  const matches: Match[] = []
-  const notCachedIds = new Set<number>()
+  return {
+    name: name ?? null,
+    url: urlPath ? `https://liquipedia.com${urlPath}` : null,
+  }
+}
 
-  await Promise.all(
-    ids.map(async (id) => {
-      const cached = await env.CACHE.get(id.toString())
-      if (cached != null) {
-        matches.push(...(JSON.parse(cached) as Match[]))
-        return
-      }
-
-      notCachedIds.add(id)
+const fetchTeamsData = async () => {
+  const data = await liquipediaQueue.add(() =>
+    liquipediaClient.get<LiquipediaBody>("/api.php", {
+      query: {
+        action: "parse",
+        page: "Liquipedia:Upcoming_and_ongoing_matches",
+      },
     }),
   )
-  console.log(`Found ${ids.length - notCachedIds.size} cached teams`)
 
-  if (notCachedIds.size > 0) {
-    console.log(`Fetching ${notCachedIds.size} matches...`)
+  const root = parse(data.parse.text["*"])
 
-    const data = await fetchLeagueMatches([...notCachedIds])
-    const matchesByTeam = (data.teams ?? []).reduce((accum, team) => {
-      if (team == null || team.series == null) return accum
+  const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
+  if ($matches.length === 0) return []
 
-      accum[team.id.toString()] ??= []
+  const matches = $matches.map<Match>(($match) => {
+    const teamLeft$ = $match.querySelector(".team-left")!
+    const teamRight$ = $match.querySelector(".team-right")!
+    const versus$ = $match.querySelector(".versus")!
+    const meta$ = $match.querySelector(".timer-object")!
 
-      const newMatches = team.series
-        .map(cleanMatchData)
-        .filter((match): match is Match => isNotNil(match) && isMatchRelevant(match))
-      accum[team.id.toString()].push(...newMatches)
+    const matchType = versus$.querySelector("abbr")?.textContent
+    const startTime = meta$.attrs["data-timestamp"]
+    const streamName = meta$.attrs["data-stream-twitch"]
 
-      return accum
-    }, {} as Record<string, Match[]>)
-
-    console.log(`Caching ${Object.keys(matchesByTeam).length} teams...`)
-    await Promise.all(
-      Object.entries(matchesByTeam).map(async ([teamId, newMatches]) => {
-        await env.CACHE.put(teamId, JSON.stringify(newMatches), {
-          expirationTtl: THREE_HOURS,
-        })
-
-        matches.push(...newMatches)
-      }),
-    )
-  }
-
-  console.log(`Deduping and returning...`)
-  const matchIds = new Set<number>()
-  return matches.filter((match) => {
-    if (!matchIds.has(match.id)) {
-      matchIds.add(match.id)
-      return true
+    return {
+      matchType: matchType ?? null,
+      startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
+      streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
+      teams: [extractTeam(teamLeft$), extractTeam(teamRight$)],
     }
-
-    return false
   })
+
+  return matches
 }
 
-export const Dota = { getTeamsData }
+const CACHE_KEY = "liquipedia-matches"
+
+const getMatches = async (env: Env): Promise<Match[]> => {
+  console.log(`Getting match data...`)
+
+  const cached = await env.CACHE.get(CACHE_KEY)
+  if (cached != null) {
+    return JSON.parse(cached)
+  }
+
+  const matches = await fetchTeamsData()
+
+  await env.CACHE.put(CACHE_KEY, JSON.stringify(matches), {
+    expirationTtl: THREE_HOURS,
+  })
+
+  return matches
+}
+
+export const Dota = { getMatches }
