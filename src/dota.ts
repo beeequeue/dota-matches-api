@@ -11,20 +11,21 @@ type Team = {
 
 export type Match = {
   teams: [Team, Team]
-
+  matchType: string | null
   startsAt: Date | null
   streamUrl: string | null
 }
 
-const liquipediaQueue = new PQueue({ intervalCap: 1, interval: 1500 })
+const liquipediaQueue = new PQueue({ intervalCap: 1, interval: 30_000 })
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
   query: {
     format: "json",
   },
   headers: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    "User-Agent": "dpc-schedule/097btnv52",
+    /* eslint-disable @typescript-eslint/naming-convention */
+    "User-Agent": `dota-matches-api/${GIT_SHA}`,
+    "Accept-Encoding": "gzip",
   },
 })
 
@@ -84,10 +85,10 @@ const fetchTeamsData = async () => {
     const streamName = meta$.attrs["data-stream-twitch"]
 
     return {
+      teams: [extractTeam(teamLeft$), extractTeam(teamRight$)],
       matchType: matchType ?? null,
       startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
       streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
-      teams: [extractTeam(teamLeft$), extractTeam(teamRight$)],
     }
   })
 

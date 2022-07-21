@@ -1,42 +1,31 @@
 # Dota 2 Team Matches API
 
-A simple API that fetches, caches and formats data about upcoming and previous matches for Dota 2 teams within a 48 hour interval centered around right now.
+A simple API that fetches, caches and formats the current [upcoming match schedule from Liquipedia](https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches).
 
-Caches team matches for 3 hours after initially fetching them.
+It caches matches for 3 hours after initially fetching them.
+
+Big thanks to [Liquipedia](https://liquipedia.net) for providing the data! It is an amazing website ran and maintained by amazing people.
 
 ## API
 
 **Base URL:** `https://dota-matches-api.beequeue.workers.dev`
 
 ```ts
+type Team = {
+  name: string | null
+  url: string | null
+}
+
 type Match = {
-  id: number
-  startsAt: Date
-  steams: Array<{
-    name: string
-    language: Language
-    url: string
-  }>
-  teams: [
-    {
-      id: number
-      name: string
-    },
-    {
-      id: number
-      name: string
-    },
-  ]
+  teams: [Team, Team]
+  matchType: string | null
+  startsAt: Date | null
+  streamUrl: string | null
 }
 ```
 
 ### `GET /v1/matches`
 
 ```ts
-type QueryParams = {
-  /** Comma-separated list of team IDs to fetch matches for */
-  ids: string
-}
-
 type ResponseBody = Match[]
 ```
