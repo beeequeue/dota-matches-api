@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@beequeue/eslint-plugin': 0.6.0
   '@cloudflare/workers-types': 3.14.1
-  '@graphql-codegen/cli': 2.9.0
+  '@graphql-codegen/cli': 2.9.1
   '@graphql-codegen/typescript': 2.7.2
   '@graphql-codegen/typescript-operations': 2.5.2
   '@tsconfig/node16': 1.0.3
@@ -27,7 +27,7 @@ specifiers:
 devDependencies:
   '@beequeue/eslint-plugin': 0.6.0_7wmdnazylordkmmp5xylrck47q
   '@cloudflare/workers-types': 3.14.1
-  '@graphql-codegen/cli': 2.9.0_nx5rldzsxkqp2qf2miljeykxp4
+  '@graphql-codegen/cli': 2.9.1_nx5rldzsxkqp2qf2miljeykxp4
   '@graphql-codegen/typescript': 2.7.2_graphql@16.5.0
   '@graphql-codegen/typescript-operations': 2.5.2_graphql@16.5.0
   '@tsconfig/node16': 1.0.3
@@ -736,8 +736,8 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/cli/2.9.0_nx5rldzsxkqp2qf2miljeykxp4:
-    resolution: {integrity: sha512-4YnJLW+E3XKCtO6kfKLQKtaU/NfPmLi4izf/VTOH+7/uCaDGfPfRqkoyX1q7QtNxQC4l0Zn0ltbBJwguT/fuEg==}
+  /@graphql-codegen/cli/2.9.1_nx5rldzsxkqp2qf2miljeykxp4:
+    resolution: {integrity: sha512-RyGrJTKySi5irJjdgg/9GTnFSCJtKh1YGD9idh2CIsEbkbUx3M7aBk4A+W7Q1afLmC16l59KSXodG8Bqi2eJmg==}
     hasBin: true
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
