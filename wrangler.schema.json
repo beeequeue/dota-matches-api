@@ -182,6 +182,16 @@
         },
         "live_reload  ": {
           "type": "boolean"
+        },
+        "r2_persist": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ]
         }
       }
     }

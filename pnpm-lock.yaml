@@ -19,6 +19,9 @@ devDependencies:
   date-fns:
     specifier: 2.29.1
     version: 2.29.1
+  discord-interactions:
+    specifier: 3.2.0
+    version: 3.2.0
   dotenv:
     specifier: 16.0.1
     version: 16.0.1
@@ -37,6 +40,9 @@ devDependencies:
   miniflare:
     specifier: 2.6.0
     version: 2.6.0
+  msgpackr:
+    specifier: 1.6.1
+    version: 1.6.1
   node-html-parser:
     specifier: 5.3.3
     version: 5.3.3
@@ -374,6 +380,54 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: true
+
+  /@msgpackr-extract/msgpackr-extract-darwin-arm64/2.0.2:
+    resolution: {integrity: sha512-FMX5i7a+ojIguHpWbzh5MCsCouJkwf4z4ejdUY/fsgB9Vkdak4ZnoIEskOyOUMMB4lctiZFGszFQJXUeFL8tRg==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-darwin-x64/2.0.2:
+    resolution: {integrity: sha512-DznYtF3lHuZDSRaIOYeif4JgO0NtO2Xf8DsngAugMx/bUdTFbg86jDTmkVJBNmV+cxszz6OjGvinnS8AbJ342g==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-arm/2.0.2:
+    resolution: {integrity: sha512-Gy9+c3Wj+rUlD3YvCZTi92gs+cRX7ZQogtwq0IhRenloTTlsbpezNgk6OCkt59V4ATEWSic9rbU92H/l7XsRvA==}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-arm64/2.0.2:
+    resolution: {integrity: sha512-b0jMEo566YdM2K+BurSed7bswjo3a6bcdw5ETqoIfSuxKuRLPfAiOjVbZyZBgx3J/TAM/QrvEQ/VN89A0ZAxSg==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-x64/2.0.2:
+    resolution: {integrity: sha512-zrBHaePwcv4cQXxzYgNj0+A8I1uVN97E7/3LmkRocYZ+rMwUsnPpp4RuTAHSRoKlTQV3nSdCQW4Qdt4MXw/iHw==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-win32-x64/2.0.2:
+    resolution: {integrity: sha512-fpnI00dt+yO1cKx9qBXelKhPBdEgvc8ZPav1+0r09j0woYQU2N79w/jcGawSY5UGlgQ3vjaJsFHnGbGvvqdLzg==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1081,6 +1135,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+    dev: true
+
+  /discord-interactions/3.2.0:
+    resolution: {integrity: sha512-/J25RpYlokRW+2HmU5C2xo9bcgCWIzCl+MRRLCL/XvD+Hqe2WyQc639vUUKUNi6hdSdWb2kGNZDkMZxDky2dZg==}
+    engines: {node: '>=12'}
+    dependencies:
+      tweetnacl: 1.0.3
     dev: true
 
   /doctrine/2.1.0:
@@ -2880,6 +2941,27 @@ packages:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: true
 
+  /msgpackr-extract/2.0.2:
+    resolution: {integrity: sha512-coskCeJG2KDny23zWeu+6tNy7BLnAiOGgiwzlgdm4oeSsTpqEJJPguHIuKZcCdB7tzhZbXNYSg6jZAXkZErkJA==}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build-optional-packages: 5.0.2
+    optionalDependencies:
+      '@msgpackr-extract/msgpackr-extract-darwin-arm64': 2.0.2
+      '@msgpackr-extract/msgpackr-extract-darwin-x64': 2.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-arm': 2.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-arm64': 2.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-x64': 2.0.2
+      '@msgpackr-extract/msgpackr-extract-win32-x64': 2.0.2
+    dev: true
+    optional: true
+
+  /msgpackr/1.6.1:
+    resolution: {integrity: sha512-Je+xBEfdjtvA4bKaOv8iRhjC8qX2oJwpYH4f7JrG4uMVJVmnmkAT4pjKdbztKprGj3iwjcxPzb5umVZ02Qq3tA==}
+    optionalDependencies:
+      msgpackr-extract: 2.0.2
+    dev: true
+
   /mustache/4.2.0:
     resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
     hasBin: true
@@ -2907,6 +2989,12 @@ packages:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
     dev: true
+
+  /node-gyp-build-optional-packages/5.0.2:
+    resolution: {integrity: sha512-PiN4NWmlQPqvbEFcH/omQsswWQbe5Z9YK/zdB23irp5j2XibaA2IrGvpSWmVVG4qMZdmPdwPctSy4a86rOMn6g==}
+    hasBin: true
+    dev: true
+    optional: true
 
   /node-html-parser/5.3.3:
     resolution: {integrity: sha512-ncg1033CaX9UexbyA7e1N0aAoAYRDiV8jkTvzEnfd1GDvzFdrsXLzR4p4ik8mwLgnaKP/jyUFWDy9q3jvRT2Jw==}
@@ -3865,6 +3953,10 @@ packages:
     dependencies:
       tslib: 1.14.1
       typescript: 4.7.4
+    dev: true
+
+  /tweetnacl/1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
     dev: true
 
   /type-check/0.4.0:
