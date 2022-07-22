@@ -27,7 +27,6 @@ const liquipediaClient = mande("https://liquipedia.net/dota2", {
     format: "json",
   },
   headers: {
-    /* eslint-disable @typescript-eslint/naming-convention */
     "Accept-Encoding": "gzip",
   },
 })

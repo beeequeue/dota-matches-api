@@ -10,7 +10,6 @@ export const json = (data: unknown, init: RequestInitExStatus = {}) =>
   ok(JSON.stringify(data, null, 2), {
     headers: {
       ...init.headers,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       "Content-Type": "application/json",
     },
     ...init,
