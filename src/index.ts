@@ -6,7 +6,7 @@ import { v1Router } from "./routes/v1"
 
 const router = Router<Request, IHTTPMethods>()
 
-router.routes.push(...v1Router.routes)
+router.all("/v1/*", v1Router.handle)
 
 router.get("/", () => temporaryRedirect("https://github.com/BeeeQueue/dota-matches-api"))
 

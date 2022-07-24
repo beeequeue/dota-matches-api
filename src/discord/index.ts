@@ -36,7 +36,7 @@ const fetchToken = async (): Promise<{ access_token: string; expires_in: number 
   return await response.json()
 }
 
-const getToken = async (env: Env): Promise<string> => {
+export const getToken = async (env: Env): Promise<string> => {
   const cached = await env.CACHE.get(TOKEN_CACHE_KEY)
   if (cached != null) {
     return cached
@@ -54,7 +54,8 @@ const getToken = async (env: Env): Promise<string> => {
 export type Guild = {
   id: string
   vanityUrlCode?: unknown
-  subscriptions: Array<{ channelId: string; teams: string[] }>
+  /** New teams are added _first_ in the array, to make deduping easier later */
+  subscriptions: Record<string, string[]> // channelId: teamName[]
 }
 
 type RegisterGuildOptions = {
@@ -92,7 +93,10 @@ const registerGuild = async (
   })
 
   if (!response.ok) {
-    console.error(response.body)
+    console.error({
+      status: response.status,
+      body: await response.json(),
+    })
     throw response
   }
 
@@ -108,10 +112,10 @@ const registerGuild = async (
   const guildRegistration: Guild = {
     id: guild.id,
     vanityUrlCode: guild.vanityUrlCode,
-    subscriptions: [],
+    subscriptions: {},
   }
   await env.WEBHOOKS.put(guildId, encode(guildRegistration) as ArrayBuffer)
-  await env.CACHE.put(guildId, access_token, {
+  await env.CACHE.put(TOKEN_CACHE_KEY, access_token, {
     expirationTtl: expires_in,
   })
 
@@ -139,4 +143,8 @@ const leaveGuild = (token: string, guildId: string) => {
   })
 }
 
-export const Discord = { getAuthorizeUrl, registerGuild, leaveGuild }
+export const Discord = {
+  getAuthorizeUrl,
+  registerGuild,
+  leaveGuild,
+}

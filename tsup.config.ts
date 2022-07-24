@@ -13,6 +13,7 @@ export default defineConfig({
     STRATZ_TOKEN: JSON.stringify(process.env.STRATZ_TOKEN),
     DISCORD_CLIENT_ID: JSON.stringify(process.env.DISCORD_CLIENT_ID),
     DISCORD_CLIENT_SECRET: JSON.stringify(process.env.DISCORD_CLIENT_SECRET),
+    DISCORD_PUBLIC_KEY: JSON.stringify(process.env.DISCORD_PUBLIC_KEY),
     GIT_SHA: JSON.stringify(gitSha),
   },
 
