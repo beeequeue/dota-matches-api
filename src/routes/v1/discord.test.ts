@@ -1,6 +1,6 @@
+import { decode } from "msgpackr/unpack"
 import { MockAgent, setGlobalDispatcher } from "undici"
 import { beforeEach, describe, expect, it } from "vitest"
-import { decode } from "msgpackr/unpack"
 
 import { discordRouter } from "./discord"
 
@@ -75,5 +75,3 @@ describe("POST /api/discord/callback", () => {
     })
   })
 })
-
-describe("POST /api/discord/interaction", () => {})

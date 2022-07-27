@@ -19,9 +19,9 @@ devDependencies:
   date-fns:
     specifier: 2.29.1
     version: 2.29.1
-  discord-interactions:
-    specifier: 3.2.0
-    version: 3.2.0
+  discord-api-types:
+    specifier: 0.36.3
+    version: 0.36.3
   dotenv:
     specifier: 16.0.1
     version: 16.0.1
@@ -1140,11 +1140,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-interactions/3.2.0:
-    resolution: {integrity: sha512-/J25RpYlokRW+2HmU5C2xo9bcgCWIzCl+MRRLCL/XvD+Hqe2WyQc639vUUKUNi6hdSdWb2kGNZDkMZxDky2dZg==}
-    engines: {node: '>=12'}
-    dependencies:
-      tweetnacl: 1.0.3
+  /discord-api-types/0.36.3:
+    resolution: {integrity: sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==}
     dev: true
 
   /doctrine/2.1.0:
@@ -3956,10 +3953,6 @@ packages:
     dependencies:
       tslib: 1.14.1
       typescript: 4.7.4
-    dev: true
-
-  /tweetnacl/1.0.3:
-    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
     dev: true
 
   /type-check/0.4.0:

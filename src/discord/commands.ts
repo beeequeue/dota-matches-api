@@ -1,8 +1,9 @@
 import {
+  APIChatInputApplicationCommandInteraction,
+  APIInteractionResponse,
+  ApplicationCommandOptionType,
   InteractionResponseType,
-  InteractionType,
-  MessageComponent,
-} from "discord-interactions"
+} from "discord-api-types/v10"
 import { encode } from "msgpackr/pack"
 import { decode } from "msgpackr/unpack"
 
@@ -12,38 +13,20 @@ import { json } from "../utils"
 
 import { Guild } from "./index"
 
-export type InteractionsBody = {
-  type: InteractionType
-  token: string
-  member: unknown
-  guild_id: string
-  channel_id: string
-  data?: {
-    id: string
-    name: "follow" | "unfollow" | "follows"
-    options: Array<{ name: string; type: number; value: string }>
-  }
-}
+// enum MessageComponentId {}
 
-type InteractionsResponse = {
-  type: InteractionResponseType
-  data?: {
-    tts?: boolean
-    content?: string
-    embeds?: unknown[]
-    allowed_mentions?: unknown
-    flags?: number
-    components?: MessageComponent[]
-    attachments?: unknown[]
-  }
-}
+export const handleFollowCommand = async (
+  env: Env,
+  body: APIChatInputApplicationCommandInteraction,
+) => {
+  const guildId = body.guild_id!
+  const teamNames = body.data
+    .options!.map((option) =>
+      option.type === ApplicationCommandOptionType.String ? option.value : null,
+    )
+    .filter((value): value is string => value != null)
 
-enum MessageComponentId {}
-
-export const handleFollowCommand = async (env: Env, body: InteractionsBody) => {
-  const teamNames = body.data!.options.map(({ value }) => value)
-
-  const guildObject = await env.WEBHOOKS.get(body.guild_id)
+  const guildObject = await env.WEBHOOKS.get(guildId)
   if (guildObject == null) {
     return badRequest("Guild not registered.")
   }
@@ -58,10 +41,10 @@ export const handleFollowCommand = async (env: Env, body: InteractionsBody) => {
     }
   }
 
-  await env.WEBHOOKS.put(body.guild_id, encode(guild) as ArrayBuffer)
+  await env.WEBHOOKS.put(guildId, encode(guild) as ArrayBuffer)
 
-  const response: InteractionsResponse = {
-    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+  const response: APIInteractionResponse = {
+    type: InteractionResponseType.ChannelMessageWithSource,
     data: {
       content: `Okay, I will now notify you those teams' matches.`,
     },
@@ -70,16 +53,19 @@ export const handleFollowCommand = async (env: Env, body: InteractionsBody) => {
   return json(response)
 }
 
-export const handleListCommand = async (env: Env, body: InteractionsBody) => {
-  const guildObject = await env.WEBHOOKS.get(body.guild_id)
+export const handleListCommand = async (
+  env: Env,
+  body: APIChatInputApplicationCommandInteraction,
+) => {
+  const guildObject = await env.WEBHOOKS.get(body.guild_id!)
   if (guildObject == null) {
     return badRequest("Guild not registered.")
   }
 
   const guild = decode(new Uint8Array(await guildObject.arrayBuffer())) as Guild
   if (guild.subscriptions[body.channel_id] == null) {
-    const response: InteractionsResponse = {
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    const response: APIInteractionResponse = {
+      type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         content: `This channel is not following any teams. Follow some with '/follow <team>'!`,
       },
@@ -88,8 +74,8 @@ export const handleListCommand = async (env: Env, body: InteractionsBody) => {
     return json(response)
   }
 
-  const response: InteractionsResponse = {
-    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+  const response: APIInteractionResponse = {
+    type: InteractionResponseType.ChannelMessageWithSource,
     data: {
       content: `This channel is following:
 \`\`\`
