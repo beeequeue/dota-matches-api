@@ -13,6 +13,7 @@ export type Match = {
   teams: [Team, Team]
   matchType: string | null
   startsAt: Date | null
+  leagueName: string | null
   streamUrl: string | null
 }
 
@@ -58,7 +59,7 @@ const extractTeam = (team$: HTMLElement): Team => {
   }
 }
 
-const fetchTeamsData = async (country: string) => {
+const fetchTeamsData = async (country: string): Promise<Match[]> => {
   const data = await liquipediaQueue.add(() =>
     liquipediaClient.get<LiquipediaBody>("/api.php", {
       headers: {
@@ -76,25 +77,26 @@ const fetchTeamsData = async (country: string) => {
   const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
   if ($matches.length === 0) return []
 
-  const matches = $matches.map<Match>(($match) => {
+  return $matches.map(($match) => {
     const teamLeft$ = $match.querySelector(".team-left")!
     const teamRight$ = $match.querySelector(".team-right")!
     const versus$ = $match.querySelector(".versus")!
     const meta$ = $match.querySelector(".timer-object")!
+    const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
 
     const matchType = versus$.querySelector("abbr")?.textContent
     const startTime = meta$.attrs["data-timestamp"]
     const streamName = meta$.attrs["data-stream-twitch"]
+    const leagueName = leagueLink$.attrs["title"]
 
     return {
       teams: [extractTeam(teamLeft$), extractTeam(teamRight$)],
       matchType: matchType ?? null,
       startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
+      leagueName,
       streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
     }
   })
-
-  return matches
 }
 
 const CACHE_KEY = "liquipedia-matches"

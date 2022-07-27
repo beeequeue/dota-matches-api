@@ -20,6 +20,7 @@ type Match = {
   teams: [Team, Team]
   matchType: string | null
   startsAt: Date | null
+  leagueName: string | null
   streamUrl: string | null
 }
 ```
