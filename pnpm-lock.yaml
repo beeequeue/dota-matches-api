@@ -61,6 +61,9 @@ devDependencies:
   typescript:
     specifier: 4.7.4
     version: 4.7.4
+  undici:
+    specifier: 5.8.0
+    version: 5.8.0
   vitest:
     specifier: 0.20.3
     version: 0.20.3_c8@7.12.0
@@ -4008,6 +4011,11 @@ packages:
 
   /undici/5.5.1:
     resolution: {integrity: sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw==}
+    engines: {node: '>=12.18'}
+    dev: true
+
+  /undici/5.8.0:
+    resolution: {integrity: sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==}
     engines: {node: '>=12.18'}
     dev: true
 

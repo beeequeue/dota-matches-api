@@ -111,8 +111,8 @@ const registerGuild = async (
 
   const guildRegistration: Guild = {
     id: guild.id,
-    vanityUrlCode: guild.vanityUrlCode,
     subscriptions: {},
+    vanityUrlCode: guild.vanityUrlCode ?? null,
   }
   await env.WEBHOOKS.put(guildId, encode(guildRegistration) as ArrayBuffer)
   await env.CACHE.put(TOKEN_CACHE_KEY, access_token, {
