@@ -6,9 +6,10 @@ import {
   Routes,
 } from "discord-api-types/v10"
 import { mande } from "mande"
-import { encode } from "msgpackr/pack"
 
 import { badRequest, ok } from "@worker-tools/response-creators"
+
+import { encode } from "../msgpack"
 
 const SCOPES = ["bot", "applications.commands"]
 const TOKEN_CACHE_KEY = "discord-token"
@@ -117,7 +118,7 @@ const registerGuild = async (
     subscriptions: {},
     vanityUrlCode: guild.vanity_url_code ?? null,
   }
-  await env.WEBHOOKS.put(guildId, encode(guildRegistration) as ArrayBuffer)
+  await env.WEBHOOKS.put(guildId, encode(guildRegistration))
   await env.CACHE.put(TOKEN_CACHE_KEY, access_token, {
     expirationTtl: expires_in,
   })

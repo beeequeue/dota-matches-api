@@ -1,11 +1,12 @@
-import { decode } from "msgpackr/unpack"
 import { MockAgent, setGlobalDispatcher } from "undici"
 import { beforeEach, describe, expect, it } from "vitest"
+
+import type { Guild } from "../../discord"
+import { decode } from "../../msgpack"
 
 import { discordRouter } from "./discord"
 
 const GUILD_ID = "987613986523"
-const CHANNEL_ID = "0986526095326812"
 const PERMISSIONS = "34880"
 
 let agent = new MockAgent()
@@ -63,7 +64,7 @@ describe("POST /api/discord/callback", () => {
     const newObject = await bindings.WEBHOOKS.get(GUILD_ID)
     expect(newObject).toBeDefined()
 
-    const guild = decode(Buffer.from(await newObject!.arrayBuffer()))
+    const guild = await decode<Guild>(newObject!)
     expect(guild).toStrictEqual({
       id: GUILD_ID,
       subscriptions: {},

@@ -4,14 +4,19 @@ import {
   ApplicationCommandOptionType,
   InteractionResponseType,
 } from "discord-api-types/v10"
-import { encode } from "msgpackr/pack"
-import { decode } from "msgpackr/unpack"
 
 import { badRequest } from "@worker-tools/response-creators"
 
+import { decode, encode } from "../msgpack"
 import { json } from "../utils"
 
 import { Guild } from "./index"
+
+export enum Command {
+  Follow = "follow",
+  Unfollow = "unfollow",
+  List = "follows",
+}
 
 // enum MessageComponentId {}
 
@@ -31,7 +36,9 @@ export const handleFollowCommand = async (
     return badRequest("Guild not registered.")
   }
 
-  const guild = decode(new Uint8Array(await guildObject.arrayBuffer())) as Guild
+  const guild = await decode<Guild>(guildObject)
+  guild.subscriptions[body.channel_id] ??= []
+
   for (const subscribedChannelId in guild.subscriptions) {
     if (subscribedChannelId === body.channel_id) {
       guild.subscriptions[body.channel_id] = [
@@ -41,7 +48,7 @@ export const handleFollowCommand = async (
     }
   }
 
-  await env.WEBHOOKS.put(guildId, encode(guild) as ArrayBuffer)
+  await env.WEBHOOKS.put(guildId, encode(guild))
 
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
@@ -62,7 +69,7 @@ export const handleListCommand = async (
     return badRequest("Guild not registered.")
   }
 
-  const guild = decode(new Uint8Array(await guildObject.arrayBuffer())) as Guild
+  const guild = await decode<Guild>(guildObject)
   if (guild.subscriptions[body.channel_id] == null) {
     const response: APIInteractionResponse = {
       type: InteractionResponseType.ChannelMessageWithSource,
