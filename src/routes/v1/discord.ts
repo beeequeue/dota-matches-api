@@ -1,14 +1,16 @@
-import { InteractionResponseType, InteractionType, verifyKey } from "discord-interactions"
+import {
+  APIChatInputApplicationCommandInteraction,
+  APIInteraction,
+  InteractionResponseType,
+  InteractionType,
+} from "discord-api-types/v10"
+import { verifyKey } from "discord-interactions"
 import { IHTTPMethods, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
 import { Discord } from "../../discord"
-import {
-  handleFollowCommand,
-  handleListCommand,
-  InteractionsBody,
-} from "../../discord/commands"
+import { handleFollowCommand, handleListCommand } from "../../discord/commands"
 import { json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
@@ -23,23 +25,29 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
     return badRequest("Invalid request signature")
   }
 
-  const parsedBody = JSON.parse(body) as InteractionsBody
+  const parsedBody = JSON.parse(body) as APIInteraction
   const { type, data } = parsedBody
 
-  if (type === InteractionType.PING) {
-    return json({ type: InteractionResponseType.PONG })
+  if (type === InteractionType.Ping) {
+    return json({ type: InteractionResponseType.Pong })
   }
 
-  if (type === InteractionType.APPLICATION_COMMAND && data != null) {
+  if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
       case "follow":
-        return handleFollowCommand(env, parsedBody)
+        return handleFollowCommand(
+          env,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
 
       case "unfollow":
         return ok()
 
       case "follows":
-        return handleListCommand(env, parsedBody)
+        return handleListCommand(
+          env,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
     }
 
     return badRequest("Invalid command")

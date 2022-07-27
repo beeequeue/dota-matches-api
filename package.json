@@ -33,6 +33,7 @@
     "c8": "7.12.0",
     "date-fns": "2.29.1",
     "discord-api-types": "0.36.3",
+    "discord-interactions": "3.2.0",
     "dotenv": "16.0.1",
     "eslint": "8.21.0",
     "itty-router": "2.6.1",
@@ -47,7 +48,7 @@
     "tsup": "6.2.1",
     "typescript": "4.7.4",
     "undici": "5.8.0",
-    "vitest": "0.20.3",
+    "vitest": "link:../vitest/packages/vitest",
     "wrangler": "2.0.24"
   }
 }
