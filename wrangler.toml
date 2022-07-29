@@ -6,6 +6,18 @@ usage_model = "bundled"
 kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 
+[miniflare]
+kv_persist = true
+r2_persist = true
+
+[vars]
+API_BASE = "http://localhost:8787"
+DISCORD_CLIENT_ID = "999099490273337354"
+DISCORD_PUBLIC_KEY = "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
+
+[vars.production]
+API_BASE = "https://dota-matches-api.beequeue.workers.dev"
+
 [build]
 command = "pnpm --silent build"
 # The directory to watch for changes while using `wrangler dev`, defaults to the current working directory
@@ -18,4 +30,8 @@ main = "index.mjs"
 triggers = { crons = ["0 11 * * *", "* * * * *"] }
 kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
+[env.discord.vars]
+API_BASE = "https://dota-matches-api-discord.beequeue.workers.dev"
+DISCORD_CLIENT_ID = "1002590248297058384"
+DISCORD_PUBLIC_KEY = "f27183f1c7fd3cd83ecefcc4a1f931b762d25f3a75f2175aba1836ea89ec99ff"
 

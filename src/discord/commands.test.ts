@@ -33,7 +33,7 @@ const createCommandInput = (
   },
 
   id: "123456",
-  application_id: DISCORD_CLIENT_ID,
+  application_id: "DISCORD_CLIENT_ID",
   locale: "en-US",
   token: "token",
   version: 1,

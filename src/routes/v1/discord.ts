@@ -9,19 +9,21 @@ import { IHTTPMethods, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
-import { Discord } from "../../discord"
+import { createDiscordClient } from "../../discord"
 import { handleFollowCommand, handleListCommand } from "../../discord/commands"
 import { json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
 
-discordRouter.get("/", () => temporaryRedirect(Discord.getAuthorizeUrl()))
+discordRouter.get("/", (_, env: Env) =>
+  temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
+)
 
 discordRouter.post("/interactions", async (request: Request, env: Env) => {
   const body = await request.text()
   const signature = request.headers.get("x-signature-ed25519")
   const timestamp = request.headers.get("x-signature-timestamp")
-  if (!verifyKey(body, signature!, timestamp!, DISCORD_PUBLIC_KEY)) {
+  if (!verifyKey(body, signature!, timestamp!, env.DISCORD_PUBLIC_KEY)) {
     return badRequest("Invalid request signature")
   }
 
@@ -60,13 +62,14 @@ const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
 
 discordRouter.get("/callback", async (request, env: Env) => {
+  const discordClient = createDiscordClient(env)
   const url = new URL(request.url)
 
   if (!isValidCallback(url.searchParams)) {
     return badRequest("Missing or invalid callback parameters")
   }
 
-  return Discord.registerGuild(env, {
+  return discordClient.registerGuild({
     code: url.searchParams.get("code")!,
     guildId: url.searchParams.get("guild_id")!,
     permissions: url.searchParams.get("permissions")!,

@@ -2,7 +2,7 @@ import { addDays, isBefore } from "date-fns"
 import { indexBy } from "remeda"
 import dedent from "ts-dedent"
 
-import { Discord, getToken, Guild } from "./discord"
+import { createDiscordClient, Guild } from "./discord"
 import { Dota, Match } from "./dota"
 import { decode } from "./msgpack"
 
@@ -94,10 +94,12 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, message]
   })
 
-  const token = await getToken(env)
+  const discordClient = createDiscordClient(env)
   await Promise.all(
     messages.map(async ([channelId, message]) => {
-      await Discord.sendMessage(token, channelId, message)
+      const { id: threadId } = await discordClient.createThread(channelId)
+
+      await discordClient.sendMessage(threadId, message)
     }),
   )
 }
