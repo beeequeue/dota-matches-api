@@ -10,6 +10,7 @@ export default defineConfig(({ command }) => ({
   },
 
   test: {
+    setupFiles: "vitest.setup.ts",
     environment: "miniflare",
     reporters: "verbose",
     coverage: {

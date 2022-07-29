@@ -4,6 +4,7 @@ import {
   ApplicationCommandOptionType,
   InteractionResponseType,
 } from "discord-api-types/v10"
+import { isTruthy } from "remeda"
 
 import { badRequest } from "@worker-tools/response-creators"
 
@@ -29,7 +30,7 @@ export const handleFollowCommand = async (
     .options!.map((option) =>
       option.type === ApplicationCommandOptionType.String ? option.value : null,
     )
-    .filter((value): value is string => value != null)
+    .filter(isTruthy)
 
   const guildObject = await env.WEBHOOKS.get(guildId)
   if (guildObject == null) {

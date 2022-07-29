@@ -15,7 +15,7 @@ export type Match = {
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null
-  startsAt: Date | null
+  startsAt: string | null
   leagueName: string | null
   streamUrl: string | null
 }
@@ -111,7 +111,7 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
       return await withHash({
         teams,
         matchType: matchType ?? null,
-        startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
+        startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
         leagueName,
         streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
       })
@@ -119,7 +119,7 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
   )
 }
 
-const CACHE_KEY = "liquipedia-matches"
+export const CACHE_KEY = "liquipedia-matches"
 
 const getMatches = async (env: Env, country: string): Promise<Match[]> => {
   console.log(`Getting match data...`)
