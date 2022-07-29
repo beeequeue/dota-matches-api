@@ -2,6 +2,8 @@ import { mande } from "mande"
 import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
 
+import { arr2hex, sha1 } from "./crypto"
+
 const THREE_HOURS = 60 * 60 * 3
 
 type Team = {
@@ -10,7 +12,8 @@ type Team = {
 }
 
 export type Match = {
-  teams: [Team, Team]
+  hash: string
+  teams: [Team | null, Team | null]
   matchType: string | null
   startsAt: Date | null
   leagueName: string | null
@@ -59,6 +62,21 @@ const extractTeam = (team$: HTMLElement): Team => {
   }
 }
 
+const withHash = async (match: Omit<Match, "hash">): Promise<Match> => {
+  const hash = await sha1(
+    new TextEncoder().encode(
+      (match.startsAt?.toString() ?? "") +
+        (match.teams[0]?.name ?? "") +
+        (match.teams[1]?.name ?? ""),
+    ),
+  )
+
+  return {
+    hash: arr2hex(hash),
+    ...match,
+  }
+}
+
 const fetchTeamsData = async (country: string): Promise<Match[]> => {
   const data = await liquipediaQueue.add(() =>
     liquipediaClient.get<LiquipediaBody>("/api.php", {
@@ -77,26 +95,29 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
   const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
   if ($matches.length === 0) return []
 
-  return $matches.map(($match) => {
-    const teamLeft$ = $match.querySelector(".team-left")!
-    const teamRight$ = $match.querySelector(".team-right")!
-    const versus$ = $match.querySelector(".versus")!
-    const meta$ = $match.querySelector(".timer-object")!
-    const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
+  return await Promise.all(
+    $matches.map(async ($match) => {
+      const teamLeft$ = $match.querySelector(".team-left")!
+      const teamRight$ = $match.querySelector(".team-right")!
+      const versus$ = $match.querySelector(".versus")!
+      const meta$ = $match.querySelector(".timer-object")!
+      const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
 
-    const matchType = versus$.querySelector("abbr")?.textContent
-    const startTime = meta$.attrs["data-timestamp"]
-    const streamName = meta$.attrs["data-stream-twitch"]
-    const leagueName = leagueLink$.attrs["title"]
+      const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
+      const matchType = versus$.querySelector("abbr")?.textContent
+      const startTime = meta$.attrs["data-timestamp"]
+      const streamName = meta$.attrs["data-stream-twitch"]
+      const leagueName = leagueLink$.attrs["title"]
 
-    return {
-      teams: [extractTeam(teamLeft$), extractTeam(teamRight$)],
-      matchType: matchType ?? null,
-      startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
-      leagueName,
-      streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
-    }
-  })
+      return await withHash({
+        teams,
+        matchType: matchType ?? null,
+        startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
+        leagueName,
+        streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
+      })
+    }),
+  )
 }
 
 const CACHE_KEY = "liquipedia-matches"

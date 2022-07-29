@@ -17,7 +17,8 @@ type Team = {
 }
 
 type Match = {
-  teams: [Team, Team]
+  hash: string
+  teams: [Team | null, Team | null]
   matchType: string | null
   startsAt: Date | null
   leagueName: string | null
