@@ -1,5 +1,8 @@
 import { format } from "date-fns"
 import {
+  OAuth2Scopes,
+  RESTOAuth2AuthorizationQuery,
+  RESTOAuth2BotAuthorizationQuery,
   RESTPostAPIChannelMessageJSONBody,
   RESTPostAPIChannelMessageResult,
   RESTPostAPIChannelThreadsJSONBody,
@@ -15,7 +18,7 @@ import { badRequest, ok } from "@worker-tools/response-creators"
 
 import { encode } from "../msgpack"
 
-const SCOPES = ["bot", "applications.commands"]
+const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as const
 const BOT_PERMISSIONS = "309237647360"
 const TOKEN_CACHE_KEY = "discord-token"
 
@@ -49,6 +52,7 @@ const registerGuild =
       client_id: env.DISCORD_CLIENT_ID,
       client_secret: env.DISCORD_CLIENT_SECRET,
       code,
+      redirect_uri: getRedirectUri(env),
     }
     const response = await fetch(`${baseUrl}${Routes.oauth2TokenExchange()}`, {
       method: "POST",
@@ -91,14 +95,17 @@ const registerGuild =
     return ok()
   }
 
+const getRedirectUri = (env: Env) => `${env.API_BASE}/v1/discord/callback`
+
 const getAuthorizeUrl = (env: Env) => () => {
-  /* eslint-disable @typescript-eslint/naming-convention */
-  const searchParams = new URLSearchParams({
+  const query: RESTOAuth2AuthorizationQuery & RESTOAuth2BotAuthorizationQuery = {
     response_type: "code",
     client_id: env.DISCORD_CLIENT_ID,
-    scope: SCOPES.join(" "),
+    scope: SCOPES,
     permissions: BOT_PERMISSIONS,
-  })
+    redirect_uri: getRedirectUri(env),
+  }
+  const searchParams = new URLSearchParams(query as Record<string, any>)
 
   return new URL(`${baseUrl}${Routes.oauth2Authorization()}?${searchParams.toString()}`)
 }

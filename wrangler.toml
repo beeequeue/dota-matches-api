@@ -32,6 +32,3 @@ kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 [env.discord.vars]
 API_BASE = "https://dota-matches-api-discord.beequeue.workers.dev"
-DISCORD_CLIENT_ID = "1002590248297058384"
-DISCORD_PUBLIC_KEY = "f27183f1c7fd3cd83ecefcc4a1f931b762d25f3a75f2175aba1836ea89ec99ff"
-
