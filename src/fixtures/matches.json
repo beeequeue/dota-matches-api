@@ -1,0 +1,53 @@
+[
+  {
+    "hash": "81db7ea2e43a17b00e33f48a9302a94755670828",
+    "teams": [
+      {
+        "name": "Gaimin Gladiators",
+        "url": "https://liquipedia.com/dota2/Gaimin_Gladiators"
+      },
+      {
+        "name": "Brame",
+        "url": "https://liquipedia.com/dota2/Brame"
+      }
+    ],
+    "matchType": "Bo3",
+    "startsAt": "2022-07-31T15:00:00.000Z",
+    "leagueName": "Dota 2 Champions League Season 13",
+    "streamUrl": null
+  },
+  {
+    "hash": "3c0691eaf80aec3ac788715906d298e68f352615",
+    "teams": [
+      {
+        "name": "TSM",
+        "url": "https://liquipedia.com/dota2/TSM"
+      },
+      {
+        "name": "Quincy Crew",
+        "url": "https://liquipedia.com/dota2/Quincy_Crew"
+      }
+    ],
+    "matchType": "Bo3",
+    "startsAt": "2022-07-31T21:30:00.000Z",
+    "leagueName": "ESL One Malaysia 2022 North America: Closed Qualifier",
+    "streamUrl": null
+  },
+  {
+    "hash": "ad5cfcd85034f712994a3229454b6cd29bf270e3",
+    "teams": [
+      {
+        "name": "Fnatic",
+        "url": "https://liquipedia.com/dota2/Fnatic"
+      },
+      {
+        "name": "OG",
+        "url": "https://liquipedia.com/dota2/OG"
+      }
+    ],
+    "matchType": "Bo2",
+    "startsAt": "2022-08-04T15:00:00.000Z",
+    "leagueName": "PGL Arlington Major 2022",
+    "streamUrl": "https://www.twitch.tv/PGL_Dota2_EN3"
+  }
+]

@@ -1,9 +1,23 @@
-import { addDays, isBefore } from "date-fns"
+import { addDays, isBefore, format, formatDistanceToNow } from "date-fns"
 import { indexBy } from "remeda"
+import dedent from "ts-dedent"
 
-import { Guild } from "./discord"
-import { Dota } from "./dota"
+import { Discord, Guild } from "./discord"
+import { Dota, Match } from "./dota"
 import { decode } from "./msgpack"
+
+export const formatMatchToMessageLine = (match: Match) => {
+  const teams = match.teams.map((team) => `**${team!.name!}**`).join(" vs ")
+
+  const startsAt = new Date(match.startsAt!)
+  const time = format(startsAt, "HH:mm z")
+  const distance = formatDistanceToNow(startsAt)
+
+  return dedent`
+    ${teams}
+    @${time} (in ${distance})${match.streamUrl ? `\n${match.streamUrl}` : ""}
+  `
+}
 
 export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   _controller,
@@ -30,7 +44,6 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
 
     return accum
   }, {} as Record<string, Set<string>>)
-  const teams = Object.keys(matchesByTeam)
 
   const guildObjects = await env.WEBHOOKS.list()
 
@@ -56,5 +69,36 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     }
   }
 
-  console.log(channelsMatches)
+  const cachedMessages = new Map<string, string>()
+  const getMessageLinesForChannel = (channelId: string, matchHashes: Set<string>) => {
+    const messages = [...matchHashes].map((hash) => {
+      if (cachedMessages.has(channelId)) {
+        return cachedMessages.get(channelId)!
+      }
+
+      const matchMessage = formatMatchToMessageLine(matches[hash])
+      cachedMessages.set(hash, matchMessage)
+      return matchMessage
+    })
+
+    return messages
+  }
+
+  const messages = channelsMatches.map(([channelId, matchHashes]) => {
+    const matchLines = getMessageLinesForChannel(channelId, matchHashes)
+
+    const message = dedent`
+      Here are today's matches!
+      -----------------------
+      ${matchLines.join("\n\n")}
+    `
+
+    return [channelId, message]
+  })
+
+  await Promise.all(
+    messages.map(async ([channelId, message]) => {
+      Discord.sendMessage(env, channelId, message)
+    }),
+  )
 }

@@ -1,11 +1,12 @@
 import { addDays } from "date-fns"
 import { MockAgent, setGlobalDispatcher } from "undici"
-import { beforeEach, describe, expect, it } from "vitest"
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { Guild } from "./discord"
 import { CACHE_KEY, Match } from "./dota"
+import matchesFixture from "./fixtures/matches.json"
 import { encode } from "./msgpack"
-import { notifier } from "./notify"
+import { formatMatchToMessageLine, notifier } from "./notify"
 
 const GUILD_ID = "987613986523"
 const CHANNEL_ID = "0986526095326812"
@@ -16,6 +17,20 @@ beforeEach(() => {
   agent = new MockAgent()
   agent.disableNetConnect()
   setGlobalDispatcher(agent)
+})
+
+describe.only("formatMatchToMessageLine", () => {
+  beforeAll(() => {
+    vi.setSystemTime(new Date("2022-07-31T14:00:00.000Z"))
+
+    return () => vi.setSystemTime(vi.getRealSystemTime())
+  })
+
+  it.each(matchesFixture)("should format matches correctly %#", (match) => {
+    const message = formatMatchToMessageLine(match as Match)
+
+    expect(message).toMatchSnapshot()
+  })
 })
 
 describe("notifier", () => {
