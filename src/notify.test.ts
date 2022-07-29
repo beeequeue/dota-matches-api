@@ -34,6 +34,21 @@ describe.only("formatMatchToMessageLine", () => {
 })
 
 describe("notifier", () => {
+  beforeEach(() => {
+    const discordAgent = agent.get("https://discord.com")
+
+    discordAgent.intercept({ path: "/api/v10/oauth2/token", method: "POST" }).reply(200, {
+      access_token: "access_token",
+      expires_in: 60,
+    })
+
+    discordAgent
+      .intercept({ path: `/api/v10/channels/${CHANNEL_ID}/messages`, method: "POST" })
+      .reply(200, {
+        idunno: false,
+      })
+  })
+
   it.only("test", async () => {
     const env = (await miniflare.getBindings()) as Env
 

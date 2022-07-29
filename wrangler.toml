@@ -2,15 +2,9 @@ name = "dota-matches-api"
 account_id = "a2ae71949fd5eaebc354f81fb3b1deab"
 compatibility_date = "2022-07-17"
 usage_model = "bundled"
-triggers = { crons = ["0 11 * * *"] }
 
-[[kv_namespaces]]
-binding = "CACHE"
-id = "36fe05a650434c41943c782672f104b4"
-
-[[r2_buckets]]
-binding = "WEBHOOKS"
-bucket_name = "dota-matches-webhooks"
+kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
+r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 
 [build]
 command = "pnpm --silent build"
@@ -19,3 +13,9 @@ watch_dir = "src"
 [build.upload]
 format = "modules"
 main = "index.mjs"
+
+[env.discord]
+triggers = { crons = ["0 11 * * *", "* * * * *"] }
+kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
+r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
+

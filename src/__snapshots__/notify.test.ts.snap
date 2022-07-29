@@ -2,16 +2,16 @@
 
 exports[`formatMatchToMessageLine > should format matches correctly 0 1`] = `
 "**Gaimin Gladiators** vs **Brame**
-@17:00 GMT+2 (in about 1 hour)"
+@<t:1659279600:t> (<t:1659279600:R>)"
 `;
 
 exports[`formatMatchToMessageLine > should format matches correctly 1 1`] = `
 "**TSM** vs **Quincy Crew**
-@23:30 GMT+2 (in about 8 hours)"
+@<t:1659303000:t> (<t:1659303000:R>)"
 `;
 
 exports[`formatMatchToMessageLine > should format matches correctly 2 1`] = `
 "**Fnatic** vs **OG**
-@17:00 GMT+2 (in 4 days)
+@<t:1659625200:t> (<t:1659625200:R>)
 https://www.twitch.tv/PGL_Dota2_EN3"
 `;

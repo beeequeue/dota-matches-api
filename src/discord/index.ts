@@ -1,4 +1,6 @@
 import {
+  RESTPostAPIChannelMessageJSONBody,
+  RESTPostAPIChannelMessageResult,
   RESTPostOAuth2AccessTokenResult,
   RESTPostOAuth2AccessTokenURLEncodedData,
   RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult,
@@ -28,17 +30,15 @@ const fetchToken = async (): Promise<RESTPostOAuth2AccessTokenResult> => {
     grant_type: "client_credentials",
     scope: SCOPES.join(" "),
   }
-  const response = await fetch(
-    `${DISCORD_CLIENT_ID}:${DISCORD_CLIENT_SECRET}@${baseUrl}${Routes.oauth2TokenExchange()}`,
-    {
-      method: "POST",
-      headers: {
-        "User-Agent": userAgent,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(body as Record<string, any>),
+  const response = await fetch(`${baseUrl}${Routes.oauth2TokenExchange()}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${btoa(`${DISCORD_CLIENT_ID}:${DISCORD_CLIENT_SECRET}`)}`,
+      "User-Agent": userAgent,
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-  )
+    body: new URLSearchParams(body as Record<string, any>),
+  })
 
   if (!response.ok) {
     console.error(response.body)
@@ -138,7 +138,9 @@ const getAuthorizeUrl = () => {
   return new URL(`${baseUrl}${Routes.oauth2Authorization()}?${searchParams.toString()}`)
 }
 
-const leaveGuild = (token: string, guildId: string) => {
+const leaveGuild = async (env: Env, guildId: string) => {
+  const token = await getToken(env)
+
   console.log(`Leaving guild ${guildId}`)
   return discordClient.delete(Routes.userGuild(guildId), {
     headers: {
@@ -147,8 +149,26 @@ const leaveGuild = (token: string, guildId: string) => {
   })
 }
 
+const sendMessage = async (token: string, channelId: string, content: string) => {
+  console.log(`Sending message to ${channelId}`)
+
+  const body: RESTPostAPIChannelMessageJSONBody = {
+    content,
+  }
+  return discordClient.post<RESTPostAPIChannelMessageResult>(
+    Routes.channelMessages(channelId),
+    {
+      body,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+}
+
 export const Discord = {
   getAuthorizeUrl,
   registerGuild,
   leaveGuild,
+  sendMessage,
 }

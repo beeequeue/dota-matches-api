@@ -1,21 +1,19 @@
-import { addDays, isBefore, format, formatDistanceToNow } from "date-fns"
+import { addDays, isBefore } from "date-fns"
 import { indexBy } from "remeda"
 import dedent from "ts-dedent"
 
-import { Discord, Guild } from "./discord"
+import { Discord, getToken, Guild } from "./discord"
 import { Dota, Match } from "./dota"
 import { decode } from "./msgpack"
 
 export const formatMatchToMessageLine = (match: Match) => {
   const teams = match.teams.map((team) => `**${team!.name!}**`).join(" vs ")
 
-  const startsAt = new Date(match.startsAt!)
-  const time = format(startsAt, "HH:mm z")
-  const distance = formatDistanceToNow(startsAt)
+  const startsAt = Math.round(new Date(match.startsAt!).getTime() / 1000)
 
   return dedent`
     ${teams}
-    @${time} (in ${distance})${match.streamUrl ? `\n${match.streamUrl}` : ""}
+    @<t:${startsAt}:t> (<t:${startsAt}:R>)${match.streamUrl ? `\n${match.streamUrl}` : ""}
   `
 }
 
@@ -96,9 +94,10 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, message]
   })
 
+  const token = await getToken(env)
   await Promise.all(
     messages.map(async ([channelId, message]) => {
-      Discord.sendMessage(env, channelId, message)
+      await Discord.sendMessage(token, channelId, message)
     }),
   )
 }
