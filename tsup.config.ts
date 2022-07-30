@@ -15,6 +15,13 @@ export default defineConfig({
     GIT_SHA: JSON.stringify(gitSha),
   },
 
+  esbuildOptions: (options) => {
+    options.supported = {
+      // For better performance: https://github.com/evanw/esbuild/issues/951
+      "object-rest-spread": false,
+    }
+  },
+
   bundle: true,
   splitting: false,
   sourcemap: true,
