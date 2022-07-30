@@ -17,6 +17,8 @@ DISCORD_PUBLIC_KEY = "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14
 
 [vars.production]
 API_BASE = "https://dota-matches-api.beequeue.workers.dev"
+DISCORD_CLIENT_ID = "999099490273337354"
+DISCORD_PUBLIC_KEY = "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
 
 [build]
 command = "pnpm --silent build"
@@ -32,3 +34,5 @@ kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 [env.discord.vars]
 API_BASE = "https://dota-matches-api-discord.beequeue.workers.dev"
+DISCORD_CLIENT_ID = "999099490273337354"
+DISCORD_PUBLIC_KEY = "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
