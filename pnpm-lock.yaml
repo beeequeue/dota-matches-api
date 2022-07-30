@@ -41,8 +41,8 @@ devDependencies:
     specifier: 5.3.3
     version: 5.3.3
   p-queue:
-    specifier: 7.2.0
-    version: 7.2.0
+    specifier: 7.3.0
+    version: 7.3.0
   prettier:
     specifier: 2.7.1
     version: 2.7.1
@@ -3000,8 +3000,8 @@ packages:
       aggregate-error: 3.1.0
     dev: true
 
-  /p-queue/7.2.0:
-    resolution: {integrity: sha512-Kvv7p13M46lTYLQ/PsZdaj/1Vj6u/8oiIJgyQyx4oVkOfHdd7M2EZvXigDvcsSzRwanCzQirV5bJPQFoSQt5MA==}
+  /p-queue/7.3.0:
+    resolution: {integrity: sha512-5fP+yVQ0qp0rEfZoDTlP2c3RYBgxvRsw30qO+VtPPc95lyvSG+x6USSh1TuLB4n96IO6I8/oXQGsTgtna4q2nQ==}
     engines: {node: '>=12'}
     dependencies:
       eventemitter3: 4.0.7
