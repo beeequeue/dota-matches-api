@@ -4,7 +4,7 @@ exports[`formatMatchToEmbedField > should format matches correctly 0 1`] = `
 {
   "name": "**Gaimin Gladiators** _vs_ **Brame**",
   "value": "Bo3 @<t:1659279600:t> (<t:1659279600:R>)
-",
+Dota 2 Champions League Season 13",
 }
 `;
 
@@ -12,7 +12,7 @@ exports[`formatMatchToEmbedField > should format matches correctly 1 1`] = `
 {
   "name": "**TSM** _vs_ **Quincy Crew**",
   "value": "Bo3 @<t:1659303000:t> (<t:1659303000:R>)
-",
+ESL One Malaysia 2022 North America: Closed Qualifier",
 }
 `;
 
@@ -20,6 +20,6 @@ exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
 {
   "name": "**Fnatic** _vs_ **OG**",
   "value": "Bo2 @<t:1659625200:t> (<t:1659625200:R>)
-[Twitch](https://www.twitch.tv/PGL_Dota2_EN3)",
+PGL Arlington Major 2022 | [Stream](https://www.twitch.tv/PGL_Dota2_EN3)",
 }
 `;

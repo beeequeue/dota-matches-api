@@ -19,11 +19,13 @@ export const formatMatchToEmbedField = (match: Match): APIEmbedField => {
     startsAtUnix,
     `@<t:${startsAtUnix!}:t> (<t:${startsAtUnix!}:R>)`,
   )
-  const streamLink = orEmpty(match.streamUrl, `[Twitch](${match.streamUrl!})`)
+  const leagueName = orEmpty(match.leagueName, `${match.leagueName!}`)
+  const separator = match.leagueName != null && match.streamUrl != null ? " | " : ""
+  const streamLink = orEmpty(match.streamUrl, `[Stream](${match.streamUrl!})`)
 
   return {
     name: teams,
-    value: `${matchType}${startsAt}\n${streamLink}`,
+    value: `${matchType}${startsAt}\n${leagueName}${separator}${streamLink}`,
   }
 }
 
@@ -79,28 +81,24 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     }
   }
 
-  const cachedMessages = new Map<string, APIEmbedField>()
+  const cachedFields = new Map<string, APIEmbedField>()
   const getFieldsForChannel = (channelId: string, matchHashes: Set<string>) => {
-    const messages = [...matchHashes].map((hash) => {
-      if (cachedMessages.has(channelId)) {
-        return cachedMessages.get(channelId)!
+    const fields = [...matchHashes].map((hash) => {
+      if (cachedFields.has(channelId)) {
+        return cachedFields.get(channelId)!
       }
 
-      const matchMessage = formatMatchToEmbedField(matches[hash])
-      cachedMessages.set(hash, matchMessage)
-      return matchMessage
+      const matchField = formatMatchToEmbedField(matches[hash])
+      cachedFields.set(hash, matchField)
+      return matchField
     })
 
-    return messages
+    return fields
   }
 
   const embedTemplate: Omit<APIEmbed, "fields"> = {
     title: `Today's matches - ${format(new Date(), "MMM do")}`,
     url: "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
-    author: {
-      name: "Add to your server!",
-      url: `${env.API_BASE}/v1/discord`,
-    },
     thumbnail: {
       url: "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
     },
