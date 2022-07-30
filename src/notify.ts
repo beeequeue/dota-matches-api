@@ -99,6 +99,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   const embedTemplate: Omit<APIEmbed, "fields"> = {
     title: `Today's matches - ${format(new Date(), "MMM do")}`,
     url: "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
+    color: 10_038_562,
     thumbnail: {
       url: "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
     },
