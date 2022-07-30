@@ -13,7 +13,7 @@ import {
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
-import { mande } from "mande"
+import { mande, MandeError } from "mande"
 
 import { badRequest, ok } from "@worker-tools/response-creators"
 
@@ -113,11 +113,16 @@ const getAuthorizeUrl = (env: Env) => () => {
 
 const leaveGuild = async (env: Env, guildId: string) => {
   console.log(`Leaving guild ${guildId}`)
-  return discordClient.delete(Routes.userGuild(guildId), {
-    headers: {
-      Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
-    },
-  })
+
+  try {
+    return discordClient.delete(Routes.userGuild(guildId), {
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+      },
+    })
+  } catch (error) {
+    throw new Error("Failed to leave guild", { cause: error as MandeError })
+  }
 }
 
 const createThread = (env: Env) => async (channelId: string) => {
@@ -128,15 +133,20 @@ const createThread = (env: Env) => async (channelId: string) => {
     name: `Match Schedule ${format(new Date(), "MMM ddd")}`,
     auto_archive_duration: ThreadAutoArchiveDuration.OneDay,
   }
-  return discordClient.post<RESTPostAPIChannelThreadsResult>(
-    Routes.threads(channelId),
-    body,
-    {
-      headers: {
-        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+
+  try {
+    return discordClient.post<RESTPostAPIChannelThreadsResult>(
+      Routes.threads(channelId),
+      body,
+      {
+        headers: {
+          Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+        },
       },
-    },
-  )
+    )
+  } catch (error) {
+    throw new Error("Failed to create a thread", { cause: error as MandeError })
+  }
 }
 
 const sendMessage =
@@ -152,15 +162,19 @@ const sendMessage =
             embeds: [content],
           }
 
-    return discordClient.post<RESTPostAPIChannelMessageResult>(
-      Routes.channelMessages(parentId),
-      body,
-      {
-        headers: {
-          Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+    try {
+      return discordClient.post<RESTPostAPIChannelMessageResult>(
+        Routes.channelMessages(parentId),
+        body,
+        {
+          headers: {
+            Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+          },
         },
-      },
-    )
+      )
+    } catch (error) {
+      throw new Error("Failed to send message", { cause: error as MandeError })
+    }
   }
 
 export const createDiscordClient = (env: Env) => ({
