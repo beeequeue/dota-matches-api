@@ -63,7 +63,9 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
         ),
       )
 
-      channelsMatches.push([channelId, matchesToAdd])
+      if (matchesToAdd.size > 0) {
+        channelsMatches.push([channelId, matchesToAdd])
+      }
     }
   }
 
