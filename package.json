@@ -20,8 +20,7 @@
     "dev": "miniflare --watch",
     "build": "tsup",
     "lint": "eslint src",
-    "test": "vitest run",
-    "test:dev": "vitest",
+    "test": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "prepare": "simple-git-hooks"
   },
