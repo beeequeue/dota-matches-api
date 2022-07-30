@@ -29,7 +29,7 @@ format = "modules"
 main = "index.mjs"
 
 [env.discord]
-triggers = { crons = ["0 11 * * *"] }
+triggers = { crons = ["0 9 * * *"] }
 kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 [env.discord.vars]
