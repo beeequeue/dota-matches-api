@@ -1,5 +1,6 @@
 import { format } from "date-fns"
 import {
+  APIEmbed,
   OAuth2Scopes,
   RESTOAuth2AuthorizationQuery,
   RESTOAuth2BotAuthorizationQuery,
@@ -138,22 +139,29 @@ const createThread = (env: Env) => async (channelId: string) => {
   )
 }
 
-const sendMessage = (env: Env) => async (parentId: string, content: string) => {
-  console.log(`Sending message to ${parentId}`)
+const sendMessage =
+  (env: Env) => async (parentId: string, content: string | APIEmbed) => {
+    console.log(`Sending message to ${parentId}`)
 
-  const body: RESTPostAPIChannelMessageJSONBody = {
-    content,
-  }
-  return discordClient.post<RESTPostAPIChannelMessageResult>(
-    Routes.channelMessages(parentId),
-    body,
-    {
-      headers: {
-        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+    const body: RESTPostAPIChannelMessageJSONBody =
+      typeof content === "string"
+        ? {
+            content,
+          }
+        : {
+            embeds: [content],
+          }
+
+    return discordClient.post<RESTPostAPIChannelMessageResult>(
+      Routes.channelMessages(parentId),
+      body,
+      {
+        headers: {
+          Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+        },
       },
-    },
-  )
-}
+    )
+  }
 
 export const createDiscordClient = (env: Env) => ({
   getAuthorizeUrl: getAuthorizeUrl(env),

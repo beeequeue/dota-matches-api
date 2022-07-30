@@ -6,7 +6,7 @@ import { Guild } from "./discord"
 import { CACHE_KEY, Match } from "./dota"
 import matchesFixture from "./fixtures/matches.json"
 import { encode } from "./msgpack"
-import { formatMatchToMessageLine, notifier } from "./notify"
+import { formatMatchToEmbedField, notifier } from "./notify"
 
 const GUILD_ID = "987613986523"
 const CHANNEL_ID = "0986526095326812"
@@ -19,7 +19,7 @@ beforeEach(() => {
   setGlobalDispatcher(agent)
 })
 
-describe.only("formatMatchToMessageLine", () => {
+describe.only("formatMatchToEmbedField", () => {
   beforeAll(() => {
     vi.setSystemTime(new Date("2022-07-31T14:00:00.000Z"))
 
@@ -27,7 +27,7 @@ describe.only("formatMatchToMessageLine", () => {
   })
 
   it.each(matchesFixture)("should format matches correctly %#", (match) => {
-    const message = formatMatchToMessageLine(match as Match)
+    const message = formatMatchToEmbedField(match as Match)
 
     expect(message).toMatchSnapshot()
   })

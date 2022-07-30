@@ -1,17 +1,25 @@
 // Vitest Snapshot v1
 
-exports[`formatMatchToMessageLine > should format matches correctly 0 1`] = `
-"**Gaimin Gladiators** vs **Brame**
-@<t:1659279600:t> (<t:1659279600:R>)"
+exports[`formatMatchToEmbedField > should format matches correctly 0 1`] = `
+{
+  "name": "**Gaimin Gladiators** _vs_ **Brame**",
+  "value": "Bo3 @<t:1659279600:t> (<t:1659279600:R>)
+",
+}
 `;
 
-exports[`formatMatchToMessageLine > should format matches correctly 1 1`] = `
-"**TSM** vs **Quincy Crew**
-@<t:1659303000:t> (<t:1659303000:R>)"
+exports[`formatMatchToEmbedField > should format matches correctly 1 1`] = `
+{
+  "name": "**TSM** _vs_ **Quincy Crew**",
+  "value": "Bo3 @<t:1659303000:t> (<t:1659303000:R>)
+",
+}
 `;
 
-exports[`formatMatchToMessageLine > should format matches correctly 2 1`] = `
-"**Fnatic** vs **OG**
-@<t:1659625200:t> (<t:1659625200:R>)
-https://www.twitch.tv/PGL_Dota2_EN3"
+exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
+{
+  "name": "**Fnatic** _vs_ **OG**",
+  "value": "Bo2 @<t:1659625200:t> (<t:1659625200:R>)
+[Twitch](https://www.twitch.tv/PGL_Dota2_EN3)",
+}
 `;

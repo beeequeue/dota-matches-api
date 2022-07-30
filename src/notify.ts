@@ -1,25 +1,35 @@
-import { addDays, isBefore } from "date-fns"
+import { addDays, format, isBefore } from "date-fns"
+import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { indexBy } from "remeda"
-import dedent from "ts-dedent"
 
 import { createDiscordClient, Guild } from "./discord"
 import { Dota, Match } from "./dota"
 import { decode } from "./msgpack"
 
-export const formatMatchToMessageLine = (match: Match) => {
-  const teams = match.teams.map((team) => `**${team!.name!}**`).join(" vs ")
+const orEmpty = <T>(check: T | null | undefined, value: string) => (check ? value : "")
 
-  const startsAt = Math.round(new Date(match.startsAt!).getTime() / 1000)
+export const formatMatchToEmbedField = (match: Match): APIEmbedField => {
+  const teams = match.teams.map((team) => `**${team!.name!}**`).join(" _vs_ ")
 
-  return dedent`
-    ${teams}
-    @<t:${startsAt}:t> (<t:${startsAt}:R>)${match.streamUrl ? `\n${match.streamUrl}` : ""}
-  `
+  const startsAtUnix = match.startsAt
+    ? Math.round(new Date(match.startsAt).getTime() / 1000)
+    : null
+  const matchType = orEmpty(match.matchType, `${match.matchType!} `)
+  const startsAt = orEmpty(
+    startsAtUnix,
+    `@<t:${startsAtUnix!}:t> (<t:${startsAtUnix!}:R>)`,
+  )
+  const streamLink = orEmpty(match.streamUrl, `[Twitch](${match.streamUrl!})`)
+
+  return {
+    name: teams,
+    value: `${matchType}${startsAt}\n${streamLink}`,
+  }
 }
 
 export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   _controller,
-  env,
+  env: Env,
 ) => {
   const unfilteredMatches = await Dota.getMatches(env, "main")
   const relevantMatches = unfilteredMatches.filter(
@@ -69,14 +79,14 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     }
   }
 
-  const cachedMessages = new Map<string, string>()
-  const getMessageLinesForChannel = (channelId: string, matchHashes: Set<string>) => {
+  const cachedMessages = new Map<string, APIEmbedField>()
+  const getFieldsForChannel = (channelId: string, matchHashes: Set<string>) => {
     const messages = [...matchHashes].map((hash) => {
       if (cachedMessages.has(channelId)) {
         return cachedMessages.get(channelId)!
       }
 
-      const matchMessage = formatMatchToMessageLine(matches[hash])
+      const matchMessage = formatMatchToEmbedField(matches[hash])
       cachedMessages.set(hash, matchMessage)
       return matchMessage
     })
@@ -84,24 +94,40 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return messages
   }
 
+  const embedTemplate: Omit<APIEmbed, "fields"> = {
+    title: `Today's matches - ${format(new Date(), "MMM do")}`,
+    url: "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
+    author: {
+      name: "Add to your server!",
+      url: `${env.API_BASE}/v1/discord`,
+    },
+    thumbnail: {
+      url: "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
+    },
+    footer: {
+      text: "Data provided by Liquipedia",
+      icon_url:
+        "https://liquipedia.net/commons/extensions/TeamLiquidIntegration/resources/pagelogo/liquipedia_icon_menu.png",
+    },
+  }
+
   const messages = channelsMatches.map(([channelId, matchHashes]) => {
-    const matchLines = getMessageLinesForChannel(channelId, matchHashes)
+    // const matchLines = getMessageLinesForChannel(channelId, matchHashes)
 
-    const message = dedent`
-      Here are today's matches!
-      -----------------------
-      ${matchLines.join("\n\n")}
-    `
+    const embed: APIEmbed = {
+      ...embedTemplate,
+      fields: getFieldsForChannel(channelId, matchHashes),
+    }
 
-    return [channelId, message]
+    return [channelId, embed] as const
   })
 
   const discordClient = createDiscordClient(env)
   await Promise.all(
-    messages.map(async ([channelId, message]) => {
-      const { id: threadId } = await discordClient.createThread(channelId)
+    messages.map(async ([channelId, embed]) => {
+      // const { id: threadId } = await discordClient.createThread(channelId)
 
-      await discordClient.sendMessage(threadId, message)
+      await discordClient.sendMessage(channelId, embed)
     }),
   )
 }
