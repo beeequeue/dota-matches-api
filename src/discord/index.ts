@@ -120,19 +120,22 @@ const leaveGuild = async (env: Env, guildId: string) => {
 }
 
 const createThread = (env: Env) => async (channelId: string) => {
-  console.log(`Sending message to ${channelId}`)
+  console.log(`Creating thread in ${channelId}`)
 
   const body: RESTPostAPIChannelThreadsJSONBody = {
     type: 11, // public thread
     name: `Match Schedule ${format(new Date(), "MMM ddd")}`,
     auto_archive_duration: ThreadAutoArchiveDuration.OneDay,
   }
-  return discordClient.post<RESTPostAPIChannelThreadsResult>(Routes.threads(channelId), {
+  return discordClient.post<RESTPostAPIChannelThreadsResult>(
+    Routes.threads(channelId),
     body,
-    headers: {
-      Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+    {
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+      },
     },
-  })
+  )
 }
 
 const sendMessage = (env: Env) => async (parentId: string, content: string) => {
@@ -143,8 +146,8 @@ const sendMessage = (env: Env) => async (parentId: string, content: string) => {
   }
   return discordClient.post<RESTPostAPIChannelMessageResult>(
     Routes.channelMessages(parentId),
+    body,
     {
-      body,
       headers: {
         Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
       },
