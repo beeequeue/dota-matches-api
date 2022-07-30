@@ -111,13 +111,7 @@ describe("notifier", () => {
       }),
     )
 
-    const result = await notifier(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-argument
-      {} as any,
-      env,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-argument
-      {} as any,
-    )
+    const result = await notifier({} as never, env, {} as never)
 
     expect(result).toBeUndefined()
   })
