@@ -39,7 +39,7 @@
     "mande": "2.0.2",
     "miniflare": "2.6.0",
     "node-html-parser": "5.3.3",
-    "p-queue": "7.2.0",
+    "p-queue": "7.3.0",
     "prettier": "2.7.1",
     "simple-git-hooks": "2.8.0",
     "tsup": "6.2.0",
