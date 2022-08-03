@@ -19,7 +19,7 @@ beforeEach(() => {
   setGlobalDispatcher(agent)
 })
 
-describe.only("formatMatchToEmbedField", () => {
+describe("formatMatchToEmbedField", () => {
   beforeAll(() => {
     vi.setSystemTime(new Date("2022-07-31T14:00:00.000Z"))
 
@@ -49,7 +49,7 @@ describe("notifier", () => {
       })
   })
 
-  it.only("test", async () => {
+  it("test", async () => {
     const env = (await miniflare.getBindings()) as Env
 
     const now = new Date()
