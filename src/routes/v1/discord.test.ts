@@ -2,12 +2,12 @@ import { MockAgent, setGlobalDispatcher } from "undici"
 import { beforeEach, describe, expect, it } from "vitest"
 
 import type { Guild } from "../../discord"
+import { BOT_PERMISSIONS } from "../../discord"
 import { decode } from "../../msgpack"
 
 import { discordRouter } from "./discord"
 
 const GUILD_ID = "987613986523"
-const PERMISSIONS = "34880"
 
 let agent = new MockAgent()
 
@@ -51,7 +51,7 @@ describe("POST /api/discord/callback", () => {
     const params = new URLSearchParams({
       code: "123456",
       guild_id: GUILD_ID,
-      permissions: PERMISSIONS,
+      permissions: BOT_PERMISSIONS,
     })
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())

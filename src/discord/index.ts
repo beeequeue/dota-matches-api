@@ -20,7 +20,7 @@ import { badRequest, ok } from "@worker-tools/response-creators"
 import { encode } from "../msgpack"
 
 const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as const
-const BOT_PERMISSIONS = "309237647360"
+export const BOT_PERMISSIONS = "309237647360"
 const TOKEN_CACHE_KEY = "discord-token"
 
 const baseUrl = "https://discord.com/api/v10"
