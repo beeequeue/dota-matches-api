@@ -6,6 +6,7 @@ export default defineConfig(({ command }) => ({
   },
 
   test: {
+    include: ["src/**/*.test.ts"],
     setupFiles: "vitest.setup.ts",
 
     environment: "miniflare",
