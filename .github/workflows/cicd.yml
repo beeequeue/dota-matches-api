@@ -92,6 +92,8 @@ jobs:
       - run: pnpm build
 
       - run: pnpm test run
+        env:
+          NODE_OPTIONS: "--experimental-vm-modules"
 
       - uses: codecov/codecov-action@v3
         with:
