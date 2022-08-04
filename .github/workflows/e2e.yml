@@ -45,4 +45,6 @@ jobs:
 
       - name: Create issue!
         if: ${{ !failure() }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh issue create --title "E2E test(s) failed!" --body "This is an automated issue to notify me that the e2e tests failed.\n\n https://github.com/BeeeQueue/dota-matches-api/runs/${{ github.run_id }}"
