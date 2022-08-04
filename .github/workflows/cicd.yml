@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - run: corepack enable
 
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - run: corepack enable
 
@@ -63,8 +63,6 @@ jobs:
 
       - run: pnpm typecheck
 
-      - run: pnpm test
-
   test:
     runs-on: ubuntu-latest
 
@@ -73,7 +71,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - run: corepack enable
 
@@ -91,12 +89,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - run: pnpm test
+      - run: pnpm build
 
-      - uses: codecov/codecov-action@v3
-        with:
-          files: node_modules/.coverage/lcov.info
-          fail_ci_if_error: true
+      - run: pnpm test run
+        env:
+          NODE_OPTIONS: "--experimental-vm-modules"
+
+  #      - uses: codecov/codecov-action@v3
+  #        with:
+  #          files: node_modules/.coverage/lcov.info
+  #          fail_ci_if_error: true
 
   build:
     runs-on: ubuntu-latest
@@ -106,7 +108,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - run: corepack enable
 
@@ -127,6 +129,7 @@ jobs:
       - run: pnpm build
 
   deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     needs:
       - build
@@ -139,7 +142,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - run: corepack enable
 

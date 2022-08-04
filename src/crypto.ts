@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-argument */
 /*! wp-common. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
 
 const hash = crypto.subtle.digest.bind(crypto.subtle, "sha-1")
@@ -21,9 +20,10 @@ for (let i = 0; i < 256; i++) {
 
 export const sha1 = (buffer: ArrayBuffer | ArrayBufferView) => hash(buffer).then(toUint8)
 
-const text2arr = (input: any) => textEncoder.encode(input)
+const text2arr = (input: string) => textEncoder.encode(input)
 
 /** Convert anything to Uint8Array without a copy */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const toUint8 = (x: any) =>
   x instanceof ArrayBuffer
     ? new Uint8Array(x)

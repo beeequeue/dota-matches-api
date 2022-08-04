@@ -10,8 +10,6 @@ export default defineConfig({
   entryPoints: ["src/index.ts"],
 
   define: {
-    // @ts-ignore
-    STRATZ_TOKEN: JSON.stringify(process.env.STRATZ_TOKEN),
     GIT_SHA: JSON.stringify(gitSha),
   },
 

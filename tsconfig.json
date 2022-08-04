@@ -23,7 +23,8 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types"],
+    "lib": ["es2022"]
   },
 
   "include": ["src/**/*.ts"]

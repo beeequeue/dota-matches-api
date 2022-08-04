@@ -1,4 +1,4 @@
-import { mande } from "mande"
+import { mande, MandeError } from "mande"
 import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
 
@@ -15,7 +15,7 @@ export type Match = {
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null
-  startsAt: Date | null
+  startsAt: string | null
   leagueName: string | null
   streamUrl: string | null
 }
@@ -27,7 +27,6 @@ const liquipediaClient = mande("https://liquipedia.net/dota2", {
     format: "json",
   },
   headers: {
-    /* eslint-disable @typescript-eslint/naming-convention */
     "Accept-Encoding": "gzip",
   },
 })
@@ -78,17 +77,26 @@ const withHash = async (match: Omit<Match, "hash">): Promise<Match> => {
 }
 
 const fetchTeamsData = async (country: string): Promise<Match[]> => {
+  console.log("Fetching match data...")
+
   const data = await liquipediaQueue.add(() =>
-    liquipediaClient.get<LiquipediaBody>("/api.php", {
-      headers: {
-        "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
-      },
-      query: {
-        action: "parse",
-        page: "Liquipedia:Upcoming_and_ongoing_matches",
-      },
-    }),
+    liquipediaClient
+      .get<LiquipediaBody>("/api.php", {
+        headers: {
+          "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+        },
+        query: {
+          action: "parse",
+          page: "Liquipedia:Upcoming_and_ongoing_matches",
+        },
+      })
+      .catch((error: MandeError) => error),
   )
+
+  if (data instanceof Error) {
+    // eslint-disable-next-line unicorn/prefer-type-error
+    throw new Error("Failed to fetch match data", { cause: data })
+  }
 
   const root = parse(data.parse.text["*"])
 
@@ -112,7 +120,7 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
       return await withHash({
         teams,
         matchType: matchType ?? null,
-        startsAt: startTime ? new Date(Number(startTime) * 1000) : null,
+        startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
         leagueName,
         streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
       })
@@ -120,7 +128,7 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
   )
 }
 
-const CACHE_KEY = "liquipedia-matches"
+export const CACHE_KEY = "liquipedia-matches"
 
 const getMatches = async (env: Env, country: string): Promise<Match[]> => {
   console.log(`Getting match data...`)

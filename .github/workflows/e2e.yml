@@ -1,0 +1,44 @@
+name: e2e
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_base:
+        type: string
+        default: https://dota-matches-api.beequeue.workers.dev
+        required: false
+        description: "The base URL of the API to test"
+  schedule:
+    - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
+
+env:
+  API_BASE: ${{ inputs.api_base || 'https://dota-matches-api.beequeue.workers.dev' }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: corepack enable
+
+      - name: find pnpm cache path
+        id: cache
+        run: echo "::set-output name=path::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.cache.outputs.path }}
+          key: v1-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            v1-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - run: pnpm test:e2e run
