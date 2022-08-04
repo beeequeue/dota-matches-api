@@ -23,3 +23,34 @@ exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
 PGL Arlington Major 2022 | [Stream](https://www.twitch.tv/PGL_Dota2_EN3)",
 }
 `;
+
+exports[`notifier > sends messages to channels 3`] = `
+{
+  "embeds": [
+    {
+      "color": 10038562,
+      "fields": [
+        {
+          "name": "**Team Liquid** _vs_ **Nigma Galaxy**",
+          "value": "Bo2 @<t:1577847600:t> (<t:1577847600:R>)
+",
+        },
+        {
+          "name": "**Nigma Galaxy** _vs_ **OG**",
+          "value": "Bo2 @<t:1577880000:t> (<t:1577880000:R>)
+",
+        },
+      ],
+      "footer": {
+        "icon_url": "https://liquipedia.net/commons/extensions/TeamLiquidIntegration/resources/pagelogo/liquipedia_icon_menu.png",
+        "text": "Data provided by Liquipedia",
+      },
+      "thumbnail": {
+        "url": "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
+      },
+      "title": "Today's matches - Jan 1st",
+      "url": "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
+    },
+  ],
+}
+`;

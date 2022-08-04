@@ -1,4 +1,4 @@
-import { addDays, format, isBefore } from "date-fns"
+import { addDays, format, isBefore, compareAsc } from "date-fns"
 import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { indexBy } from "remeda"
 
@@ -83,7 +83,11 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
 
   const cachedFields = new Map<string, APIEmbedField>()
   const getFieldsForChannel = (channelId: string, matchHashes: Set<string>) => {
-    const fields = [...matchHashes].map((hash) => {
+    const sortedHashes = [...matchHashes].sort((a, b) =>
+      compareAsc(new Date(matches[a].startsAt!), new Date(matches[b].startsAt!)),
+    )
+
+    return sortedHashes.map((hash) => {
       if (cachedFields.has(channelId)) {
         return cachedFields.get(channelId)!
       }
@@ -92,8 +96,6 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
       cachedFields.set(hash, matchField)
       return matchField
     })
-
-    return fields
   }
 
   const embedTemplate: Omit<APIEmbed, "fields"> = {
