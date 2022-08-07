@@ -11,7 +11,7 @@ import { beforeEach, describe, expect, it } from "vitest"
 
 import { decode, encode } from "../msgpack"
 
-import { Command, handleFollowCommand } from "./commands"
+import { Command, handleFollowCommand, handleUnfollowCommand } from "./commands"
 import { Guild } from "./index"
 
 const GUILD_ID = "987613986523"
@@ -48,7 +48,7 @@ beforeEach(() => {
   setGlobalDispatcher(agent)
 })
 
-describe("follow", () => {
+describe("/follow", () => {
   it("saves a subscription", async () => {
     const env = (await miniflare.getBindings()) as Env
 
@@ -90,6 +90,51 @@ describe("follow", () => {
       id: GUILD_ID,
       subscriptions: {
         [CHANNEL_ID]: ["Team Liquid", "TSM"],
+      },
+      vanityUrlCode: null,
+    })
+  })
+})
+
+describe("/unfollow", () => {
+  it("removes a subscription", async () => {
+    const env = (await miniflare.getBindings()) as Env
+
+    await env.WEBHOOKS.put(
+      GUILD_ID,
+      encode<Guild>({
+        id: GUILD_ID,
+        subscriptions: {
+          [CHANNEL_ID]: ["Team Liquid", "TSM"],
+        },
+        vanityUrlCode: null,
+      }),
+    )
+
+    const result = await handleUnfollowCommand(
+      env,
+      createCommandInput(Command.Follow, [
+        {
+          type: ApplicationCommandOptionType.String,
+          name: "team_name",
+          value: "Team Liquid",
+        },
+      ]),
+    )
+
+    expect(result).toMatchObject({ status: 200 })
+    await expect(result.json()).resolves.toStrictEqual({
+      type: InteractionResponseType.ChannelMessageWithSource,
+      data: {
+        content: `Okay, I will now notify you those teams' matches.`,
+      },
+    })
+
+    const updatedGuild = await decode((await env.WEBHOOKS.get(GUILD_ID))!)
+    expect(updatedGuild).toStrictEqual({
+      id: GUILD_ID,
+      subscriptions: {
+        [CHANNEL_ID]: ["TSM"],
       },
       vanityUrlCode: null,
     })

@@ -10,7 +10,11 @@ import { IHTTPMethods, Router } from "itty-router"
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
 import { createDiscordClient } from "../../discord"
-import { handleFollowCommand, handleListCommand } from "../../discord/commands"
+import {
+  handleFollowCommand,
+  handleListCommand,
+  handleUnfollowCommand,
+} from "../../discord/commands"
 import { json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
@@ -61,7 +65,10 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
         )
 
       case "unfollow":
-        return ok()
+        return handleUnfollowCommand(
+          env,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
 
       case "follows":
         return handleListCommand(

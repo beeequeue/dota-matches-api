@@ -1,3 +1,4 @@
+import { APIApplicationCommandInteractionDataStringOption } from "discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/string"
 import {
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
@@ -48,6 +49,48 @@ export const handleFollowCommand = async (
       ]
     }
   }
+
+  await env.WEBHOOKS.put(guildId, encode(guild))
+
+  const response: APIInteractionResponse = {
+    type: InteractionResponseType.ChannelMessageWithSource,
+    data: {
+      content: `Okay, I will now notify you those teams' matches.`,
+    },
+  }
+
+  return json(response)
+}
+
+export const handleUnfollowCommand = async (
+  env: Env,
+  body: APIChatInputApplicationCommandInteraction,
+) => {
+  const guildId = body.guild_id!
+  const teamOption = body.data.options!.find(
+    (option): option is APIApplicationCommandInteractionDataStringOption =>
+      option.type === ApplicationCommandOptionType.String && option.name === "team_name",
+  )
+
+  if (teamOption == null) {
+    return badRequest("Got no team name.")
+  }
+
+  const guildObject = await env.WEBHOOKS.get(guildId)
+  if (guildObject == null) {
+    return badRequest("Guild not registered.")
+  }
+
+  const guild = await decode<Guild>(guildObject)
+  if (
+    guild.subscriptions[body.channel_id] == null ||
+    !guild.subscriptions[body.channel_id].includes(teamOption.value)
+  ) {
+    return badRequest("Channel is not subscribed to that team.")
+  }
+
+  const index = guild.subscriptions[body.channel_id].indexOf(teamOption.value)
+  guild.subscriptions[body.channel_id].splice(index, 1)
 
   await env.WEBHOOKS.put(guildId, encode(guild))
 
