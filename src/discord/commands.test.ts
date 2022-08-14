@@ -81,6 +81,7 @@ describe("/follow", () => {
     await expect(result.json()).resolves.toStrictEqual({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
+        flags: 64,
         content: `Okay, I will now notify you those teams' matches.`,
       },
     })
@@ -126,6 +127,7 @@ describe("/unfollow", () => {
     await expect(result.json()).resolves.toStrictEqual({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
+        flags: 64,
         content: "Okay, you will no longer receive notifications for that team.",
       },
     })
