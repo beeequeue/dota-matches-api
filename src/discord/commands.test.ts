@@ -126,7 +126,7 @@ describe("/unfollow", () => {
     await expect(result.json()).resolves.toStrictEqual({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `Okay, I will now notify you those teams' matches.`,
+        content: "Okay, you will no longer receive notifications for that team.",
       },
     })
 
