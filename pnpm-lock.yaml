@@ -44,8 +44,8 @@ devDependencies:
     specifier: 13.0.3
     version: 13.0.3
   mande:
-    specifier: 2.0.2
-    version: 2.0.2
+    specifier: 2.0.3
+    version: 2.0.3
   miniflare:
     specifier: 2.6.0
     version: 2.6.0
@@ -2948,8 +2948,8 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /mande/2.0.2:
-    resolution: {integrity: sha512-HdWr3WJkld0MLjQb9GKYW49UkrcUgJr7w6fsHqz7XzFq8yv/GfMyoR/qxS4w9mjSQrdw5MXb2q9oJfALkzJ37Q==}
+  /mande/2.0.3:
+    resolution: {integrity: sha512-rWIgfcpx6nlUHDOQbHu9dSYFxib3hV85lo7KnoA7T+uBRLiSM6dy00M/+NABNkDCVgJNcm8Ib4nobLfERhrvxA==}
     dev: true
 
   /merge-stream/2.0.0:
