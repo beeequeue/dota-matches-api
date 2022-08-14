@@ -53,8 +53,8 @@ devDependencies:
     specifier: 1.6.2
     version: 1.6.2
   node-html-parser:
-    specifier: 5.3.3
-    version: 5.3.3
+    specifier: 5.4.1
+    version: 5.4.1
   p-queue:
     specifier: 7.3.0
     version: 7.3.0
@@ -3326,8 +3326,8 @@ packages:
     dev: true
     optional: true
 
-  /node-html-parser/5.3.3:
-    resolution: {integrity: sha512-ncg1033CaX9UexbyA7e1N0aAoAYRDiV8jkTvzEnfd1GDvzFdrsXLzR4p4ik8mwLgnaKP/jyUFWDy9q3jvRT2Jw==}
+  /node-html-parser/5.4.1:
+    resolution: {integrity: sha512-xy/O2wOEBJsIRLs4avwa1lVY7tIpXXOoHHUJLa0GvnoPPqMG1hgBVl1tNI3GHOwRktTVZy+Y6rjghk4B9/NLyg==}
     dependencies:
       css-select: 4.3.0
       he: 1.2.0

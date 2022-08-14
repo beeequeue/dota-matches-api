@@ -43,7 +43,7 @@
     "mande": "2.0.3",
     "miniflare": "2.6.0",
     "msgpackr": "1.6.2",
-    "node-html-parser": "5.3.3",
+    "node-html-parser": "5.4.1",
     "p-queue": "7.3.0",
     "prettier": "2.7.1",
     "remeda": "1.0.1",
