@@ -4,6 +4,7 @@ import {
   APIInteractionResponse,
   ApplicationCommandOptionType,
   InteractionResponseType,
+  MessageFlags,
 } from "discord-api-types/v10"
 import { isTruthy } from "remeda"
 
@@ -55,6 +56,7 @@ export const handleFollowCommand = async (
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
+      flags: MessageFlags.Ephemeral,
       content: `Okay, I will now notify you those teams' matches.`,
     },
   }
@@ -97,6 +99,7 @@ export const handleUnfollowCommand = async (
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
+      flags: MessageFlags.Ephemeral,
       content: `Okay, you will no longer receive notifications for that team.`,
     },
   }
@@ -118,6 +121,7 @@ export const handleListCommand = async (
     const response: APIInteractionResponse = {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
+        flags: MessageFlags.Ephemeral,
         content: `This channel is not following any teams. Follow some with '/follow <team>'!`,
       },
     }
