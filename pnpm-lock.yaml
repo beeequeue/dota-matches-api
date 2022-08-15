@@ -68,8 +68,8 @@ devDependencies:
     specifier: 2.8.0
     version: 2.8.0
   tsup:
-    specifier: 6.2.1
-    version: 6.2.1_typescript@4.7.4
+    specifier: 6.2.2
+    version: 6.2.2_typescript@4.7.4
   typescript:
     specifier: 4.7.4
     version: 4.7.4
@@ -940,13 +940,13 @@ packages:
       semver: 7.3.7
     dev: true
 
-  /bundle-require/3.0.4_esbuild@0.14.53:
+  /bundle-require/3.0.4_esbuild@0.15.3:
     resolution: {integrity: sha512-VXG6epB1yrLAvWVQpl92qF347/UXmncQj7J3U8kZEbdVZ1ZkQyr4hYeL/9RvcE8vVVdp53dY78Fd/3pqfRqI1A==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       esbuild: '>=0.13'
     dependencies:
-      esbuild: 0.14.53
+      esbuild: 0.15.3
       load-tsconfig: 0.2.3
     dev: true
 
@@ -3836,14 +3836,6 @@ packages:
       estree-walker: 0.6.1
     dev: true
 
-  /rollup/2.76.0:
-    resolution: {integrity: sha512-9jwRIEY1jOzKLj3nsY/yot41r19ITdQrhs+q3ggNWhr9TQgduHqANvPpS32RNpzGklJu3G1AJfvlZLi/6wFgWA==}
-    engines: {node: '>=10.0.0'}
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /rollup/2.77.2:
     resolution: {integrity: sha512-m/4YzYgLcpMQbxX3NmAqDvwLATZzxt8bIegO78FZLl+lAgKJBd1DRAOeEiZcKOIOPjxE6ewHWHNgGEalFXuz1g==}
     engines: {node: '>=10.0.0'}
@@ -4262,8 +4254,8 @@ packages:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: true
 
-  /tsup/6.2.1_typescript@4.7.4:
-    resolution: {integrity: sha512-KhBhCqVA3bHrIWhkcqTUA7R69H05IcBlHEtCVLEu42XDGUzz+bDqCcfu5PwpkKJ8DqK5tpdgM/qmyk4DdUbkZw==}
+  /tsup/6.2.2_typescript@4.7.4:
+    resolution: {integrity: sha512-vJ9IAdif4GKAz2XMZzjX1hNqhBezJWXjm0qeQEoI7y//a64cxgCF8178eTMV4jBu7YNKnfAPpPSuyXW4mN+9rA==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
@@ -4278,17 +4270,17 @@ packages:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 3.0.4_esbuild@0.14.53
+      bundle-require: 3.0.4_esbuild@0.15.3
       cac: 6.7.12
       chokidar: 3.5.3
       debug: 4.3.4
-      esbuild: 0.14.53
+      esbuild: 0.15.3
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 2.76.0
+      rollup: 2.77.2
       source-map: 0.8.0-beta.0
       sucrase: 3.23.0
       tree-kill: 1.2.2
