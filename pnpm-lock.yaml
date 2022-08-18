@@ -74,8 +74,8 @@ devDependencies:
     specifier: 4.7.4
     version: 4.7.4
   undici:
-    specifier: 5.8.2
-    version: 5.8.2
+    specifier: 5.9.1
+    version: 5.9.1
   vitest:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.6.0
@@ -4356,8 +4356,8 @@ packages:
     engines: {node: '>=12.18'}
     dev: true
 
-  /undici/5.8.2:
-    resolution: {integrity: sha512-3KLq3pXMS0Y4IELV045fTxqz04Nk9Ms7yfBBHum3yxsTR4XNn+ZCaUbf/mWitgYDAhsplQ0B1G4S5D345lMO3A==}
+  /undici/5.9.1:
+    resolution: {integrity: sha512-6fB3a+SNnWEm4CJbgo0/CWR8RGcOCQP68SF4X0mxtYTq2VNN8T88NYrWVBAeSX+zb7bny2dx2iYhP3XHi00omg==}
     engines: {node: '>=12.18'}
     dev: true
 
