@@ -4,11 +4,11 @@
     "teams": [
       {
         "name": "Gaimin Gladiators",
-        "url": "https://liquipedia.com/dota2/Gaimin_Gladiators"
+        "url": "https://liquipedia.net/dota2/Gaimin_Gladiators"
       },
       {
         "name": "Brame",
-        "url": "https://liquipedia.com/dota2/Brame"
+        "url": "https://liquipedia.net/dota2/Brame"
       }
     ],
     "matchType": "Bo3",
@@ -21,11 +21,11 @@
     "teams": [
       {
         "name": "TSM",
-        "url": "https://liquipedia.com/dota2/TSM"
+        "url": "https://liquipedia.net/dota2/TSM"
       },
       {
         "name": "Quincy Crew",
-        "url": "https://liquipedia.com/dota2/Quincy_Crew"
+        "url": "https://liquipedia.net/dota2/Quincy_Crew"
       }
     ],
     "matchType": "Bo3",
@@ -38,11 +38,11 @@
     "teams": [
       {
         "name": "Fnatic",
-        "url": "https://liquipedia.com/dota2/Fnatic"
+        "url": "https://liquipedia.net/dota2/Fnatic"
       },
       {
         "name": "OG",
-        "url": "https://liquipedia.com/dota2/OG"
+        "url": "https://liquipedia.net/dota2/OG"
       }
     ],
     "matchType": "Bo2",
