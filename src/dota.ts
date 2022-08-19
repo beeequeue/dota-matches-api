@@ -122,7 +122,9 @@ const fetchTeamsData = async (country: string): Promise<Match[]> => {
         matchType: matchType ?? null,
         startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
         leagueName,
-        streamUrl: streamName ? `https://www.twitch.tv/${streamName}` : null,
+        streamUrl: streamName
+          ? `https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`
+          : null,
       })
     }),
   )
