@@ -23,8 +23,8 @@ devDependencies:
     specifier: 2.29.2
     version: 2.29.2
   discord-api-types:
-    specifier: 0.37.2
-    version: 0.37.2
+    specifier: 0.37.3
+    version: 0.37.3
   discord-interactions:
     specifier: 3.2.0
     version: 3.2.0
@@ -1252,8 +1252,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types/0.37.2:
-    resolution: {integrity: sha512-JS4q0LGRxqY7TIsfORlIMzcmews+Qu3RmOWrxoEY+BR0g0sZlplEyY/Ltb3om6ZaBm+WNcAmAJxlsmAu4068Vw==}
+  /discord-api-types/0.37.3:
+    resolution: {integrity: sha512-LWcx1jDL8zanQJOPwNmHdFQTr/PFflDw1VYoRmTjme7LEKLr2Qqa2uz04gjN0eNEYskM2TYkOvNn3H5rblFM6g==}
     dev: true
 
   /discord-interactions/3.2.0:
