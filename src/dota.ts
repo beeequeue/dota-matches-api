@@ -57,7 +57,7 @@ const extractTeam = (team$: HTMLElement): Team => {
 
   return {
     name: name ?? null,
-    url: urlPath ? `https://liquipedia.com${urlPath}` : null,
+    url: urlPath ? `https://liquipedia.net${urlPath}` : null,
   }
 }
 
