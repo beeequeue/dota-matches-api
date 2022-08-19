@@ -20,7 +20,7 @@ exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
 {
   "name": "**Fnatic** _vs_ **OG**",
   "value": "Bo2 @<t:1659625200:t> (<t:1659625200:R>)
-PGL Arlington Major 2022 | [Stream](https://www.twitch.tv/PGL_Dota2_EN3)",
+PGL Arlington Major 2022 | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/PGL_Dota2_EN3)",
 }
 `;
 
