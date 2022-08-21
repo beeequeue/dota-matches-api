@@ -174,7 +174,7 @@ const fetchAndCacheTeams = async (env: Env, country: string): Promise<string[]> 
   if (teams.length === 0) return []
 
   await env.CACHE.put(TEAMS_CACHE_KEY, JSON.stringify(teams), {
-    expirationTtl: ONE_DAY * 7,
+    expirationTtl: ONE_DAY * 30,
     metadata: {
       softExpires: nowSeconds() + THREE_HOURS,
     } as SoftExpire,
