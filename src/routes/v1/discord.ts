@@ -1,24 +1,22 @@
 import {
   APIApplicationCommandInteractionDataStringOption,
-  APIApplicationCommandAutocompleteResponse,
   APIChatInputApplicationCommandInteraction,
   APIInteraction,
   InteractionResponseType,
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import Fuse from "fuse.js"
 import { IHTTPMethods, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
 import { createDiscordClient } from "../../discord"
 import {
+  handleAutocompleteCommand,
   handleFollowCommand,
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
-import { Dota } from "../../dota"
 import { json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
@@ -61,28 +59,16 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
   }
 
   if (type === InteractionType.ApplicationCommandAutocomplete) {
-    const { value } = data.options.find(
-      (option): option is APIApplicationCommandInteractionDataStringOption =>
-        option.type === 3 && option.focused === true,
-    )!
-
     const country = request.cf?.country ?? "UNKNOWN"
-    const teams = await Dota.getTeams(env, country)
+    const { value } =
+      data.options.find(
+        (option): option is APIApplicationCommandInteractionDataStringOption =>
+          option.type === 3 && option.focused === true,
+      ) ?? {}
 
-    const fuse = new Fuse(teams, { minMatchCharLength: 2 })
+    if (value == null) return badRequest()
 
-    return json<APIApplicationCommandAutocompleteResponse>({
-      type: InteractionResponseType.ApplicationCommandAutocompleteResult,
-      data: {
-        choices: fuse
-          .search(value)
-          .slice(0, 8)
-          .map(({ item }) => ({
-            name: item,
-            value: item,
-          })),
-      },
-    })
+    return handleAutocompleteCommand(env, country, value)
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
