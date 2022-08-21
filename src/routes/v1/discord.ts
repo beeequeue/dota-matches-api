@@ -1,4 +1,6 @@
 import {
+  APIApplicationCommandInteractionDataStringOption,
+  APIApplicationCommandAutocompleteResponse,
   APIChatInputApplicationCommandInteraction,
   APIInteraction,
   InteractionResponseType,
@@ -15,6 +17,7 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
+import { Dota } from "../../dota"
 import { json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
@@ -54,6 +57,29 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
 
   if (type === InteractionType.Ping) {
     return json({ type: InteractionResponseType.Pong })
+  }
+
+  if (type === InteractionType.ApplicationCommandAutocomplete) {
+    const { value } = data.options.find(
+      (option): option is APIApplicationCommandInteractionDataStringOption =>
+        option.type === 3 && option.focused === true,
+    )!
+    console.log(value)
+
+    const country = request.cf?.country ?? "UNKNOWN"
+    const teams = await Dota.getTeams(env, country)
+
+    return json<APIApplicationCommandAutocompleteResponse>({
+      type: InteractionResponseType.ApplicationCommandAutocompleteResult,
+      data: {
+        choices: teams
+          .map((team) => ({
+            name: team,
+            value: team,
+          }))
+          .slice(0, 5),
+      },
+    })
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
