@@ -7,6 +7,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
+import Fuse from "fuse.js"
 import { IHTTPMethods, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
@@ -64,20 +65,22 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
       (option): option is APIApplicationCommandInteractionDataStringOption =>
         option.type === 3 && option.focused === true,
     )!
-    console.log(value)
 
     const country = request.cf?.country ?? "UNKNOWN"
     const teams = await Dota.getTeams(env, country)
 
+    const fuse = new Fuse(teams, { minMatchCharLength: 2 })
+
     return json<APIApplicationCommandAutocompleteResponse>({
       type: InteractionResponseType.ApplicationCommandAutocompleteResult,
       data: {
-        choices: teams
-          .map((team) => ({
-            name: team,
-            value: team,
-          }))
-          .slice(0, 5),
+        choices: fuse
+          .search(value)
+          .slice(0, 8)
+          .map(({ item }) => ({
+            name: item,
+            value: item,
+          })),
       },
     })
   }
