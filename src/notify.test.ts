@@ -6,7 +6,7 @@ import type { MockInterceptor } from "undici/types/mock-interceptor"
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { Guild } from "./discord"
-import { CACHE_KEY, Match } from "./dota"
+import { MATCHES_CACHE_KEY, Match } from "./dota"
 import matchesFixture from "./fixtures/matches.json"
 import { encode } from "./msgpack"
 import { formatMatchToEmbedField, notifier } from "./notify"
@@ -121,7 +121,7 @@ describe("notifier", () => {
         streamUrl: null,
       },
     ]
-    await env.CACHE.put(CACHE_KEY, JSON.stringify(matches))
+    await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches))
 
     await env.WEBHOOKS.put(
       GUILD_ID,
@@ -185,7 +185,7 @@ describe("notifier", () => {
         streamUrl: null,
       },
     ]
-    await env.CACHE.put(CACHE_KEY, JSON.stringify(matches))
+    await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches))
 
     await env.WEBHOOKS.put(
       GUILD_ID,

@@ -9,9 +9,15 @@ import {
 import { MockAgent, setGlobalDispatcher } from "undici"
 import { beforeEach, describe, expect, it } from "vitest"
 
+import { TEAMS_CACHE_KEY } from "../dota"
 import { decode, encode } from "../msgpack"
 
-import { Command, handleFollowCommand, handleUnfollowCommand } from "./commands"
+import {
+  Command,
+  handleAutocompleteCommand,
+  handleFollowCommand,
+  handleUnfollowCommand,
+} from "./commands"
 import { Guild } from "./index"
 
 const GUILD_ID = "987613986523"
@@ -129,6 +135,45 @@ describe("/unfollow", () => {
       data: {
         flags: 64,
         content: "Okay, you will no longer receive notifications for that team.",
+      },
+    })
+
+    const updatedGuild = await decode((await env.WEBHOOKS.get(GUILD_ID))!)
+    expect(updatedGuild).toStrictEqual({
+      id: GUILD_ID,
+      subscriptions: {
+        [CHANNEL_ID]: ["TSM"],
+      },
+      vanityUrlCode: null,
+    })
+  })
+})
+
+describe("autocomplete", () => {
+  it("returns autocompletion entries", async () => {
+    const env = (await miniflare.getBindings()) as Env
+    await env.CACHE.put(
+      TEAMS_CACHE_KEY,
+      JSON.stringify(["Evil Geniuses", "Team Aster", "Team Liquid"]),
+      { metadata: { softExpires: Date.now() } }, // In ms instead of seconds so effectively means "never"
+    )
+
+    const result = await handleAutocompleteCommand(env, "test", "tema l")
+
+    expect(result).toMatchObject({ status: 200 })
+    await expect(result.json()).resolves.toStrictEqual({
+      type: InteractionResponseType.ApplicationCommandAutocompleteResult,
+      data: {
+        choices: [
+          {
+            name: "Team Liquid",
+            value: "Team Liquid",
+          },
+          {
+            name: "Team Aster",
+            value: "Team Aster",
+          },
+        ],
       },
     })
 

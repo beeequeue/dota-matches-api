@@ -13,6 +13,9 @@ devDependencies:
   '@tsconfig/node16':
     specifier: 1.0.3
     version: 1.0.3
+  '@types/node':
+    specifier: 18.7.8
+    version: 18.7.8
   '@worker-tools/response-creators':
     specifier: 1.2.0-pre.6
     version: 1.2.0-pre.6
@@ -37,6 +40,9 @@ devDependencies:
   eslint:
     specifier: 8.22.0
     version: 8.22.0
+  fuse.js:
+    specifier: 6.6.2
+    version: 6.6.2
   itty-router:
     specifier: 2.6.1
     version: 2.6.1
@@ -49,6 +55,9 @@ devDependencies:
   miniflare:
     specifier: 2.7.0
     version: 2.7.0
+  ms:
+    specifier: 3.0.0-canary.1
+    version: 3.0.0-canary.1
   msgpackr:
     specifier: 1.6.2
     version: 1.6.2
@@ -184,7 +193,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
-      '@types/node': 18.6.3
+      '@types/node': 18.7.8
       c8: 7.12.0
       chai: 4.3.6
       debug: 4.3.4
@@ -594,8 +603,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/node/18.6.3:
-    resolution: {integrity: sha512-6qKpDtoaYLM+5+AFChLhHermMQxc3TOEFIDzrZLPRGHPrLEwqFkkT5Kx3ju05g6X7uDPazz3jHbKPX0KzCjntg==}
+  /@types/node/18.7.8:
+    resolution: {integrity: sha512-/YP55EMK2341JkODUb8DM9O0x1SIz2aBvyF33Uf1c76St3VpsMXEIW0nxuKkq/5cxnbz0RD9cfwNZHEAZQD3ag==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -2552,6 +2561,11 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
+  /fuse.js/6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
+    dev: true
+
   /get-caller-file/2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -3268,6 +3282,11 @@ packages:
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+    dev: true
+
+  /ms/3.0.0-canary.1:
+    resolution: {integrity: sha512-kh8ARjh8rMN7Du2igDRO9QJnqCb2xYTJxyQYK7vJJS4TvLLmsbyhiKpSW+t+y26gyOyMd0riphX0GeWKU3ky5g==}
+    engines: {node: '>=12.13'}
     dev: true
 
   /msgpackr-extract/2.1.2:

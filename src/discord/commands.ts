@@ -1,15 +1,18 @@
 import { APIApplicationCommandInteractionDataStringOption } from "discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/string"
 import {
+  APIApplicationCommandAutocompleteResponse,
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
   ApplicationCommandOptionType,
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
+import Fuse from "fuse.js"
 import { isTruthy } from "remeda"
 
 import { badRequest } from "@worker-tools/response-creators"
 
+import { Dota } from "../dota"
 import { decode, encode } from "../msgpack"
 import { json } from "../utils"
 
@@ -140,4 +143,26 @@ ${guild.subscriptions[body.channel_id].join("\n")}
   }
 
   return json(response)
+}
+
+export const handleAutocompleteCommand = async (
+  env: Env,
+  country: string,
+  value: string,
+) => {
+  const teams = await Dota.getTeams(env, country)
+  const fuse = new Fuse(teams, { minMatchCharLength: 2 })
+
+  return json<APIApplicationCommandAutocompleteResponse>({
+    type: InteractionResponseType.ApplicationCommandAutocompleteResult,
+    data: {
+      choices: fuse
+        .search(value)
+        .slice(0, 8)
+        .map(({ item }) => ({
+          name: item,
+          value: item,
+        })),
+    },
+  })
 }

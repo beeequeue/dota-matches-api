@@ -1,4 +1,5 @@
 import {
+  APIApplicationCommandInteractionDataStringOption,
   APIChatInputApplicationCommandInteraction,
   APIInteraction,
   InteractionResponseType,
@@ -11,6 +12,7 @@ import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creato
 
 import { createDiscordClient } from "../../discord"
 import {
+  handleAutocompleteCommand,
   handleFollowCommand,
   handleListCommand,
   handleUnfollowCommand,
@@ -54,6 +56,19 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
 
   if (type === InteractionType.Ping) {
     return json({ type: InteractionResponseType.Pong })
+  }
+
+  if (type === InteractionType.ApplicationCommandAutocomplete) {
+    const country = request.cf?.country ?? "UNKNOWN"
+    const { value } =
+      data.options.find(
+        (option): option is APIApplicationCommandInteractionDataStringOption =>
+          option.type === 3 && option.focused === true,
+      ) ?? {}
+
+    if (value == null) return badRequest()
+
+    return handleAutocompleteCommand(env, country, value)
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
