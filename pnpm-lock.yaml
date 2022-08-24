@@ -83,8 +83,8 @@ devDependencies:
     specifier: 4.7.4
     version: 4.7.4
   undici:
-    specifier: 5.9.1
-    version: 5.9.1
+    specifier: 5.10.0
+    version: 5.10.0
   vitest:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.7.1
@@ -4368,6 +4368,11 @@ packages:
       has-bigints: 1.0.2
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
+    dev: true
+
+  /undici/5.10.0:
+    resolution: {integrity: sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==}
+    engines: {node: '>=12.18'}
     dev: true
 
   /undici/5.9.1:
