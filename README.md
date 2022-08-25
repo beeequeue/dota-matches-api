@@ -22,8 +22,9 @@ type Match = {
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null
-  startsAt: Date | null
+  startsAt: string | null
   leagueName: string | null
+  leagueUrl: string | null
   streamUrl: string | null
 }
 ```

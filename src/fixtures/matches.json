@@ -14,6 +14,7 @@
     "matchType": "Bo3",
     "startsAt": "2022-07-31T15:00:00.000Z",
     "leagueName": "Dota 2 Champions League Season 13",
+    "leagueUrl": "https://liquipedia.net/dota2/Dota_2_Champions_League/2022/Season_7",
     "streamUrl": null
   },
   {
@@ -31,6 +32,7 @@
     "matchType": "Bo3",
     "startsAt": "2022-07-31T21:30:00.000Z",
     "leagueName": "ESL One Malaysia 2022 North America: Closed Qualifier",
+    "leagueUrl": "https://liquipedia.net/dota2/ESL_One/Malaysia/2022/North_America/Closed_Qualifier",
     "streamUrl": null
   },
   {
@@ -48,6 +50,7 @@
     "matchType": "Bo2",
     "startsAt": "2022-08-04T15:00:00.000Z",
     "leagueName": "PGL Arlington Major 2022",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Arlington_Major/2022",
     "streamUrl": "https://liquipedia.net/dota2/Special:Stream/twitch/PGL_Dota2_EN3"
   }
 ]
