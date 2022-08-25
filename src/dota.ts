@@ -20,6 +20,7 @@ export type Match = {
   matchType: string | null
   startsAt: string | null
   leagueName: string | null
+  leagueUrl: string | null
   streamUrl: string | null
 }
 
@@ -119,12 +120,14 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
       const startTime = meta$.attrs["data-timestamp"]
       const streamName = meta$.attrs["data-stream-twitch"]
       const leagueName = leagueLink$.attrs["title"]
+      const leagueUrl = leagueLink$.attrs["href"]
 
       return await withHash({
         teams,
         matchType: matchType ?? null,
         startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
         leagueName,
+        leagueUrl: leagueUrl ? `https://liquipedia.net${leagueUrl}` : null,
         streamUrl: streamName
           ? `https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`
           : null,

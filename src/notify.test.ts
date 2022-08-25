@@ -6,7 +6,7 @@ import type { MockInterceptor } from "undici/types/mock-interceptor"
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { Guild } from "./discord"
-import { MATCHES_CACHE_KEY, Match } from "./dota"
+import { Match, MATCHES_CACHE_KEY } from "./dota"
 import matchesFixture from "./fixtures/matches.json"
 import { encode } from "./msgpack"
 import { formatMatchToEmbedField, notifier } from "./notify"
@@ -85,6 +85,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 3).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
       {
@@ -96,6 +97,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 12).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
       {
@@ -107,6 +109,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 4.5).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
       {
@@ -118,6 +121,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 24 * 4).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
     ]
@@ -160,6 +164,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 22).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
       {
@@ -171,6 +176,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 6).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
       {
@@ -182,6 +188,7 @@ describe("notifier", () => {
         ],
         startsAt: addHours(now, 12).toISOString(),
         leagueName: null,
+        leagueUrl: null,
         streamUrl: null,
       },
     ]
