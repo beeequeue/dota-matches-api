@@ -51,7 +51,7 @@
     "prettier": "2.7.1",
     "remeda": "1.0.1",
     "simple-git-hooks": "2.8.0",
-    "tsup": "6.2.2",
+    "tsup": "6.2.3",
     "typescript": "4.8.2",
     "undici": "5.10.0",
     "vitest": "npm:@beequeue/vitest@0.20.0-beta.0",
