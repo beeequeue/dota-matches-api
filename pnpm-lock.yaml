@@ -5,8 +5,8 @@ devDependencies:
     specifier: 0.7.0
     version: 0.7.0_er5sflmxjcrgfvrsp3qwdvxste
   '@cloudflare/workers-types':
-    specifier: 3.14.1
-    version: 3.14.1
+    specifier: 3.15.0
+    version: 3.15.0
   '@peculiar/webcrypto':
     specifier: 1.4.0
     version: 1.4.0
@@ -216,8 +216,8 @@ packages:
       mime: 3.0.0
     dev: true
 
-  /@cloudflare/workers-types/3.14.1:
-    resolution: {integrity: sha512-B1/plF62pt+H2IJHvApK8fdOJAVsvojvacuac8x8s+JIyqbropMyqNqHTKLm3YD8ZFLGwYeFTudU+PQ7vGvBdA==}
+  /@cloudflare/workers-types/3.15.0:
+    resolution: {integrity: sha512-meL/Afy5qdIsgfdnlbVfcYUh/YjHk23EWUvgmULf6iDrDbrBcd+fse2os3CC7rxSfScdP1OqJVTHgRSEjUm/Pw==}
     dev: true
 
   /@esbuild-plugins/node-globals-polyfill/0.1.1_esbuild@0.14.51:
