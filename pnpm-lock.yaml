@@ -26,8 +26,8 @@ devDependencies:
     specifier: 2.29.2
     version: 2.29.2
   discord-api-types:
-    specifier: 0.37.8
-    version: 0.37.8
+    specifier: 0.37.9
+    version: 0.37.9
   discord-interactions:
     specifier: 3.2.0
     version: 3.2.0
@@ -89,8 +89,8 @@ devDependencies:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.8.2
   wrangler:
-    specifier: 2.0.29
-    version: 2.0.29
+    specifier: 2.1.0
+    version: 2.1.0
 
 packages:
 
@@ -1275,8 +1275,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types/0.37.8:
-    resolution: {integrity: sha512-uhol9KQ2moExZItMpuDMkf0R7sqqNHqcJBFN7S5iSdXBVCMRO7sC0GoyuRrv6ZDBYxoFU6nDy4dv0nld/aysqA==}
+  /discord-api-types/0.37.9:
+    resolution: {integrity: sha512-mAJv7EcDDo6YztR3XSIED2IAHJcAlzWFD31Q2cHLURMKPb0CW0TM/r32HhAHO9uHw74N3cviOzJIZfZVB/e/5A==}
     dev: true
 
   /discord-interactions/3.2.0:
@@ -4519,8 +4519,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /wrangler/2.0.29:
-    resolution: {integrity: sha512-Z9W48pRpo87qO2WLMU24TFLL5Oq2WUwzqlwVDFrnSpBT+7GRrkAceepKU8V+aOXxLqyUaEzaSVHT3KVPyXh8KQ==}
+  /wrangler/2.1.0:
+    resolution: {integrity: sha512-ZrwVcFJfGPDePLtp/SbUHOJthRI5Erxj1F14ufw03S2M9TE8Y4mLWLhIgsvkkayckW3w0B0Bj2ZMzIJWozc8sg==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
