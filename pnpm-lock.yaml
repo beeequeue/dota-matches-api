@@ -89,8 +89,8 @@ devDependencies:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.8.2
   wrangler:
-    specifier: 2.1.3
-    version: 2.1.3
+    specifier: 2.1.4
+    version: 2.1.4
 
 packages:
 
@@ -4519,8 +4519,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /wrangler/2.1.3:
-    resolution: {integrity: sha512-0bOYKUYeAqWtNWipYfAknSS9OowQScpe6OLHj6vfnEl9g3QXmnd515y0zP1zXF2VUgocrsex5o8fkSMYyMLWLA==}
+  /wrangler/2.1.4:
+    resolution: {integrity: sha512-vHgA3/naF6n7GrIujTxPQDrlEgY+A0VluxJiqnWWWvmBSvfIjmsJGjHg0LAJ/NONx3cp77cT96ehszv790d+tA==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
