@@ -43,7 +43,7 @@
     "itty-router": "2.6.1",
     "lint-staged": "13.0.3",
     "mande": "2.0.3",
-    "miniflare": "2.8.2",
+    "miniflare": "2.9.0",
     "ms": "3.0.0-canary.1",
     "msgpackr": "1.6.3",
     "node-html-parser": "5.4.2",
