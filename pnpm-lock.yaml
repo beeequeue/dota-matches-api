@@ -59,8 +59,8 @@ devDependencies:
     specifier: 3.0.0-canary.1
     version: 3.0.0-canary.1
   msgpackr:
-    specifier: 1.6.3
-    version: 1.6.3
+    specifier: 1.7.0
+    version: 1.7.0
   node-html-parser:
     specifier: 5.4.2
     version: 5.4.2
@@ -89,8 +89,8 @@ devDependencies:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.9.0
   wrangler:
-    specifier: 2.1.5
-    version: 2.1.5
+    specifier: 2.1.6
+    version: 2.1.6
 
 packages:
 
@@ -3363,8 +3363,8 @@ packages:
     dev: true
     optional: true
 
-  /msgpackr/1.6.3:
-    resolution: {integrity: sha512-Wtwnt2W06wNOLzV3N0XLLAJCxpwlCfFpvSZAXsu+xf71X7KuqBEDhDSjAy9nwNhQ2aK74Rd1RiRln+62tffoXw==}
+  /msgpackr/1.7.0:
+    resolution: {integrity: sha512-/lumbjWnrRn8mZ8TEJXbFpkRDSei94CcqwcgbyuE0hT2/f6az2Fmi4ojNUOUTS9T8AYyADrmoPvCiLL9+ufvsA==}
     optionalDependencies:
       msgpackr-extract: 2.1.2
     dev: true
@@ -4578,8 +4578,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /wrangler/2.1.5:
-    resolution: {integrity: sha512-j8nTCSygWdsPwPBytZj0oUSAAUCt8sh6K8ZTewHMNzT8yGGAb5aXIdSfzyGYTfp6dnMqaafz4Khyf34XmHcXGQ==}
+  /wrangler/2.1.6:
+    resolution: {integrity: sha512-gwIdA5UPNA/u6U2vCVit3t75ldWmBiN11OQOK48G0u1xN/gdH/ktHWR/C8blDXTAM4c53mLJJw5u5X55ZR1LLw==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
