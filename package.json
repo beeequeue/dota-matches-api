@@ -40,7 +40,7 @@
     "esbuild": "0.15.9",
     "eslint": "8.23.1",
     "fuse.js": "6.6.2",
-    "itty-router": "2.6.3",
+    "itty-router": "2.6.5",
     "lint-staged": "13.0.3",
     "mande": "2.0.3",
     "miniflare": "2.9.0",
