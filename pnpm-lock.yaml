@@ -59,8 +59,8 @@ devDependencies:
     specifier: 3.0.0-canary.1
     version: 3.0.0-canary.1
   msgpackr:
-    specifier: 1.7.0
-    version: 1.7.0
+    specifier: 1.7.1
+    version: 1.7.1
   node-html-parser:
     specifier: 5.4.2
     version: 5.4.2
@@ -3351,8 +3351,8 @@ packages:
     dev: true
     optional: true
 
-  /msgpackr/1.7.0:
-    resolution: {integrity: sha512-/lumbjWnrRn8mZ8TEJXbFpkRDSei94CcqwcgbyuE0hT2/f6az2Fmi4ojNUOUTS9T8AYyADrmoPvCiLL9+ufvsA==}
+  /msgpackr/1.7.1:
+    resolution: {integrity: sha512-p2YUTuwFAUtoPACKPDfoibJn4oBuzSCXs0/AudNLqczL8R2Ult32987Ih69df5zaaMnWT/3JizgP8q8d3s2ZlQ==}
     optionalDependencies:
       msgpackr-extract: 2.1.2
     dev: true
