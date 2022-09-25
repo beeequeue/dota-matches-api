@@ -45,7 +45,7 @@
     "mande": "2.0.3",
     "miniflare": "2.9.0",
     "ms": "3.0.0-canary.1",
-    "msgpackr": "1.7.0",
+    "msgpackr": "1.7.1",
     "node-html-parser": "5.4.2",
     "p-queue": "7.3.0",
     "prettier": "2.7.1",
