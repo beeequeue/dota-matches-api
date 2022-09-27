@@ -46,7 +46,7 @@
     "miniflare": "2.9.0",
     "ms": "3.0.0-canary.1",
     "msgpackr": "1.7.2",
-    "node-html-parser": "5.4.2",
+    "node-html-parser": "6.1.1",
     "p-queue": "7.3.0",
     "prettier": "2.7.1",
     "remeda": "1.1.0",
