@@ -26,8 +26,8 @@ devDependencies:
     specifier: 2.29.3
     version: 2.29.3
   discord-api-types:
-    specifier: 0.37.10
-    version: 0.37.10
+    specifier: 0.37.11
+    version: 0.37.11
   discord-interactions:
     specifier: 3.2.0
     version: 3.2.0
@@ -59,8 +59,8 @@ devDependencies:
     specifier: 3.0.0-canary.1
     version: 3.0.0-canary.1
   msgpackr:
-    specifier: 1.7.1
-    version: 1.7.1
+    specifier: 1.7.2
+    version: 1.7.2
   node-html-parser:
     specifier: 5.4.2
     version: 5.4.2
@@ -89,8 +89,8 @@ devDependencies:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.9.0
   wrangler:
-    specifier: 2.1.6
-    version: 2.1.6
+    specifier: 2.1.7
+    version: 2.1.7
 
 packages:
 
@@ -1300,8 +1300,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types/0.37.10:
-    resolution: {integrity: sha512-NvDh2Puc3wZQzQt2zLavlI5ewBnLFjI46/NJmvWIs6OC0JOkq7KcmH4s80X2+22mSQ3wUyge2mxq3cGYRT2noQ==}
+  /discord-api-types/0.37.11:
+    resolution: {integrity: sha512-cUNXrCdD4hEj5iJ9SligTNur64rNnLX5s6CbvmatRpWKMZtrLTOlyLhuXmVbjfDXeXH7os8Qb71Wa7IEhC27Sw==}
     dev: true
 
   /discord-interactions/3.2.0:
@@ -3351,8 +3351,8 @@ packages:
     dev: true
     optional: true
 
-  /msgpackr/1.7.1:
-    resolution: {integrity: sha512-p2YUTuwFAUtoPACKPDfoibJn4oBuzSCXs0/AudNLqczL8R2Ult32987Ih69df5zaaMnWT/3JizgP8q8d3s2ZlQ==}
+  /msgpackr/1.7.2:
+    resolution: {integrity: sha512-mWScyHTtG6TjivXX9vfIy2nBtRupaiAj0HQ2mtmpmYujAmqZmaaEVPaSZ1NKLMvicaMLFzEaMk0ManxMRg8rMQ==}
     optionalDependencies:
       msgpackr-extract: 2.1.2
     dev: true
@@ -4566,14 +4566,17 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /wrangler/2.1.6:
-    resolution: {integrity: sha512-gwIdA5UPNA/u6U2vCVit3t75ldWmBiN11OQOK48G0u1xN/gdH/ktHWR/C8blDXTAM4c53mLJJw5u5X55ZR1LLw==}
+  /wrangler/2.1.7:
+    resolution: {integrity: sha512-uHyFx9sRf/VLemB09/SzOqlHajin/tf4vh74/vMnwgmpMA6FnCXdXVsTWulCnowzQIWdO9E/aoG7GdEqRLr3Iw==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
       '@cloudflare/kv-asset-handler': 0.2.0
       '@esbuild-plugins/node-globals-polyfill': 0.1.1_esbuild@0.14.51
       '@esbuild-plugins/node-modules-polyfill': 0.1.4_esbuild@0.14.51
+      '@miniflare/core': 2.9.0
+      '@miniflare/d1': 2.9.0
+      '@miniflare/durable-objects': 2.9.0
       blake3-wasm: 2.1.5
       chokidar: 3.5.3
       esbuild: 0.14.51
