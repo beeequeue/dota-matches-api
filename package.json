@@ -4,7 +4,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@7.12.2",
+  "packageManager": "pnpm@7.13.0",
   "engines": {
     "node": ">=18"
   },
@@ -40,7 +40,7 @@
     "esbuild": "0.15.10",
     "eslint": "8.24.0",
     "fuse.js": "6.6.2",
-    "itty-router": "2.6.5",
+    "itty-router": "2.6.6",
     "lint-staged": "13.0.3",
     "mande": "2.0.3",
     "miniflare": "2.9.0",
