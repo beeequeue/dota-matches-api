@@ -83,14 +83,14 @@ devDependencies:
     specifier: 4.8.4
     version: 4.8.4
   undici:
-    specifier: 5.10.0
-    version: 5.10.0
+    specifier: 5.11.0
+    version: 5.11.0
   vitest:
     specifier: npm:@beequeue/vitest@0.20.0-beta.0
     version: /@beequeue/vitest/0.20.0-beta.0_c8@7.12.0+miniflare@2.9.0
   wrangler:
-    specifier: 2.1.9
-    version: 2.1.9
+    specifier: 2.1.10
+    version: 2.1.10
 
 packages:
 
@@ -4429,9 +4429,11 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /undici/5.10.0:
-    resolution: {integrity: sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==}
+  /undici/5.11.0:
+    resolution: {integrity: sha512-oWjWJHzFet0Ow4YZBkyiJwiK5vWqEYoH7BINzJAJOLedZ++JpAlCbUktW2GQ2DS2FpKmxD/JMtWUUWl1BtghGw==}
     engines: {node: '>=12.18'}
+    dependencies:
+      busboy: 1.6.0
     dev: true
 
   /undici/5.9.1:
@@ -4566,8 +4568,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /wrangler/2.1.9:
-    resolution: {integrity: sha512-ryrkpUEqgJZIiGgo+VCUYtl0B+shEbyp3FZzT5+GYnyfpLtQutAZlS/s5iOC0qjZ7TcRzWS1PSb9fE9nDSvCKg==}
+  /wrangler/2.1.10:
+    resolution: {integrity: sha512-hiaTNvkKw8axZljxHOjtDXIVo4GOrDclyxr0cF2aypzAwtrGlaYWD+WP0Z66BqRLpUpbF3BdzrPn1k+xGp0u+Q==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
