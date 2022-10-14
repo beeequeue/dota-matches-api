@@ -127,9 +127,9 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
         matchType: matchType ?? null,
         startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
         leagueName,
-        leagueUrl: leagueUrl ? `https://liquipedia.net${leagueUrl}` : null,
+        leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
         streamUrl: streamName
-          ? `https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`
+          ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
           : null,
       })
     }),
