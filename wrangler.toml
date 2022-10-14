@@ -8,7 +8,7 @@ kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
 
 [miniflare]
-kv_persist = true
+#kv_persist = true
 r2_persist = true
 
 [vars]
