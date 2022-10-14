@@ -131,6 +131,13 @@ jobs:
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
+
+    environment:
+      name: live
+      url: https://dota-matches-api.beequeue.workers.dev/v1/matches
+    concurrency:
+      group: live
+
     needs:
       - build
       - lint
