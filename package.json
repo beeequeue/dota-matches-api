@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@beequeue/eslint-plugin": "0.8.0",
-    "@cloudflare/workers-types": "3.16.0",
+    "@cloudflare/workers-types": "3.17.0",
     "@peculiar/webcrypto": "1.4.0",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.7.8",
