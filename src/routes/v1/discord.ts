@@ -73,23 +73,26 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
 
   if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
-      case "follow":
+      case "follow": {
         return handleFollowCommand(
           env,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
+      }
 
-      case "unfollow":
+      case "unfollow": {
         return handleUnfollowCommand(
           env,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
+      }
 
-      case "follows":
+      case "follows": {
         return handleListCommand(
           env,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
+      }
     }
 
     return badRequest("Invalid command")
