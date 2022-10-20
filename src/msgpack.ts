@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { pack } from "msgpackr/pack"
 import { unpack } from "msgpackr/unpack"
 
