@@ -26,7 +26,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@beequeue/eslint-plugin": "1.0.0",
+    "@beequeue/eslint-plugin": "1.0.2",
     "@cloudflare/workers-types": "3.17.0",
     "@peculiar/webcrypto": "1.4.0",
     "@tsconfig/node16": "1.0.3",
