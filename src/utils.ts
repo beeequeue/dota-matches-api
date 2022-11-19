@@ -14,3 +14,11 @@ export const json = <T = unknown>(data: T, init: RequestInitExStatus = {}) =>
     },
     ...init,
   })
+
+export const getCountry = (request: Request) => {
+  if (request.cf != null && "country" in request.cf) {
+    return request.cf.country
+  }
+
+  return "UNKNOWN"
+}

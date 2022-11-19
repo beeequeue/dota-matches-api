@@ -17,7 +17,7 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
-import { json } from "../../utils"
+import { getCountry, json } from "../../utils"
 
 export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
 
@@ -59,7 +59,7 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
   }
 
   if (type === InteractionType.ApplicationCommandAutocomplete) {
-    const country = request.cf?.country ?? "UNKNOWN"
+    const country = getCountry(request)
     const { value } =
       data.options.find(
         (option): option is APIApplicationCommandInteractionDataStringOption =>
