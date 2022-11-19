@@ -31,6 +31,7 @@
     "@peculiar/webcrypto": "1.4.1",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.11.9",
+    "@vitest/coverage-c8": "0.25.2",
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "c8": "7.12.0",
     "date-fns": "2.29.3",
@@ -54,7 +55,8 @@
     "tsup": "6.5.0",
     "typescript": "4.9.3",
     "undici": "5.11.0",
-    "vitest": "npm:@beequeue/vitest@0.20.0-beta.0",
+    "vitest": "0.25.2",
+    "vitest-environment-miniflare": "2.11.0",
     "wrangler": "2.4.4"
   }
 }
