@@ -1,5 +1,6 @@
-import { ColumnType, InsertObject, Kysely } from "kysely"
+import { InsertObject, Kysely } from "kysely"
 import { D1Dialect } from "kysely-d1"
+import { pick } from "remeda"
 
 import type { Match } from "./dota"
 
@@ -10,7 +11,7 @@ export type MatchTable = {
   teamTwoId: string | null
   leagueName: string | null
   streamUrl: string | null
-  startsAt: ColumnType<Date | null, string | null, never>
+  startsAt: string | null
 }
 
 export type LeagueTable = {
@@ -36,6 +37,38 @@ export const createDb = (env: Env) =>
   new Kysely<Database>({
     dialect: new D1Dialect({ database: env.__D1_BETA__MATCHES }),
   })
+
+export const getMatchDataFromDb = async (db: Db): Promise<Match[]> => {
+  const matchData = await db
+    .selectFrom("match")
+    .leftJoin("league", "match.leagueName", "league.name")
+    .leftJoin("team as teamOne", "match.teamOneId", "teamOne.id")
+    .leftJoin("team as teamTwo", "match.teamTwoId", "teamTwo.id")
+    .select([
+      "match.id",
+      "matchType",
+      "streamUrl",
+      "startsAt",
+      "leagueName",
+      "league.url as leagueUrl",
+      "teamOneId",
+      "teamOne.name as teamOneName",
+      "teamOne.url as teamOneUrl",
+      "teamTwoId",
+      "teamTwo.name as teamTwoName",
+      "teamTwo.url as teamTwoUrl",
+    ])
+    .execute()
+
+  return matchData.map((match) => ({
+    hash: match.id!,
+    ...pick(match, ["matchType", "streamUrl", "startsAt", "leagueName", "leagueUrl"]),
+    teams: [
+      { name: match.teamOneName, url: match.teamOneUrl },
+      { name: match.teamTwoName, url: match.teamTwoUrl },
+    ],
+  }))
+}
 
 export const upsertMatchData = async (db: Db, matches: Match[]) => {
   console.log("Upserting match data...")
@@ -74,7 +107,7 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
 
   const leagues = new Map<string, InsertObject<Database, "league">>()
   for (const match of matches) {
-    if (!(match.leagueName != null && leagues.has(match.leagueName))) continue
+    if (match.leagueName == null || leagues.has(match.leagueName)) continue
 
     leagues.set(match.leagueName, {
       name: match.leagueName,

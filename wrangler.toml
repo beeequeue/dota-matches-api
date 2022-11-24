@@ -20,7 +20,7 @@ database_name = "dota-matches"
 database_id = "db7df0f4-2468-4396-80b8-06a97c52f32a"
 
 [miniflare]
-#kv_persist = true
+kv_persist = true
 r2_persist = true
 d1_persist = true
 

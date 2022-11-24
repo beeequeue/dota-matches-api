@@ -10,12 +10,6 @@ export default defineConfig(({ command }) => ({
     setupFiles: "vitest.setup.ts",
 
     environment: "miniflare",
-    environmentOptions: {
-      miniflare: {
-        kvPersist: false,
-        r2Persist: false,
-      },
-    },
 
     reporters: "verbose",
     coverage: {
