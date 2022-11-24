@@ -4,12 +4,25 @@ compatibility_date = "2022-11-19"
 usage_model = "bundled"
 
 triggers = { crons = ["0 9 * * *"] }
-kv_namespaces = [{ binding = "CACHE", id = "36fe05a650434c41943c782672f104b4" }]
+
 r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "36fe05a650434c41943c782672f104b4"
+[[kv_namespaces]]
+binding = "META"
+id = "d36a2a6f8e86435aaf85c18801d813c7"
+
+[[d1_databases]]
+binding = "__D1_BETA__MATCHES" # i.e. available in your Worker on env.DB
+database_name = "dota-matches"
+database_id = "db7df0f4-2468-4396-80b8-06a97c52f32a"
 
 [miniflare]
 #kv_persist = true
 r2_persist = true
+d1_persist = true
 
 [vars]
 API_BASE = "https://dota-matches-api.beequeue.workers.dev"

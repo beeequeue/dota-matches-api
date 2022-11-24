@@ -25,6 +25,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "prepare": "simple-git-hooks"
   },
+  "resolutions": {
+    "npx-import": "1.1.4"
+  },
   "devDependencies": {
     "@beequeue/eslint-plugin": "1.1.0",
     "@cloudflare/workers-types": "4.20221111.1",
@@ -33,6 +36,7 @@
     "@types/node": "18.11.9",
     "@vitest/coverage-c8": "0.25.2",
     "@worker-tools/response-creators": "1.2.0-pre.6",
+    "better-sqlite3": "7.6.2",
     "c8": "7.12.0",
     "date-fns": "2.29.3",
     "discord-api-types": "0.37.20",
@@ -42,6 +46,8 @@
     "eslint": "8.28.0",
     "fuse.js": "6.6.2",
     "itty-router": "2.6.6",
+    "kysely": "0.22.0",
+    "kysely-d1": "0.0.5",
     "lint-staged": "13.0.4",
     "mande": "2.0.3",
     "miniflare": "2.11.0",

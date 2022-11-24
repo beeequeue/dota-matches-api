@@ -4,6 +4,7 @@ import PQueue from "p-queue"
 import { compact } from "remeda"
 
 import { arr2hex, sha1 } from "./crypto"
+import { Db, upsertMatchData } from "./db"
 import { nowSeconds, seconds } from "./utils"
 
 const ONE_DAY = seconds("1 day")
@@ -203,21 +204,20 @@ export const getTeams = async (env: Env, country: string): Promise<string[]> => 
 
 export const MATCHES_CACHE_KEY = "liquipedia-matches"
 
-const getMatches = async (env: Env, country: string): Promise<Match[]> => {
-  console.log(`Getting match data...`)
+const getMatches =
+  (_env: Env, db: Db) =>
+  async (country: string): Promise<Match[]> => {
+    console.log(`Getting match data...`)
 
-  const cached = await env.CACHE.get(MATCHES_CACHE_KEY)
-  if (cached != null) {
-    return JSON.parse(cached)
+    const matches = await fetchMatches(country)
+
+    await upsertMatchData(db, matches)
+
+    return matches
   }
 
-  const matches = await fetchMatches(country)
-
-  await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches), {
-    expirationTtl: THREE_HOURS,
-  })
-
-  return matches
-}
-
 export const Dota = { getTeams, getMatches }
+
+export const createDotaClient = (env: Env, db: Db) => ({
+  getMatches: getMatches(env, db),
+})
