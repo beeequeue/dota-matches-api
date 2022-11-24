@@ -2,7 +2,7 @@ import { InsertObject, Kysely } from "kysely"
 import { D1Dialect } from "kysely-d1"
 import { pick } from "remeda"
 
-import type { Match } from "./dota"
+import type { Match, Team } from "./dota"
 
 export type MatchTable = {
   id: string
@@ -37,6 +37,22 @@ export const createDb = (env: Env) =>
   new Kysely<Database>({
     dialect: new D1Dialect({ database: env.__D1_BETA__MATCHES }),
   })
+
+export const getTeamsFromDb = async (db: Db): Promise<Team[]> => {
+  return await db.selectFrom("team").select(["name", "url"]).execute()
+}
+
+export const upsertTeamsData = async (db: Db, teams: Team[]) => {
+  return await Promise.all(
+    [...teams.values()].map(({ name, url }) =>
+      db
+        .insertInto("team")
+        .values({ id: name!, name: name!, url })
+        .onConflict((b) => b.column("id").doUpdateSet({ id: name!, name: name!, url }))
+        .execute(),
+    ),
+  )
+}
 
 export const getMatchDataFromDb = async (db: Db): Promise<Match[]> => {
   const matchData = await db

@@ -12,7 +12,8 @@ import { isTruthy } from "remeda"
 
 import { badRequest } from "@worker-tools/response-creators"
 
-import { Dota } from "../dota"
+import { Db } from "../db"
+import { createDotaClient } from "../dota"
 import { decode, encode } from "../msgpack"
 import { json } from "../utils"
 
@@ -147,10 +148,12 @@ ${guild.subscriptions[body.channel_id].join("\n")}
 
 export const handleAutocompleteCommand = async (
   env: Env,
+  db: Db,
   country: string,
   value: string,
 ) => {
-  const teams = await Dota.getTeams(env, country)
+  const dotaClient = createDotaClient(env, db)
+  const teams = await dotaClient.getTeams(country)
   const fuse = new Fuse(teams, { minMatchCharLength: 2 })
 
   return json<APIApplicationCommandAutocompleteResponse>({

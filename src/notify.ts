@@ -2,8 +2,9 @@ import { addDays, format, isBefore, compareAsc } from "date-fns"
 import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { indexBy } from "remeda"
 
+import { createDb } from "./db"
 import { createDiscordClient, Guild } from "./discord"
-import { Dota, Match } from "./dota"
+import { createDotaClient, Match } from "./dota"
 import { decode } from "./msgpack"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) => (check ? value : "")
@@ -33,7 +34,9 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   _controller,
   env: Env,
 ) => {
-  const unfilteredMatches = await Dota.getMatches(env, "main")
+  const dotaClient = createDotaClient(env, createDb(env))
+
+  const unfilteredMatches = await dotaClient.getMatches("main")
   const relevantMatches = unfilteredMatches.filter(
     (match) =>
       match.startsAt != null &&

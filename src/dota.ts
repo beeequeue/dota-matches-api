@@ -1,16 +1,19 @@
 import { mande, MandeError } from "mande"
+import ms from "ms"
 import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
-import { compact } from "remeda"
 
 import { arr2hex, sha1 } from "./crypto"
-import { Db, getMatchDataFromDb, upsertMatchData } from "./db"
-import { nowSeconds, seconds } from "./utils"
+import {
+  Db,
+  getMatchDataFromDb,
+  getTeamsFromDb,
+  upsertMatchData,
+  upsertTeamsData,
+} from "./db"
+import { MetaKey, seconds } from "./utils"
 
-const ONE_DAY = seconds("1 day")
-const THREE_HOURS = seconds("3 hours")
-
-type Team = {
+export type Team = {
   name: string | null
   url: string | null
 }
@@ -137,22 +140,24 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   )
 }
 
-export const TEAMS_CACHE_KEY = "liquipedia-teams"
-
-export const parseTeamsPage = (html: string): string[] => {
+export const parseTeamsPage = (html: string): Team[] => {
   const root = parse(html)
 
   const notableTeamsContainer$ = root.querySelector(
     "h2:has(#Notable_Active_Teams) + div",
   )!
   const notableTeams$ = notableTeamsContainer$.querySelectorAll(".team-template-text")
+  const data: Team[] = notableTeams$?.map((el$) => {
+    return {
+      name: el$.textContent.trim(),
+      url: `https://liquipedia.net${el$.querySelector("a")!.attrs["href"]}`,
+    }
+  })
 
-  return compact(notableTeams$?.map((el$) => el$.textContent.trim())).sort((a, b) =>
-    a.localeCompare(b),
-  )
+  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
 
-const fetchAndCacheTeams = async (env: Env, country: string): Promise<string[]> => {
+const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
   const page = await liquipediaQueue.add(() =>
@@ -177,52 +182,53 @@ const fetchAndCacheTeams = async (env: Env, country: string): Promise<string[]> 
   const teams = parseTeamsPage(page.parse.text["*"])
   if (teams.length === 0) return []
 
-  await env.CACHE.put(TEAMS_CACHE_KEY, JSON.stringify(teams), {
-    expirationTtl: ONE_DAY * 30,
-    metadata: {
-      softExpires: nowSeconds() + THREE_HOURS,
-    } as SoftExpire,
+  await upsertTeamsData(db, teams)
+  await env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString(), {
+    expirationTtl: seconds("30d"),
   })
 
   return teams
 }
 
-export type SoftExpire = { softExpires: number }
+export const getTeams =
+  (env: Env, db: Db) =>
+  async (country: string): Promise<string[]> => {
+    const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
+    console.log(`Teams were last fetched at ${lastFetched}`)
+    if (lastFetched !== -1) {
+      if (lastFetched > Date.now() + ms("3h")) {
+        console.log(`Teams are stale, refreshing...`)
+        void fetchAndCacheTeams(env, db, country)
+      }
 
-export const getTeams = async (env: Env, country: string): Promise<string[]> => {
-  const cached = await env.CACHE.getWithMetadata<SoftExpire>(TEAMS_CACHE_KEY)
-  if (cached?.value != null) {
-    if (Math.round(Date.now() / 1000) > (cached.metadata?.softExpires ?? 0)) {
-      void fetchAndCacheTeams(env, country)
+      console.log(`Retrieving teams from DB...`)
+      const teams = await getTeamsFromDb(db)
+      return teams.map(({ name }) => name!)
     }
 
-    return JSON.parse(cached.value)
+    console.log(`Fetching teams from Liquipedia...`)
+    const teams = await fetchAndCacheTeams(env, db, country)
+    return teams.map(({ name }) => name!)
   }
-
-  return await fetchAndCacheTeams(env, country)
-}
-
-export const MATCHES_CACHE_KEY = "liquipedia-matches"
 
 const getMatches =
   (env: Env, db: Db) =>
   async (country: string): Promise<Match[]> => {
     console.log(`Getting match data...`)
 
-    if ((await env.META.get("MATCHES_CACHED")) === "true") {
+    if ((await env.META.get(MetaKey.MATCHES_FRESH)) === "true") {
       return getMatchDataFromDb(db)
     }
 
     const matches = await fetchMatches(country)
 
     await upsertMatchData(db, matches)
-    await env.META.put("MATCHES_CACHED", "true", { expirationTtl: seconds("60s") })
+    await env.META.put(MetaKey.MATCHES_FRESH, "true", { expirationTtl: seconds("60s") })
 
     return matches
   }
 
-export const Dota = { getTeams, getMatches }
-
 export const createDotaClient = (env: Env, db: Db) => ({
   getMatches: getMatches(env, db),
+  getTeams: getTeams(env, db),
 })
