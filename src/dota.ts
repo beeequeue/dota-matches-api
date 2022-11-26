@@ -1,9 +1,9 @@
 import { mande, MandeError } from "mande"
 import ms from "ms"
+import { nanoid } from "nanoid/non-secure"
 import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
 
-import { arr2hex, sha1 } from "./crypto"
 import {
   Db,
   getMatchDataFromDb,
@@ -72,20 +72,10 @@ const extractTeam = (team$: HTMLElement): Team => {
   }
 }
 
-const withHash = async (match: Omit<Match, "hash">): Promise<Match> => {
-  const hash = await sha1(
-    new TextEncoder().encode(
-      (match.startsAt?.toString() ?? "") +
-        (match.teams[0]?.name ?? "") +
-        (match.teams[1]?.name ?? ""),
-    ),
-  )
-
-  return {
-    hash: arr2hex(hash),
-    ...match,
-  }
-}
+const withHash = (match: Omit<Match, "hash">): Match => ({
+  hash: nanoid(40),
+  ...match,
+})
 
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
@@ -114,33 +104,31 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
   if ($matches.length === 0) return []
 
-  return await Promise.all(
-    $matches.map(async ($match) => {
-      const teamLeft$ = $match.querySelector(".team-left")!
-      const teamRight$ = $match.querySelector(".team-right")!
-      const versus$ = $match.querySelector(".versus")!
-      const meta$ = $match.querySelector(".timer-object")!
-      const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
+  return $matches.map(($match) => {
+    const teamLeft$ = $match.querySelector(".team-left")!
+    const teamRight$ = $match.querySelector(".team-right")!
+    const versus$ = $match.querySelector(".versus")!
+    const meta$ = $match.querySelector(".timer-object")!
+    const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
 
-      const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
-      const matchType = versus$.querySelector("abbr")?.textContent
-      const startTime = meta$.attrs["data-timestamp"]
-      const streamName = meta$.attrs["data-stream-twitch"]
-      const leagueName = leagueLink$.attrs["title"]
-      const leagueUrl = leagueLink$.attrs["href"]
+    const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
+    const matchType = versus$.querySelector("abbr")?.textContent
+    const startTime = meta$.attrs["data-timestamp"]
+    const streamName = meta$.attrs["data-stream-twitch"]
+    const leagueName = leagueLink$.attrs["title"]
+    const leagueUrl = leagueLink$.attrs["href"]
 
-      return await withHash({
-        teams,
-        matchType: matchType ?? null,
-        startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
-        leagueName,
-        leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
-        streamUrl: streamName
-          ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
-          : null,
-      })
-    }),
-  )
+    return withHash({
+      teams,
+      matchType: matchType ?? null,
+      startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
+      leagueName,
+      leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
+      streamUrl: streamName
+        ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
+        : null,
+    })
+  })
 }
 
 export const parseTeamsPage = (html: string): Team[] => {

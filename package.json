@@ -31,7 +31,6 @@
   "devDependencies": {
     "@beequeue/eslint-plugin": "1.1.0",
     "@cloudflare/workers-types": "4.20221111.1",
-    "@peculiar/webcrypto": "1.4.1",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.11.9",
     "@vitest/coverage-c8": "0.25.2",
@@ -53,6 +52,7 @@
     "miniflare": "2.11.0",
     "ms": "3.0.0-canary.1",
     "msgpackr": "1.8.0",
+    "nanoid": "4.0.0",
     "node-html-parser": "6.1.4",
     "p-queue": "7.3.0",
     "prettier": "2.8.0",
