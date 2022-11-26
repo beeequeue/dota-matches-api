@@ -5,7 +5,9 @@ usage_model = "bundled"
 
 triggers = { crons = ["0 9 * * *"] }
 
-r2_buckets = [{ binding = "WEBHOOKS", bucket_name = "dota-matches-webhooks" }]
+[[r2_buckets]]
+binding = "WEBHOOKS"
+bucket_name = "dota-matches-webhooks"
 
 [[kv_namespaces]]
 binding = "CACHE"
@@ -15,7 +17,7 @@ binding = "META"
 id = "d36a2a6f8e86435aaf85c18801d813c7"
 
 [[d1_databases]]
-binding = "__D1_BETA__MATCHES" # i.e. available in your Worker on env.DB
+binding = "__D1_BETA__MATCHES"
 database_name = "dota-matches"
 database_id = "db7df0f4-2468-4396-80b8-06a97c52f32a"
 

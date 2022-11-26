@@ -4,6 +4,7 @@
     // Output
     "noEmit": true,
     "sourceMap": true,
+    "module": "esnext",
 
     // Modules
     "isolatedModules": true,
@@ -23,7 +24,7 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "types": ["@cloudflare/workers-types/2022-08-04"],
+    "types": ["@cloudflare/workers-types/2022-08-04", "vite/client"],
     "lib": ["es2022", "esnext"]
   },
 

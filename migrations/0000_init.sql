@@ -1,16 +1,12 @@
--- Migration number: 0000 	 2022-11-19T16:52:25.099Z
-
 CREATE TABLE match
 (
-  id         TEXT NOT NULL,
+  id         TEXT PRIMARY KEY,
   matchType  TEXT,
   teamOneId  TEXT,
   teamTwoId  TEXT,
   leagueName TEXT,
   streamUrl  TEXT,
-  startsAt   TEXT,
-
-  PRIMARY KEY (id)
+  startsAt   TEXT
 );
 
 CREATE INDEX match_teamOneId_idx ON match (teamOneId);
@@ -20,20 +16,15 @@ CREATE INDEX match_everything_idx ON match (teamOneId, teamTwoId, startsAt);
 
 CREATE TABLE league
 (
-  name TEXT NOT NULL,
-  url  TEXT,
-
-  PRIMARY KEY (name)
+  name TEXT PRIMARY KEY,
+  url  TEXT
 );
 
 CREATE TABLE team
 (
-  id   TEXT NOT NULL,
+  id   TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  url  TEXT,
-
-  PRIMARY KEY (id)
+  url  TEXT
 );
 
 CREATE INDEX team_name_idx ON league (name);
-

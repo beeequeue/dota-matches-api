@@ -1,18 +1,27 @@
 import { setTimeout } from "timers/promises"
 
 import ms from "ms"
-import { MockAgent, setGlobalDispatcher } from "undici"
-import { beforeEach, describe, expect, it, vi } from "vitest"
+import { beforeEach, expect, it, vi } from "vitest"
 
-import {
-  getTeams,
-  LiquipediaBody,
-  parseTeamsPage,
-  SoftExpire,
-  TEAMS_CACHE_KEY,
-} from "./dota"
+import migrationSql from "../migrations/0000_init.sql?raw"
+
+import { createDb, Db } from "./db"
+import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
 import teamsFixture from "./fixtures/teams.html?raw"
-import { nowSeconds, seconds } from "./utils"
+import { MetaKey } from "./utils"
+
+const describe = setupMiniflareIsolatedStorage()
+const agent = getMiniflareFetchMock()
+
+const initDb = async (env: Env) => {
+  await env.__D1_BETA__MATCHES.batch(
+    migrationSql
+      .replace(/\n\s*/g, " ")
+      .replace(/ {2,}/g, " ")
+      .split(" CREATE ")
+      .map((s, i) => env.__D1_BETA__MATCHES.prepare(`${i !== 0 ? "CREATE " : ""}${s}`)),
+  )
+}
 
 describe("parseTeamsPage", () => {
   it("correctly parses the body", () => {
@@ -24,15 +33,20 @@ describe("parseTeamsPage", () => {
 })
 
 describe("getTeams", () => {
-  let agent = new MockAgent()
+  let env: Env
+  let db: Db
 
-  beforeEach(() => {
-    vi.restoreAllMocks()
+  beforeEach(async () => {
+    vi.resetAllMocks()
+
     vi.setSystemTime(new Date("2020-01-01"))
 
-    agent = new MockAgent()
     agent.disableNetConnect()
-    setGlobalDispatcher(agent)
+    agent.assertNoPendingInterceptors()
+
+    env = getMiniflareBindings()
+    db = createDb(env)
+    await initDb(env)
   })
 
   const body: LiquipediaBody = {
@@ -57,61 +71,56 @@ describe("getTeams", () => {
   }
 
   it("fetches teams from api if not cached", async () => {
-    const env = (await miniflare.getBindings()) as Env
     const apiHandler = mockApiRequest()
 
-    const result = await getTeams(env, "test")
+    const result = await getTeams(env, db)("test")
 
     // New values
     expect(result).toContain("OG")
     expect(result).toContain("Team Liquid")
 
     expect(apiHandler).toHaveBeenCalledOnce()
-    await expect(env.CACHE.get(TEAMS_CACHE_KEY)).resolves.toContain("OG")
+
+    const data = await db.selectFrom("team").selectAll().execute()
+    expect(data[0]).toStrictEqual({
+      id: "5ManMidas",
+      name: "5ManMidas",
+      url: "https://liquipedia.net/dota2/5ManMidas",
+    })
   })
 
   it("fetches teams from cache if cached", async () => {
-    const env = (await miniflare.getBindings()) as Env
-    const apiHandler = mockApiRequest()
+    await db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
+    await env.META.put(MetaKey.TEAMS_LAST_FETCHED, (Date.now() - ms("10m")).toString())
 
-    await env.CACHE.put(TEAMS_CACHE_KEY, '["OG"]', {
-      expirationTtl: seconds("1 day"),
-      metadata: {
-        softExpires: nowSeconds() + seconds("3 hours"),
-      } as SoftExpire,
-    })
-
-    const result = await getTeams(env, "test")
+    const result = await getTeams(env, db)("test")
 
     // Cached values
     expect(result).toContain("OG")
     expect(result).not.toContain("Team Liquid")
-
-    expect(apiHandler).not.toHaveBeenCalledOnce()
   })
 
   it("fetches teams from cache and updates it if soft expired", async () => {
-    const env = (await miniflare.getBindings()) as Env
     const apiHandler = mockApiRequest()
 
-    await env.CACHE.put(TEAMS_CACHE_KEY, '["OG"]', {
-      expirationTtl: seconds("1 day"),
-      metadata: {
-        softExpires: nowSeconds() + seconds("3 hours"),
-      } as SoftExpire,
-    })
+    await db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
+    const l = (Date.now() - ms("6d")).toString()
+    await env.META.put(MetaKey.TEAMS_LAST_FETCHED, l)
 
-    vi.setSystemTime(Date.now() + ms("5 hours"))
-
-    const result = await getTeams(env, "test")
+    const result = await getTeams(env, db)("test")
 
     // Cached values
     expect(result).toContain("OG")
     expect(result).not.toContain("Team Liquid")
 
+    await setTimeout(100)
     // Still fetched new ones
     expect(apiHandler).toHaveBeenCalledOnce()
-    await setTimeout(250)
-    await expect(env.CACHE.get(TEAMS_CACHE_KEY)).resolves.toContain("Team Liquid")
+    const data = await db.selectFrom("team").selectAll().orderBy("name").execute()
+    expect(data[0]).toStrictEqual({
+      id: "5ManMidas",
+      name: "5ManMidas",
+      url: "https://liquipedia.net/dota2/5ManMidas",
+    })
   })
 })

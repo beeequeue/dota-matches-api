@@ -7,9 +7,10 @@ config()
 const gitSha = execSync("git rev-parse --short HEAD").toString().trim()
 
 export default defineConfig({
-  entryPoints: ["src/index.ts"],
+  entry: ["src/index.ts"],
 
   define: {
+    "import.meta.env.MODE": "production",
     GIT_SHA: JSON.stringify(gitSha),
   },
 

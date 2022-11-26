@@ -28,7 +28,10 @@ export type Match = {
   streamUrl: string | null
 }
 
-const liquipediaQueue = new PQueue({ intervalCap: 1, interval: 30_000 })
+const liquipediaQueue = new PQueue({
+  intervalCap: 1,
+  interval: import.meta.env.MODE !== "test" ? 30_000 : 0,
+})
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
   query: {
@@ -174,9 +177,10 @@ const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Te
       .catch((error: MandeError) => error),
   )
 
+  console.log("Fetched teams!")
   if (page instanceof Error) {
     // eslint-disable-next-line unicorn/prefer-type-error
-    throw new Error("Failed to fetch match data", { cause: page })
+    throw new Error("Failed to fetch team data", { cause: page })
   }
 
   const teams = parseTeamsPage(page.parse.text["*"])
@@ -196,7 +200,7 @@ export const getTeams =
     const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
     console.log(`Teams were last fetched at ${lastFetched}`)
     if (lastFetched !== -1) {
-      if (lastFetched > Date.now() + ms("3h")) {
+      if (Date.now() > lastFetched + ms("12h")) {
         console.log(`Teams are stale, refreshing...`)
         void fetchAndCacheTeams(env, db, country)
       }
