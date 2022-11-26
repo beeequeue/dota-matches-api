@@ -25,10 +25,17 @@ export type TeamTable = {
   url: string | null
 }
 
+export type SubscriptionTable = {
+  guildId: string
+  channel: string
+  teamName: string
+}
+
 type Database = {
   match: MatchTable
   league: LeagueTable
   team: TeamTable
+  subscription: SubscriptionTable
 }
 
 export type Db = Kysely<Database>

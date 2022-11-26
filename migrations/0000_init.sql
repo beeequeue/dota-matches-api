@@ -28,3 +28,13 @@ CREATE TABLE team
 );
 
 CREATE INDEX team_name_idx ON league (name);
+
+CREATE TABLE subscription
+(
+  guildId  TEXT NOT NULL,
+  channel  TEXT NOT NULL,
+  teamName TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX subscription_unique_idx ON subscription (guildId, channel, teamName);
+CREATE INDEX subscription_channel_idx ON subscription (guildId, channel);

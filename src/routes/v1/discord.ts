@@ -82,21 +82,21 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
     switch (data.name) {
       case "follow": {
         return handleFollowCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "unfollow": {
         return handleUnfollowCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "follows": {
         return handleListCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }

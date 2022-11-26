@@ -3,25 +3,14 @@ import { setTimeout } from "timers/promises"
 import ms from "ms"
 import { beforeEach, expect, it, vi } from "vitest"
 
-import migrationSql from "../migrations/0000_init.sql?raw"
-
 import { createDb, Db } from "./db"
 import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
 import teamsFixture from "./fixtures/teams.html?raw"
+import { initDb } from "./test-utils"
 import { MetaKey } from "./utils"
 
 const describe = setupMiniflareIsolatedStorage()
 const agent = getMiniflareFetchMock()
-
-const initDb = async (env: Env) => {
-  await env.__D1_BETA__MATCHES.batch(
-    migrationSql
-      .replace(/\n\s*/g, " ")
-      .replace(/ {2,}/g, " ")
-      .split(" CREATE ")
-      .map((s, i) => env.__D1_BETA__MATCHES.prepare(`${i !== 0 ? "CREATE " : ""}${s}`)),
-  )
-}
 
 describe("parseTeamsPage", () => {
   it("correctly parses the body", () => {

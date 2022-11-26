@@ -10,7 +10,7 @@ export default defineConfig({
   entry: ["src/index.ts"],
 
   define: {
-    "import.meta.env.MODE": "production",
+    "import.meta.env.MODE": JSON.stringify("production"),
     GIT_SHA: JSON.stringify(gitSha),
   },
 
