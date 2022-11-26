@@ -227,7 +227,7 @@ const getMatches =
     const matches = await fetchMatches(country)
 
     await upsertMatchData(db, matches)
-    await env.META.put(MetaKey.MATCHES_FRESH, "true", { expirationTtl: seconds("60s") })
+    await env.META.put(MetaKey.MATCHES_FRESH, "true", { expirationTtl: seconds("3h") })
 
     return matches
   }
