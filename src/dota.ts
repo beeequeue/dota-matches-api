@@ -203,22 +203,25 @@ export const getTeams =
     return teams.map(({ name }) => name!)
   }
 
-const getMatches =
-  (env: Env, db: Db) =>
-  async (country: string): Promise<Match[]> => {
-    console.log(`Getting match data...`)
+const getMatches = (env: Env, db: Db) => async (country: string) => {
+  console.log(`Getting match data...`)
 
-    if ((await env.META.get(MetaKey.MATCHES_FRESH)) === "true") {
-      return getMatchDataFromDb(db)
-    }
-
-    const matches = await fetchMatches(country)
-
-    await upsertMatchData(db, matches)
-    await env.META.put(MetaKey.MATCHES_FRESH, "true", { expirationTtl: seconds("3h") })
-
-    return matches
+  let lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED)) ?? -1)
+  if (lastFetched !== -1) {
+    return { lastFetched: Number(lastFetched), matches: await getMatchDataFromDb(db) }
   }
+
+  const matches = await fetchMatches(country)
+
+  await upsertMatchData(db, matches)
+
+  lastFetched = Date.now()
+  await env.META.put(MetaKey.MATCHES_LAST_FETCHED, lastFetched.toString(), {
+    expirationTtl: seconds("60s"),
+  })
+
+  return { lastFetched, matches }
+}
 
 export const createDotaClient = (env: Env, db: Db) => ({
   getMatches: getMatches(env, db),
