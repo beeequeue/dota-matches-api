@@ -26,9 +26,16 @@ discordRouter.get("/", (_, env: Env) =>
   temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
 )
 
-discordRouter.get("/autocomplete/teams", (request, env: Env) => {
-  return handleAutocompleteCommand(env, createDb(env), "main", request.query?.query ?? "")
-})
+if (import.meta.env.MODE !== "production") {
+  discordRouter.get("/autocomplete/teams", (request, env: Env) => {
+    return handleAutocompleteCommand(
+      env,
+      createDb(env),
+      "main",
+      request.query?.query ?? "",
+    )
+  })
+}
 
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
