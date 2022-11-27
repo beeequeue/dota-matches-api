@@ -47,11 +47,12 @@ type ResponseBody = Match[]
 
 ```mermaid
 flowchart TD
-  api([API Clients])
+  clients([API Clients])
   browser([Browser])
   worker(Worker):::cf
   discord([Discord]):::discord
   d1[("D1 (SQLite)")]:::cf
+  cache("Cache"):::cf
 
   classDef cf stroke:#FFC500,stroke-width:2px
   classDef discord stroke:#5865F2
@@ -59,11 +60,15 @@ flowchart TD
   subgraph Cloudflare
     worker
     d1
+    cache
   end
 
-  d1 <--> worker
-  worker <--> api
-  worker <--> discord
-  worker <--> browser
-  discord <--> browser
+  d1 <-- all data* --> worker
+  cache <-- /matches requests --> worker
+  worker <-- /matches --> clients
+  worker <-- validate oauth, commands --> discord
+  %% worker <--> browser
+  discord <-- init oauth --> browser
 ```
+
+\*Matches,
