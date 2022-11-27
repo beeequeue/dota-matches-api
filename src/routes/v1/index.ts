@@ -10,6 +10,7 @@ import {
   getBrowserCacheTtl,
   getCountry,
   getTtl,
+  json,
   MetaKey,
 } from "../../utils"
 
@@ -24,7 +25,7 @@ v1Router.get("/matches", async (request: Request, env: Env, ctx: ExecutionContex
   if (cached != null) {
     const lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
-    return new Response(cached.body, {
+    return json(await cached.json(), {
       ...cached,
       headers: {
         ...cached.headers,
