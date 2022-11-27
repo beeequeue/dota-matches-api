@@ -39,8 +39,8 @@ export const getCountry = (request: Request) => {
   return "UNKNOWN"
 }
 
-export const EDGE_CACHE_TIMEOUT = 90
-const BROWSER_CACHE_TIMEOUT = 60
+export const EDGE_CACHE_TIMEOUT = 10_800 // seconds("3h")
+const BROWSER_CACHE_TIMEOUT = 3600 // seconds("1h")
 
 export const getTtl = (lastFetchedAt: number, ttl: number) => {
   const now = nowSeconds()
