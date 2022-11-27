@@ -13,7 +13,7 @@ describe("getTtl", () => {
     const fetchedAt = addSeconds(new Date(), -10).getTime()
 
     // Should expire 10 seconds after `fetchedAt`
-    expect(getTtl(fetchedAt, "10s")).toBe(0)
+    expect(getTtl(fetchedAt, 10)).toBe(0)
   })
 
   it("should return 30", () => {
@@ -21,7 +21,7 @@ describe("getTtl", () => {
     const fetchedAt = Date.now()
 
     // Should expire 30 seconds after `fetchedAt`
-    expect(getTtl(fetchedAt, "30s")).toBe(30)
+    expect(getTtl(fetchedAt, 30)).toBe(30)
   })
 
   it("should return 0 because it expired", () => {
@@ -29,6 +29,6 @@ describe("getTtl", () => {
     const fetchedAt = addSeconds(new Date(), -20).getTime()
 
     // Should expire 10 seconds after `fetchedAt`
-    expect(getTtl(fetchedAt, "10s")).toBe(0)
+    expect(getTtl(fetchedAt, 10)).toBe(0)
   })
 })
