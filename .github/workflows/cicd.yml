@@ -134,7 +134,7 @@ jobs:
 
     environment:
       name: live
-      url: https://dota-matches-api.beequeue.workers.dev/v1/matches
+      url: https://dota.haglund.dev/v1/matches
     concurrency:
       group: live
 

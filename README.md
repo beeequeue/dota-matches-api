@@ -10,7 +10,7 @@ by amazing people.
 
 ## API
 
-**Base URL:** `https://dota-matches-api.beequeue.workers.dev`
+**Base URL:** `https://dota.haglund.dev`
 
 ```ts
 type Team = {
