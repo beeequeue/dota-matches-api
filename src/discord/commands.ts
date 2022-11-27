@@ -102,12 +102,12 @@ export const handleListCommand = async (
     .where("channel", "=", body.channel_id)
     .execute()
 
-  if (subscriptions == null) {
+  if (subscriptions.length === 0) {
     const response: APIInteractionResponse = {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
-        content: `This channel is not following any teams. Follow some with '/follow <team>'!`,
+        content: `This channel is not following any teams. Follow some with \`/follow <team>\`!`,
       },
     }
 
