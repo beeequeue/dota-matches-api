@@ -206,7 +206,7 @@ export const getTeams =
 const getMatches = (env: Env, db: Db) => async (country: string) => {
   console.log(`Getting match data...`)
 
-  let lastFetched = Number((await env.META.get(MetaKey.MATCHES_FRESH)) ?? -1)
+  let lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED)) ?? -1)
   if (lastFetched !== -1) {
     return { lastFetched: Number(lastFetched), matches: await getMatchDataFromDb(db) }
   }
@@ -216,7 +216,7 @@ const getMatches = (env: Env, db: Db) => async (country: string) => {
   await upsertMatchData(db, matches)
 
   lastFetched = Date.now()
-  await env.META.put(MetaKey.MATCHES_FRESH, lastFetched.toString(), {
+  await env.META.put(MetaKey.MATCHES_LAST_FETCHED, lastFetched.toString(), {
     expirationTtl: seconds("60s"),
   })
 

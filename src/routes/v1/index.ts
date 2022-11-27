@@ -22,7 +22,7 @@ v1Router.all("/discord/*", discordRouter.handle)
 v1Router.get("/matches", async (request: Request, env: Env, ctx: ExecutionContext) => {
   const cached = await caches.default.match(request)
   if (cached != null) {
-    const lastFetched = Number((await env.META.get(MetaKey.MATCHES_FRESH))!)
+    const lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
     return new Response(cached.body, {
       ...cached,

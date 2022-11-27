@@ -3,7 +3,7 @@ import ms, { StringValue } from "ms"
 import { ok, RequestInitExStatus } from "@worker-tools/response-creators"
 
 export enum MetaKey {
-  MATCHES_FRESH = "MATCHES_FRESH",
+  MATCHES_LAST_FETCHED = "MATCHES_LAST_FETCHED",
   TEAMS_LAST_FETCHED = "TEAMS_LAST_FETCHED",
 }
 
