@@ -9,7 +9,6 @@ export default defineConfig({
       API_BASE: process.env.API_BASE!,
     },
     include: ["e2e/**/*.test.ts"],
-    setupFiles: "vitest.setup.ts",
     reporters: "verbose",
   },
 })

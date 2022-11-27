@@ -28,5 +28,10 @@
     "lib": ["es2022", "esnext"]
   },
 
-  "include": ["src/**/*.ts", "./worker-configuration.d.ts", "./vitest.setup.ts"]
+  "include": [
+    "src/**/*.ts",
+    "e2e/**/*.ts",
+    "./worker-configuration.d.ts",
+    "./vitest.setup.ts"
+  ]
 }

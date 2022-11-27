@@ -1,7 +1,8 @@
-import { expect, test } from "vitest"
 import { mande } from "mande"
-import type { Match } from "../src/dota"
 import { keys } from "remeda"
+import { expect, test } from "vitest"
+
+import type { Match } from "../src/dota"
 
 test("no field is missing from all matches", async () => {
   const matches = await mande(process.env.API_BASE!).get<Match[]>("/v1/matches", {
