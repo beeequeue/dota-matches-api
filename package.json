@@ -51,7 +51,6 @@
     "mande": "2.0.3",
     "miniflare": "2.11.0",
     "ms": "3.0.0-canary.1",
-    "msgpackr": "1.8.0",
     "nanoid": "4.0.0",
     "node-html-parser": "6.1.4",
     "p-queue": "7.3.0",

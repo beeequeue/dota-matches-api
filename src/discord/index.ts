@@ -9,7 +9,6 @@ import {
   RESTPostAPIChannelThreadsJSONBody,
   RESTPostAPIChannelThreadsResult,
   RESTPostOAuth2AccessTokenURLEncodedData,
-  RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult,
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
@@ -17,11 +16,8 @@ import { mande, MandeError } from "mande"
 
 import { badRequest, ok } from "@worker-tools/response-creators"
 
-import { encode } from "../msgpack"
-
 const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as const
 export const BOT_PERMISSIONS = "309237647360"
-const TOKEN_CACHE_KEY = "discord-token"
 
 const baseUrl = "https://discord.com/api/v10"
 const userAgent = `dota-matches-api (https://github.com/beeequeue/dota-matches-api, ${GIT_SHA})`
@@ -31,13 +27,6 @@ const discordClient = mande(baseUrl, {
     "User-Agent": userAgent,
   },
 })
-
-export type Guild = {
-  id: string
-  vanityUrlCode?: unknown
-  /** New teams are added _first_ in the array, to make deduping easier later */
-  subscriptions: Record<string, string[]> // channelId: teamName[]
-}
 
 type RegisterGuildOptions = {
   code: string
@@ -72,26 +61,12 @@ const registerGuild =
       throw response
     }
 
-    const body: RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult =
-      await response.json()
-    const { access_token, expires_in, guild } = body
-
     if (permissions !== BOT_PERMISSIONS) {
       console.log(`Got invalid permissions: ${permissions}`)
       await leaveGuild(env, guildId)
 
       return badRequest("All the required permissions were not given.")
     }
-
-    const guildRegistration: Guild = {
-      id: guild.id,
-      subscriptions: {},
-      vanityUrlCode: guild.vanity_url_code ?? null,
-    }
-    await env.WEBHOOKS.put(guildId, encode(guildRegistration))
-    await env.CACHE.put(TOKEN_CACHE_KEY, access_token, {
-      expirationTtl: expires_in,
-    })
 
     return ok()
   }
