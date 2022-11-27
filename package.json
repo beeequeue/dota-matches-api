@@ -26,8 +26,7 @@
     "prepare": "simple-git-hooks"
   },
   "resolutions": {
-    "npx-import": "1.1.4",
-    "undici": "5.13.0"
+    "npx-import": "1.1.4"
   },
   "devDependencies": {
     "@beequeue/eslint-plugin": "1.1.0",
