@@ -3,7 +3,7 @@ import { APIEmbedField } from "discord-api-types/payloads/v10/channel"
 import { APIEmbed } from "discord-api-types/v10"
 import { beforeAll, beforeEach, expect, it, Mock, vi } from "vitest"
 
-import { createDb, Db, MatchTable } from "./db"
+import { MatchTable } from "./db"
 import * as Discord from "./discord/index"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify"
@@ -13,7 +13,6 @@ vi.mock("./discord/index")
 const mockedDiscord = vi.mocked(Discord)
 
 const describe = setupMiniflareIsolatedStorage()
-const agent = getMiniflareFetchMock()
 
 const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   if (field == null) return null
@@ -24,17 +23,10 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   return new Date(Number(value) * 1000)
 }
 
-let env: Env
-let db: Db
-
-beforeEach(async () => {
+beforeEach(async (ctx) => {
   vi.setSystemTime(new Date("2020-01-01"))
 
-  agent.disableNetConnect()
-
-  env = getMiniflareBindings()
-  db = createDb(env)
-  await initDb(env)
+  await initDb(ctx)
 })
 
 describe("formatMatchToEmbedField", () => {
@@ -65,7 +57,7 @@ describe("notifier", () => {
     } as Partial<ReturnType<typeof Discord["createDiscordClient"]>> as ReturnType<typeof Discord["createDiscordClient"]>)
   })
 
-  it.only("sends messages to channels", async () => {
+  it("sends messages to channels", async (ctx) => {
     const now = new Date()
     const matches: MatchTable[] = [
       {
@@ -105,14 +97,14 @@ describe("notifier", () => {
         streamUrl: null,
       },
     ]
-    await db.insertInto("match").values(matches).execute()
+    await ctx.db.insertInto("match").values(matches).execute()
 
-    await db
+    await ctx.db
       .insertInto("subscription")
       .values([createSub("Team Liquid"), createSub("OG")])
       .execute()
 
-    await notifier({} as never, env, {} as never)
+    await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
     // eslint-disable-next-line prefer-destructuring
@@ -127,7 +119,7 @@ describe("notifier", () => {
     expect(embed).toMatchSnapshot()
   })
 
-  it.only("orders matches correctly", async () => {
+  it.only("orders matches correctly", async (ctx) => {
     const now = new Date()
     const matches: MatchTable[] = [
       {
@@ -158,14 +150,14 @@ describe("notifier", () => {
         streamUrl: null,
       },
     ]
-    await db.insertInto("match").values(matches).execute()
+    await ctx.db.insertInto("match").values(matches).execute()
 
-    await db
+    await ctx.db
       .insertInto("subscription")
       .values([createSub("Team Liquid"), createSub("OG")])
       .execute()
 
-    await notifier({} as never, env, {} as never)
+    await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
     // eslint-disable-next-line prefer-destructuring

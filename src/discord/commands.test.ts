@@ -8,7 +8,6 @@ import {
 } from "discord-api-types/v10"
 import { beforeEach, expect, it, vi } from "vitest"
 
-import { createDb, Db } from "../db"
 import { CHANNEL_ID, createSub, createTeam, GUILD_ID, initDb } from "../test-utils"
 import { MetaKey } from "../utils"
 
@@ -20,7 +19,6 @@ import {
 } from "./commands"
 
 const describe = setupMiniflareIsolatedStorage()
-const agent = getMiniflareFetchMock()
 
 const createCommandInput = (
   name: Command,
@@ -45,24 +43,16 @@ const createCommandInput = (
   guild_locale: "en-US",
 })
 
-let env: Env
-let db: Db
-
-beforeEach(async () => {
+beforeEach(async (ctx) => {
   vi.resetAllMocks()
 
-  agent.disableNetConnect()
-  agent.assertNoPendingInterceptors()
-
-  env = getMiniflareBindings()
-  db = createDb(env)
-  await initDb(env)
+  await initDb(ctx)
 })
 
 describe("/follow", () => {
-  it("saves a subscription", async () => {
+  it("saves a subscription", async (ctx) => {
     const result = await handleFollowCommand(
-      db,
+      ctx.db,
       createCommandInput(Command.Follow, [
         {
           type: ApplicationCommandOptionType.String,
@@ -86,7 +76,7 @@ describe("/follow", () => {
       },
     })
 
-    const updatedGuild = await db
+    const updatedGuild = await ctx.db
       .selectFrom("subscription")
       .selectAll()
       .where("guildId", "=", GUILD_ID)
@@ -97,14 +87,14 @@ describe("/follow", () => {
 })
 
 describe("/unfollow", () => {
-  it("removes a subscription", async () => {
-    await db
+  it("removes a subscription", async (ctx) => {
+    await ctx.db
       .insertInto("subscription")
       .values([createSub("TSM"), createSub("Team Liquid")])
       .execute()
 
     const result = await handleUnfollowCommand(
-      db,
+      ctx.db,
       createCommandInput(Command.Follow, [
         {
           type: ApplicationCommandOptionType.String,
@@ -124,7 +114,7 @@ describe("/unfollow", () => {
       },
     })
 
-    const subs = await db
+    const subs = await ctx.db
       .selectFrom("subscription")
       .selectAll()
       .where("guildId", "=", GUILD_ID)
@@ -135,8 +125,8 @@ describe("/unfollow", () => {
 })
 
 describe("autocomplete", () => {
-  it("returns autocompletion entries", async () => {
-    await db
+  it("returns autocompletion entries", async (ctx) => {
+    await ctx.db
       .insertInto("team")
       .values([
         createTeam("Evil Geniuses"),
@@ -144,9 +134,9 @@ describe("autocomplete", () => {
         createTeam("Team Liquid"),
       ])
       .execute()
-    await env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString())
+    await ctx.env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString())
 
-    const result = await handleAutocompleteCommand(env, db, "test", "tema l")
+    const result = await handleAutocompleteCommand(ctx.env, ctx.db, "test", "tema l")
 
     expect(result).toMatchObject({ status: 200 })
     await expect(result.json()).resolves.toStrictEqual({
