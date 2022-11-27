@@ -21,9 +21,5 @@
       packagePatterns: ["lint", "!lint-staged"],
       groupName: "Linting",
     },
-    {
-      matchPackageNames: ["undici"],
-      allowedVersions: "5.11.0",
-    },
   ],
 }
