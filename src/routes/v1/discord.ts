@@ -10,6 +10,7 @@ import { IHTTPMethods, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
+import { createDb } from "../../db"
 import { createDiscordClient } from "../../discord"
 import {
   handleAutocompleteCommand,
@@ -24,6 +25,17 @@ export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord"
 discordRouter.get("/", (_, env: Env) =>
   temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
 )
+
+if (import.meta.env.MODE !== "production") {
+  discordRouter.get("/autocomplete/teams", (request, env: Env) => {
+    return handleAutocompleteCommand(
+      env,
+      createDb(env),
+      "main",
+      request.query?.query ?? "",
+    )
+  })
+}
 
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
@@ -44,6 +56,8 @@ discordRouter.get("/callback", async (request, env: Env) => {
 })
 
 discordRouter.post("/interactions", async (request: Request, env: Env) => {
+  const db = createDb(env)
+
   const body = await request.text()
   const signature = request.headers.get("x-signature-ed25519")
   const timestamp = request.headers.get("x-signature-timestamp")
@@ -68,28 +82,28 @@ discordRouter.post("/interactions", async (request: Request, env: Env) => {
 
     if (value == null) return badRequest()
 
-    return handleAutocompleteCommand(env, country, value)
+    return handleAutocompleteCommand(env, db, country, value)
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
       case "follow": {
         return handleFollowCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "unfollow": {
         return handleUnfollowCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "follows": {
         return handleListCommand(
-          env,
+          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }

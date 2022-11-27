@@ -12,11 +12,9 @@ import { isTruthy } from "remeda"
 
 import { badRequest } from "@worker-tools/response-creators"
 
-import { Dota } from "../dota"
-import { decode, encode } from "../msgpack"
+import { Db, SubscriptionTable } from "../db"
+import { createDotaClient } from "../dota"
 import { json } from "../utils"
-
-import { Guild } from "./index"
 
 export enum Command {
   Follow = "follow",
@@ -24,10 +22,19 @@ export enum Command {
   List = "follows",
 }
 
-// enum MessageComponentId {}
+const createCommandResponse = (
+  content: string,
+  ephemeral = true,
+): APIInteractionResponse => ({
+  type: InteractionResponseType.ChannelMessageWithSource,
+  data: {
+    flags: ephemeral ? MessageFlags.Ephemeral : undefined,
+    content,
+  },
+})
 
 export const handleFollowCommand = async (
-  env: Env,
+  db: Db,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const guildId = body.guild_id!
@@ -37,38 +44,22 @@ export const handleFollowCommand = async (
     )
     .filter(isTruthy)
 
-  const guildObject = await env.WEBHOOKS.get(guildId)
-  if (guildObject == null) {
-    return badRequest("Guild not registered.")
-  }
+  const data: SubscriptionTable[] = teamNames.map((teamName) => ({
+    guildId,
+    channel: body.channel_id,
+    teamName,
+  }))
+  await db
+    .insertInto("subscription")
+    .values(data)
+    .onConflict((oC) => oC.doNothing())
+    .execute()
 
-  const guild = await decode<Guild>(guildObject)
-  guild.subscriptions[body.channel_id] ??= []
-
-  for (const subscribedChannelId in guild.subscriptions) {
-    if (subscribedChannelId === body.channel_id) {
-      guild.subscriptions[body.channel_id] = [
-        // New teams are added _first_ in the array, to make deduping easier
-        ...new Set([...teamNames, ...guild.subscriptions[body.channel_id]]),
-      ]
-    }
-  }
-
-  await env.WEBHOOKS.put(guildId, encode(guild))
-
-  const response: APIInteractionResponse = {
-    type: InteractionResponseType.ChannelMessageWithSource,
-    data: {
-      flags: MessageFlags.Ephemeral,
-      content: `Okay, I will now notify you those teams' matches.`,
-    },
-  }
-
-  return json(response)
+  return json(createCommandResponse(`Okay, I will now notify you those teams' matches.`))
 }
 
 export const handleUnfollowCommand = async (
-  env: Env,
+  db: Db,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const guildId = body.guild_id!
@@ -81,76 +72,66 @@ export const handleUnfollowCommand = async (
     return badRequest("Got no team name.")
   }
 
-  const guildObject = await env.WEBHOOKS.get(guildId)
-  if (guildObject == null) {
+  const removed = await db
+    .deleteFrom("subscription")
+    .where("guildId", "=", guildId)
+    .where("channel", "=", body.channel_id)
+    .where("teamName", "=", teamOption.value)
+    .returning(["teamName"])
+    .execute()
+
+  if (removed.length === 0) {
     return badRequest("Guild not registered.")
   }
 
-  const guild = await decode<Guild>(guildObject)
-  if (
-    guild.subscriptions[body.channel_id] == null ||
-    !guild.subscriptions[body.channel_id].includes(teamOption.value)
-  ) {
-    return badRequest("Channel is not subscribed to that team.")
-  }
-
-  const index = guild.subscriptions[body.channel_id].indexOf(teamOption.value)
-  guild.subscriptions[body.channel_id].splice(index, 1)
-
-  await env.WEBHOOKS.put(guildId, encode(guild))
-
-  const response: APIInteractionResponse = {
-    type: InteractionResponseType.ChannelMessageWithSource,
-    data: {
-      flags: MessageFlags.Ephemeral,
-      content: `Okay, you will no longer receive notifications for that team.`,
-    },
-  }
-
-  return json(response)
+  return json(
+    createCommandResponse(
+      `Okay, you will no longer receive notifications for ${teamOption.value} anymore.`,
+    ),
+  )
 }
 
 export const handleListCommand = async (
-  env: Env,
+  db: Db,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
-  const guildObject = await env.WEBHOOKS.get(body.guild_id!)
-  if (guildObject == null) {
-    return badRequest("Guild not registered.")
-  }
+  const subscriptions = await db
+    .selectFrom("subscription")
+    .select(["teamName"])
+    .where("guildId", "=", body.guild_id!)
+    .where("channel", "=", body.channel_id)
+    .execute()
 
-  const guild = await decode<Guild>(guildObject)
-  if (guild.subscriptions[body.channel_id] == null) {
+  if (subscriptions.length === 0) {
     const response: APIInteractionResponse = {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
-        content: `This channel is not following any teams. Follow some with '/follow <team>'!`,
+        content: `This channel is not following any teams. Follow some with \`/follow <team>\`!`,
       },
     }
 
     return json(response)
   }
 
-  const response: APIInteractionResponse = {
-    type: InteractionResponseType.ChannelMessageWithSource,
-    data: {
-      content: `This channel is following:
+  return json(
+    createCommandResponse(
+      `This channel is following:
 \`\`\`
-${guild.subscriptions[body.channel_id].join("\n")}
+${subscriptions.map((sub) => sub.teamName).join("\n")}
 \`\`\``,
-    },
-  }
-
-  return json(response)
+    ),
+  )
 }
 
 export const handleAutocompleteCommand = async (
   env: Env,
+  db: Db,
   country: string,
   value: string,
 ) => {
-  const teams = await Dota.getTeams(env, country)
+  const dotaClient = createDotaClient(env, db)
+  const teams = await dotaClient.getTeams(country)
   const fuse = new Fuse(teams, { minMatchCharLength: 2 })
 
   return json<APIApplicationCommandAutocompleteResponse>({

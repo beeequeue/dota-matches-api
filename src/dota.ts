@@ -1,15 +1,19 @@
 import { mande, MandeError } from "mande"
+import ms from "ms"
+import { nanoid } from "nanoid/non-secure"
 import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
-import { compact } from "remeda"
 
-import { arr2hex, sha1 } from "./crypto"
-import { nowSeconds, seconds } from "./utils"
+import {
+  Db,
+  getMatchDataFromDb,
+  getTeamsFromDb,
+  upsertMatchData,
+  upsertTeamsData,
+} from "./db"
+import { MetaKey, seconds } from "./utils"
 
-const ONE_DAY = seconds("1 day")
-const THREE_HOURS = seconds("3 hours")
-
-type Team = {
+export type Team = {
   name: string | null
   url: string | null
 }
@@ -24,7 +28,10 @@ export type Match = {
   streamUrl: string | null
 }
 
-const liquipediaQueue = new PQueue({ intervalCap: 1, interval: 30_000 })
+const liquipediaQueue = new PQueue({
+  intervalCap: 1,
+  interval: import.meta.env.MODE !== "test" ? 30_000 : 0,
+})
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
   query: {
@@ -65,20 +72,10 @@ const extractTeam = (team$: HTMLElement): Team => {
   }
 }
 
-const withHash = async (match: Omit<Match, "hash">): Promise<Match> => {
-  const hash = await sha1(
-    new TextEncoder().encode(
-      (match.startsAt?.toString() ?? "") +
-        (match.teams[0]?.name ?? "") +
-        (match.teams[1]?.name ?? ""),
-    ),
-  )
-
-  return {
-    hash: arr2hex(hash),
-    ...match,
-  }
-}
+const withHash = (match: Omit<Match, "hash">): Match => ({
+  hash: nanoid(8),
+  ...match,
+})
 
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
@@ -107,51 +104,51 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
   if ($matches.length === 0) return []
 
-  return await Promise.all(
-    $matches.map(async ($match) => {
-      const teamLeft$ = $match.querySelector(".team-left")!
-      const teamRight$ = $match.querySelector(".team-right")!
-      const versus$ = $match.querySelector(".versus")!
-      const meta$ = $match.querySelector(".timer-object")!
-      const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
+  return $matches.map(($match) => {
+    const teamLeft$ = $match.querySelector(".team-left")!
+    const teamRight$ = $match.querySelector(".team-right")!
+    const versus$ = $match.querySelector(".versus")!
+    const meta$ = $match.querySelector(".timer-object")!
+    const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
 
-      const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
-      const matchType = versus$.querySelector("abbr")?.textContent
-      const startTime = meta$.attrs["data-timestamp"]
-      const streamName = meta$.attrs["data-stream-twitch"]
-      const leagueName = leagueLink$.attrs["title"]
-      const leagueUrl = leagueLink$.attrs["href"]
+    const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
+    const matchType = versus$.querySelector("abbr")?.textContent
+    const startTime = meta$.attrs["data-timestamp"]
+    const streamName = meta$.attrs["data-stream-twitch"]
+    const leagueName = leagueLink$.attrs["title"]
+    const leagueUrl = leagueLink$.attrs["href"]
 
-      return await withHash({
-        teams,
-        matchType: matchType ?? null,
-        startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
-        leagueName,
-        leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
-        streamUrl: streamName
-          ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
-          : null,
-      })
-    }),
-  )
+    return withHash({
+      teams,
+      matchType: matchType ?? null,
+      startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
+      leagueName,
+      leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
+      streamUrl: streamName
+        ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
+        : null,
+    })
+  })
 }
 
-export const TEAMS_CACHE_KEY = "liquipedia-teams"
-
-export const parseTeamsPage = (html: string): string[] => {
+export const parseTeamsPage = (html: string): Team[] => {
   const root = parse(html)
 
   const notableTeamsContainer$ = root.querySelector(
     "h2:has(#Notable_Active_Teams) + div",
   )!
   const notableTeams$ = notableTeamsContainer$.querySelectorAll(".team-template-text")
+  const data: Team[] = notableTeams$?.map((el$) => {
+    return {
+      name: el$.textContent.trim(),
+      url: `https://liquipedia.net${el$.querySelector("a")!.attrs["href"]}`,
+    }
+  })
 
-  return compact(notableTeams$?.map((el$) => el$.textContent.trim())).sort((a, b) =>
-    a.localeCompare(b),
-  )
+  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
 
-const fetchAndCacheTeams = async (env: Env, country: string): Promise<string[]> => {
+const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
   const page = await liquipediaQueue.add(() =>
@@ -168,56 +165,62 @@ const fetchAndCacheTeams = async (env: Env, country: string): Promise<string[]> 
       .catch((error: MandeError) => error),
   )
 
+  console.log("Fetched teams!")
   if (page instanceof Error) {
     // eslint-disable-next-line unicorn/prefer-type-error
-    throw new Error("Failed to fetch match data", { cause: page })
+    throw new Error("Failed to fetch team data", { cause: page })
   }
 
   const teams = parseTeamsPage(page.parse.text["*"])
   if (teams.length === 0) return []
 
-  await env.CACHE.put(TEAMS_CACHE_KEY, JSON.stringify(teams), {
-    expirationTtl: ONE_DAY * 30,
-    metadata: {
-      softExpires: nowSeconds() + THREE_HOURS,
-    } as SoftExpire,
+  await upsertTeamsData(db, teams)
+  await env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString(), {
+    expirationTtl: seconds("30d"),
   })
 
   return teams
 }
 
-export type SoftExpire = { softExpires: number }
+export const getTeams =
+  (env: Env, db: Db) =>
+  async (country: string): Promise<string[]> => {
+    const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
+    console.log(`Teams were last fetched at ${lastFetched}`)
+    if (lastFetched !== -1) {
+      if (Date.now() > lastFetched + ms("12h")) {
+        console.log(`Teams are stale, refreshing...`)
+        void fetchAndCacheTeams(env, db, country)
+      }
 
-export const getTeams = async (env: Env, country: string): Promise<string[]> => {
-  const cached = await env.CACHE.getWithMetadata<SoftExpire>(TEAMS_CACHE_KEY)
-  if (cached?.value != null) {
-    if (Math.round(Date.now() / 1000) > (cached.metadata?.softExpires ?? 0)) {
-      void fetchAndCacheTeams(env, country)
+      console.log(`Retrieving teams from DB...`)
+      const teams = await getTeamsFromDb(db)
+      return teams.map(({ name }) => name!)
     }
 
-    return JSON.parse(cached.value)
+    console.log(`Fetching teams from Liquipedia...`)
+    const teams = await fetchAndCacheTeams(env, db, country)
+    return teams.map(({ name }) => name!)
   }
 
-  return await fetchAndCacheTeams(env, country)
-}
+const getMatches =
+  (env: Env, db: Db) =>
+  async (country: string): Promise<Match[]> => {
+    console.log(`Getting match data...`)
 
-export const MATCHES_CACHE_KEY = "liquipedia-matches"
+    if ((await env.META.get(MetaKey.MATCHES_FRESH)) === "true") {
+      return getMatchDataFromDb(db)
+    }
 
-const getMatches = async (env: Env, country: string): Promise<Match[]> => {
-  console.log(`Getting match data...`)
+    const matches = await fetchMatches(country)
 
-  const cached = await env.CACHE.get(MATCHES_CACHE_KEY)
-  if (cached != null) {
-    return JSON.parse(cached)
+    await upsertMatchData(db, matches)
+    await env.META.put(MetaKey.MATCHES_FRESH, "true", { expirationTtl: seconds("3h") })
+
+    return matches
   }
 
-  const matches = await fetchMatches(country)
-
-  await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches), {
-    expirationTtl: THREE_HOURS,
-  })
-
-  return matches
-}
-
-export const Dota = { getTeams, getMatches }
+export const createDotaClient = (env: Env, db: Db) => ({
+  getMatches: getMatches(env, db),
+  getTeams: getTeams(env, db),
+})

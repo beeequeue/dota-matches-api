@@ -1,18 +1,18 @@
-import { addHours } from "date-fns"
+import { addDays, addHours } from "date-fns"
 import { APIEmbedField } from "discord-api-types/payloads/v10/channel"
-import { RESTPostAPIChannelMessageJSONBody } from "discord-api-types/v10"
-import { MockAgent, setGlobalDispatcher } from "undici"
-import type { MockInterceptor } from "undici/types/mock-interceptor"
-import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
+import { APIEmbed } from "discord-api-types/v10"
+import { beforeAll, beforeEach, expect, it, Mock, vi } from "vitest"
 
-import { Guild } from "./discord"
-import { Match, MATCHES_CACHE_KEY } from "./dota"
+import { MatchTable } from "./db"
+import * as Discord from "./discord/index"
 import matchesFixture from "./fixtures/matches.json"
-import { encode } from "./msgpack"
 import { formatMatchToEmbedField, notifier } from "./notify"
+import { createSub, initDb } from "./test-utils"
 
-const GUILD_ID = "987613986523"
-const CHANNEL_ID = "0986526095326812"
+vi.mock("./discord/index")
+const mockedDiscord = vi.mocked(Discord)
+
+const describe = setupMiniflareIsolatedStorage()
 
 const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   if (field == null) return null
@@ -23,19 +23,10 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   return new Date(Number(value) * 1000)
 }
 
-let agent = new MockAgent()
-
-beforeEach(() => {
-  vi.restoreAllMocks()
+beforeEach(async (ctx) => {
   vi.setSystemTime(new Date("2020-01-01"))
 
-  agent = new MockAgent()
-  agent.disableNetConnect()
-  setGlobalDispatcher(agent)
-})
-
-afterAll(() => {
-  vi.setSystemTime(vi.getRealSystemTime())
+  await initDb(ctx)
 })
 
 describe("formatMatchToEmbedField", () => {
@@ -46,181 +37,139 @@ describe("formatMatchToEmbedField", () => {
   })
 
   it.each(matchesFixture)("should format matches correctly %#", (match) => {
-    const message = formatMatchToEmbedField(match as Match)
+    const message = formatMatchToEmbedField(match)
 
     expect(message).toMatchSnapshot()
   })
 })
 
 describe("notifier", () => {
-  const mock200 = vi.fn(() => ({
-    statusCode: 200,
-    data: { id: "id" },
-  }))
+  let sendMessageMock: Mock<
+    Parameters<ReturnType<typeof Discord["createDiscordClient"]>["sendMessage"]>,
+    ReturnType<ReturnType<typeof Discord["createDiscordClient"]>["sendMessage"]>
+  >
 
   beforeEach(() => {
-    const discordAgent = agent.get("https://discord.com")
+    sendMessageMock = vi.fn(() => Promise.resolve(null)) as any
 
-    discordAgent.intercept({ path: "/api/v10/oauth2/token", method: "POST" }).reply(200, {
-      access_token: "access_token",
-      expires_in: 60,
-    })
-
-    discordAgent
-      .intercept({ path: `/api/v10/channels/${CHANNEL_ID}/messages`, method: "POST" })
-      .reply(mock200)
+    mockedDiscord.createDiscordClient.mockReturnValue({
+      sendMessage: sendMessageMock,
+    } as Partial<ReturnType<typeof Discord["createDiscordClient"]>> as ReturnType<typeof Discord["createDiscordClient"]>)
   })
 
-  it("sends messages to channels", async () => {
-    const env = (await miniflare.getBindings()) as Env
-
+  it("sends messages to channels", async (ctx) => {
     const now = new Date()
-    const matches: Match[] = [
+    const matches: MatchTable[] = [
       {
-        hash: "1",
+        id: "1",
         matchType: "Bo2",
-        teams: [
-          { name: "Team Liquid", url: "url" },
-          { name: "Nigma Galaxy", url: "url" },
-        ],
+        teamOneId: "Team Liquid",
+        teamTwoId: "Nigma Galaxy",
         startsAt: addHours(now, 3).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
       {
-        hash: "2",
+        id: "2",
         matchType: "Bo2",
-        teams: [
-          { name: "Nigma Galaxy", url: "url" },
-          { name: "OG", url: "url" },
-        ],
+        teamOneId: "Nigma Galaxy",
+        teamTwoId: "OG",
         startsAt: addHours(now, 12).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
       {
-        hash: "3",
+        id: "3",
         matchType: "Bo2",
-        teams: [
-          { name: "something", url: "url" },
-          { name: "someone", url: "url" },
-        ],
+        teamOneId: "something",
+        teamTwoId: "someone",
         startsAt: addHours(now, 4.5).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
       {
-        hash: "4",
+        id: "4",
         matchType: "Bo2",
-        teams: [
-          { name: "OG", url: "url" },
-          { name: "someone", url: "url" },
-        ],
-        startsAt: addHours(now, 24 * 4).toISOString(),
+        teamOneId: "OG",
+        teamTwoId: "Too Late To Be Included",
+        startsAt: addDays(now, 4).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
     ]
-    await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches))
+    await ctx.db.insertInto("match").values(matches).execute()
 
-    await env.WEBHOOKS.put(
-      GUILD_ID,
-      encode<Guild>({
-        id: GUILD_ID,
-        subscriptions: {
-          [CHANNEL_ID]: ["Team Liquid", "OG"],
-        },
-      }),
+    await ctx.db
+      .insertInto("subscription")
+      .values([createSub("Team Liquid"), createSub("OG")])
+      .execute()
+
+    await notifier({} as never, ctx.env, {} as never)
+
+    expect(sendMessageMock).toHaveBeenCalledOnce()
+    // eslint-disable-next-line prefer-destructuring
+    const [channelId, embed] = sendMessageMock.mock.calls[0] as [string, APIEmbed]
+    expect(channelId).toMatchInlineSnapshot('"0986526095326812"')
+
+    expect(JSON.stringify(embed.fields)).toContain(
+      "**Team Liquid** _vs_ **Nigma Galaxy**",
     )
+    expect(JSON.stringify(embed.fields)).not.toContain("Too Late To Be Included")
 
-    await notifier({} as never, env, {} as never)
-
-    expect(mock200).toHaveBeenCalledOnce()
-    const [request] = mock200.mock.calls[0] as unknown as [
-      MockInterceptor.MockResponseCallbackOptions,
-    ]
-    expect(request.method).toMatchInlineSnapshot('"POST"')
-    expect(request.path).toMatchInlineSnapshot(
-      '"/api/v10/channels/0986526095326812/messages"',
-    )
-    expect(JSON.parse(request.body as string)).toMatchSnapshot()
+    expect(embed).toMatchSnapshot()
   })
 
-  it("orders matches correctly", async () => {
-    const env = (await miniflare.getBindings()) as Env
-
+  it("orders matches correctly", async (ctx) => {
     const now = new Date()
-    const matches: Match[] = [
+    const matches: MatchTable[] = [
       {
-        hash: "3",
+        id: "3",
         matchType: "Bo2",
-        teams: [
-          { name: "Team Liquid", url: "url" },
-          { name: "OG", url: "url" },
-        ],
+        teamOneId: "Team Liquid",
+        teamTwoId: "OG",
         startsAt: addHours(now, 22).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
       {
-        hash: "1",
+        id: "1",
         matchType: "Bo2",
-        teams: [
-          { name: "Team Liquid", url: "url" },
-          { name: "OG", url: "url" },
-        ],
+        teamOneId: "Team Liquid",
+        teamTwoId: "OG",
         startsAt: addHours(now, 6).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
       {
-        hash: "2",
+        id: "2",
         matchType: "Bo2",
-        teams: [
-          { name: "Team Liquid", url: "url" },
-          { name: "OG", url: "url" },
-        ],
+        teamOneId: "Team Liquid",
+        teamTwoId: "OG",
         startsAt: addHours(now, 12).toISOString(),
         leagueName: null,
-        leagueUrl: null,
         streamUrl: null,
       },
     ]
-    await env.CACHE.put(MATCHES_CACHE_KEY, JSON.stringify(matches))
+    await ctx.db.insertInto("match").values(matches).execute()
 
-    await env.WEBHOOKS.put(
-      GUILD_ID,
-      encode<Guild>({
-        id: GUILD_ID,
-        subscriptions: {
-          [CHANNEL_ID]: ["Team Liquid", "OG"],
-        },
-      }),
-    )
+    await ctx.db
+      .insertInto("subscription")
+      .values([createSub("Team Liquid"), createSub("OG")])
+      .execute()
 
-    await notifier({} as never, env, {} as never)
+    await notifier({} as never, ctx.env, {} as never)
 
-    expect(mock200).toHaveBeenCalledOnce()
+    expect(sendMessageMock).toHaveBeenCalledOnce()
+    // eslint-disable-next-line prefer-destructuring
+    const embed = sendMessageMock.mock.calls[0][1] as APIEmbed
 
-    const [request] = mock200.mock.calls[0] as unknown as [
-      MockInterceptor.MockResponseCallbackOptions,
-    ]
-    const body = JSON.parse(request.body as string) as RESTPostAPIChannelMessageJSONBody
-
-    // expect(body.embeds?.[0]?.fields).toStrictEqual("rich")
-    expect(extractDateFromEmbedField(body.embeds?.[0]?.fields?.[0])).toStrictEqual(
+    expect(extractDateFromEmbedField(embed?.fields?.[0])).toStrictEqual(
       new Date(matches[1].startsAt!),
     )
-    expect(extractDateFromEmbedField(body.embeds?.[0]?.fields?.[1])).toStrictEqual(
+    expect(extractDateFromEmbedField(embed?.fields?.[1])).toStrictEqual(
       new Date(matches[2].startsAt!),
     )
-    expect(extractDateFromEmbedField(body.embeds?.[0]?.fields?.[2])).toStrictEqual(
+    expect(extractDateFromEmbedField(embed?.fields?.[2])).toStrictEqual(
       new Date(matches[0].startsAt!),
     )
   })

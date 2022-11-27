@@ -2,55 +2,51 @@
 
 exports[`formatMatchToEmbedField > should format matches correctly 0 1`] = `
 {
-  "name": "**Gaimin Gladiators** _vs_ **Brame**",
-  "value": "Bo3 @<t:1659279600:t> (<t:1659279600:R>)
-Dota 2 Champions League Season 13",
+  "name": "**Thunder Awaken** _vs_ **Wildcard Gaming**",
+  "value": "Bo2 @<t:1669510800:t> (<t:1669510800:R>)
+BTS Pro Series Season 13: Americas | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit)",
 }
 `;
 
 exports[`formatMatchToEmbedField > should format matches correctly 1 1`] = `
 {
-  "name": "**TSM** _vs_ **Quincy Crew**",
-  "value": "Bo3 @<t:1659303000:t> (<t:1659303000:R>)
-ESL One Malaysia 2022 North America: Closed Qualifier",
+  "name": "**5RATFORCESTAFF** _vs_ **Team DogChamp**",
+  "value": "Bo2 @<t:1669518000:t> (<t:1669518000:R>)
+BTS Pro Series Season 13: Americas | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit)",
 }
 `;
 
 exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
 {
-  "name": "**Fnatic** _vs_ **OG**",
-  "value": "Bo2 @<t:1659625200:t> (<t:1659625200:R>)
-PGL Arlington Major 2022 | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/PGL_Dota2_EN3)",
+  "name": "**Infamous** _vs_ **?**",
+  "value": "Bo3 @<t:1669568400:t> (<t:1669568400:R>)
+EPL World Series: America Season 2",
 }
 `;
 
-exports[`notifier > sends messages to channels 3`] = `
+exports[`notifier > sends messages to channels 2`] = `
 {
-  "embeds": [
+  "color": 10038562,
+  "fields": [
     {
-      "color": 10038562,
-      "fields": [
-        {
-          "name": "**Team Liquid** _vs_ **Nigma Galaxy**",
-          "value": "Bo2 @<t:1577847600:t> (<t:1577847600:R>)
+      "name": "**Team Liquid** _vs_ **Nigma Galaxy**",
+      "value": "Bo2 @<t:1577847600:t> (<t:1577847600:R>)
 ",
-        },
-        {
-          "name": "**Nigma Galaxy** _vs_ **OG**",
-          "value": "Bo2 @<t:1577880000:t> (<t:1577880000:R>)
+    },
+    {
+      "name": "**Nigma Galaxy** _vs_ **OG**",
+      "value": "Bo2 @<t:1577880000:t> (<t:1577880000:R>)
 ",
-        },
-      ],
-      "footer": {
-        "icon_url": "https://liquipedia.net/commons/extensions/TeamLiquidIntegration/resources/pagelogo/liquipedia_icon_menu.png",
-        "text": "Data provided by Liquipedia",
-      },
-      "thumbnail": {
-        "url": "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
-      },
-      "title": "Today's matches - Jan 1st",
-      "url": "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
     },
   ],
+  "footer": {
+    "icon_url": "https://liquipedia.net/commons/extensions/TeamLiquidIntegration/resources/pagelogo/liquipedia_icon_menu.png",
+    "text": "Data provided by Liquipedia",
+  },
+  "thumbnail": {
+    "url": "https://f003.backblazeb2.com/file/bq-files/2022/07/point.webp",
+  },
+  "title": "Today's matches!",
+  "url": "https://liquipedia.net/dota2/Liquipedia:Upcoming_and_ongoing_matches",
 }
 `;

@@ -6,11 +6,10 @@ import {
   InteractionResponseType,
   InteractionType,
 } from "discord-api-types/v10"
-import { MockAgent, setGlobalDispatcher } from "undici"
-import { beforeEach, describe, expect, it } from "vitest"
+import { beforeEach, expect, it, vi } from "vitest"
 
-import { TEAMS_CACHE_KEY } from "../dota"
-import { decode, encode } from "../msgpack"
+import { CHANNEL_ID, createSub, createTeam, GUILD_ID, initDb } from "../test-utils"
+import { MetaKey } from "../utils"
 
 import {
   Command,
@@ -18,10 +17,8 @@ import {
   handleFollowCommand,
   handleUnfollowCommand,
 } from "./commands"
-import { Guild } from "./index"
 
-const GUILD_ID = "987613986523"
-const CHANNEL_ID = "0986526095326812"
+const describe = setupMiniflareIsolatedStorage()
 
 const createCommandInput = (
   name: Command,
@@ -46,29 +43,16 @@ const createCommandInput = (
   guild_locale: "en-US",
 })
 
-let agent = new MockAgent()
+beforeEach(async (ctx) => {
+  vi.resetAllMocks()
 
-beforeEach(() => {
-  agent = new MockAgent()
-  agent.disableNetConnect()
-  setGlobalDispatcher(agent)
+  await initDb(ctx)
 })
 
 describe("/follow", () => {
-  it("saves a subscription", async () => {
-    const env = (await miniflare.getBindings()) as Env
-
-    await env.WEBHOOKS.put(
-      GUILD_ID,
-      encode<Guild>({
-        id: GUILD_ID,
-        subscriptions: {},
-        vanityUrlCode: null,
-      }),
-    )
-
+  it("saves a subscription", async (ctx) => {
     const result = await handleFollowCommand(
-      env,
+      ctx.db,
       createCommandInput(Command.Follow, [
         {
           type: ApplicationCommandOptionType.String,
@@ -92,34 +76,25 @@ describe("/follow", () => {
       },
     })
 
-    const updatedGuild = await decode((await env.WEBHOOKS.get(GUILD_ID))!)
-    expect(updatedGuild).toStrictEqual({
-      id: GUILD_ID,
-      subscriptions: {
-        [CHANNEL_ID]: ["Team Liquid", "TSM"],
-      },
-      vanityUrlCode: null,
-    })
+    const updatedGuild = await ctx.db
+      .selectFrom("subscription")
+      .selectAll()
+      .where("guildId", "=", GUILD_ID)
+      .orderBy("teamName")
+      .execute()
+    expect(updatedGuild).toStrictEqual([createSub("TSM"), createSub("Team Liquid")])
   })
 })
 
 describe("/unfollow", () => {
-  it("removes a subscription", async () => {
-    const env = (await miniflare.getBindings()) as Env
-
-    await env.WEBHOOKS.put(
-      GUILD_ID,
-      encode<Guild>({
-        id: GUILD_ID,
-        subscriptions: {
-          [CHANNEL_ID]: ["Team Liquid", "TSM"],
-        },
-        vanityUrlCode: null,
-      }),
-    )
+  it("removes a subscription", async (ctx) => {
+    await ctx.db
+      .insertInto("subscription")
+      .values([createSub("TSM"), createSub("Team Liquid")])
+      .execute()
 
     const result = await handleUnfollowCommand(
-      env,
+      ctx.db,
       createCommandInput(Command.Follow, [
         {
           type: ApplicationCommandOptionType.String,
@@ -134,31 +109,34 @@ describe("/unfollow", () => {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: 64,
-        content: "Okay, you will no longer receive notifications for that team.",
+        content:
+          "Okay, you will no longer receive notifications for Team Liquid anymore.",
       },
     })
 
-    const updatedGuild = await decode((await env.WEBHOOKS.get(GUILD_ID))!)
-    expect(updatedGuild).toStrictEqual({
-      id: GUILD_ID,
-      subscriptions: {
-        [CHANNEL_ID]: ["TSM"],
-      },
-      vanityUrlCode: null,
-    })
+    const subs = await ctx.db
+      .selectFrom("subscription")
+      .selectAll()
+      .where("guildId", "=", GUILD_ID)
+      .orderBy("teamName")
+      .execute()
+    expect(subs).toStrictEqual([createSub("TSM")])
   })
 })
 
 describe("autocomplete", () => {
-  it("returns autocompletion entries", async () => {
-    const env = (await miniflare.getBindings()) as Env
-    await env.CACHE.put(
-      TEAMS_CACHE_KEY,
-      JSON.stringify(["Evil Geniuses", "Team Aster", "Team Liquid"]),
-      { metadata: { softExpires: Date.now() } }, // In ms instead of seconds so effectively means "never"
-    )
+  it("returns autocompletion entries", async (ctx) => {
+    await ctx.db
+      .insertInto("team")
+      .values([
+        createTeam("Evil Geniuses"),
+        createTeam("Team Aster"),
+        createTeam("Team Liquid"),
+      ])
+      .execute()
+    await ctx.env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString())
 
-    const result = await handleAutocompleteCommand(env, "test", "tema l")
+    const result = await handleAutocompleteCommand(ctx.env, ctx.db, "test", "tema l")
 
     expect(result).toMatchObject({ status: 200 })
     await expect(result.json()).resolves.toStrictEqual({
@@ -175,15 +153,6 @@ describe("autocomplete", () => {
           },
         ],
       },
-    })
-
-    const updatedGuild = await decode((await env.WEBHOOKS.get(GUILD_ID))!)
-    expect(updatedGuild).toStrictEqual({
-      id: GUILD_ID,
-      subscriptions: {
-        [CHANNEL_ID]: ["TSM"],
-      },
-      vanityUrlCode: null,
     })
   })
 })

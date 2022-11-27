@@ -45,29 +45,25 @@ type ResponseBody = Match[]
 
 ### Architecture
 
-Not sure about storing the discord channel subscriptions in R2,
-optimally it would use CF's new SQL service, but it's in closed beta and I don't have access to it.
-
 ```mermaid
 flowchart TD
   api([API Clients])
   browser([Browser])
   worker(Worker):::cf
   discord([Discord]):::discord
-  kv[("KV (match cache)")]:::cf
-  r2[("R2 (discord channels)")]:::cf
+  d1[("D1 (SQLite)")]:::cf
 
   classDef cf stroke:#FFC500,stroke-width:2px
   classDef discord stroke:#5865F2
 
   subgraph Cloudflare
     worker
-    kv
-    r2
+    d1
   end
 
-  kv <--> worker
-  r2 <--> worker
+  d1 <--> worker
   worker <--> api
   worker <--> discord
+  worker <--> browser
+  discord <--> browser
 ```

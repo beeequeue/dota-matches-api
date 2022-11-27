@@ -1,4 +1,11 @@
-import { Crypto } from "@peculiar/webcrypto"
+import { beforeEach } from "vitest"
 
-// @ts-ignore: missing type
-globalThis.crypto = new Crypto()
+import { createDb } from "./src/db"
+
+beforeEach((ctx) => {
+  ctx.agent = getMiniflareFetchMock()
+  ctx.env = getMiniflareBindings()
+  ctx.db = createDb(ctx.env)
+
+  ctx.agent.disableNetConnect()
+})
