@@ -1,24 +1,35 @@
 import ms, { StringValue } from "ms"
 
-import { RequestInitExStatus, ok } from "@worker-tools/response-creators"
+import { ok, RequestInitExStatus } from "@worker-tools/response-creators"
 
 export enum MetaKey {
   MATCHES_FRESH = "MATCHES_FRESH",
   TEAMS_LAST_FETCHED = "TEAMS_LAST_FETCHED",
 }
 
-export const nowSeconds = () => Math.round(Date.now() / 1000)
+export const ms2s = (n: number) => Math.round(n / 1000)
 
-export const seconds = (input: StringValue) => Math.round(ms(input) / 1000)
+export const nowSeconds = () => ms2s(Date.now())
 
-export const json = <T = unknown>(data: T, init: RequestInitExStatus = {}) =>
-  ok(JSON.stringify(data, null, 2), {
-    headers: {
-      ...init.headers,
-      "Content-Type": "application/json",
-    },
-    ...init,
-  })
+export const seconds = (input: StringValue) => ms2s(ms(input))
+
+const jsonInit: RequestInitExStatus = {
+  headers: { "Content-Type": "application/json" },
+}
+export const json = <T = unknown>(data: T, init?: RequestInitExStatus) =>
+  ok(
+    JSON.stringify(data, null, 2),
+    init == null
+      ? jsonInit
+      : {
+          ...init,
+          headers: {
+            "Content-Type": "application/json",
+            // eslint-disable-next-line unicorn/no-useless-fallback-in-spread
+            ...(init.headers ?? {}),
+          },
+        },
+  )
 
 export const getCountry = (request: Request) => {
   if (request.cf != null && "country" in request.cf) {
@@ -26,4 +37,27 @@ export const getCountry = (request: Request) => {
   }
 
   return "UNKNOWN"
+}
+
+export const EDGE_CACHE_TIMEOUT = 90
+const BROWSER_CACHE_TIMEOUT = 60
+
+export const getTtl = (lastFetchedAt: number, ttl: number) => {
+  const now = nowSeconds()
+  const fetchedAtSeconds = ms2s(lastFetchedAt)
+  const expiresAt = fetchedAtSeconds + ttl
+
+  return Math.max(0, expiresAt - now)
+}
+
+export const getBrowserCacheTtl = (ttl: number) => Math.min(BROWSER_CACHE_TIMEOUT, ttl)
+
+export const buildCacheResponse = <T = unknown>(data: T, lastFetched: number) => {
+  const ttl = getTtl(lastFetched, EDGE_CACHE_TIMEOUT)
+
+  return json(data, {
+    headers: {
+      "Cache-Control": `public, s-maxage=${ttl} max-age=${getBrowserCacheTtl(ttl)}`,
+    },
+  })
 }
