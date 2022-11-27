@@ -1,56 +1,35 @@
 [
   {
-    "hash": "81db7ea2e43a17b00e33f48a9302a94755670828",
-    "teams": [
-      {
-        "name": "Gaimin Gladiators",
-        "url": "https://liquipedia.net/dota2/Gaimin_Gladiators"
-      },
-      {
-        "name": "Brame",
-        "url": "https://liquipedia.net/dota2/Brame"
-      }
-    ],
-    "matchType": "Bo3",
-    "startsAt": "2022-07-31T15:00:00.000Z",
-    "leagueName": "Dota 2 Champions League Season 13",
-    "leagueUrl": "https://liquipedia.net/dota2/Dota_2_Champions_League/2022/Season_7",
-    "streamUrl": null
-  },
-  {
-    "hash": "3c0691eaf80aec3ac788715906d298e68f352615",
-    "teams": [
-      {
-        "name": "TSM",
-        "url": "https://liquipedia.net/dota2/TSM"
-      },
-      {
-        "name": "Quincy Crew",
-        "url": "https://liquipedia.net/dota2/Quincy_Crew"
-      }
-    ],
-    "matchType": "Bo3",
-    "startsAt": "2022-07-31T21:30:00.000Z",
-    "leagueName": "ESL One Malaysia 2022 North America: Closed Qualifier",
-    "leagueUrl": "https://liquipedia.net/dota2/ESL_One/Malaysia/2022/North_America/Closed_Qualifier",
-    "streamUrl": null
-  },
-  {
-    "hash": "ad5cfcd85034f712994a3229454b6cd29bf270e3",
-    "teams": [
-      {
-        "name": "Fnatic",
-        "url": "https://liquipedia.net/dota2/Fnatic"
-      },
-      {
-        "name": "OG",
-        "url": "https://liquipedia.net/dota2/OG"
-      }
-    ],
+    "guildId": "123456",
+    "channel": "123456",
+    "id": "gTaFcc4B",
     "matchType": "Bo2",
-    "startsAt": "2022-08-04T15:00:00.000Z",
-    "leagueName": "PGL Arlington Major 2022",
-    "leagueUrl": "https://liquipedia.net/dota2/PGL/Arlington_Major/2022",
-    "streamUrl": "https://liquipedia.net/dota2/Special:Stream/twitch/PGL_Dota2_EN3"
+    "teamOneId": "Thunder Awaken",
+    "teamTwoId": "Wildcard Gaming",
+    "leagueName": "BTS Pro Series Season 13: Americas",
+    "streamUrl": "https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit",
+    "startsAt": "2022-11-27T01:00:00.000Z"
+  },
+  {
+    "guildId": "123456",
+    "channel": "123456",
+    "id": "E74C26UL",
+    "matchType": "Bo2",
+    "teamOneId": "5RATFORCESTAFF",
+    "teamTwoId": "Team DogChamp",
+    "leagueName": "BTS Pro Series Season 13: Americas",
+    "streamUrl": "https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit",
+    "startsAt": "2022-11-27T03:00:00.000Z"
+  },
+  {
+    "guildId": "123456",
+    "channel": "123456",
+    "id": "BmRA4Z3n",
+    "matchType": "Bo3",
+    "teamOneId": "Infamous",
+    "teamTwoId": null,
+    "leagueName": "EPL World Series: America Season 2",
+    "streamUrl": null,
+    "startsAt": "2022-11-27T17:00:00.000Z"
   }
 ]

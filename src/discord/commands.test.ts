@@ -8,8 +8,8 @@ import {
 } from "discord-api-types/v10"
 import { beforeEach, expect, it, vi } from "vitest"
 
-import { createDb, Db, SubscriptionTable, TeamTable } from "../db"
-import { initDb } from "../test-utils"
+import { createDb, Db } from "../db"
+import { CHANNEL_ID, createSub, createTeam, GUILD_ID, initDb } from "../test-utils"
 import { MetaKey } from "../utils"
 
 import {
@@ -21,9 +21,6 @@ import {
 
 const describe = setupMiniflareIsolatedStorage()
 const agent = getMiniflareFetchMock()
-
-const GUILD_ID = "987613986523"
-const CHANNEL_ID = "0986526095326812"
 
 const createCommandInput = (
   name: Command,
@@ -46,17 +43,6 @@ const createCommandInput = (
   token: "token",
   version: 1,
   guild_locale: "en-US",
-})
-
-const createSub = (teamName: string): SubscriptionTable => ({
-  guildId: GUILD_ID,
-  channel: CHANNEL_ID,
-  teamName,
-})
-const createTeam = (teamName: string): TeamTable => ({
-  id: teamName,
-  name: teamName,
-  url: "url",
 })
 
 let env: Env

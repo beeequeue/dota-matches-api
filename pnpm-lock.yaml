@@ -2,6 +2,7 @@ lockfileVersion: 5.4-inlineSpecifiers
 
 overrides:
   npx-import: 1.1.4
+  undici: 5.13.0
 
 devDependencies:
   '@beequeue/eslint-plugin':
@@ -299,7 +300,7 @@ packages:
       '@miniflare/core': 2.10.0
       '@miniflare/shared': 2.10.0
       http-cache-semantics: 4.1.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/cache/2.11.0:
@@ -309,7 +310,7 @@ packages:
       '@miniflare/core': 2.11.0
       '@miniflare/shared': 2.11.0
       http-cache-semantics: 4.1.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/cli-parser/2.10.0:
@@ -340,7 +341,7 @@ packages:
       dotenv: 10.0.0
       kleur: 4.1.5
       set-cookie-parser: 2.5.0
-      undici: 5.9.1
+      undici: 5.13.0
       urlpattern-polyfill: 4.0.3
     dev: true
 
@@ -356,7 +357,7 @@ packages:
       dotenv: 10.0.0
       kleur: 4.1.5
       set-cookie-parser: 2.5.0
-      undici: 5.9.1
+      undici: 5.13.0
       urlpattern-polyfill: 4.0.3
     dev: true
 
@@ -383,7 +384,7 @@ packages:
       '@miniflare/core': 2.10.0
       '@miniflare/shared': 2.10.0
       '@miniflare/storage-memory': 2.10.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/durable-objects/2.11.0:
@@ -393,7 +394,7 @@ packages:
       '@miniflare/core': 2.11.0
       '@miniflare/shared': 2.11.0
       '@miniflare/storage-memory': 2.11.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/html-rewriter/2.10.0:
@@ -403,7 +404,7 @@ packages:
       '@miniflare/core': 2.10.0
       '@miniflare/shared': 2.10.0
       html-rewriter-wasm: 0.4.1
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/html-rewriter/2.11.0:
@@ -413,7 +414,7 @@ packages:
       '@miniflare/core': 2.11.0
       '@miniflare/shared': 2.11.0
       html-rewriter-wasm: 0.4.1
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/http-server/2.10.0:
@@ -425,7 +426,7 @@ packages:
       '@miniflare/web-sockets': 2.10.0
       kleur: 4.1.5
       selfsigned: 2.0.1
-      undici: 5.9.1
+      undici: 5.13.0
       ws: 8.8.0
       youch: 2.2.2
     transitivePeerDependencies:
@@ -442,7 +443,7 @@ packages:
       '@miniflare/web-sockets': 2.11.0
       kleur: 4.1.5
       selfsigned: 2.0.1
-      undici: 5.9.1
+      undici: 5.13.0
       ws: 8.8.0
       youch: 2.2.2
     transitivePeerDependencies:
@@ -483,7 +484,7 @@ packages:
     engines: {node: '>=16.13'}
     dependencies:
       '@miniflare/shared': 2.10.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/r2/2.11.0:
@@ -491,7 +492,7 @@ packages:
     engines: {node: '>=16.13'}
     dependencies:
       '@miniflare/shared': 2.11.0
-      undici: 5.9.1
+      undici: 5.13.0
     dev: true
 
   /@miniflare/runner-vm/2.10.0:
@@ -635,7 +636,7 @@ packages:
     dependencies:
       '@miniflare/core': 2.10.0
       '@miniflare/shared': 2.10.0
-      undici: 5.9.1
+      undici: 5.13.0
       ws: 8.8.0
     transitivePeerDependencies:
       - bufferutil
@@ -648,7 +649,7 @@ packages:
     dependencies:
       '@miniflare/core': 2.11.0
       '@miniflare/shared': 2.11.0
-      undici: 5.9.1
+      undici: 5.13.0
       ws: 8.8.0
     transitivePeerDependencies:
       - bufferutil
@@ -3340,7 +3341,7 @@ packages:
       kleur: 4.1.5
       semiver: 1.1.0
       source-map-support: 0.5.21
-      undici: 5.9.1
+      undici: 5.13.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -3382,7 +3383,7 @@ packages:
       kleur: 4.1.5
       semiver: 1.1.0
       source-map-support: 0.5.21
-      undici: 5.9.1
+      undici: 5.13.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4640,11 +4641,6 @@ packages:
     engines: {node: '>=12.18'}
     dependencies:
       busboy: 1.6.0
-    dev: true
-
-  /undici/5.9.1:
-    resolution: {integrity: sha512-6fB3a+SNnWEm4CJbgo0/CWR8RGcOCQP68SF4X0mxtYTq2VNN8T88NYrWVBAeSX+zb7bny2dx2iYhP3XHi00omg==}
-    engines: {node: '>=12.18'}
     dev: true
 
   /uri-js/4.4.1:
