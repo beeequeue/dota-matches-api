@@ -73,7 +73,7 @@ const extractTeam = (team$: HTMLElement): Team => {
 }
 
 const withHash = (match: Omit<Match, "hash">): Match => ({
-  hash: nanoid(40),
+  hash: nanoid(8),
   ...match,
 })
 
