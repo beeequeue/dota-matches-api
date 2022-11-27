@@ -1,5 +1,29 @@
 // Vitest Snapshot v1
 
+exports[`formatMatchToEmbedField > should format matches correctly 0 1`] = `
+{
+  "name": "**Thunder Awaken** _vs_ **Wildcard Gaming**",
+  "value": "Bo2 @<t:1669510800:t> (<t:1669510800:R>)
+BTS Pro Series Season 13: Americas | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit)",
+}
+`;
+
+exports[`formatMatchToEmbedField > should format matches correctly 1 1`] = `
+{
+  "name": "**5RATFORCESTAFF** _vs_ **Team DogChamp**",
+  "value": "Bo2 @<t:1669518000:t> (<t:1669518000:R>)
+BTS Pro Series Season 13: Americas | [Stream](https://liquipedia.net/dota2/Special:Stream/twitch/Beyond_the_Summit)",
+}
+`;
+
+exports[`formatMatchToEmbedField > should format matches correctly 2 1`] = `
+{
+  "name": "**Infamous** _vs_ **?**",
+  "value": "Bo3 @<t:1669568400:t> (<t:1669568400:R>)
+EPL World Series: America Season 2",
+}
+`;
+
 exports[`notifier > sends messages to channels 2`] = `
 {
   "color": 10038562,

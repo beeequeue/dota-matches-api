@@ -119,7 +119,7 @@ describe("notifier", () => {
     expect(embed).toMatchSnapshot()
   })
 
-  it.only("orders matches correctly", async (ctx) => {
+  it("orders matches correctly", async (ctx) => {
     const now = new Date()
     const matches: MatchTable[] = [
       {
