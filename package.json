@@ -32,7 +32,7 @@
     "@beequeue/eslint-plugin": "1.1.0",
     "@cloudflare/workers-types": "4.20221111.1",
     "@tsconfig/node16": "1.0.3",
-    "@types/node": "18.11.9",
+    "@types/node": "18.11.10",
     "@vitest/coverage-c8": "0.25.3",
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "better-sqlite3": "8.0.0",
