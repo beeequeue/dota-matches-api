@@ -4,7 +4,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@7.17.1",
+  "packageManager": "pnpm@7.18.0",
   "engines": {
     "node": ">=18"
   },
@@ -41,7 +41,7 @@
     "discord-api-types": "0.37.20",
     "discord-interactions": "3.2.0",
     "dotenv": "16.0.3",
-    "esbuild": "0.15.16",
+    "esbuild": "0.15.17",
     "eslint": "8.29.0",
     "fuse.js": "6.6.2",
     "itty-router": "2.6.6",
