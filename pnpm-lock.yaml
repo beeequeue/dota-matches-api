@@ -98,8 +98,8 @@ devDependencies:
     specifier: 5.13.0
     version: 5.13.0
   vite:
-    specifier: 3.2.4
-    version: 3.2.4_@types+node@18.11.10
+    specifier: 3.2.5
+    version: 3.2.5_@types+node@18.11.10
   vitest:
     specifier: 0.25.3
     version: 0.25.3
@@ -4605,8 +4605,8 @@ packages:
       builtins: 5.0.1
     dev: true
 
-  /vite/3.2.4_@types+node@18.11.10:
-    resolution: {integrity: sha512-Z2X6SRAffOUYTa+sLy3NQ7nlHFU100xwanq1WDwqaiFiCe+25zdxP1TfCS5ojPV2oDDcXudHIoPnI1Z/66B7Yw==}
+  /vite/3.2.5_@types+node@18.11.10:
+    resolution: {integrity: sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -4690,7 +4690,7 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 3.2.4_@types+node@18.11.10
+      vite: 3.2.5_@types+node@18.11.10
     transitivePeerDependencies:
       - less
       - sass
