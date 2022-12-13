@@ -32,8 +32,8 @@ devDependencies:
     specifier: 2.29.3
     version: 2.29.3
   discord-api-types:
-    specifier: 0.37.21
-    version: 0.37.21
+    specifier: 0.37.22
+    version: 0.37.22
   discord-interactions:
     specifier: 3.2.0
     version: 3.2.0
@@ -98,8 +98,8 @@ devDependencies:
     specifier: 5.14.0
     version: 5.14.0
   vite:
-    specifier: 4.0.0
-    version: 4.0.0_@types+node@18.11.13
+    specifier: 4.0.1
+    version: 4.0.1_@types+node@18.11.13
   vitest:
     specifier: 0.25.7
     version: 0.25.7
@@ -1648,8 +1648,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types/0.37.21:
-    resolution: {integrity: sha512-GB4ThibZEzWXcvgL2QfjKoDX5j1sNLWtgibodiJ9M9PM0u9bdR2t3vZ24oQWLKlksJehSJmZDtRsAibhcr46vw==}
+  /discord-api-types/0.37.22:
+    resolution: {integrity: sha512-1FSm5hIUaxt3e+3H6lhY5Hg32DTJCPp3Q5gf3CM2CPSr95ZnqkSNEV0s7EdiBrlv5QoPrpcPIDYC3hWqZT2mIg==}
     dev: true
 
   /discord-interactions/3.2.0:
@@ -3974,8 +3974,8 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /postcss/8.4.19:
-    resolution: {integrity: sha512-h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==}
+  /postcss/8.4.20:
+    resolution: {integrity: sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.4
@@ -4834,8 +4834,8 @@ packages:
       builtins: 5.0.1
     dev: true
 
-  /vite/4.0.0_@types+node@18.11.13:
-    resolution: {integrity: sha512-ynad+4kYs8Jcnn8J7SacS9vAbk7eMy0xWg6E7bAhS1s79TK+D7tVFGXVZ55S7RNLRROU1rxoKlvZ/qjaB41DGA==}
+  /vite/4.0.1_@types+node@18.11.13:
+    resolution: {integrity: sha512-kZQPzbDau35iWOhy3CpkrRC7It+HIHtulAzBhMqzGHKRf/4+vmh8rPDDdv98SWQrFWo6//3ozwsRmwQIPZsK9g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -4861,7 +4861,7 @@ packages:
     dependencies:
       '@types/node': 18.11.13
       esbuild: 0.16.4
-      postcss: 8.4.19
+      postcss: 8.4.20
       resolve: 1.22.1
       rollup: 3.7.0
     optionalDependencies:
@@ -4919,7 +4919,7 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 4.0.0_@types+node@18.11.13
+      vite: 4.0.1_@types+node@18.11.13
     transitivePeerDependencies:
       - less
       - sass
