@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest"
 
 import { BOT_PERMISSIONS } from "../../discord"
 import { GUILD_ID } from "../../test-utils"
+import { CustomRequest } from "../../types"
 
 import { discordRouter } from "./discord"
-import { CustomRequest } from "../../types"
 
 describe("POST /api/discord/callback", () => {
   it("returns 400 on missing parameters", async (ctx) => {
