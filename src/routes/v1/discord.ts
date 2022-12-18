@@ -18,7 +18,7 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
-import { CustomRequest, CustomRouter } from "../../types"
+import { CustomRouter } from "../../types"
 import { getCountry, json } from "../../utils"
 
 export const discordRouter = Router({ base: "/v1/discord" }) as CustomRouter
@@ -41,7 +41,7 @@ if (import.meta.env.MODE !== "production") {
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
 
-discordRouter.get("/callback", async (request: CustomRequest, env: Env) => {
+discordRouter.get("/callback", async (request, env: Env) => {
   const discordClient = createDiscordClient(env)
   const url = new URL(request.url)
 
@@ -56,7 +56,7 @@ discordRouter.get("/callback", async (request: CustomRequest, env: Env) => {
   })
 })
 
-discordRouter.post("/interactions", async (request: CustomRequest, env: Env) => {
+discordRouter.post("/interactions", async (request, env: Env) => {
   const db = createDb(env)
 
   const body = await request.text()

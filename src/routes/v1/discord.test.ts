@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest"
 
 import { BOT_PERMISSIONS } from "../../discord"
 import { GUILD_ID } from "../../test-utils"
-import { CustomRequest } from "../../types"
 
 import { discordRouter } from "./discord"
 
@@ -12,10 +11,7 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(
-      request as CustomRequest,
-      ctx.env,
-    )
+    const response: Response = await discordRouter.handle(request as never, ctx.env)
 
     expect(response).toMatchObject({
       status: 400,
@@ -42,10 +38,7 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(
-      request as CustomRequest,
-      ctx.env,
-    )
+    const response: Response = await discordRouter.handle(request as never, ctx.env)
 
     expect(response).toMatchObject({
       status: 200,
