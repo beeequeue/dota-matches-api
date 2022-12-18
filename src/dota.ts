@@ -30,7 +30,7 @@ export type Match = {
 
 const liquipediaQueue = new PQueue({
   intervalCap: 1,
-  interval: import.meta.env.MODE !== "test" ? 30_000 : 0,
+  interval: import.meta.env.MODE === "test" ? 0 : 30_000,
 })
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
