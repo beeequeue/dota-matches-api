@@ -4,6 +4,7 @@ import { BOT_PERMISSIONS } from "../../discord"
 import { GUILD_ID } from "../../test-utils"
 
 import { discordRouter } from "./discord"
+import { CustomRequest } from "../../types"
 
 describe("POST /api/discord/callback", () => {
   it("returns 400 on missing parameters", async (ctx) => {
@@ -11,7 +12,10 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(request, ctx.env)
+    const response: Response = await discordRouter.handle(
+      request as CustomRequest,
+      ctx.env,
+    )
 
     expect(response).toMatchObject({
       status: 400,
@@ -38,7 +42,10 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(request, ctx.env)
+    const response: Response = await discordRouter.handle(
+      request as CustomRequest,
+      ctx.env,
+    )
 
     expect(response).toMatchObject({
       status: 200,

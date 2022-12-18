@@ -6,7 +6,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import { IHTTPMethods, Router } from "itty-router"
+import { Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
@@ -18,9 +18,10 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
+import { CustomRequest, CustomRouter } from "../../types"
 import { getCountry, json } from "../../utils"
 
-export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
+export const discordRouter = Router({ base: "/v1/discord" }) as CustomRouter
 
 discordRouter.get("/", (_, env: Env) =>
   temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
@@ -40,7 +41,7 @@ if (import.meta.env.MODE !== "production") {
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
 
-discordRouter.get("/callback", async (request, env: Env) => {
+discordRouter.get("/callback", async (request: CustomRequest, env: Env) => {
   const discordClient = createDiscordClient(env)
   const url = new URL(request.url)
 
@@ -55,7 +56,7 @@ discordRouter.get("/callback", async (request, env: Env) => {
   })
 })
 
-discordRouter.post("/interactions", async (request: Request, env: Env) => {
+discordRouter.post("/interactions", async (request: CustomRequest, env: Env) => {
   const db = createDb(env)
 
   const body = await request.text()

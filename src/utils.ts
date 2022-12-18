@@ -1,6 +1,7 @@
 import ms, { StringValue } from "ms"
 
 import { ok, RequestInitExStatus } from "@worker-tools/response-creators"
+import { CustomRequest } from "./types"
 
 export enum MetaKey {
   MATCHES_LAST_FETCHED = "MATCHES_LAST_FETCHED",
@@ -31,7 +32,7 @@ export const json = <T = unknown>(data: T, init?: RequestInitExStatus) =>
         },
   )
 
-export const getCountry = (request: Request) => {
+export const getCountry = (request: CustomRequest) => {
   if (request.cf != null && "country" in request.cf) {
     return request.cf.country
   }
