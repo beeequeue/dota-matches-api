@@ -24,7 +24,7 @@ export const initDb = async (ctx: TestContext) => {
       .replace(/ {2,}/g, " ")
       .split(" CREATE ")
       .map((s, i) =>
-        ctx.env.__D1_BETA__MATCHES.prepare(`${i !== 0 ? "CREATE " : ""}${s}`),
+        ctx.env.__D1_BETA__MATCHES.prepare(`${i === 0 ? "" : "CREATE "}${s}`),
       ),
   )
 }
