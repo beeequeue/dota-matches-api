@@ -6,7 +6,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import { IHTTPMethods, Router } from "itty-router"
+import { IRequest, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
@@ -18,9 +18,10 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
+import { CustomRouter } from "../../types"
 import { getCountry, json } from "../../utils"
 
-export const discordRouter = Router<Request, IHTTPMethods>({ base: "/v1/discord" })
+export const discordRouter = Router({ base: "/v1/discord" }) as CustomRouter
 
 discordRouter.get("/", (_, env: Env) =>
   temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
@@ -55,13 +56,17 @@ discordRouter.get("/callback", async (request, env: Env) => {
   })
 })
 
-discordRouter.post("/interactions", async (request: Request, env: Env) => {
+type RequestWithAuthors = IRequest & {
+  headers?: Headers
+}
+
+discordRouter.post("/interactions", async (request: RequestWithAuthors, env: Env) => {
   const db = createDb(env)
 
   const body = await request.text()
-  const signature = request.headers.get("x-signature-ed25519")
-  const timestamp = request.headers.get("x-signature-timestamp")
-  if (!verifyKey(body, signature!, timestamp!, env.DISCORD_PUBLIC_KEY)) {
+  const signature = request.headers!.get("x-signature-ed25519")!
+  const timestamp = request.headers!.get("x-signature-timestamp")!
+  if (!verifyKey(body, signature, timestamp, env.DISCORD_PUBLIC_KEY)) {
     return badRequest("Invalid request signature")
   }
 
