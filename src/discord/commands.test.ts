@@ -23,25 +23,26 @@ const describe = setupMiniflareIsolatedStorage()
 const createCommandInput = (
   name: Command,
   options: APIApplicationCommandInteractionDataOption[],
-): APIChatInputApplicationCommandInteraction => ({
-  type: InteractionType.ApplicationCommand,
-  guild_id: GUILD_ID,
-  channel_id: CHANNEL_ID,
-  data: {
-    type: ApplicationCommandType.ChatInput,
+) =>
+  ({
+    type: InteractionType.ApplicationCommand,
     guild_id: GUILD_ID,
-    id: "123456",
-    name,
-    options,
-  },
+    channel_id: CHANNEL_ID,
+    data: {
+      type: ApplicationCommandType.ChatInput,
+      guild_id: GUILD_ID,
+      id: "123456",
+      name,
+      options,
+    },
 
-  id: "123456",
-  application_id: "DISCORD_CLIENT_ID",
-  locale: "en-US",
-  token: "token",
-  version: 1,
-  guild_locale: "en-US",
-})
+    id: "123456",
+    application_id: "DISCORD_CLIENT_ID",
+    locale: "en-US",
+    token: "token",
+    version: 1,
+    guild_locale: "en-US",
+  } as APIChatInputApplicationCommandInteraction)
 
 beforeEach(async (ctx) => {
   vi.resetAllMocks()
