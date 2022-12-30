@@ -6,7 +6,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import { Router } from "itty-router"
+import { IRequest, Router } from "itty-router"
 
 import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
 
@@ -56,13 +56,17 @@ discordRouter.get("/callback", async (request, env: Env) => {
   })
 })
 
-discordRouter.post("/interactions", async (request, env: Env) => {
+type RequestWithAuthors = IRequest & {
+  headers?: Headers
+}
+
+discordRouter.post("/interactions", async (request: RequestWithAuthors, env: Env) => {
   const db = createDb(env)
 
   const body = await request.text()
-  const signature = request.headers.get("x-signature-ed25519")
-  const timestamp = request.headers.get("x-signature-timestamp")
-  if (!verifyKey(body, signature!, timestamp!, env.DISCORD_PUBLIC_KEY)) {
+  const signature = request.headers!.get("x-signature-ed25519")!
+  const timestamp = request.headers!.get("x-signature-timestamp")!
+  if (!verifyKey(body, signature, timestamp, env.DISCORD_PUBLIC_KEY)) {
     return badRequest("Invalid request signature")
   }
 
