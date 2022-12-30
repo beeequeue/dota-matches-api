@@ -33,7 +33,7 @@ if (import.meta.env.MODE !== "production") {
       env,
       createDb(env),
       "main",
-      request.query?.query ?? "",
+      (request.query?.query as string) ?? "",
     )
   })
 }

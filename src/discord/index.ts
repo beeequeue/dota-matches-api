@@ -37,20 +37,20 @@ type RegisterGuildOptions = {
 const registerGuild =
   (env: Env) =>
   async ({ code, guildId, permissions }: RegisterGuildOptions): Promise<Response> => {
-    const urlEncodedBody: RESTPostOAuth2AccessTokenURLEncodedData = {
+    const urlEncodedBody = {
       grant_type: "authorization_code",
       client_id: env.DISCORD_CLIENT_ID,
       client_secret: env.DISCORD_CLIENT_SECRET,
       code,
       redirect_uri: getRedirectUri(env),
-    }
+    } satisfies RESTPostOAuth2AccessTokenURLEncodedData
     const response = await fetch(`${baseUrl}${Routes.oauth2TokenExchange()}`, {
       method: "POST",
       headers: {
         "User-Agent": userAgent,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams(urlEncodedBody as Record<string, any>),
+      body: new URLSearchParams(urlEncodedBody),
     })
 
     if (!response.ok) {
@@ -74,14 +74,14 @@ const registerGuild =
 const getRedirectUri = (env: Env) => `${env.API_BASE}/v1/discord/callback`
 
 const getAuthorizeUrl = (env: Env) => () => {
-  const query: RESTOAuth2AuthorizationQuery & RESTOAuth2BotAuthorizationQuery = {
+  const query = {
     response_type: "code",
     client_id: env.DISCORD_CLIENT_ID,
     scope: SCOPES,
     permissions: BOT_PERMISSIONS,
     redirect_uri: getRedirectUri(env),
-  }
-  const searchParams = new URLSearchParams(query as Record<string, any>)
+  } satisfies RESTOAuth2AuthorizationQuery & RESTOAuth2BotAuthorizationQuery
+  const searchParams = new URLSearchParams(query)
 
   return new URL(`${baseUrl}${Routes.oauth2Authorization()}?${searchParams.toString()}`)
 }
