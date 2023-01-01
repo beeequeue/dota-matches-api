@@ -29,7 +29,7 @@
     "npx-import": "1.1.4"
   },
   "devDependencies": {
-    "@beequeue/eslint-plugin": "1.1.1",
+    "@beequeue/eslint-plugin": "1.1.2",
     "@cloudflare/workers-types": "4.20221111.1",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.11.18",

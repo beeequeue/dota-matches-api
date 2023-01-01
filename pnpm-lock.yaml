@@ -5,8 +5,8 @@ overrides:
 
 devDependencies:
   '@beequeue/eslint-plugin':
-    specifier: 1.1.1
-    version: 1.1.1_pizzqsi6myk3636ihwmmh4mlr4
+    specifier: 1.1.2
+    version: 1.1.2_pizzqsi6myk3636ihwmmh4mlr4
   '@cloudflare/workers-types':
     specifier: 4.20221111.1
     version: 4.20221111.1
@@ -152,12 +152,12 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@beequeue/eslint-plugin/1.1.1_pizzqsi6myk3636ihwmmh4mlr4:
-    resolution: {integrity: sha512-Jn1Yc5RPZe2cWHUvlRtFZmrMyA4GCkriWRI/CScwOyRhoxJYwTtOoaLGosdv0IYToA7bZc678yv6cM9hjuIGXw==}
+  /@beequeue/eslint-plugin/1.1.2_pizzqsi6myk3636ihwmmh4mlr4:
+    resolution: {integrity: sha512-19PbEzRi0qeRfy5JTA94hVlwX9EvpPUVB5Pgz2P79v37Xx7EhMGQ3bTmjVRWq/6RyRQKfUMQTkvWJtY5QH8zAQ==}
     engines: {node: '>=14'}
     peerDependencies:
-      eslint: ^8.22.0
-      prettier: ^2.7.1
+      eslint: ^8.29.0
+      prettier: ^2.8.1
     peerDependenciesMeta:
       prettier:
         optional: true
