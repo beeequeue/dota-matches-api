@@ -41,7 +41,7 @@
     "discord-api-types": "0.37.26",
     "discord-interactions": "3.2.0",
     "dotenv": "16.0.3",
-    "esbuild": "0.16.14",
+    "esbuild": "0.16.15",
     "eslint": "8.31.0",
     "fuse.js": "6.6.2",
     "itty-router": "3.0.11",
