@@ -11,7 +11,7 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db"
-import { MetaKey, seconds } from "./utils"
+import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils"
 
 export type Team = {
   name: string | null
@@ -217,7 +217,7 @@ const getMatches = (env: Env, db: Db) => async (country: string) => {
 
   lastFetched = Date.now()
   await env.META.put(MetaKey.MATCHES_LAST_FETCHED, lastFetched.toString(), {
-    expirationTtl: seconds("60s"),
+    expirationTtl: EDGE_CACHE_TIMEOUT,
   })
 
   return { lastFetched, matches }
