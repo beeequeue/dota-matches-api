@@ -3,7 +3,7 @@ account_id = "a2ae71949fd5eaebc354f81fb3b1deab"
 compatibility_date = "2022-11-19"
 usage_model = "bundled"
 
-triggers = { crons = ["0 9 * * *"] }
+triggers = { crons = ["0 8 * * *"] }
 
 [route]
 custom_domain = true
