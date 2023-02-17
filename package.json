@@ -59,7 +59,7 @@
     "simple-git-hooks": "2.8.1",
     "tsup": "6.5.0",
     "typescript": "4.9.4",
-    "undici": "5.14.0",
+    "undici": "5.19.1",
     "vite": "4.0.4",
     "vitest": "0.26.3",
     "vitest-environment-miniflare": "2.11.0",
