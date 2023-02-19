@@ -51,7 +51,7 @@ export const getTeamsFromDb = async (db: Db): Promise<Team[]> => {
 
 export const upsertTeamsData = async (db: Db, teams: Team[]) => {
   return await Promise.all(
-    [...teams.values()].map(({ name, url }) =>
+    teams.map(({ name, url }) =>
       db
         .insertInto("team")
         .values({ id: name!, name: name!, url })
@@ -96,9 +96,6 @@ export const getMatchDataFromDb = async (db: Db): Promise<Match[]> => {
 export const upsertMatchData = async (db: Db, matches: Match[]) => {
   console.log("Upserting match data...")
 
-  console.log("Deleting old matches...")
-  const deletePromise = db.deleteFrom("match").execute()
-
   console.log("Generating new data...")
   const matchData = matches.map<InsertObject<Database, "match">>((match) => ({
     id: match.hash,
@@ -138,8 +135,12 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
     })
   }
 
-  console.log("Waiting for deletion to finish...")
-  await deletePromise
+  if (matchData.length === 0) {
+    return console.log("Found no matches on Liquipedia.")
+  }
+
+  console.log("Deleting old matches...")
+  await db.deleteFrom("match").execute()
 
   console.log("Inserting matches...")
   await db.insertInto("match").values(matchData).execute()
