@@ -3,13 +3,18 @@ lockfileVersion: 5.4-inlineSpecifiers
 overrides:
   npx-import: 1.1.4
 
+patchedDependencies:
+  '@cloudflare/workers-types@4.20230215.0':
+    hash: jy5r7krne4ccdiptjsht3wptwq
+    path: patches/@cloudflare__workers-types@4.20230215.0.patch
+
 devDependencies:
   '@beequeue/eslint-plugin':
     specifier: 1.1.2
     version: 1.1.2_ztlnmuobvwn63gpuifwwrjpt4i
   '@cloudflare/workers-types':
     specifier: 4.20230215.0
-    version: 4.20230215.0
+    version: 4.20230215.0_jy5r7krne4ccdiptjsht3wptwq
   '@tsconfig/node16':
     specifier: 1.0.3
     version: 1.0.3
@@ -187,9 +192,10 @@ packages:
       mime: 3.0.0
     dev: true
 
-  /@cloudflare/workers-types/4.20230215.0:
+  /@cloudflare/workers-types/4.20230215.0_jy5r7krne4ccdiptjsht3wptwq:
     resolution: {integrity: sha512-s71gaGwtEIxjSu6l0cekbXm9AwjrmrFVcHPNx9tHidG2dnqamYf5Nms/KgMYZf7gnjdKOp/ZChYFeJJkNv3QfA==}
     dev: true
+    patched: true
 
   /@esbuild-plugins/node-globals-polyfill/0.1.1_esbuild@0.16.3:
     resolution: {integrity: sha512-MR0oAA+mlnJWrt1RQVQ+4VYuRJW/P2YmRTv1AsplObyvuBMnPHiizUF95HHYiSsMGLhyGtWufaq2XQg6+iurBg==}
@@ -996,7 +1002,7 @@ packages:
     resolution: {integrity: sha512-pds5GCgIS2j9wf4Y8iLlpv4xXQxXc5J/4OYwKh303xRYfd1nwzImQS5wegJuX/ZNLDQEqxQ0Y9lCG8LjgQQuJQ==}
     engines: {node: '>=16.13'}
     dependencies:
-      '@cloudflare/workers-types': 4.20230215.0
+      '@cloudflare/workers-types': 4.20230215.0_jy5r7krne4ccdiptjsht3wptwq
       '@miniflare/cache': 2.12.0
       '@miniflare/core': 2.12.0
       '@miniflare/d1': 2.12.0
