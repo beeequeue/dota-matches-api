@@ -45,8 +45,8 @@ describe("formatMatchToEmbedField", () => {
 
 describe("notifier", () => {
   let sendMessageMock: Mock<
-    Parameters<ReturnType<typeof Discord["createDiscordClient"]>["sendMessage"]>,
-    ReturnType<ReturnType<typeof Discord["createDiscordClient"]>["sendMessage"]>
+    Parameters<ReturnType<(typeof Discord)["createDiscordClient"]>["sendMessage"]>,
+    ReturnType<ReturnType<(typeof Discord)["createDiscordClient"]>["sendMessage"]>
   >
 
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("notifier", () => {
 
     mockedDiscord.createDiscordClient.mockReturnValue({
       sendMessage: sendMessageMock,
-    } as Partial<ReturnType<typeof Discord["createDiscordClient"]>> as ReturnType<typeof Discord["createDiscordClient"]>)
+    } as Partial<ReturnType<(typeof Discord)["createDiscordClient"]>> as ReturnType<(typeof Discord)["createDiscordClient"]>)
   })
 
   it("sends messages to channels", async (ctx) => {

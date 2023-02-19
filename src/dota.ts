@@ -80,18 +80,20 @@ const withHash = (match: Omit<Match, "hash">): Match => ({
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
-  const data = await liquipediaQueue.add(() =>
-    liquipediaClient
-      .get<LiquipediaBody>("/api.php", {
-        headers: {
-          "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
-        },
-        query: {
-          action: "parse",
-          page: "Liquipedia:Upcoming_and_ongoing_matches",
-        },
-      })
-      .catch((error: MandeError) => error),
+  const data = await liquipediaQueue.add(
+    () =>
+      liquipediaClient
+        .get<LiquipediaBody>("/api.php", {
+          headers: {
+            "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+          },
+          query: {
+            action: "parse",
+            page: "Liquipedia:Upcoming_and_ongoing_matches",
+          },
+        })
+        .catch((error: MandeError) => error),
+    { throwOnTimeout: true },
   )
 
   if (data instanceof Error) {
@@ -151,18 +153,20 @@ export const parseTeamsPage = (html: string): Team[] => {
 const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
-  const page = await liquipediaQueue.add(() =>
-    liquipediaClient
-      .get<LiquipediaBody>("/api.php", {
-        headers: {
-          "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
-        },
-        query: {
-          action: "parse",
-          page: "Portal:Teams",
-        },
-      })
-      .catch((error: MandeError) => error),
+  const page = await liquipediaQueue.add(
+    () =>
+      liquipediaClient
+        .get<LiquipediaBody>("/api.php", {
+          headers: {
+            "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+          },
+          query: {
+            action: "parse",
+            page: "Portal:Teams",
+          },
+        })
+        .catch((error: MandeError) => error),
+    { throwOnTimeout: true },
   )
 
   console.log("Fetched teams!")

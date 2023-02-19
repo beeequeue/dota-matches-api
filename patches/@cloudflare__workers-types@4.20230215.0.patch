@@ -1,0 +1,13 @@
+diff --git a/index.ts b/index.ts
+index eac5cb0f9ad5e48ba85bcf8095fbb439c0682192..a30d8fe55224535064a99a13f62960afd694dc65 100644
+--- a/index.ts
++++ b/index.ts
+@@ -2742,7 +2742,7 @@ export declare abstract class D1PreparedStatement {
+ /**
+  * A email message that is sent to a consumer Worker.
+  */
+-export interface EmailMessage<Body = unknown> {
++export interface EmailMessage {
+   /**
+    * Envelope From attribute of the email message.
+    */
