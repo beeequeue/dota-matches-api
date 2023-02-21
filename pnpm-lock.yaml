@@ -4,17 +4,17 @@ overrides:
   npx-import: 1.1.4
 
 patchedDependencies:
-  '@cloudflare/workers-types@4.20230215.0':
+  '@cloudflare/workers-types@4.20230221.0':
     hash: jy5r7krne4ccdiptjsht3wptwq
-    path: patches/@cloudflare__workers-types@4.20230215.0.patch
+    path: patches/@cloudflare__workers-types@4.20230221.0.patch
 
 devDependencies:
   '@beequeue/eslint-plugin':
     specifier: 1.1.2
     version: 1.1.2_ztlnmuobvwn63gpuifwwrjpt4i
   '@cloudflare/workers-types':
-    specifier: 4.20230215.0
-    version: 4.20230215.0_jy5r7krne4ccdiptjsht3wptwq
+    specifier: 4.20230221.0
+    version: 4.20230221.0_jy5r7krne4ccdiptjsht3wptwq
   '@total-typescript/ts-reset':
     specifier: 0.3.7
     version: 0.3.7
@@ -82,8 +82,8 @@ devDependencies:
     specifier: 4.0.1
     version: 4.0.1
   node-html-parser:
-    specifier: 6.1.4
-    version: 6.1.4
+    specifier: 6.1.5
+    version: 6.1.5
   p-queue:
     specifier: 7.3.4
     version: 7.3.4
@@ -195,8 +195,8 @@ packages:
       mime: 3.0.0
     dev: true
 
-  /@cloudflare/workers-types/4.20230215.0_jy5r7krne4ccdiptjsht3wptwq:
-    resolution: {integrity: sha512-s71gaGwtEIxjSu6l0cekbXm9AwjrmrFVcHPNx9tHidG2dnqamYf5Nms/KgMYZf7gnjdKOp/ZChYFeJJkNv3QfA==}
+  /@cloudflare/workers-types/4.20230221.0_jy5r7krne4ccdiptjsht3wptwq:
+    resolution: {integrity: sha512-Ge8csuFQMNv3hd8r85PFWv4KV6bHAtKoBaanTkjbbeJS+mizoiBn4OBva0CFQiGfRJklFSGd4OxuCuiK05kogg==}
     dev: true
     patched: true
 
@@ -1122,7 +1122,7 @@ packages:
     resolution: {integrity: sha512-9ZxtvzxK7jBNdzAOYhvjjvTk7tXgJyJNZF7HVvFlNuJ/bZXs3siiu2C5u2XqFc0YW+zWSwY+YxYEwa+xIOprSw==}
     engines: {node: '>=16.13'}
     dependencies:
-      '@cloudflare/workers-types': 4.20230215.0_jy5r7krne4ccdiptjsht3wptwq
+      '@cloudflare/workers-types': 4.20230221.0_jy5r7krne4ccdiptjsht3wptwq
       '@miniflare/cache': 2.12.1
       '@miniflare/core': 2.12.1
       '@miniflare/d1': 2.12.1
@@ -3768,8 +3768,8 @@ packages:
     engines: {node: '>= 6.13.0'}
     dev: true
 
-  /node-html-parser/6.1.4:
-    resolution: {integrity: sha512-3muP9Uy/Pz7bQa9TNYVQzWJhNZMqyCx7xJle8kz2/y1UgzAUyXXShc1IcPaJy6u07CE3K5rQcRwlvHzmlySRjg==}
+  /node-html-parser/6.1.5:
+    resolution: {integrity: sha512-fAaM511feX++/Chnhe475a0NHD8M7AxDInsqQpz6x63GRF7xYNdS8Vo5dKsIVPgsOvG7eioRRTZQnWBrhDHBSg==}
     dependencies:
       css-select: 5.1.0
       he: 1.2.0

@@ -68,7 +68,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@cloudflare/workers-types@4.20230215.0": "patches/@cloudflare__workers-types@4.20230215.0.patch"
+      "@cloudflare/workers-types@4.20230221.0": "patches/@cloudflare__workers-types@4.20230221.0.patch"
     }
   }
 }
