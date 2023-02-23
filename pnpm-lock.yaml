@@ -15,6 +15,9 @@ devDependencies:
   '@cloudflare/workers-types':
     specifier: 4.20230215.0
     version: 4.20230215.0_jy5r7krne4ccdiptjsht3wptwq
+  '@total-typescript/ts-reset':
+    specifier: 0.3.7
+    version: 0.3.7
   '@tsconfig/node16':
     specifier: 1.0.3
     version: 1.0.3
@@ -1276,6 +1279,10 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.4.1
+    dev: true
+
+  /@total-typescript/ts-reset/0.3.7:
+    resolution: {integrity: sha512-yXt2BRRVCJVvzWaxac5n0nCXzIrQEBE/MeYlNQ8/Iq7UeelNmm/AdnUAu18ilSS893mbEQ4u6whPt/HvOPc4rw==}
     dev: true
 
   /@tsconfig/node16/1.0.3:

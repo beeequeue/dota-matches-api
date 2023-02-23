@@ -31,6 +31,7 @@
   "devDependencies": {
     "@beequeue/eslint-plugin": "1.1.2",
     "@cloudflare/workers-types": "4.20230215.0",
+    "@total-typescript/ts-reset": "0.3.7",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.14.0",
     "@vitest/coverage-c8": "0.28.5",
