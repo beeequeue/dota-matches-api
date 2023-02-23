@@ -4,7 +4,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@7.27.1",
+  "packageManager": "pnpm@8.0.0-alpha.0",
   "engines": {
     "node": ">=18"
   },
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@beequeue/eslint-plugin": "1.1.2",
-    "@cloudflare/workers-types": "4.20230215.0",
+    "@cloudflare/workers-types": "4.20230221.0",
     "@total-typescript/ts-reset": "0.3.7",
     "@tsconfig/node16": "1.0.3",
     "@types/node": "18.14.0",
@@ -53,7 +53,7 @@
     "miniflare": "2.12.1",
     "ms": "3.0.0-canary.1",
     "nanoid": "4.0.1",
-    "node-html-parser": "6.1.4",
+    "node-html-parser": "6.1.5",
     "p-queue": "7.3.4",
     "prettier": "2.8.4",
     "remeda": "1.6.2",
@@ -68,7 +68,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@cloudflare/workers-types@4.20230215.0": "patches/@cloudflare__workers-types@4.20230215.0.patch"
+      "@cloudflare/workers-types@4.20230221.0": "patches/@cloudflare__workers-types@4.20230221.0.patch"
     }
   }
 }
