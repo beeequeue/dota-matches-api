@@ -57,6 +57,9 @@ devDependencies:
   fuse.js:
     specifier: 6.6.2
     version: 6.6.2
+  itty-cors:
+    specifier: 0.3.6
+    version: 0.3.6
   itty-router:
     specifier: 3.0.11
     version: 3.0.11
@@ -3245,6 +3248,10 @@ packages:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
+    dev: true
+
+  /itty-cors@0.3.6:
+    resolution: {integrity: sha512-VlDDB9CLneCyjqtg8kShl6oBZrJxxwKd8sXWrYC77H6BcW9sDMRDwx7JgCB2T+18pQv/Tau3OIlchEKrEHKKKQ==}
     dev: true
 
   /itty-router@3.0.11:
