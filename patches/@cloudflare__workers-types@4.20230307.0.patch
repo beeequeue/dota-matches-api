@@ -1,8 +1,8 @@
 diff --git a/index.ts b/index.ts
-index eac5cb0f9ad5e48ba85bcf8095fbb439c0682192..a30d8fe55224535064a99a13f62960afd694dc65 100644
+index 30581a23fe47f5ad5c03b37469472a738e6ed20d..b3bd69af152c2c662358dab29977a088f6515afe 100644
 --- a/index.ts
 +++ b/index.ts
-@@ -2742,7 +2742,7 @@ export declare abstract class D1PreparedStatement {
+@@ -2747,7 +2747,7 @@ export declare abstract class D1PreparedStatement {
  /**
   * A email message that is sent to a consumer Worker.
   */
