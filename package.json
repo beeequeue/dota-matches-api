@@ -51,7 +51,7 @@
     "kysely-d1": "0.3.0",
     "lint-staged": "13.2.1",
     "mande": "2.0.6",
-    "miniflare": "2.12.1",
+    "miniflare": "3.0.1",
     "ms": "3.0.0-canary.1",
     "nanoid": "4.0.1",
     "node-html-parser": "6.1.5",
