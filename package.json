@@ -65,7 +65,7 @@
     "vite": "4.2.0",
     "vitest": "0.29.3",
     "vitest-environment-miniflare": "2.12.1",
-    "wrangler": "2.12.3"
+    "wrangler": "3.0.1"
   },
   "pnpm": {
     "patchedDependencies": {
