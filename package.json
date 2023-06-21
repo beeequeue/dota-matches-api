@@ -44,7 +44,7 @@
     "eslint": "8.43.0",
     "fuse.js": "6.6.2",
     "itty-cors": "0.3.6",
-    "itty-router": "3.0.11",
+    "itty-router": "4.0.13",
     "kysely": "0.23.5",
     "kysely-d1": "0.3.0",
     "lint-staged": "13.2.2",
