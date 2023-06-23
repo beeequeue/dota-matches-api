@@ -4,7 +4,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@8.6.2",
+  "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=20"
   },
@@ -17,7 +17,8 @@
     ]
   },
   "scripts": {
-    "dev": "miniflare --watch",
+    "dev": "wrangler dev --local",
+    "dev:migrate": "wrangler d1 migrations apply dpc --local",
     "build": "tsup",
     "lint": "eslint src",
     "test": "vitest --mode test",
@@ -25,18 +26,14 @@
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "prepare": "simple-git-hooks"
   },
-  "resolutions": {
-    "npx-import": "1.1.4"
-  },
   "devDependencies": {
     "@beequeue/eslint-plugin": "2.1.1",
-    "@cloudflare/workers-types": "4.20230307.0",
+    "@cloudflare/workers-types": "4.20230518.0",
     "@total-typescript/ts-reset": "0.4.2",
     "@tsconfig/node20": "20.1.2",
     "@types/node": "20.3.1",
-    "@vitest/coverage-v8": "0.32.2",
     "@worker-tools/response-creators": "1.2.0-pre.6",
-    "better-sqlite3": "8.2.0",
+    "better-sqlite3": "8.4.0",
     "date-fns": "2.30.0",
     "discord-api-types": "0.37.46",
     "discord-interactions": "3.4.0",
@@ -45,11 +42,11 @@
     "fuse.js": "6.6.2",
     "itty-cors": "0.3.6",
     "itty-router": "4.0.13",
-    "kysely": "0.23.5",
+    "kysely": "0.25.0",
     "kysely-d1": "0.3.0",
     "lint-staged": "13.3.0",
     "mande": "2.0.6",
-    "miniflare": "2.14.0",
+    "miniflare": "3.0.2",
     "ms": "3.0.0-canary.1",
     "nanoid": "5.0.1",
     "node-html-parser": "6.1.5",
@@ -63,11 +60,12 @@
     "vite": "4.3.9",
     "vitest": "0.32.2",
     "vitest-environment-miniflare": "2.14.0",
-    "wrangler": "2.20.1"
+    "wrangler": "3.1.1"
   },
   "pnpm": {
     "patchedDependencies": {
-      "@cloudflare/workers-types@4.20230307.0": "patches/@cloudflare__workers-types@4.20230307.0.patch"
+      "@cloudflare/workers-types@4.20230518.0": "patches/@cloudflare__workers-types@4.20230518.0.patch",
+      "@miniflare/d1@2.14.0": "patches/@miniflare__d1@2.14.0.patch"
     }
   }
 }
