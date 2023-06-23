@@ -22,12 +22,12 @@ devDependencies:
   '@total-typescript/ts-reset':
     specifier: 0.4.2
     version: 0.4.2
-  '@tsconfig/node16':
-    specifier: 1.0.3
-    version: 1.0.3
+  '@tsconfig/node20':
+    specifier: 1.0.1
+    version: 1.0.1
   '@types/node':
-    specifier: 18.15.3
-    version: 18.15.3
+    specifier: 20.3.1
+    version: 20.3.1
   '@vitest/coverage-v8':
     specifier: 0.32.2
     version: 0.32.2(vitest@0.32.2)
@@ -41,8 +41,8 @@ devDependencies:
     specifier: 2.29.3
     version: 2.29.3
   discord-api-types:
-    specifier: 0.37.36
-    version: 0.37.36
+    specifier: 0.37.46
+    version: 0.37.46
   discord-interactions:
     specifier: 3.3.0
     version: 3.3.0
@@ -108,7 +108,7 @@ devDependencies:
     version: 5.21.0
   vite:
     specifier: 4.3.9
-    version: 4.3.9(@types/node@18.15.3)
+    version: 4.3.9(@types/node@20.3.1)
   vitest:
     specifier: 0.32.2
     version: 0.32.2
@@ -1313,14 +1313,14 @@ packages:
     resolution: {integrity: sha512-vqd7ZUDSrXFVT1n8b2kc3LnklncDQFPvR58yUS1kEP23/nHPAO9l1lMjUfnPrXYYk4Hj54rrLKMW5ipwk7k09A==}
     dev: true
 
-  /@tsconfig/node16@1.0.3:
-    resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+  /@tsconfig/node20@1.0.1:
+    resolution: {integrity: sha512-ovd+Yu8j7zgVXA3jRfLRXGknScbVwg9p+R9k4/0EVJzymxokkyoib2Hjt1A2hGK5qehqBIwV8NYvUF/rG+2+wQ==}
     dev: true
 
   /@types/better-sqlite3@7.6.3:
     resolution: {integrity: sha512-YS64N9SNDT/NAvou3QNdzAu3E2om/W/0dhORimtPGLef+zSK5l1vDzfsWb4xgXOgfhtOI5ZDTRxnvRPb22AIVQ==}
     dependencies:
-      '@types/node': 18.15.3
+      '@types/node': 20.3.1
     dev: true
 
   /@types/chai-subset@1.3.3:
@@ -1341,8 +1341,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/node@18.15.3:
-    resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
+  /@types/node@20.3.1:
+    resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -2177,8 +2177,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types@0.37.36:
-    resolution: {integrity: sha512-Nlxmp10UpVr/utgZ9uODQvG2Or+5w7LFrvFMswyeKC9l/+UaqGT6H0OVgEFhu9GEO4U6K7NNO5W8Carv7irnCA==}
+  /discord-api-types@0.37.46:
+    resolution: {integrity: sha512-DeSi5WSWYTeXJJhdwACtpQycY3g4vLRvE2Ol5IlC0o//P2W+8jXPF447PuJn2fRH1nD7JGEJ3YMb0NB9+OQ7BQ==}
     dev: true
 
   /discord-interactions@3.3.0:
@@ -5142,7 +5142,7 @@ packages:
       builtins: 5.0.1
     dev: true
 
-  /vite-node@0.32.2(@types/node@18.15.3):
+  /vite-node@0.32.2(@types/node@20.3.1):
     resolution: {integrity: sha512-dTQ1DCLwl2aEseov7cfQ+kDMNJpM1ebpyMMMwWzBvLbis8Nla/6c9WQcqpPssTwS6Rp/+U6KwlIj8Eapw4bLdA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -5152,7 +5152,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@18.15.3)
+      vite: 4.3.9(@types/node@20.3.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -5163,7 +5163,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.3.9(@types/node@18.15.3):
+  /vite@4.3.9(@types/node@20.3.1):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5188,7 +5188,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.15.3
+      '@types/node': 20.3.1
       esbuild: 0.17.12
       postcss: 8.4.24
       rollup: 3.25.1
@@ -5246,7 +5246,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
-      '@types/node': 18.15.3
+      '@types/node': 20.3.1
       '@vitest/expect': 0.32.2
       '@vitest/runner': 0.32.2
       '@vitest/snapshot': 0.32.2
@@ -5266,8 +5266,8 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.9(@types/node@18.15.3)
-      vite-node: 0.32.2(@types/node@18.15.3)
+      vite: 4.3.9(@types/node@20.3.1)
+      vite-node: 0.32.2(@types/node@20.3.1)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
