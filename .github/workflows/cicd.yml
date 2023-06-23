@@ -91,14 +91,12 @@ jobs:
 
       - run: pnpm build
 
+      - run: pnpm dev:migrate
+
       - run: pnpm test run
+        timeout-minutes: 2
         env:
           NODE_OPTIONS: "--experimental-vm-modules"
-
-  #      - uses: codecov/codecov-action@v3
-  #        with:
-  #          files: node_modules/.coverage/lcov.info
-  #          fail_ci_if_error: true
 
   build:
     runs-on: ubuntu-latest
