@@ -1,17 +1,17 @@
 import { createCors } from "itty-cors"
-import { Router } from "itty-router"
+import { IRequest, Router } from "itty-router"
 
+import { ExecutionContext } from "@cloudflare/workers-types"
 import {
+  internalServerError,
   notFound,
   temporaryRedirect,
-  internalServerError,
 } from "@worker-tools/response-creators"
 
 import { notifier } from "./notify"
 import { v1Router } from "./routes/v1"
-import { CustomRouter } from "./types"
 
-const router = Router() as CustomRouter
+const router = Router<IRequest, [Env, ExecutionContext]>()
 
 const { preflight, corsify } = createCors({
   methods: ["GET"],
@@ -19,13 +19,15 @@ const { preflight, corsify } = createCors({
   maxAge: 7200,
 })
 
-router.all("*", preflight as any)
+router.all<IRequest, [Env, ExecutionContext]>("*", preflight)
 
-router.all("/v1/*", v1Router.handle)
+router.all<IRequest, [Env, ExecutionContext]>("/v1/*", v1Router.handle)
 
-router.get("/", () => temporaryRedirect("https://github.com/BeeeQueue/dota-matches-api"))
+router.get<IRequest, [Env, ExecutionContext]>("/", () =>
+  temporaryRedirect("https://github.com/BeeeQueue/dota-matches-api"),
+)
 
-router.all("*", () => notFound())
+router.all<IRequest, [Env, ExecutionContext]>("*", () => notFound())
 
 const worker: ExportedHandler<Env> = {
   fetch: (...args) =>

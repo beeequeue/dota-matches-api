@@ -1,10 +1,9 @@
-import { Router } from "itty-router"
+import { IRequest, Router } from "itty-router"
 
 import { ExecutionContext } from "@cloudflare/workers-types"
 
 import { createDb } from "../../db"
 import { createDotaClient } from "../../dota"
-import { CustomRouter } from "../../types"
 import {
   buildCacheResponse,
   EDGE_CACHE_TIMEOUT,
@@ -17,11 +16,13 @@ import {
 
 import { discordRouter } from "./discord"
 
-export const v1Router = Router({ base: "/v1" }) as CustomRouter
+export const v1Router = Router<IRequest, [Env, ExecutionContext]>({
+  base: "/v1",
+})
 
 v1Router.all("/discord/*", discordRouter.handle)
 
-v1Router.get("/matches", async (request, env: Env, ctx: ExecutionContext) => {
+v1Router.get<IRequest, [Env, ExecutionContext]>("/matches", async (request, env, ctx) => {
   const cached = await caches.default.match(request.url)
   if (cached != null) {
     const lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
