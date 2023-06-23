@@ -7,7 +7,7 @@ import { MatchTable } from "./db"
 import * as Discord from "./discord/index"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify"
-import { createSub, initDb } from "./test-utils"
+import { createSub } from "./test-utils"
 
 vi.mock("./discord/index")
 const mockedDiscord = vi.mocked(Discord)
@@ -23,10 +23,8 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   return new Date(Number(value) * 1000)
 }
 
-beforeEach(async (ctx) => {
+beforeEach(() => {
   vi.setSystemTime(new Date("2020-01-01"))
-
-  await initDb(ctx)
 })
 
 describe("formatMatchToEmbedField", () => {

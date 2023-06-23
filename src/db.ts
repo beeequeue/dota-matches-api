@@ -42,7 +42,7 @@ export type Db = Kysely<Database>
 
 export const createDb = (env: Env) =>
   new Kysely<Database>({
-    dialect: new D1Dialect({ database: env.__D1_BETA__MATCHES }),
+    dialect: new D1Dialect({ database: env.MATCHES }),
   })
 
 export const getTeamsFromDb = async (db: Db): Promise<Team[]> => {

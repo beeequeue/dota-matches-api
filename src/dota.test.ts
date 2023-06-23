@@ -5,7 +5,6 @@ import { beforeEach, expect, it, TestContext, vi } from "vitest"
 
 import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
 import teamsFixture from "./fixtures/teams.html?raw"
-import { initDb } from "./test-utils"
 import { MetaKey } from "./utils"
 
 const describe = setupMiniflareIsolatedStorage()
@@ -20,12 +19,10 @@ describe("parseTeamsPage", () => {
 })
 
 describe("getTeams", () => {
-  beforeEach(async (ctx) => {
+  beforeEach(() => {
     vi.resetAllMocks()
 
     vi.setSystemTime(new Date("2020-01-01"))
-
-    await initDb(ctx)
   })
 
   const body: LiquipediaBody = {

@@ -8,7 +8,7 @@ import {
 } from "discord-api-types/v10"
 import { beforeEach, expect, it, vi } from "vitest"
 
-import { CHANNEL_ID, createSub, createTeam, GUILD_ID, initDb } from "../test-utils"
+import { CHANNEL_ID, createSub, createTeam, GUILD_ID } from "../test-utils"
 import { MetaKey } from "../utils"
 
 import {
@@ -44,10 +44,8 @@ const createCommandInput = (
     guild_locale: "en-US",
   } as APIChatInputApplicationCommandInteraction)
 
-beforeEach(async (ctx) => {
+beforeEach(() => {
   vi.resetAllMocks()
-
-  await initDb(ctx)
 })
 
 describe("/follow", () => {
