@@ -33,8 +33,8 @@ export const json = <T = unknown>(data: T, init?: RequestInitExStatus) =>
   )
 
 export const getCountry = (request: IRequest): string => {
-  if (request.cf != null && request.cf.country != null) {
-    return request.cf.country
+  if ((request.cf as any)?.country != null) {
+    return (request.cf as any).country
   }
 
   return "UNKNOWN"

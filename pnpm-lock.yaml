@@ -59,8 +59,8 @@ devDependencies:
     specifier: 0.3.6
     version: 0.3.6
   itty-router:
-    specifier: 3.0.11
-    version: 3.0.11
+    specifier: 4.0.13
+    version: 4.0.13
   kysely:
     specifier: 0.23.5
     version: 0.23.5
@@ -3453,8 +3453,8 @@ packages:
     resolution: {integrity: sha512-VlDDB9CLneCyjqtg8kShl6oBZrJxxwKd8sXWrYC77H6BcW9sDMRDwx7JgCB2T+18pQv/Tau3OIlchEKrEHKKKQ==}
     dev: true
 
-  /itty-router@3.0.11:
-    resolution: {integrity: sha512-vWsoHBi2CmU15YzyUeHjRfjdySL2jqZQKA9jP1LXkBcLJAo0KQNVlQMvhtzG0mzABhVYifeBF97UkrrpuTCWYQ==}
+  /itty-router@4.0.13:
+    resolution: {integrity: sha512-iiQ9k1nQgaal/MteVft5pwYkvzuZx3idPT9tYpKWl7rKH74tyz5VVSVUCXUO0iBh5HDXjHYsix90UrFKPfThHg==}
     dev: true
 
   /joycon@3.1.1:

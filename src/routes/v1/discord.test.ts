@@ -11,7 +11,11 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(request as never, ctx.env)
+    const response: Response = await discordRouter.handle(
+      request as never,
+      ctx.env,
+      null!,
+    )
 
     expect(response).toMatchObject({
       status: 400,
@@ -38,7 +42,11 @@ describe("POST /api/discord/callback", () => {
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
 
-    const response: Response = await discordRouter.handle(request as never, ctx.env)
+    const response: Response = await discordRouter.handle(
+      request as never,
+      ctx.env,
+      null!,
+    )
 
     expect(response).toMatchObject({
       status: 200,
