@@ -20,8 +20,8 @@ export const CHANNEL_ID = "0986526095326812"
 export const initDb = async (ctx: TestContext) => {
   await ctx.env.__D1_BETA__MATCHES.batch(
     migrationSql
-      .replace(/\n\s*/g, " ")
-      .replace(/ {2,}/g, " ")
+      .replaceAll(/\n\s*/g, " ")
+      .replaceAll(/ {2,}/g, " ")
       .split(" CREATE ")
       .map((s, i) =>
         ctx.env.__D1_BETA__MATCHES.prepare(`${i === 0 ? "" : "CREATE "}${s}`),
