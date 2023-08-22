@@ -23,8 +23,8 @@ devDependencies:
     specifier: 0.4.2
     version: 0.4.2
   '@tsconfig/node20':
-    specifier: 1.0.1
-    version: 1.0.1
+    specifier: 20.1.2
+    version: 20.1.2
   '@types/node':
     specifier: 20.3.1
     version: 20.3.1
@@ -1323,8 +1323,8 @@ packages:
     resolution: {integrity: sha512-vqd7ZUDSrXFVT1n8b2kc3LnklncDQFPvR58yUS1kEP23/nHPAO9l1lMjUfnPrXYYk4Hj54rrLKMW5ipwk7k09A==}
     dev: true
 
-  /@tsconfig/node20@1.0.1:
-    resolution: {integrity: sha512-ovd+Yu8j7zgVXA3jRfLRXGknScbVwg9p+R9k4/0EVJzymxokkyoib2Hjt1A2hGK5qehqBIwV8NYvUF/rG+2+wQ==}
+  /@tsconfig/node20@20.1.2:
+    resolution: {integrity: sha512-madaWq2k+LYMEhmcp0fs+OGaLFk0OenpHa4gmI4VEmCKX4PJntQ6fnnGADVFrVkBj0wIdAlQnK/MrlYTHsa1gQ==}
     dev: true
 
   /@types/better-sqlite3@7.6.3:
