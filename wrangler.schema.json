@@ -183,6 +183,16 @@
         "live_reload  ": {
           "type": "boolean"
         },
+        "d1_persist": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
         "r2_persist": {
           "oneOf": [
             {

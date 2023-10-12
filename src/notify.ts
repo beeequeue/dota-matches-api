@@ -64,8 +64,8 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     .where(sql`datetime(startsAt)`, ">", sql`datetime(${now.toISOString()})`)
     // prettier-ignore
     .where(sql`datetime(startsAt)`, "<", sql`datetime(${now.toISOString()}, '1 day')`)
-    .select(["subscription.channel"])
     .selectAll("match")
+    .select("subscription.channel")
     .groupBy(["id", "channel"])
     .execute()
 
@@ -85,8 +85,6 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   const discordClient = createDiscordClient(env)
   await Promise.all(
     messages.map(async ([channelId, embed]) => {
-      // const { id: threadId } = await discordClient.createThread(channelId)
-
       await discordClient.sendMessage(channelId, embed)
     }),
   )

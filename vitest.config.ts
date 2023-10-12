@@ -12,10 +12,5 @@ export default defineConfig(({ command }) => ({
     environment: "miniflare",
 
     reporters: "verbose",
-    coverage: {
-      enabled: command !== "serve",
-      reporter: ["text", "lcov"],
-      reportsDirectory: "node_modules/.coverage",
-    },
   },
 }))
