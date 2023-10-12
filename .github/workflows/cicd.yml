@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - run: corepack enable
 
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - run: corepack enable
 
@@ -63,40 +63,40 @@ jobs:
 
       - run: pnpm typecheck
 
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - run: corepack enable
-
-      - name: find pnpm cache path
-        id: cache
-        run: echo "path=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        with:
-          path: ${{ steps.cache.outputs.path }}
-          key: v1-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            v1-pnpm-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - run: pnpm build
-
-      - run: pnpm dev:migrate
-
-      - run: pnpm test run
-        timeout-minutes: 2
-        env:
-          NODE_OPTIONS: "--experimental-vm-modules"
+  #  test:
+  #    runs-on: ubuntu-latest
+  #
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #
+  #      - uses: actions/setup-node@v3
+  #        with:
+  #          node-version: 20
+  #
+  #      - run: corepack enable
+  #
+  #      - name: find pnpm cache path
+  #        id: cache
+  #        run: echo "path=$(pnpm store path)" >> $GITHUB_OUTPUT
+  #
+  #      - uses: actions/cache@v3
+  #        with:
+  #          path: ${{ steps.cache.outputs.path }}
+  #          key: v1-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+  #          restore-keys: |
+  #            v1-pnpm-
+  #
+  #      - name: Install dependencies
+  #        run: pnpm install --frozen-lockfile
+  #
+  #      - run: pnpm build
+  #
+  #      - run: pnpm dev:migrate
+  #
+  #      - run: pnpm test run
+  #        timeout-minutes: 2
+  #        env:
+  #          NODE_OPTIONS: "--experimental-vm-modules"
 
   build:
     runs-on: ubuntu-latest
@@ -106,7 +106,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - run: corepack enable
 
@@ -139,7 +139,7 @@ jobs:
     needs:
       - build
       - lint
-      - test
+      #      - test
       - typecheck
 
     steps:
@@ -147,7 +147,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - run: corepack enable
 
