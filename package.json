@@ -32,7 +32,7 @@
     "@beequeue/eslint-plugin": "2.1.1",
     "@cloudflare/workers-types": "4.20230307.0",
     "@total-typescript/ts-reset": "0.4.2",
-    "@tsconfig/node20": "1.0.1",
+    "@tsconfig/node20": "20.1.2",
     "@types/node": "20.3.1",
     "@vitest/coverage-v8": "0.32.2",
     "@worker-tools/response-creators": "1.2.0-pre.6",
