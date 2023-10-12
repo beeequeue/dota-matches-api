@@ -51,7 +51,7 @@
     "nanoid": "5.0.1",
     "node-html-parser": "6.1.5",
     "p-queue": "7.3.4",
-    "prettier": "2.8.8",
+    "prettier": "3.0.3",
     "remeda": "1.27.1",
     "simple-git-hooks": "2.8.1",
     "tsup": "7.0.0",
