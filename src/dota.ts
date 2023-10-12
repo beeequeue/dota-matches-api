@@ -1,3 +1,4 @@
+import { DrizzleD1Database } from "drizzle-orm/d1"
 import { mande, MandeError } from "mande"
 import ms from "ms"
 import { nanoid } from "nanoid/non-secure"
@@ -5,7 +6,6 @@ import { HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
 
 import {
-  Db,
   getMatchDataFromDb,
   getTeamsFromDb,
   upsertMatchData,
@@ -150,7 +150,11 @@ export const parseTeamsPage = (html: string): Team[] => {
   return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
 
-const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Team[]> => {
+const fetchAndCacheTeams = async (
+  env: Env,
+  db: DrizzleD1Database,
+  country: string,
+): Promise<Team[]> => {
   console.log("Fetching teams...")
 
   const page = await liquipediaQueue.add(
@@ -187,7 +191,7 @@ const fetchAndCacheTeams = async (env: Env, db: Db, country: string): Promise<Te
 }
 
 export const getTeams =
-  (env: Env, db: Db) =>
+  (env: Env, db: DrizzleD1Database) =>
   async (country: string): Promise<string[]> => {
     const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
     console.log(`Teams were last fetched at ${lastFetched}`)
@@ -207,7 +211,7 @@ export const getTeams =
     return teams.map(({ name }) => name!)
   }
 
-const getMatches = (env: Env, db: Db) => async (country: string) => {
+const getMatches = (env: Env, db: DrizzleD1Database) => async (country: string) => {
   console.log(`Getting match data...`)
 
   let lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED)) ?? -1)
@@ -227,7 +231,7 @@ const getMatches = (env: Env, db: Db) => async (country: string) => {
   return { lastFetched, matches }
 }
 
-export const createDotaClient = (env: Env, db: Db) => ({
+export const createDotaClient = (env: Env, db: DrizzleD1Database) => ({
   getMatches: getMatches(env, db),
   getTeams: getTeams(env, db),
 })

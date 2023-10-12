@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  ignorePatterns: ["src/dota/types.ts"],
+  ignorePatterns: ["src/dota/types.ts", "src/**/*.test.ts"],
   extends: ["plugin:@beequeue/base", "plugin:@beequeue/typescript"],
   rules: {
     "@typescript-eslint/no-non-null-assertion": "off",

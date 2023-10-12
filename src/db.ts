@@ -1,90 +1,56 @@
-import { InsertObject, Kysely } from "kysely"
-import { D1Dialect } from "kysely-d1"
+import { eq } from "drizzle-orm"
+import { drizzle, DrizzleD1Database } from "drizzle-orm/d1"
+import { alias } from "drizzle-orm/sqlite-core"
 import { chunk, pick } from "remeda"
 
 import type { Match, Team } from "./dota"
+import { $leagues, $matches, $teams } from "./schema"
 
-export type MatchTable = {
-  id: string
-  matchType: string | null
-  teamOneId: string | null
-  teamTwoId: string | null
-  leagueName: string | null
-  streamUrl: string | null
-  startsAt: string | null
+export const createDb = (env: Env) => drizzle(env.MATCHES)
+
+export const getTeamsFromDb = async (db: DrizzleD1Database): Promise<Team[]> => {
+  return await db.select({ name: $teams.name, url: $teams.url }).from($teams)
 }
 
-export type LeagueTable = {
-  name: string
-  url: string | null
-}
-
-export type TeamTable = {
-  id: string
-  name: string
-  url: string | null
-}
-
-export type SubscriptionTable = {
-  guildId: string
-  channel: string
-  teamName: string
-}
-
-type Database = {
-  match: MatchTable
-  league: LeagueTable
-  team: TeamTable
-  subscription: SubscriptionTable
-}
-
-export type Db = Kysely<Database>
-
-export const createDb = (env: Env) =>
-  new Kysely<Database>({
-    dialect: new D1Dialect({ database: env.MATCHES }),
-  })
-
-export const getTeamsFromDb = async (db: Db): Promise<Team[]> => {
-  return await db.selectFrom("team").select(["name", "url"]).execute()
-}
-
-export const upsertTeamsData = async (db: Db, teams: Team[]) => {
+export const upsertTeamsData = async (db: DrizzleD1Database, teams: Team[]) => {
   return await Promise.all(
     teams.map(({ name, url }) =>
       db
-        .insertInto("team")
+        .insert($teams)
         .values({ id: name!, name: name!, url })
-        .onConflict((b) => b.column("id").doUpdateSet({ id: name!, name: name!, url }))
-        .execute(),
+        .onConflictDoUpdate({ target: $teams.id, set: { name: name!, url: url! } }),
     ),
   )
 }
 
-export const getMatchDataFromDb = async (db: Db): Promise<Match[]> => {
+export const getMatchDataFromDb = async (db: DrizzleD1Database): Promise<Match[]> => {
+  const $teamOne = alias($teams, "teamOne")
+  const $teamTwo = alias($teams, "teamTwo")
+
   const matchData = await db
-    .selectFrom("match")
-    .leftJoin("league", "match.leagueName", "league.name")
-    .leftJoin("team as teamOne", "match.teamOneId", "teamOne.id")
-    .leftJoin("team as teamTwo", "match.teamTwoId", "teamTwo.id")
-    .select([
-      "match.id",
-      "matchType",
-      "streamUrl",
-      "startsAt",
-      "leagueName",
-      "league.url as leagueUrl",
-      "teamOneId",
-      "teamOne.name as teamOneName",
-      "teamOne.url as teamOneUrl",
-      "teamTwoId",
-      "teamTwo.name as teamTwoName",
-      "teamTwo.url as teamTwoUrl",
-    ])
-    .execute()
+    .select({
+      id: $matches.id,
+      matchType: $matches.matchType,
+      streamUrl: $matches.streamUrl,
+      startsAt: $matches.startsAt,
+      leagueName: $matches.leagueName,
+      leagueUrl: $leagues.url,
+
+      teamOneId: $matches.teamOneId,
+      teamOneName: $teamOne.name,
+      teamOneUrl: $teamOne.url,
+
+      teamTwoId: $matches.teamTwoId,
+      teamTwoName: $teamTwo.name,
+      teamTwoUrl: $teamTwo.url,
+    })
+    .from($matches)
+    .leftJoin($leagues, eq($matches.leagueName, $leagues.name))
+    .leftJoin($teamOne, eq($matches.teamOneId, $teamOne.id))
+    .leftJoin($teamTwo, eq($matches.teamTwoId, $teamTwo.id))
 
   return matchData.map((match) => ({
-    hash: match.id!,
+    hash: match.id,
     ...pick(match, ["matchType", "streamUrl", "startsAt", "leagueName", "leagueUrl"]),
     teams: [
       { name: match.teamOneName, url: match.teamOneUrl },
@@ -93,11 +59,11 @@ export const getMatchDataFromDb = async (db: Db): Promise<Match[]> => {
   }))
 }
 
-export const upsertMatchData = async (db: Db, matches: Match[]) => {
+export const upsertMatchData = async (db: DrizzleD1Database, matches: Match[]) => {
   console.log("Upserting match data...")
 
   console.log("Generating new data...")
-  const matchData = matches.map<InsertObject<Database, "match">>((match) => ({
+  const matchData = matches.map<typeof $matches.$inferInsert>((match) => ({
     id: match.hash,
     matchType: match.matchType,
     teamOneId: match.teams[0]?.name ?? null,
@@ -107,7 +73,7 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
     startsAt: match.startsAt,
   }))
 
-  const teams = new Map<string, InsertObject<Database, "team">>()
+  const teams = new Map<string, typeof $teams.$inferInsert>()
   for (const match of matches) {
     if (match.teams[0]?.name != null && !teams.has(match.teams[0].name)) {
       teams.set(match.teams[0].name, {
@@ -125,7 +91,7 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
     }
   }
 
-  const leagues = new Map<string, InsertObject<Database, "league">>()
+  const leagues = new Map<string, typeof $leagues.$inferInsert>()
   for (const match of matches) {
     if (match.leagueName == null || leagues.has(match.leagueName)) continue
 
@@ -140,24 +106,18 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
   }
 
   console.log("Deleting old matches...")
-  await db.deleteFrom("match").execute()
+  await db.delete($matches)
 
   console.log("Inserting matches...")
   await Promise.all(
     // For some reason this is errorring with "too many SQL variables" if we don't chunk it
-    chunk(matchData, 5).map((matchChunk) =>
-      db.insertInto("match").values(matchChunk).execute(),
-    ),
+    chunk(matchData, 5).map((matchChunk) => db.insert($matches).values(matchChunk)),
   )
 
   console.log("Inserting teams...")
   await Promise.all(
     [...teams.values()].map((team) =>
-      db
-        .insertInto("team")
-        .values(team)
-        .onConflict((b) => b.column("id").doUpdateSet(team))
-        .execute(),
+      db.insert($teams).values(team).onConflictDoUpdate({ target: $teams.id, set: team }),
     ),
   )
 
@@ -165,10 +125,9 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
   await Promise.all(
     [...leagues.values()].map((league) =>
       db
-        .insertInto("league")
+        .insert($leagues)
         .values(league)
-        .onConflict((b) => b.column("name").doUpdateSet(league))
-        .execute(),
+        .onConflictDoUpdate({ target: $leagues.name, set: league }),
     ),
   )
 }

@@ -1,10 +1,11 @@
 import { compareAsc } from "date-fns"
 import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
-import { sql } from "kysely"
+import { eq, or, sql } from "drizzle-orm"
 import { groupBy } from "remeda"
 
-import { createDb, MatchTable, SubscriptionTable } from "./db"
+import { createDb } from "./db"
 import { createDiscordClient } from "./discord"
+import { $matches, $subscriptions } from "./schema"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) => (check ? value : "")
 
@@ -23,7 +24,8 @@ const embedTemplate: Omit<APIEmbed, "fields"> = {
 }
 
 export const formatMatchToEmbedField = (
-  match: Omit<MatchTable, "id"> & Pick<SubscriptionTable, "channel">,
+  match: Omit<typeof $matches.$inferSelect, "id"> &
+    Pick<typeof $subscriptions.$inferSelect, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -57,18 +59,28 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   const now = new Date()
 
   const subscribedMatchesInTimeframe = await db
-    .selectFrom("subscription")
-    .leftJoin("match", (join) =>
-      join.onRef("teamOneId", "=", "teamName").orOnRef("teamTwoId", "=", "teamName"),
+    .select({
+      id: $matches.id,
+      matchType: $matches.matchType,
+      teamOneId: $matches.teamOneId,
+      teamTwoId: $matches.teamTwoId,
+      leagueName: $matches.leagueName,
+      streamUrl: $matches.streamUrl,
+      startsAt: $matches.startsAt,
+
+      channel: $subscriptions.channel,
+    })
+    .from($subscriptions)
+    .leftJoin(
+      $matches,
+      or(
+        eq($matches.teamOneId, $subscriptions.teamName),
+        eq($matches.teamTwoId, $subscriptions.teamName),
+      ),
     )
-    // prettier-ignore
-    .where(sql`datetime(startsAt)`, ">", sql`datetime(${now.toISOString()})`)
-    // prettier-ignore
-    .where(sql`datetime(startsAt)`, "<", sql`datetime(${now.toISOString()}, '1 day')`)
-    .selectAll("match")
-    .select("subscription.channel")
-    .groupBy(["id", "channel"])
-    .execute()
+    .where(sql`datetime(${$matches.startsAt}) > datetime(${now.toISOString()})`)
+    .where(sql`datetime(${$matches.startsAt}) < datetime(${now.toISOString()}, '1 day')`)
+    .groupBy(($result) => [$result.id, $result.channel])
 
   const matchesByChannel = groupBy(subscribedMatchesInTimeframe, (match) => match.channel)
 
