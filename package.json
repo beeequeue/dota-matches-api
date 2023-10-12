@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev": "wrangler dev --local",
-    "dev:migrate": "wrangler d1 migrations apply dpc --local",
+    "dev:migrate": "wrangler d1 migrations apply --local dpc",
     "build": "tsup",
     "lint": "eslint src",
     "test": "vitest --mode test",
