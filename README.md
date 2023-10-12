@@ -40,6 +40,7 @@ type ResponseBody = Match[]
 ### Setup
 
 1. Install dependencies <br/>`pnpm install`
+1. Execute DB migrations <br/>`pnpm dev:migrate`
 1. Start development server <br/>`pnpm dev`
 1. Go wild!
 
