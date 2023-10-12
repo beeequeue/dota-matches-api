@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@beequeue/eslint-plugin": "2.1.1",
-    "@cloudflare/workers-types": "4.20230518.0",
+    "@cloudflare/workers-types": "4.20231010.0",
     "@total-typescript/ts-reset": "0.4.2",
     "@tsconfig/node20": "20.1.2",
     "@types/node": "20.3.1",
@@ -46,7 +46,7 @@
     "kysely-d1": "0.3.0",
     "lint-staged": "13.3.0",
     "mande": "2.0.6",
-    "miniflare": "3.0.2",
+    "miniflare": "3.20231010.0",
     "ms": "3.0.0-canary.1",
     "nanoid": "5.0.1",
     "node-html-parser": "6.1.5",
@@ -57,15 +57,9 @@
     "tsup": "7.0.0",
     "typescript": "5.1.3",
     "undici": "5.22.1",
-    "vite": "4.3.9",
-    "vitest": "0.32.2",
-    "vitest-environment-miniflare": "2.14.0",
-    "wrangler": "3.1.1"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@cloudflare/workers-types@4.20230518.0": "patches/@cloudflare__workers-types@4.20230518.0.patch",
-      "@miniflare/d1@2.14.0": "patches/@miniflare__d1@2.14.0.patch"
-    }
+    "vite": "4.4.11",
+    "vitest": "0.34.6",
+    "vitest-environment-miniflare": "2.14.1",
+    "wrangler": "3.12.0"
   }
 }
