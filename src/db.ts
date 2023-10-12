@@ -1,6 +1,6 @@
 import { InsertObject, Kysely } from "kysely"
 import { D1Dialect } from "kysely-d1"
-import { pick } from "remeda"
+import { chunk, pick } from "remeda"
 
 import type { Match, Team } from "./dota"
 
@@ -143,7 +143,12 @@ export const upsertMatchData = async (db: Db, matches: Match[]) => {
   await db.deleteFrom("match").execute()
 
   console.log("Inserting matches...")
-  await db.insertInto("match").values(matchData).execute()
+  await Promise.all(
+    // For some reason this is errorring with "too many SQL variables" if we don't chunk it
+    chunk(matchData, 5).map((matchChunk) =>
+      db.insertInto("match").values(matchChunk).execute(),
+    ),
+  )
 
   console.log("Inserting teams...")
   await Promise.all(
