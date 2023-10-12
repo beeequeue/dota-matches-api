@@ -117,8 +117,8 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     const matchType = versus$.querySelector("abbr")?.textContent
     const startTime = meta$.attrs["data-timestamp"]
     const streamName = meta$.attrs["data-stream-twitch"]
-    const leagueName = leagueLink$.attrs["title"]
-    const leagueUrl = leagueLink$.attrs["href"]
+    const leagueName = leagueLink$.attrs.title
+    const leagueUrl = leagueLink$.attrs.href
 
     return withHash({
       teams,
@@ -143,7 +143,7 @@ export const parseTeamsPage = (html: string): Team[] => {
   const data: Team[] = notableTeams$?.map((el$) => {
     return {
       name: el$.textContent.trim(),
-      url: `https://liquipedia.net${el$.querySelector("a")!.attrs["href"]}`,
+      url: `https://liquipedia.net${el$.querySelector("a")!.attrs.href}`,
     }
   })
 

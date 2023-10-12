@@ -26,6 +26,7 @@ export const formatMatchToEmbedField = (
   match: Omit<MatchTable, "id"> & Pick<SubscriptionTable, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     .map((teamName) => `**${teamName || "?"}**`)
     .join(" _vs_ ")
 

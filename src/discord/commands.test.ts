@@ -42,7 +42,7 @@ const createCommandInput = (
     token: "token",
     version: 1,
     guild_locale: "en-US",
-  } as APIChatInputApplicationCommandInteraction)
+  }) as APIChatInputApplicationCommandInteraction
 
 beforeEach(() => {
   vi.resetAllMocks()
