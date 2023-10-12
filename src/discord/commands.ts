@@ -7,7 +7,7 @@ import {
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import Fuse from "fuse.js"
+import Fuzzy from "@leeoniya/ufuzzy"
 import { isTruthy } from "remeda"
 
 import { badRequest } from "@worker-tools/response-creators"
@@ -132,18 +132,16 @@ export const handleAutocompleteCommand = async (
 ) => {
   const dotaClient = createDotaClient(env, db)
   const teams = await dotaClient.getTeams(country)
-  const fuse = new Fuse(teams, { minMatchCharLength: 2 })
+  const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
+
+  // eslint-disable-next-line unicorn/no-array-method-this-argument
+  const [idxs] = fuzzy.search(teams, value)
 
   return json<APIApplicationCommandAutocompleteResponse>({
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
-      choices: fuse
-        .search(value)
-        .slice(0, 8)
-        .map(({ item }) => ({
-          name: item,
-          value: item,
-        })),
+      choices:
+        idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
     },
   })
 }

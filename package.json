@@ -29,6 +29,7 @@
   "devDependencies": {
     "@beequeue/eslint-plugin": "4.0.0",
     "@cloudflare/workers-types": "4.20231010.0",
+    "@leeoniya/ufuzzy": "1.0.10",
     "@total-typescript/ts-reset": "0.5.1",
     "@tsconfig/node20": "20.1.2",
     "@types/node": "20.8.4",
@@ -39,7 +40,6 @@
     "discord-interactions": "3.4.0",
     "dotenv": "16.3.1",
     "eslint": "8.51.0",
-    "fuse.js": "6.6.2",
     "itty-cors": "0.3.6",
     "itty-router": "4.0.23",
     "kysely": "0.26.3",

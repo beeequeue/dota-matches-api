@@ -25,6 +25,9 @@ devDependencies:
   '@cloudflare/workers-types':
     specifier: 4.20231010.0
     version: 4.20231010.0
+  '@leeoniya/ufuzzy':
+    specifier: 1.0.10
+    version: 1.0.10
   '@total-typescript/ts-reset':
     specifier: 0.5.1
     version: 0.5.1
@@ -55,9 +58,6 @@ devDependencies:
   eslint:
     specifier: 8.51.0
     version: 8.51.0
-  fuse.js:
-    specifier: 6.6.2
-    version: 6.6.2
   itty-cors:
     specifier: 0.3.6
     version: 0.3.6
@@ -760,6 +760,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /@leeoniya/ufuzzy@1.0.10:
+    resolution: {integrity: sha512-OR1yiyN8cKBn5UiHjKHUl0LcrTQt4vZPUpIf96qIIZVLxgd4xyASuRvTZ3tjbWvuyQAMgvKsq61Nwu131YyHnA==}
     dev: true
 
   /@miniflare/cache@2.14.1:
@@ -2436,11 +2440,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /fuse.js@6.6.2:
-    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
-    engines: {node: '>=10'}
-    dev: true
 
   /get-func-name@2.0.2:
     resolution: {integrity: sha512-8vXOvuE167CtIc3OyItco7N/dpRtBbYOsPsXCz7X/PMnlGjYjSGuZJgM1Y7mmew7BKf9BqvLX2tnOVy1BBUsxQ==}
