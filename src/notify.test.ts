@@ -48,11 +48,13 @@ describe("notifier", () => {
   >
 
   beforeEach(() => {
-    sendMessageMock = vi.fn(() => Promise.resolve(null)) as any
+    sendMessageMock = vi.fn(() => Promise.resolve(null)) as never
 
     mockedDiscord.createDiscordClient.mockReturnValue({
       sendMessage: sendMessageMock,
-    } as Partial<ReturnType<(typeof Discord)["createDiscordClient"]>> as ReturnType<(typeof Discord)["createDiscordClient"]>)
+    } as Partial<ReturnType<(typeof Discord)["createDiscordClient"]>> as ReturnType<
+      (typeof Discord)["createDiscordClient"]
+    >)
   })
 
   it("sends messages to channels", async (ctx) => {

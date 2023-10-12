@@ -28,7 +28,8 @@ v1Router.get<IRequest, [Env, ExecutionContext]>("/matches", async (request, env,
     const lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
     return json(await cached.json(), {
-      ...cached,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(cached as any),
       headers: {
         ...cached.headers,
         "Cache-Control": `public, max-age=${getBrowserCacheTtl(
