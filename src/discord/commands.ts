@@ -7,13 +7,15 @@ import {
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import Fuzzy from "@leeoniya/ufuzzy"
+import { and, eq } from "drizzle-orm"
+import { DrizzleD1Database } from "drizzle-orm/d1"
 import { isTruthy } from "remeda"
 
+import Fuzzy from "@leeoniya/ufuzzy"
 import { badRequest } from "@worker-tools/response-creators"
 
-import { Db, SubscriptionTable } from "../db"
 import { createDotaClient } from "../dota"
+import { $subscriptions } from "../schema"
 import { json } from "../utils"
 
 export enum Command {
@@ -34,7 +36,7 @@ const createCommandResponse = (
 })
 
 export const handleFollowCommand = async (
-  db: Db,
+  db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const guildId = body.guild_id!
@@ -44,22 +46,18 @@ export const handleFollowCommand = async (
     )
     .filter(isTruthy)
 
-  const data: SubscriptionTable[] = teamNames.map((teamName) => ({
+  const data: Array<typeof $subscriptions.$inferInsert> = teamNames.map((teamName) => ({
     guildId,
     channel: body.channel_id,
     teamName,
   }))
-  await db
-    .insertInto("subscription")
-    .values(data)
-    .onConflict((oC) => oC.doNothing())
-    .execute()
+  await db.insert($subscriptions).values(data).onConflictDoNothing()
 
   return json(createCommandResponse(`Okay, I will now notify you those teams' matches.`))
 }
 
 export const handleUnfollowCommand = async (
-  db: Db,
+  db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const guildId = body.guild_id!
@@ -73,12 +71,15 @@ export const handleUnfollowCommand = async (
   }
 
   const removed = await db
-    .deleteFrom("subscription")
-    .where("guildId", "=", guildId)
-    .where("channel", "=", body.channel_id)
-    .where("teamName", "=", teamOption.value)
-    .returning(["teamName"])
-    .execute()
+    .delete($subscriptions)
+    .where(
+      and(
+        eq($subscriptions.guildId, guildId),
+        eq($subscriptions.channel, body.channel_id),
+        eq($subscriptions.teamName, teamOption.value),
+      ),
+    )
+    .returning({ teamName: $subscriptions.teamName })
 
   if (removed.length === 0) {
     return badRequest("Guild not registered.")
@@ -92,15 +93,20 @@ export const handleUnfollowCommand = async (
 }
 
 export const handleListCommand = async (
-  db: Db,
+  db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const subscriptions = await db
-    .selectFrom("subscription")
-    .select(["teamName"])
-    .where("guildId", "=", body.guild_id!)
-    .where("channel", "=", body.channel_id)
-    .execute()
+    .select({
+      teamName: $subscriptions.teamName,
+    })
+    .from($subscriptions)
+    .where(
+      and(
+        eq($subscriptions.guildId, body.guild_id!),
+        eq($subscriptions.channel, body.channel_id),
+      ),
+    )
 
   if (subscriptions.length === 0) {
     const response: APIInteractionResponse = {
@@ -126,7 +132,7 @@ ${subscriptions.map((sub) => sub.teamName).join("\n")}
 
 export const handleAutocompleteCommand = async (
   env: Env,
-  db: Db,
+  db: DrizzleD1Database,
   country: string,
   value: string,
 ) => {

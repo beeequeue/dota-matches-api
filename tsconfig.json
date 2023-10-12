@@ -37,5 +37,6 @@
     "e2e/**/*.ts",
     "./worker-configuration.d.ts",
     "./vitest.setup.ts"
-  ]
+  ],
+  "exclude": ["src/**/*.test.ts"]
 }
