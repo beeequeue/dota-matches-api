@@ -114,7 +114,9 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
 
     const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
-    const matchType = versus$.querySelector("abbr")?.textContent
+    // For some reason we have to use `innerHTML` here instead of `textContent`
+    // because the abbr tag might not be parsed correctly by node-html-parser?
+    const matchType = versus$.querySelector("abbr")?.innerHTML
     const startTime = meta$.attrs["data-timestamp"]
     const streamName = meta$.attrs["data-stream-twitch"]
     const leagueName = leagueLink$.attrs.title
