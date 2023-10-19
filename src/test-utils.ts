@@ -1,5 +1,5 @@
 import { DrizzleD1Database } from "drizzle-orm/d1"
-import type { MockAgent } from "undici"
+import type { MockAgent } from "undici-types"
 
 import { $subscriptions, $teams } from "./schema"
 

@@ -24,11 +24,7 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "types": [
-      "@cloudflare/workers-types/2022-08-04",
-      "vite/client",
-      "@total-typescript/ts-reset"
-    ],
+    "types": ["@cloudflare/workers-types/2022-08-04", "@total-typescript/ts-reset"],
     "lib": ["es2022", "esnext"]
   },
 
