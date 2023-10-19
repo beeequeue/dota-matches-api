@@ -106,7 +106,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
   if ($matches.length === 0) return []
 
-  return $matches.map(($match) => {
+  const matches = $matches.map(($match) => {
     const teamLeft$ = $match.querySelector(".team-left")!
     const teamRight$ = $match.querySelector(".team-right")!
     const versus$ = $match.querySelector(".versus")!
@@ -132,6 +132,14 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
         ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
         : null,
     })
+  })
+
+  // Orders by start time, but puts matches with no start time at the end
+  return matches.sort((a, b) => {
+    if (a.startsAt == null) return 1
+    if (b.startsAt == null) return -1
+
+    return a.startsAt.localeCompare(b.startsAt)
   })
 }
 
