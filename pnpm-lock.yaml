@@ -35,8 +35,8 @@ devDependencies:
     specifier: 20.1.2
     version: 20.1.2
   '@types/node':
-    specifier: 20.8.9
-    version: 20.8.9
+    specifier: 20.8.10
+    version: 20.8.10
   '@worker-tools/response-creators':
     specifier: 1.2.0-pre.6
     version: 1.2.0-pre.6
@@ -47,8 +47,8 @@ devDependencies:
     specifier: 2.30.0
     version: 2.30.0
   discord-api-types:
-    specifier: 0.37.61
-    version: 0.37.61
+    specifier: 0.37.62
+    version: 0.37.62
   discord-interactions:
     specifier: 3.4.0
     version: 3.4.0
@@ -77,8 +77,8 @@ devDependencies:
     specifier: 2.0.8
     version: 2.0.8
   miniflare:
-    specifier: 3.20231025.0
-    version: 3.20231025.0
+    specifier: 3.20231025.1
+    version: 3.20231025.1
   ms:
     specifier: 3.0.0-canary.1
     version: 3.0.0-canary.1
@@ -95,8 +95,8 @@ devDependencies:
     specifier: 3.0.3
     version: 3.0.3
   remeda:
-    specifier: 1.28.0
-    version: 1.28.0
+    specifier: 1.29.0
+    version: 1.29.0
   simple-git-hooks:
     specifier: 2.9.0
     version: 2.9.0
@@ -107,8 +107,8 @@ devDependencies:
     specifier: 5.2.2
     version: 5.2.2
   undici-types:
-    specifier: 5.27.0
-    version: 5.27.0
+    specifier: 5.27.2
+    version: 5.27.2
   vitest:
     specifier: 0.34.6
     version: 0.34.6
@@ -1077,7 +1077,7 @@ packages:
   /@types/better-sqlite3@7.6.6:
     resolution: {integrity: sha512-nuFAptzt0hZYBvyLzKQCbuCCK+RN9PHH4ezar5EJLIg2qpVhwQ/uLvLO/K8A9O7N8DafawgFupiyXQSs0U48Ng==}
     dependencies:
-      '@types/node': 20.8.9
+      '@types/node': 20.8.10
     dev: true
 
   /@types/chai-subset@1.3.4:
@@ -1094,8 +1094,8 @@ packages:
     resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==}
     dev: true
 
-  /@types/node@20.8.9:
-    resolution: {integrity: sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==}
+  /@types/node@20.8.10:
+    resolution: {integrity: sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==}
     dependencies:
       undici-types: 5.26.4
     dev: true
@@ -1847,8 +1847,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types@0.37.61:
-    resolution: {integrity: sha512-o/dXNFfhBpYHpQFdT6FWzeO7pKc838QeeZ9d91CfVAtpr5XLK4B/zYxQbYgPdoMiTDvJfzcsLW5naXgmHGDNXw==}
+  /discord-api-types@0.37.62:
+    resolution: {integrity: sha512-KpLQ6TiylGSSHj8AQW8Hz1ek1MkBbQUWs4gZhWH0rvSsWSj9tfav6EIitSxbFmqveqfu8oiPFI7vgFE4kBhTcQ==}
     dev: true
 
   /discord-interactions@3.4.0:
@@ -3287,6 +3287,28 @@ packages:
       - utf-8-validate
     dev: true
 
+  /miniflare@3.20231025.1:
+    resolution: {integrity: sha512-zwvu/f6eivBBF2shuom5DibnZjGSxt6FiC8sZlj+CcqTRss1D2ZHYD09odhAZLY9DYXE0orBFkJKnIDx/QmYdQ==}
+    engines: {node: '>=16.13'}
+    dependencies:
+      acorn: 8.10.0
+      acorn-walk: 8.2.0
+      capnp-ts: 0.7.0
+      exit-hook: 2.2.1
+      glob-to-regexp: 0.4.1
+      source-map-support: 0.5.21
+      stoppable: 1.1.0
+      undici: 5.26.4
+      workerd: 1.20231025.0
+      ws: 8.14.2
+      youch: 3.3.2
+      zod: 3.22.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: true
+
   /minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
     dependencies:
@@ -3807,8 +3829,8 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /remeda@1.28.0:
-    resolution: {integrity: sha512-QANcfxsEiRCdiN8PQ7LsPQvW1qVFAO2x4dXEpuWbZKPrzzRG2BA0SXReDnhppD2YZKgLWA/bLpHq0ANenXea1w==}
+  /remeda@1.29.0:
+    resolution: {integrity: sha512-M3LQ14KtMdQ1879lj/kKji3zBk158s7Rwg963mEkTfQFMxnKrIEAMxJfo/+0sp/+uGgN/KMVU2MBA4LNjqf8YQ==}
     dev: true
 
   /resolve-from@4.0.0:
@@ -4394,8 +4416,8 @@ packages:
     resolution: {integrity: sha512-nSNuWyiXbGptNQjUVhJGKA0KufCryCa6yjc2IAfg4HRblpUNgF5xhqEXNO3+F8cVYFiJsIgurydTuKphzszEmA==}
     dev: true
 
-  /undici-types@5.27.0:
-    resolution: {integrity: sha512-vBblTWiSquVYNHW8Xgnho3vhWyi1ARrAqaTXIdwpsp4CVn2wXRh/AVjBzpAo0f09Rqg98ihf+AIXGb2jGsILtg==}
+  /undici-types@5.27.2:
+    resolution: {integrity: sha512-jq2b5ZpcQl5WYBYs7F1Mnit4B1VZtT61eeHF+fr+M0By0DLua/45PNizT2gqzcZlOU1RUVhpj5MGLiTF20he5Q==}
     dev: true
 
   /undici@5.20.0:
@@ -4445,7 +4467,7 @@ packages:
       builtins: 5.0.1
     dev: true
 
-  /vite-node@0.34.6(@types/node@20.8.9):
+  /vite-node@0.34.6(@types/node@20.8.10):
     resolution: {integrity: sha512-nlBMJ9x6n7/Amaz6F3zJ97EBwR2FkzhBRxF5e+jE6LA3yi6Wtc2lyTij1OnDMIr34v5g/tVQtsVAzhT0jc5ygA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -4455,7 +4477,7 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.5.0(@types/node@20.8.9)
+      vite: 4.5.0(@types/node@20.8.10)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -4467,7 +4489,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.5.0(@types/node@20.8.9):
+  /vite@4.5.0(@types/node@20.8.10):
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -4495,7 +4517,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.8.9
+      '@types/node': 20.8.10
       esbuild: 0.18.20
       postcss: 8.4.31
       rollup: 3.29.4
@@ -4553,7 +4575,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.9
       '@types/chai-subset': 1.3.4
-      '@types/node': 20.8.9
+      '@types/node': 20.8.10
       '@vitest/expect': 0.34.6
       '@vitest/runner': 0.34.6
       '@vitest/snapshot': 0.34.6
@@ -4572,8 +4594,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.7.0
-      vite: 4.5.0(@types/node@20.8.9)
-      vite-node: 0.34.6(@types/node@20.8.9)
+      vite: 4.5.0(@types/node@20.8.10)
+      vite-node: 0.34.6(@types/node@20.8.10)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
