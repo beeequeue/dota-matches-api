@@ -44,7 +44,7 @@
     "eslint": "8.53.0",
     "itty-cors": "0.3.6",
     "itty-router": "4.0.23",
-    "lint-staged": "15.0.2",
+    "lint-staged": "15.1.0",
     "mande": "2.0.8",
     "miniflare": "3.20231025.1",
     "ms": "3.0.0-canary.1",
