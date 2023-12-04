@@ -54,7 +54,7 @@
     "prettier": "3.0.3",
     "remeda": "1.29.0",
     "simple-git-hooks": "2.9.0",
-    "tsup": "7.2.0",
+    "tsup": "8.0.1",
     "typescript": "5.2.2",
     "undici-types": "5.27.2",
     "vitest": "0.34.6",
