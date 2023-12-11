@@ -107,8 +107,8 @@ devDependencies:
     specifier: 5.2.2
     version: 5.2.2
   undici-types:
-    specifier: 5.27.2
-    version: 5.27.2
+    specifier: 6.0.1
+    version: 6.0.1
   vitest:
     specifier: 0.34.6
     version: 0.34.6
@@ -4443,8 +4443,8 @@ packages:
     resolution: {integrity: sha512-nSNuWyiXbGptNQjUVhJGKA0KufCryCa6yjc2IAfg4HRblpUNgF5xhqEXNO3+F8cVYFiJsIgurydTuKphzszEmA==}
     dev: true
 
-  /undici-types@5.27.2:
-    resolution: {integrity: sha512-jq2b5ZpcQl5WYBYs7F1Mnit4B1VZtT61eeHF+fr+M0By0DLua/45PNizT2gqzcZlOU1RUVhpj5MGLiTF20he5Q==}
+  /undici-types@6.0.1:
+    resolution: {integrity: sha512-i9dNdkCziyqGpFxhatR9LITcInbFWh+ExlWkrZQpZHje8FfCcJKgps0IbmMd7D1o8c8syG4pIOV+aKIoC9JEyA==}
     dev: true
 
   /undici@5.20.0:
