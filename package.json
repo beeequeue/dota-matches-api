@@ -50,7 +50,7 @@
     "ms": "3.0.0-canary.1",
     "nanoid": "5.0.2",
     "node-html-parser": "6.1.11",
-    "p-queue": "7.4.1",
+    "p-queue": "8.0.0",
     "prettier": "3.0.3",
     "remeda": "1.29.0",
     "simple-git-hooks": "2.9.0",
