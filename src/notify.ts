@@ -1,6 +1,6 @@
 import { compareAsc } from "date-fns"
 import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
-import { eq, or, sql } from "drizzle-orm"
+import { and, eq, or, sql } from "drizzle-orm"
 import { groupBy } from "remeda"
 
 import { createDb } from "./db"
@@ -78,8 +78,12 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
         eq($matches.teamTwoId, $subscriptions.teamName),
       ),
     )
-    .where(sql`datetime(${$matches.startsAt}) > datetime(${now.toISOString()})`)
-    .where(sql`datetime(${$matches.startsAt}) < datetime(${now.toISOString()}, '1 day')`)
+    .where(
+      and(
+        sql`datetime(${$matches.startsAt}) > datetime(${now.toISOString()})`,
+        sql`datetime(${$matches.startsAt}) < datetime(${now.toISOString()}, '1 day')`,
+      ),
+    )
     .groupBy(($result) => [$result.id, $result.channel])
 
   const matchesByChannel = groupBy(subscribedMatchesInTimeframe, (match) => match.channel)
