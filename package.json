@@ -46,20 +46,20 @@
     "itty-router": "4.0.23",
     "lint-staged": "15.2.0",
     "mande": "2.0.8",
-    "miniflare": "3.20231030.3",
+    "miniflare": "3.20231030.4",
     "ms": "3.0.0-canary.1",
     "nanoid": "5.0.4",
     "node-html-parser": "6.1.11",
-    "p-queue": "8.0.0",
+    "p-queue": "8.0.1",
     "prettier": "3.1.1",
-    "remeda": "1.29.0",
+    "remeda": "1.30.0",
     "simple-git-hooks": "2.9.0",
     "tsup": "8.0.1",
     "typescript": "5.3.3",
     "undici-types": "6.0.1",
     "vitest": "1.0.4",
     "vitest-environment-miniflare": "2.14.1",
-    "wrangler": "3.19.0"
+    "wrangler": "3.21.0"
   },
   "pnpm": {
     "overrides": {
