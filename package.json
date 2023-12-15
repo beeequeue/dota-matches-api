@@ -69,6 +69,7 @@
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
       "has": "npm:@nolyfill/has@latest",
+      "hasown": "npm:@nolyfill/hasown@latest",
       "object.assign": "npm:@nolyfill/object.assign@latest",
       "object.entries": "npm:@nolyfill/object.entries@latest",
       "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
