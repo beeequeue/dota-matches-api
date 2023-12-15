@@ -60,6 +60,13 @@ export type LiquipediaBody = {
 }
 
 const extractTeam = (team$: HTMLElement): Team => {
+  if (team$.textContent.trim() === "TDB") {
+    return {
+      name: "TBD",
+      url: null,
+    }
+  }
+
   const name = team$
     .querySelector(".team-template-text > a")
     ?.attrs?.title?.replace(/\(.*?\)/g, "")
@@ -103,7 +110,9 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 
   const root = parse(data.parse.text["*"])
 
-  const $matches = root.querySelectorAll("[data-toggle-area-content='2'] > table")
+  const $matches = root.querySelectorAll(
+    "[data-toggle-area-content='2'] .infobox_matches_content",
+  )
   if ($matches.length === 0) return []
 
   const matches = $matches.map(($match) => {
