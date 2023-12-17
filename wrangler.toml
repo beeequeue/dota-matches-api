@@ -19,7 +19,7 @@ preview_id = "bcf47ed35fcc486eacfdf8719b270475"
 [[d1_databases]]
 binding = "MATCHES"
 database_name = "dpc"
-database_id = "1a75d89f-62b7-49e9-a9db-2011efe75622"
+database_id = "bd8b7837-e4a9-4522-a9dd-6e6cf88134d4"
 
 [miniflare]
 kv_persist = true
