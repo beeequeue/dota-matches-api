@@ -24,11 +24,11 @@ devDependencies:
     specifier: 4.0.0
     version: 4.0.0(eslint@8.56.0)(prettier@3.1.1)(typescript@5.3.3)
   '@cloudflare/workers-types':
-    specifier: 4.20231121.0
-    version: 4.20231121.0
+    specifier: 4.20231218.0
+    version: 4.20231218.0
   '@leeoniya/ufuzzy':
-    specifier: 1.0.13
-    version: 1.0.13
+    specifier: 1.0.14
+    version: 1.0.14
   '@total-typescript/ts-reset':
     specifier: 0.5.1
     version: 0.5.1
@@ -57,11 +57,11 @@ devDependencies:
     specifier: 16.3.1
     version: 16.3.1
   drizzle-kit:
-    specifier: 0.20.6
-    version: 0.20.6
+    specifier: 0.20.7
+    version: 0.20.7
   drizzle-orm:
     specifier: 0.29.1
-    version: 0.29.1(@cloudflare/workers-types@4.20231121.0)(better-sqlite3@8.7.0)
+    version: 0.29.1(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@8.7.0)
   eslint:
     specifier: 8.56.0
     version: 8.56.0
@@ -69,8 +69,8 @@ devDependencies:
     specifier: 0.3.6
     version: 0.3.6
   itty-router:
-    specifier: 4.0.23
-    version: 4.0.23
+    specifier: 4.0.25
+    version: 4.0.25
   lint-staged:
     specifier: 15.2.0
     version: 15.2.0
@@ -96,8 +96,8 @@ devDependencies:
     specifier: 3.1.1
     version: 3.1.1
   remeda:
-    specifier: 1.31.0
-    version: 1.31.0
+    specifier: 1.33.0
+    version: 1.33.0
   simple-git-hooks:
     specifier: 2.9.0
     version: 2.9.0
@@ -108,17 +108,17 @@ devDependencies:
     specifier: 5.3.3
     version: 5.3.3
   undici-types:
-    specifier: 6.0.1
-    version: 6.0.1
+    specifier: 6.2.1
+    version: 6.2.1
   vitest:
-    specifier: 1.0.4
-    version: 1.0.4(@types/node@20.10.5)
+    specifier: 1.1.0
+    version: 1.1.0(@types/node@20.10.5)
   vitest-environment-miniflare:
     specifier: 2.14.1
-    version: 2.14.1(vitest@1.0.4)
+    version: 2.14.1(vitest@1.1.0)
   wrangler:
-    specifier: 3.21.0
-    version: 3.21.0
+    specifier: 3.22.1
+    version: 3.22.1
 
 packages:
 
@@ -239,8 +239,8 @@ packages:
     dev: true
     optional: true
 
-  /@cloudflare/workers-types@4.20231121.0:
-    resolution: {integrity: sha512-+kWfpCkqiepwAKXyHoE0gnkPgkLhz0/9HOBIGhHRsUvUKvhUtm3mbqqoGRWgF1qcjzrDUBbrrOq4MYHfFtc2RA==}
+  /@cloudflare/workers-types@4.20231218.0:
+    resolution: {integrity: sha512-Vs1FKjfUjXYGbCsXzkl+ITp0Iyb6QiW6+vTERTNThC+v96T0IvPVAioH4tT20rXwoxAfxh380mAaxYtTrJUNVg==}
     dev: true
 
   /@cspotcode/source-map-support@0.8.1:
@@ -992,8 +992,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@leeoniya/ufuzzy@1.0.13:
-    resolution: {integrity: sha512-w7cOuME1F8e4TOrSAGQWPczj60eIcQiU31X1RU65yiZBz1zpDWfynVJUw8d2QzhkUsEObAV0nN4RTIqxpCvJGg==}
+  /@leeoniya/ufuzzy@1.0.14:
+    resolution: {integrity: sha512-/xF4baYuCQMo+L/fMSUrZnibcu0BquEGnbxfVPiZhs/NbJeKj4c/UmFpQzW9Us0w45ui/yYW3vyaqawhNYsTzA==}
     dev: true
 
   /@miniflare/cache@2.14.1:
@@ -1084,7 +1084,7 @@ packages:
     resolution: {integrity: sha512-hfactEWiHuHOmE29XFG8oLNCF6+HqjD6Mb80CzidcVmLlBTEtSC3PEF+DXPyvNdLXpBolZMKOuC/yzzloWvACA==}
     engines: {node: '>=16.13'}
     dependencies:
-      '@cloudflare/workers-types': 4.20231121.0
+      '@cloudflare/workers-types': 4.20231218.0
       '@miniflare/cache': 2.14.1
       '@miniflare/core': 2.14.1
       '@miniflare/d1': 2.14.1
@@ -1565,38 +1565,38 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@vitest/expect@1.0.4:
-    resolution: {integrity: sha512-/NRN9N88qjg3dkhmFcCBwhn/Ie4h064pY3iv7WLRsDJW7dXnEgeoa8W9zy7gIPluhz6CkgqiB3HmpIXgmEY5dQ==}
+  /@vitest/expect@1.1.0:
+    resolution: {integrity: sha512-9IE2WWkcJo2BR9eqtY5MIo3TPmS50Pnwpm66A6neb2hvk/QSLfPXBz2qdiwUOQkwyFuuXEUj5380CbwfzW4+/w==}
     dependencies:
-      '@vitest/spy': 1.0.4
-      '@vitest/utils': 1.0.4
+      '@vitest/spy': 1.1.0
+      '@vitest/utils': 1.1.0
       chai: 4.3.10
     dev: true
 
-  /@vitest/runner@1.0.4:
-    resolution: {integrity: sha512-rhOQ9FZTEkV41JWXozFM8YgOqaG9zA7QXbhg5gy6mFOVqh4PcupirIJ+wN7QjeJt8S8nJRYuZH1OjJjsbxAXTQ==}
+  /@vitest/runner@1.1.0:
+    resolution: {integrity: sha512-zdNLJ00pm5z/uhbWF6aeIJCGMSyTyWImy3Fcp9piRGvueERFlQFbUwCpzVce79OLm2UHk9iwaMSOaU9jVHgNVw==}
     dependencies:
-      '@vitest/utils': 1.0.4
+      '@vitest/utils': 1.1.0
       p-limit: 5.0.0
       pathe: 1.1.1
     dev: true
 
-  /@vitest/snapshot@1.0.4:
-    resolution: {integrity: sha512-vkfXUrNyNRA/Gzsp2lpyJxh94vU2OHT1amoD6WuvUAA12n32xeVZQ0KjjQIf8F6u7bcq2A2k969fMVxEsxeKYA==}
+  /@vitest/snapshot@1.1.0:
+    resolution: {integrity: sha512-5O/wyZg09V5qmNmAlUgCBqflvn2ylgsWJRRuPrnHEfDNT6tQpQ8O1isNGgo+VxofISHqz961SG3iVvt3SPK/QQ==}
     dependencies:
       magic-string: 0.30.5
       pathe: 1.1.1
       pretty-format: 29.7.0
     dev: true
 
-  /@vitest/spy@1.0.4:
-    resolution: {integrity: sha512-9ojTFRL1AJVh0hvfzAQpm0QS6xIS+1HFIw94kl/1ucTfGCaj1LV/iuJU4Y6cdR03EzPDygxTHwE1JOm+5RCcvA==}
+  /@vitest/spy@1.1.0:
+    resolution: {integrity: sha512-sNOVSU/GE+7+P76qYo+VXdXhXffzWZcYIPQfmkiRxaNCSPiLANvQx5Mx6ZURJ/ndtEkUJEpvKLXqAYTKEY+lTg==}
     dependencies:
       tinyspy: 2.2.0
     dev: true
 
-  /@vitest/utils@1.0.4:
-    resolution: {integrity: sha512-gsswWDXxtt0QvtK/y/LWukN7sGMYmnCcv1qv05CsY6cU/Y1zpGX1QuvLs+GO1inczpE6Owixeel3ShkjhYtGfA==}
+  /@vitest/utils@1.1.0:
+    resolution: {integrity: sha512-z+s510fKmYz4Y41XhNs3vcuFTFhcij2YF7F8VQfMEYAAUfqQh0Zfg7+w9xdgFGhPf3tX3TicAe+8BDITk6ampQ==}
     dependencies:
       diff-sequences: 29.6.3
       loupe: 2.3.7
@@ -2245,8 +2245,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.20.6:
-    resolution: {integrity: sha512-+AYQY+tJUnfMJYIeh6aEjI21mpMCekqz0LEu2QdFdc/3zSmjyfEhH5dkXlRFME8v1rtisiHfp7bP+gVVKDPiUg==}
+  /drizzle-kit@0.20.7:
+    resolution: {integrity: sha512-3LjTvgVAI1jd3JHLG2tMW5ew49NuD7SMymRv+h9xUxb/geS+U/O1yENni0HhyjZH+Gc8hdStL9v1xY9Ob3s3/g==}
     hasBin: true
     dependencies:
       '@drizzle-team/studio': 0.0.35
@@ -2261,7 +2261,7 @@ packages:
       json-diff: 0.9.0
       minimatch: 7.4.6
       semver: 7.5.4
-      wrangler: 3.21.0
+      wrangler: 3.22.1
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -2269,7 +2269,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /drizzle-orm@0.29.1(@cloudflare/workers-types@4.20231121.0)(better-sqlite3@8.7.0):
+  /drizzle-orm@0.29.1(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@8.7.0):
     resolution: {integrity: sha512-yItc4unfHnk8XkDD3/bdC63vdboTY7e7I03lCF1OJYABXSIfQYU9BFTQJXMMovVeb3T1/OJWwfW/70T1XPnuUA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -2331,7 +2331,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@cloudflare/workers-types': 4.20231121.0
+      '@cloudflare/workers-types': 4.20231218.0
       better-sqlite3: 8.7.0
     dev: true
 
@@ -3366,8 +3366,8 @@ packages:
     resolution: {integrity: sha512-VlDDB9CLneCyjqtg8kShl6oBZrJxxwKd8sXWrYC77H6BcW9sDMRDwx7JgCB2T+18pQv/Tau3OIlchEKrEHKKKQ==}
     dev: true
 
-  /itty-router@4.0.23:
-    resolution: {integrity: sha512-tP1NI8PVK43vWlBnIPqj47ni5FDSczFviA4wgBznscndo8lEvBA+pO3DD1rNbIQPcZhprr775iUTunyGvQMcBw==}
+  /itty-router@4.0.25:
+    resolution: {integrity: sha512-WbH1x46QFKNAjp85GYZzDteriZl9nJ0flwGJDVfzC4HT0B/nb01/KOD7mEr+5cYmuqy9T7L/A3ifNzCpzQ1fcw==}
     dev: true
 
   /joycon@3.1.1:
@@ -4201,8 +4201,8 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /remeda@1.31.0:
-    resolution: {integrity: sha512-nRoIO0E/3Ruuq4LO4szkGfOGXstB2KbroMqjFRcNA2pBN594AMzRKqY347NIf7WIslIxbQ1cKBpUkQxUgmoxuQ==}
+  /remeda@1.33.0:
+    resolution: {integrity: sha512-GExMiOhTB0eg1Rc7hvBMBNxwlVRYIulGfIj5pkuuAfy9HB3ms4PmLvbhMMjQ2btoCit0iN7eQmHgwTaGZTVWwg==}
     dev: true
 
   /resolve-from@4.0.0:
@@ -4820,8 +4820,8 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici-types@6.0.1:
-    resolution: {integrity: sha512-i9dNdkCziyqGpFxhatR9LITcInbFWh+ExlWkrZQpZHje8FfCcJKgps0IbmMd7D1o8c8syG4pIOV+aKIoC9JEyA==}
+  /undici-types@6.2.1:
+    resolution: {integrity: sha512-iD2yLpYLPK+BZwQbl5X+iDZblu3Nsc4lJgqJwxvIWhrT4IC8iNgmhhfmAm0JIeYP5mlXXlUBcpgRy212MoEjuQ==}
     dev: true
 
   /undici@5.20.0:
@@ -4871,8 +4871,8 @@ packages:
       builtins: 5.0.1
     dev: true
 
-  /vite-node@1.0.4(@types/node@20.10.5):
-    resolution: {integrity: sha512-9xQQtHdsz5Qn8hqbV7UKqkm8YkJhzT/zr41Dmt5N7AlD8hJXw/Z7y0QiD5I8lnTthV9Rvcvi0QW7PI0Fq83ZPg==}
+  /vite-node@1.1.0(@types/node@20.10.5):
+    resolution: {integrity: sha512-jV48DDUxGLEBdHCQvxL1mEh7+naVy+nhUUUaPAZLd3FJgXuxQiewHcfeZebbJ6onDqNGkP4r3MhQ342PRlG81Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     dependencies:
@@ -4928,7 +4928,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest-environment-miniflare@2.14.1(vitest@1.0.4):
+  /vitest-environment-miniflare@2.14.1(vitest@1.1.0):
     resolution: {integrity: sha512-efMpx9XnpjHeIN1lnEMO+4Ky9xSFM0VeG8Ilf+5Uyh8U8lNuJ+qTTfr76LQ6MQcNzkLMo4byh0YxaZo8QfIYrw==}
     engines: {node: '>=16.13'}
     peerDependencies:
@@ -4939,14 +4939,14 @@ packages:
       '@miniflare/shared': 2.14.1
       '@miniflare/shared-test-environment': 2.14.1
       undici: 5.20.0
-      vitest: 1.0.4(@types/node@20.10.5)
+      vitest: 1.1.0(@types/node@20.10.5)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
     dev: true
 
-  /vitest@1.0.4(@types/node@20.10.5):
-    resolution: {integrity: sha512-s1GQHp/UOeWEo4+aXDOeFBJwFzL6mjycbQwwKWX2QcYfh/7tIerS59hWQ20mxzupTJluA2SdwiBuWwQHH67ckg==}
+  /vitest@1.1.0(@types/node@20.10.5):
+    resolution: {integrity: sha512-oDFiCrw7dd3Jf06HoMtSRARivvyjHJaTxikFxuqJjO76U436PqlVw1uLn7a8OSPrhSfMGVaRakKpA2lePdw79A==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -4971,11 +4971,11 @@ packages:
         optional: true
     dependencies:
       '@types/node': 20.10.5
-      '@vitest/expect': 1.0.4
-      '@vitest/runner': 1.0.4
-      '@vitest/snapshot': 1.0.4
-      '@vitest/spy': 1.0.4
-      '@vitest/utils': 1.0.4
+      '@vitest/expect': 1.1.0
+      '@vitest/runner': 1.1.0
+      '@vitest/snapshot': 1.1.0
+      '@vitest/spy': 1.1.0
+      '@vitest/utils': 1.1.0
       acorn-walk: 8.3.1
       cac: 6.7.14
       chai: 4.3.10
@@ -4990,7 +4990,7 @@ packages:
       tinybench: 2.5.1
       tinypool: 0.8.1
       vite: 5.0.10(@types/node@20.10.5)
-      vite-node: 1.0.4(@types/node@20.10.5)
+      vite-node: 1.1.0(@types/node@20.10.5)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -5066,8 +5066,8 @@ packages:
       '@cloudflare/workerd-windows-64': 1.20231030.0
     dev: true
 
-  /wrangler@3.21.0:
-    resolution: {integrity: sha512-DLoo4XfjeyuGRAVWZFHmU1jWnZIfyLGDm6Ika9oy/CLCPfJzVJvf2jI70EU5BlEHWDZXMSJKw7FDdgSqwhaQXg==}
+  /wrangler@3.22.1:
+    resolution: {integrity: sha512-fN7WOF6Ono/TV5V90PuJQNf0azS7B+5C/N/KRjqhlAIQBz+c0yLOGkF6kC/akxjr1yIAC9AzcPk9+OuTSq0C+g==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     dependencies:
