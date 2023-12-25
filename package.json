@@ -35,7 +35,7 @@
     "@types/node": "20.10.5",
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "better-sqlite3": "8.7.0",
-    "date-fns": "2.30.0",
+    "date-fns": "3.0.6",
     "discord-api-types": "0.37.66",
     "discord-interactions": "3.4.0",
     "dotenv": "16.3.1",
