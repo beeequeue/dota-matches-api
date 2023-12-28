@@ -48,6 +48,7 @@ export const getMatchDataFromDb = async (db: DrizzleD1Database): Promise<Match[]
     .leftJoin($leagues, eq($matches.leagueName, $leagues.name))
     .leftJoin($teamOne, eq($matches.teamOneId, $teamOne.id))
     .leftJoin($teamTwo, eq($matches.teamTwoId, $teamTwo.id))
+    .all()
 
   return matchData.map((match) => ({
     hash: match.id,
@@ -110,7 +111,7 @@ export const upsertMatchData = async (db: DrizzleD1Database, matches: Match[]) =
 
   console.log("Inserting matches...")
   await Promise.all(
-    // For some reason this is errorring with "too many SQL variables" if we don't chunk it
+    // For some reason this is erroring with "too many SQL variables" if we don't chunk it
     chunk(matchData, 5).map((matchChunk) => db.insert($matches).values(matchChunk)),
   )
 
