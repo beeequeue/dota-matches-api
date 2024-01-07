@@ -32,21 +32,19 @@
     "@leeoniya/ufuzzy": "1.0.14",
     "@total-typescript/ts-reset": "0.5.1",
     "@tsconfig/node20": "20.1.2",
-    "@types/node": "20.10.6",
-    "@worker-tools/response-creators": "1.2.0-pre.6",
+    "@types/node": "20.10.7",
     "better-sqlite3": "8.7.0",
-    "date-fns": "3.0.6",
+    "date-fns": "3.1.0",
     "discord-api-types": "0.37.67",
     "discord-interactions": "3.4.0",
     "dotenv": "16.3.1",
-    "drizzle-kit": "0.20.9",
-    "drizzle-orm": "0.29.2",
+    "drizzle-kit": "0.20.10",
+    "drizzle-orm": "0.29.3",
     "eslint": "8.56.0",
-    "itty-cors": "0.3.6",
-    "itty-router": "4.0.25",
+    "hono": "3.12.0",
     "lint-staged": "15.2.0",
     "mande": "2.0.8",
-    "miniflare": "3.20231030.4",
+    "miniflare": "3.20231218.1",
     "ms": "3.0.0-canary.1",
     "nanoid": "5.0.4",
     "node-html-parser": "6.1.12",
@@ -57,9 +55,9 @@
     "tsup": "8.0.1",
     "typescript": "5.3.3",
     "undici-types": "6.2.1",
-    "vitest": "1.1.1",
+    "vitest": "1.1.3",
     "vitest-environment-miniflare": "2.14.1",
-    "wrangler": "3.22.1"
+    "wrangler": "3.22.3"
   },
   "pnpm": {
     "overrides": {
@@ -75,7 +73,8 @@
       "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
       "object.hasown": "npm:@nolyfill/object.hasown@latest",
       "object.values": "npm:@nolyfill/object.values@latest",
-      "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
+      "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
+      "side-channel": "npm:@nolyfill/side-channel@latest"
     }
   }
 }

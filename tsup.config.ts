@@ -26,7 +26,8 @@ export default defineConfig({
   bundle: true,
   splitting: false,
   sourcemap: true,
-  target: "node18",
+  platform: "browser",
+  target: "node21",
   format: ["esm"],
 
   clean: true,
