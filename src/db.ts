@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { drizzle, DrizzleD1Database } from "drizzle-orm/d1"
 import { alias } from "drizzle-orm/sqlite-core"
 import { chunk, pick } from "remeda"
@@ -37,12 +37,16 @@ export const getMatchDataFromDb = async (db: DrizzleD1Database): Promise<Match[]
       leagueUrl: $leagues.url,
 
       teamOneId: $matches.teamOneId,
-      teamOneName: $teamOne.name,
-      teamOneUrl: $teamOne.url,
+      // https://github.com/drizzle-team/drizzle-orm/issues/555
+      // https://github.com/cloudflare/workerd/pull/696
+      teamOneName: sql<string>`${$teamOne.name}`.as("teamOneName"),
+      teamOneUrl: sql<string>`${$teamOne.url}`.as("teamOneUrl"),
 
       teamTwoId: $matches.teamTwoId,
-      teamTwoName: $teamTwo.name,
-      teamTwoUrl: $teamTwo.url,
+      // https://github.com/drizzle-team/drizzle-orm/issues/555
+      // https://github.com/cloudflare/workerd/pull/696
+      teamTwoName: sql<string>`${$teamTwo.name}`.as("teamTwoName"),
+      teamTwoUrl: sql<string>`${$teamTwo.url}`.as("teamTwoUrl"),
     })
     .from($matches)
     .leftJoin($leagues, eq($matches.leagueName, $leagues.name))
