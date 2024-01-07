@@ -1,35 +1,29 @@
-import { IRequest, Router } from "itty-router"
-
-import { ExecutionContext } from "@cloudflare/workers-types"
+import { Hono } from "hono"
 
 import { createDb } from "../../db"
 import { createDotaClient } from "../../dota"
 import {
-  buildCacheResponse,
+  getCacheHeaders,
   EDGE_CACHE_TIMEOUT,
   getBrowserCacheTtl,
   getCountry,
   getTtl,
-  json,
   MetaKey,
 } from "../../utils"
 
 import { discordRouter } from "./discord"
 
-export const v1Router = Router<IRequest, [Env, ExecutionContext]>({
-  base: "/v1",
-})
+export const v1Router = new Hono<{ Bindings: Env }>()
 
-v1Router.all("/discord/*", discordRouter.handle)
+v1Router.route("/discord/*", discordRouter)
 
-v1Router.get<IRequest, [Env, ExecutionContext]>("/matches", async (request, env, ctx) => {
-  const cached = await caches.default.match(request.url)
+v1Router.get("/matches", async (c) => {
+  const cached = await caches.default.match(c.req.url)
   if (cached != null) {
-    const lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
+    const lastFetched = Number((await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
-    return json(await cached.json(), {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(cached as any),
+    return c.json(await cached.json(), {
+      ...cached,
       headers: {
         ...cached.headers,
         "Cache-Control": `public, max-age=${getBrowserCacheTtl(
@@ -39,16 +33,20 @@ v1Router.get<IRequest, [Env, ExecutionContext]>("/matches", async (request, env,
     })
   }
 
-  const dota = createDotaClient(env, createDb(env))
+  const dota = createDotaClient(c.env, createDb(c.env))
 
-  const country = getCountry(request)
+  const country = getCountry(c.req)
   const { matches, lastFetched } = await dota.getMatches(country)
 
-  ctx.waitUntil(
+  const response = c.json(matches, {
+    headers: getCacheHeaders(lastFetched),
+  })
+
+  c.executionCtx.waitUntil(
     caches.default
-      .put(request.url, buildCacheResponse(matches, lastFetched))
+      .put(c.req.url, response)
       .catch((error: Error) => console.log(`Failed to cache response: ${error.message}`)),
   )
 
-  return buildCacheResponse(matches, lastFetched)
+  return response
 })

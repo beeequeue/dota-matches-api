@@ -39,9 +39,6 @@ devDependencies:
   '@types/node':
     specifier: 20.10.7
     version: 20.10.7
-  '@worker-tools/response-creators':
-    specifier: 1.2.0-pre.6
-    version: 1.2.0-pre.6
   better-sqlite3:
     specifier: 8.7.0
     version: 8.7.0
@@ -66,12 +63,9 @@ devDependencies:
   eslint:
     specifier: 8.56.0
     version: 8.56.0
-  itty-cors:
-    specifier: 0.3.6
-    version: 0.3.6
-  itty-router:
-    specifier: 4.0.26
-    version: 4.0.26
+  hono:
+    specifier: 3.12.0
+    version: 3.12.0
   lint-staged:
     specifier: 15.2.0
     version: 15.2.0
@@ -1630,10 +1624,6 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /@worker-tools/response-creators@1.2.0-pre.6:
-    resolution: {integrity: sha512-tY9CvyegTXzI0dCmvw25CwmctFa8ojhjmTLZmvPNPF2ETT3U4o4TvgFZd3eHcr9PKB4fF55TYZeHfgIsjCQ6Qw==}
-    dev: true
-
   /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -3183,6 +3173,11 @@ packages:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
     dev: true
 
+  /hono@3.12.0:
+    resolution: {integrity: sha512-UPEtZuLY7Wo7g0mqKWSOjLFdT8t7wJ60IYEcxKl3AQNU4u+R2QqU2fJMPmSu24C+/ag20Z8mOTQOErZzK4DMvA==}
+    engines: {node: '>=16.0.0'}
+    dev: true
+
   /hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
     dev: true
@@ -3336,14 +3331,6 @@ packages:
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-    dev: true
-
-  /itty-cors@0.3.6:
-    resolution: {integrity: sha512-VlDDB9CLneCyjqtg8kShl6oBZrJxxwKd8sXWrYC77H6BcW9sDMRDwx7JgCB2T+18pQv/Tau3OIlchEKrEHKKKQ==}
-    dev: true
-
-  /itty-router@4.0.26:
-    resolution: {integrity: sha512-GBcmhxQRvIQ7fuzXPlvfeQcN6O7VGhctzdG9WHIcEcaRYH4FvDpMxuSWRIAxQrIM+nxtfxK0/bR78ATvb4LC5Q==}
     dev: true
 
   /jackspeak@2.3.6:

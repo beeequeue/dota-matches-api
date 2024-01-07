@@ -99,7 +99,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, embed] as const
   })
 
-  const discordClient = createDiscordClient(env)
+  const discordClient = createDiscordClient({ env } as never)
   await Promise.all(
     messages.map(async ([channelId, embed]) => {
       await discordClient.sendMessage(channelId, embed)

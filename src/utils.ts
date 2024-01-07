@@ -1,7 +1,5 @@
-import { IRequest } from "itty-router"
+import { HonoRequest } from "hono"
 import ms, { StringValue } from "ms"
-
-import { ok, RequestInitExStatus } from "@worker-tools/response-creators"
 
 export enum MetaKey {
   MATCHES_LAST_FETCHED = "MATCHES_LAST_FETCHED",
@@ -14,27 +12,9 @@ export const nowSeconds = () => ms2s(Date.now())
 
 export const seconds = (input: StringValue) => ms2s(ms(input))
 
-const jsonInit: RequestInitExStatus = {
-  headers: { "Content-Type": "application/json" },
-}
-export const json = <T = unknown>(data: T, init?: RequestInitExStatus) =>
-  ok(
-    JSON.stringify(data, null, 2),
-    init == null
-      ? jsonInit
-      : {
-          ...init,
-          headers: {
-            "Content-Type": "application/json",
-            // eslint-disable-next-line unicorn/no-useless-fallback-in-spread
-            ...(init.headers ?? {}),
-          },
-        },
-  )
-
-export const getCountry = (request: IRequest): string => {
-  if (request.cf?.country != null) {
-    return request.cf.country as string
+export const getCountry = (request: HonoRequest<string>): string => {
+  if (request.raw.cf?.country != null) {
+    return request.raw.cf.country as string
   }
 
   return "UNKNOWN"
@@ -53,12 +33,10 @@ export const getTtl = (lastFetchedAt: number, ttl: number) => {
 
 export const getBrowserCacheTtl = (ttl: number) => Math.min(BROWSER_CACHE_TIMEOUT, ttl)
 
-export const buildCacheResponse = <T = unknown>(data: T, lastFetched: number) => {
+export const getCacheHeaders = (lastFetched: number) => {
   const ttl = getTtl(lastFetched, EDGE_CACHE_TIMEOUT)
 
-  return json(data, {
-    headers: {
-      "Cache-Control": `public, s-maxage=${ttl} max-age=${getBrowserCacheTtl(ttl)}`,
-    },
-  })
+  return {
+    "Cache-Control": `public, s-maxage=${ttl} max-age=${getBrowserCacheTtl(ttl)}`,
+  }
 }

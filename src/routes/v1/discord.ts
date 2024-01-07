@@ -6,10 +6,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import { IRequest, Router } from "itty-router"
-
-import { ExecutionContext } from "@cloudflare/workers-types"
-import { badRequest, ok, temporaryRedirect } from "@worker-tools/response-creators"
+import { Hono } from "hono"
 
 import { createDb } from "../../db"
 import { createDiscordClient } from "../../discord"
@@ -19,23 +16,22 @@ import {
   handleListCommand,
   handleUnfollowCommand,
 } from "../../discord/commands"
-import { getCountry, json } from "../../utils"
+import { badRequest } from "../../http-errors"
+import { getCountry } from "../../utils"
 
-export const discordRouter = Router<IRequest, [Env, ExecutionContext]>({
-  base: "/v1/discord",
-})
+export const discordRouter = new Hono<{ Bindings: Env }>()
 
-discordRouter.get<IRequest, [Env, ExecutionContext]>("/", (_, env: Env) =>
-  temporaryRedirect(createDiscordClient(env).getAuthorizeUrl()),
+discordRouter.get("/", (c) =>
+  c.redirect(createDiscordClient(c).getAuthorizeUrl().toString(), 302),
 )
 
 if (import.meta.env.MODE !== "production") {
-  discordRouter.get("/autocomplete/teams", (request, env: Env) => {
+  discordRouter.get("/autocomplete/teams", (c) => {
     return handleAutocompleteCommand(
-      env,
-      createDb(env),
+      c,
+      createDb(c.env),
       "main",
-      (request.query?.query as string) ?? "",
+      c.req.query().query ?? "",
     )
   })
 }
@@ -43,87 +39,80 @@ if (import.meta.env.MODE !== "production") {
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
 
-discordRouter.get<IRequest, [Env, ExecutionContext]>(
-  "/callback",
-  async (request, env: Env) => {
-    const discordClient = createDiscordClient(env)
-    const url = new URL(request.url)
+discordRouter.get("/callback", async (c) => {
+  const discordClient = createDiscordClient(c)
+  const url = new URL(c.req.url)
 
-    if (!isValidCallback(url.searchParams)) {
-      return badRequest("Missing or invalid callback parameters")
-    }
+  if (!isValidCallback(url.searchParams)) {
+    throw badRequest("Missing or invalid callback parameters")
+  }
 
-    return discordClient.registerGuild({
-      code: url.searchParams.get("code")!,
-      guildId: url.searchParams.get("guild_id")!,
-      permissions: url.searchParams.get("permissions")!,
-    })
-  },
-)
+  return discordClient.registerGuild({
+    code: url.searchParams.get("code")!,
+    guildId: url.searchParams.get("guild_id")!,
+    permissions: url.searchParams.get("permissions")!,
+  })
+})
 
-type RequestWithAuthors = IRequest & {
-  headers?: Headers
-}
+discordRouter.post("/interactions", async (c) => {
+  const db = createDb(c.env)
 
-discordRouter.post<IRequest, [Env, ExecutionContext]>(
-  "/interactions",
-  async (request: RequestWithAuthors, env: Env) => {
-    const db = createDb(env)
+  const body = await c.req.text()
+  const signature = c.req.header("x-signature-ed25519")!
+  const timestamp = c.req.header("x-signature-timestamp")!
+  if (!verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY)) {
+    throw badRequest("Invalid c.req signature")
+  }
 
-    const body = await request.text()
-    const signature = request.headers.get("x-signature-ed25519")!
-    const timestamp = request.headers.get("x-signature-timestamp")!
-    if (!verifyKey(body, signature, timestamp, env.DISCORD_PUBLIC_KEY)) {
-      return badRequest("Invalid request signature")
-    }
+  const parsedBody = JSON.parse(body) as APIInteraction
+  const { type, data } = parsedBody
 
-    const parsedBody = JSON.parse(body) as APIInteraction
-    const { type, data } = parsedBody
+  if (type === InteractionType.Ping) {
+    return c.json({ type: InteractionResponseType.Pong })
+  }
 
-    if (type === InteractionType.Ping) {
-      return json({ type: InteractionResponseType.Pong })
-    }
+  if (type === InteractionType.ApplicationCommandAutocomplete) {
+    const country = getCountry(c.req)
+    const { value } =
+      data.options.find(
+        (option): option is APIApplicationCommandInteractionDataStringOption =>
+          option.type === 3 && option.focused === true,
+      ) ?? {}
 
-    if (type === InteractionType.ApplicationCommandAutocomplete) {
-      const country = getCountry(request)
-      const { value } =
-        data.options.find(
-          (option): option is APIApplicationCommandInteractionDataStringOption =>
-            option.type === 3 && option.focused === true,
-        ) ?? {}
+    if (value == null) throw badRequest()
 
-      if (value == null) return badRequest()
+    return handleAutocompleteCommand(c, db, country, value)
+  }
 
-      return handleAutocompleteCommand(env, db, country, value)
-    }
-
-    if (type === InteractionType.ApplicationCommand && data != null) {
-      switch (data.name) {
-        case "follow": {
-          return handleFollowCommand(
-            db,
-            parsedBody as APIChatInputApplicationCommandInteraction,
-          )
-        }
-
-        case "unfollow": {
-          return handleUnfollowCommand(
-            db,
-            parsedBody as APIChatInputApplicationCommandInteraction,
-          )
-        }
-
-        case "follows": {
-          return handleListCommand(
-            db,
-            parsedBody as APIChatInputApplicationCommandInteraction,
-          )
-        }
+  if (type === InteractionType.ApplicationCommand && data != null) {
+    switch (data.name) {
+      case "follow": {
+        return handleFollowCommand(
+          c,
+          db,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
       }
 
-      return badRequest("Invalid command")
+      case "unfollow": {
+        return handleUnfollowCommand(
+          c,
+          db,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
+      }
+
+      case "follows": {
+        return handleListCommand(
+          c,
+          db,
+          parsedBody as APIChatInputApplicationCommandInteraction,
+        )
+      }
     }
 
-    return ok()
-  },
-)
+    throw badRequest("Invalid command")
+  }
+
+  return c.text("Ok")
+})

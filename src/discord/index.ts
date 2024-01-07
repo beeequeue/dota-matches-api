@@ -12,9 +12,10 @@ import {
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
+import { Context } from "hono"
 import { mande, MandeError } from "mande"
 
-import { badRequest, ok } from "@worker-tools/response-creators"
+import { badRequest } from "../http-errors"
 
 const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as const
 export const BOT_PERMISSIONS = "309237647360"
@@ -35,14 +36,14 @@ type RegisterGuildOptions = {
 }
 
 const registerGuild =
-  (env: Env) =>
+  (c: Context<{ Bindings: Env }>) =>
   async ({ code, guildId, permissions }: RegisterGuildOptions): Promise<Response> => {
     const urlEncodedBody = {
       grant_type: "authorization_code",
-      client_id: env.DISCORD_CLIENT_ID,
-      client_secret: env.DISCORD_CLIENT_SECRET,
+      client_id: c.env.DISCORD_CLIENT_ID,
+      client_secret: c.env.DISCORD_CLIENT_SECRET,
       code,
-      redirect_uri: getRedirectUri(env),
+      redirect_uri: getRedirectUri(c.env),
     } satisfies RESTPostOAuth2AccessTokenURLEncodedData
     const response = await fetch(`${baseUrl}${Routes.oauth2TokenExchange()}`, {
       method: "POST",
@@ -63,12 +64,12 @@ const registerGuild =
 
     if (permissions !== BOT_PERMISSIONS) {
       console.log(`Got invalid permissions: ${permissions}`)
-      await leaveGuild(env, guildId)
+      await leaveGuild(c.env, guildId)
 
-      return badRequest("All the required permissions were not given.")
+      throw badRequest("All the required permissions were not given.")
     }
 
-    return ok()
+    return c.text("Ok")
   }
 
 const getRedirectUri = (env: Env) => `${env.API_BASE}/v1/discord/callback`
@@ -152,10 +153,10 @@ const sendMessage =
     }
   }
 
-export const createDiscordClient = (env: Env) => ({
-  getAuthorizeUrl: getAuthorizeUrl(env),
-  registerGuild: registerGuild(env),
-  createThread: createThread(env),
-  sendMessage: sendMessage(env),
+export const createDiscordClient = (c: Context<{ Bindings: Env }>) => ({
+  getAuthorizeUrl: getAuthorizeUrl(c.env),
+  registerGuild: registerGuild(c),
+  createThread: createThread(c.env),
+  sendMessage: sendMessage(c.env),
   leaveGuild,
 })

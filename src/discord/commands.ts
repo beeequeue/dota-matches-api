@@ -9,14 +9,14 @@ import {
 } from "discord-api-types/v10"
 import { and, eq } from "drizzle-orm"
 import { DrizzleD1Database } from "drizzle-orm/d1"
+import { Context } from "hono"
 import { isTruthy } from "remeda"
 
 import Fuzzy from "@leeoniya/ufuzzy"
-import { badRequest } from "@worker-tools/response-creators"
 
 import { createDotaClient } from "../dota"
+import { badRequest } from "../http-errors"
 import { $subscriptions } from "../schema"
-import { json } from "../utils"
 
 export enum Command {
   Follow = "follow",
@@ -36,6 +36,7 @@ const createCommandResponse = (
 })
 
 export const handleFollowCommand = async (
+  c: Context<{ Bindings: Env }>,
   db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
@@ -53,10 +54,13 @@ export const handleFollowCommand = async (
   }))
   await db.insert($subscriptions).values(data).onConflictDoNothing()
 
-  return json(createCommandResponse(`Okay, I will now notify you those teams' matches.`))
+  return c.json(
+    createCommandResponse(`Okay, I will now notify you those teams' matches.`),
+  )
 }
 
 export const handleUnfollowCommand = async (
+  c: Context<{ Bindings: Env }>,
   db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
@@ -67,7 +71,7 @@ export const handleUnfollowCommand = async (
   )
 
   if (teamOption == null) {
-    return badRequest("Got no team name.")
+    throw badRequest("Got no team name.")
   }
 
   const removed = await db
@@ -82,10 +86,10 @@ export const handleUnfollowCommand = async (
     .returning({ teamName: $subscriptions.teamName })
 
   if (removed.length === 0) {
-    return badRequest("Guild not registered.")
+    throw badRequest("Guild not registered.")
   }
 
-  return json(
+  return c.json(
     createCommandResponse(
       `Okay, you will no longer receive notifications for ${teamOption.value} anymore.`,
     ),
@@ -93,6 +97,7 @@ export const handleUnfollowCommand = async (
 }
 
 export const handleListCommand = async (
+  c: Context<{ Bindings: Env }>,
   db: DrizzleD1Database,
   body: APIChatInputApplicationCommandInteraction,
 ) => {
@@ -117,10 +122,10 @@ export const handleListCommand = async (
       },
     }
 
-    return json(response)
+    return c.json(response)
   }
 
-  return json(
+  return c.json(
     createCommandResponse(
       `This channel is following:
 \`\`\`
@@ -131,19 +136,19 @@ ${subscriptions.map((sub) => sub.teamName).join("\n")}
 }
 
 export const handleAutocompleteCommand = async (
-  env: Env,
+  c: Context<{ Bindings: Env }>,
   db: DrizzleD1Database,
   country: string,
   value: string,
 ) => {
-  const dotaClient = createDotaClient(env, db)
+  const dotaClient = createDotaClient(c.env, db)
   const teams = await dotaClient.getTeams(country)
   const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
 
   // eslint-disable-next-line unicorn/no-array-method-this-argument
   const [idxs] = fuzzy.search(teams, value)
 
-  return json<APIApplicationCommandAutocompleteResponse>({
+  return c.json<APIApplicationCommandAutocompleteResponse>({
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
       choices:
