@@ -15,7 +15,7 @@ import { discordRouter } from "./discord"
 
 export const v1Router = new Hono<{ Bindings: Env }>()
 
-v1Router.route("/discord/*", discordRouter)
+v1Router.route("/discord", discordRouter)
 
 v1Router.get("/matches", async (c) => {
   const cached = await caches.default.match(c.req.url)
