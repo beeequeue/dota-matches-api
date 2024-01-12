@@ -38,15 +38,18 @@ v1Router.get("/matches", async (c) => {
   const country = getCountry(c.req)
   const { matches, lastFetched } = await dota.getMatches(country)
 
-  const response = c.json(matches, {
-    headers: getCacheHeaders(lastFetched),
-  })
-
   c.executionCtx.waitUntil(
     caches.default
-      .put(c.req.url, response)
+      .put(
+        c.req.url,
+        c.json(matches, {
+          headers: getCacheHeaders(lastFetched),
+        }),
+      )
       .catch((error: Error) => console.log(`Failed to cache response: ${error.message}`)),
   )
 
-  return response
+  return c.json(matches, {
+    headers: getCacheHeaders(lastFetched),
+  })
 })

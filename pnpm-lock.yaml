@@ -40,8 +40,8 @@ devDependencies:
     specifier: 20.11.0
     version: 20.11.0
   better-sqlite3:
-    specifier: 8.7.0
-    version: 8.7.0
+    specifier: 9.2.2
+    version: 9.2.2
   date-fns:
     specifier: 3.2.0
     version: 3.2.0
@@ -59,7 +59,7 @@ devDependencies:
     version: 0.20.11
   drizzle-orm:
     specifier: 0.29.3
-    version: 0.29.3(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@8.7.0)
+    version: 0.29.3(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@9.2.2)
   eslint:
     specifier: 8.56.0
     version: 8.56.0
@@ -1753,8 +1753,8 @@ packages:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: true
 
-  /better-sqlite3@8.7.0:
-    resolution: {integrity: sha512-99jZU4le+f3G6aIl6PmmV0cxUIWqKieHxsiF7G34CVFiE+/UabpYqkU0NJIkY/96mQKikHeBjtR27vFfs5JpEw==}
+  /better-sqlite3@9.2.2:
+    resolution: {integrity: sha512-qwjWB46il0lsDkeB4rSRI96HyDQr8sxeu1MkBVLMrwusq1KRu4Bpt1TMI+8zIJkDUtZ3umjAkaEjIlokZKWCQw==}
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
@@ -2239,7 +2239,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.3(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@8.7.0):
+  /drizzle-orm@0.29.3(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@9.2.2):
     resolution: {integrity: sha512-uSE027csliGSGYD0pqtM+SAQATMREb3eSM/U8s6r+Y0RFwTKwftnwwSkqx3oS65UBgqDOM0gMTl5UGNpt6lW0A==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -2311,7 +2311,7 @@ packages:
         optional: true
     dependencies:
       '@cloudflare/workers-types': 4.20231218.0
-      better-sqlite3: 8.7.0
+      better-sqlite3: 9.2.2
     dev: true
 
   /eastasianwidth@0.2.0:
