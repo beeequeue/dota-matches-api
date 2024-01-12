@@ -33,7 +33,7 @@
     "@total-typescript/ts-reset": "0.5.1",
     "@tsconfig/node20": "20.1.2",
     "@types/node": "20.11.0",
-    "better-sqlite3": "8.7.0",
+    "better-sqlite3": "9.2.2",
     "date-fns": "3.2.0",
     "discord-api-types": "0.37.67",
     "discord-interactions": "3.4.0",
