@@ -23,7 +23,7 @@ overrides:
 devDependencies:
   '@beequeue/eslint-plugin':
     specifier: 4.0.0
-    version: 4.0.0(eslint@8.56.0)(prettier@3.1.1)(typescript@5.3.3)
+    version: 4.0.0(eslint@8.56.0)(prettier@3.2.2)(typescript@5.3.3)
   '@cloudflare/workers-types':
     specifier: 4.20231218.0
     version: 4.20231218.0
@@ -55,8 +55,8 @@ devDependencies:
     specifier: 16.3.1
     version: 16.3.1
   drizzle-kit:
-    specifier: 0.20.11
-    version: 0.20.11
+    specifier: 0.20.12
+    version: 0.20.12
   drizzle-orm:
     specifier: 0.29.3
     version: 0.29.3(@cloudflare/workers-types@4.20231218.0)(better-sqlite3@9.2.2)
@@ -88,8 +88,8 @@ devDependencies:
     specifier: 8.0.1
     version: 8.0.1
   prettier:
-    specifier: 3.1.1
-    version: 3.1.1
+    specifier: 3.2.2
+    version: 3.2.2
   remeda:
     specifier: 1.36.0
     version: 1.36.0
@@ -151,7 +151,7 @@ packages:
       regenerator-runtime: 0.14.1
     dev: true
 
-  /@beequeue/eslint-plugin@4.0.0(eslint@8.56.0)(prettier@3.1.1)(typescript@5.3.3):
+  /@beequeue/eslint-plugin@4.0.0(eslint@8.56.0)(prettier@3.2.2)(typescript@5.3.3):
     resolution: {integrity: sha512-aR9kJGD+cl1dmdid18wrKFieOZ4RG09HDfEdtnNsgIkXRaX9LaMR10mHcgioaNAYOvOXF2iCrm3DSFoWiTeP9g==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -170,11 +170,11 @@ packages:
       eslint-plugin-import: /eslint-plugin-i@2.27.5-4(@typescript-eslint/parser@6.7.2)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.56.0)
       eslint-plugin-n: 16.1.0(eslint@8.56.0)
-      eslint-plugin-prettier: 5.0.0(eslint-config-prettier@9.0.0)(eslint@8.56.0)(prettier@3.1.1)
+      eslint-plugin-prettier: 5.0.0(eslint-config-prettier@9.0.0)(eslint@8.56.0)(prettier@3.2.2)
       eslint-plugin-react: 7.33.2(eslint@8.56.0)
       eslint-plugin-unicorn: 48.0.1(eslint@8.56.0)
       eslint-plugin-vue: 9.17.0(eslint@8.56.0)
-      prettier: 3.1.1
+      prettier: 3.2.2
     transitivePeerDependencies:
       - '@types/eslint'
       - eslint-import-resolver-node
@@ -2217,8 +2217,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.20.11:
-    resolution: {integrity: sha512-s03Zi72fKPAWI3zzfe4cbm6RfMs3msv3xlv4pz605RVxheJtYUAHyX+wZEe3u6EyhVvhVj1eQ9Bqzv/FP+xRlg==}
+  /drizzle-kit@0.20.12:
+    resolution: {integrity: sha512-JWJposyEO6QvGIdvj0CmnJK5sMWW9j5HPiGnRIKvYNaAfZEHbmWlemxV2np7g2FZzSvuzwpa9EGmO20PaPeUmA==}
     hasBin: true
     dependencies:
       '@drizzle-team/studio': 0.0.37
@@ -2665,7 +2665,7 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /eslint-plugin-prettier@5.0.0(eslint-config-prettier@9.0.0)(eslint@8.56.0)(prettier@3.1.1):
+  /eslint-plugin-prettier@5.0.0(eslint-config-prettier@9.0.0)(eslint@8.56.0)(prettier@3.2.2):
     resolution: {integrity: sha512-AgaZCVuYDXHUGxj/ZGu1u8H8CYgDY3iG6w5kUFw4AzMVXzB7VvbKgYR4nATIN+OvUrghMbiDLeimVjVY5ilq3w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -2681,7 +2681,7 @@ packages:
     dependencies:
       eslint: 8.56.0
       eslint-config-prettier: 9.0.0(eslint@8.56.0)
-      prettier: 3.1.1
+      prettier: 3.2.2
       prettier-linter-helpers: 1.0.0
       synckit: 0.8.8
     dev: true
@@ -4076,8 +4076,8 @@ packages:
       fast-diff: 1.3.0
     dev: true
 
-  /prettier@3.1.1:
-    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
+  /prettier@3.2.2:
+    resolution: {integrity: sha512-HTByuKZzw7utPiDO523Tt2pLtEyK7OibUD9suEJQrPUCYQqrHr74GGX6VidMrovbf/I50mPqr8j/II6oBAuc5A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
