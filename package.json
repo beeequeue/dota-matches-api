@@ -42,7 +42,7 @@
     "drizzle-orm": "0.29.3",
     "eslint": "8.56.0",
     "hono": "3.12.8",
-    "lint-staged": "15.2.0",
+    "lint-staged": "15.2.1",
     "mande": "2.0.8",
     "miniflare": "3.20231218.4",
     "ms": "3.0.0-canary.1",
