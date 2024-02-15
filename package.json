@@ -41,7 +41,7 @@
     "drizzle-kit": "0.20.14",
     "drizzle-orm": "0.29.3",
     "eslint": "8.56.0",
-    "hono": "3.12.12",
+    "hono": "4.0.2",
     "lint-staged": "15.2.2",
     "mande": "2.0.8",
     "miniflare": "3.20240129.1",
