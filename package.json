@@ -40,7 +40,7 @@
     "dotenv": "16.4.5",
     "drizzle-kit": "0.20.14",
     "drizzle-orm": "0.29.4",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "hono": "4.0.7",
     "lint-staged": "15.2.2",
     "mande": "2.0.8",
