@@ -27,7 +27,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@beequeue/eslint-plugin": "4.0.0",
+    "@beequeue/eslint-plugin": "4.0.1",
     "@cloudflare/workers-types": "4.20240222.0",
     "@leeoniya/ufuzzy": "1.0.14",
     "@total-typescript/ts-reset": "0.5.1",
