@@ -1,6 +1,6 @@
-import { APIApplicationCommandInteractionDataStringOption } from "discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/string"
 import {
   APIApplicationCommandAutocompleteResponse,
+  APIApplicationCommandInteractionDataStringOption,
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
   ApplicationCommandOptionType,

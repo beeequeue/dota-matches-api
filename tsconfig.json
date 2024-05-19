@@ -1,14 +1,14 @@
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     // Output
     "noEmit": true,
     "sourceMap": true,
+    "target": "esnext",
     "module": "esnext",
 
     // Modules
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "./src",
@@ -17,6 +17,7 @@
     },
 
     // Typechecking
+    "strict": true,
     "skipLibCheck": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,

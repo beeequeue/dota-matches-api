@@ -1,6 +1,6 @@
 import { setTimeout } from "timers/promises"
 
-import ms from "ms"
+import { ms } from "milli"
 import { beforeEach, expect, it, TestContext, vi } from "vitest"
 
 import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
