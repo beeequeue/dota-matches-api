@@ -1,5 +1,5 @@
-import { HonoRequest } from "hono"
-import ms, { StringValue } from "ms"
+import type { HonoRequest } from "hono"
+import { type StringValue, ms } from "milli"
 
 export enum MetaKey {
   MATCHES_LAST_FETCHED = "MATCHES_LAST_FETCHED",

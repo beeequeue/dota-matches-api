@@ -1,15 +1,15 @@
-import { APIApplicationCommandInteractionDataStringOption } from "discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/string"
 import {
-  APIApplicationCommandAutocompleteResponse,
-  APIChatInputApplicationCommandInteraction,
-  APIInteractionResponse,
+  type APIApplicationCommandAutocompleteResponse,
+  type APIApplicationCommandInteractionDataStringOption,
+  type APIChatInputApplicationCommandInteraction,
+  type APIInteractionResponse,
   ApplicationCommandOptionType,
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
 import { and, eq } from "drizzle-orm"
-import { DrizzleD1Database } from "drizzle-orm/d1"
-import { Context } from "hono"
+import type { DrizzleD1Database } from "drizzle-orm/d1"
+import type { Context } from "hono"
 import { isTruthy } from "remeda"
 
 import Fuzzy from "@leeoniya/ufuzzy"
@@ -145,14 +145,13 @@ export const handleAutocompleteCommand = async (
   const teams = await dotaClient.getTeams(country)
   const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
 
-  // eslint-disable-next-line unicorn/no-array-method-this-argument
   const [idxs] = fuzzy.search(teams, value)
 
-  return c.json<APIApplicationCommandAutocompleteResponse>({
+  return c.json({
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
       choices:
         idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
     },
-  })
+  } satisfies APIApplicationCommandAutocompleteResponse)
 }

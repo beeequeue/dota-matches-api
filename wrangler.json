@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/snilan/wrangler-json-schema/main/wrangler.schema.json",
+  "name": "dota-matches-api",
+  "account_id": "a2ae71949fd5eaebc354f81fb3b1deab",
+  "compatibility_date": "2023-12-01",
+  "compatibility_flags": [],
+
+  "main": "dist/index.js",
+  "build": {
+    "command": "pnpm tsup",
+    "watch_dir": "dist"
+  },
+
+  "triggers": {
+    "crons": [
+      "0 8 * * *"
+    ]
+  },
+  "routes": [
+    {
+      "custom_domain": true,
+      "zone_name": "haglund.dev",
+      "pattern": "dota.haglund.dev"
+    }
+  ],
+  "vars": {
+    "API_BASE": "https://dota.haglund.dev",
+    "DISCORD_CLIENT_ID": "999099490273337354",
+    "DISCORD_PUBLIC_KEY": "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
+  },
+
+  "kv_namespaces": [
+    {
+      "binding": "META",
+      "id": "d36a2a6f8e86435aaf85c18801d813c7",
+      "preview_id": "bcf47ed35fcc486eacfdf8719b270475"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "MATCHES",
+      "database_name": "dpc",
+      "database_id": "bd8b7837-e4a9-4522-a9dd-6e6cf88134d4"
+    }
+  ],
+
+  "miniflare": {
+    "kv_persist": true,
+    "r2_persist": true,
+    "d1_persist": true,
+    "cache_persist": false
+  }
+}

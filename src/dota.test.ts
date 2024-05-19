@@ -1,13 +1,12 @@
-import { setTimeout } from "timers/promises"
+import { ms } from "milli"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
-import ms from "ms"
-import { beforeEach, expect, it, TestContext, vi } from "vitest"
-
-import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
+import { fetchMock } from "cloudflare:test"
+import { type LiquipediaBody, getTeams, parseTeamsPage } from "./dota"
+// @ts-expect-error: Bad type
 import teamsFixture from "./fixtures/teams.html?raw"
 import { MetaKey } from "./utils"
-
-const describe = setupMiniflareIsolatedStorage()
+import { $teams } from "./schema"
 
 describe("parseTeamsPage", () => {
   it("correctly parses the body", () => {
@@ -32,10 +31,10 @@ describe("getTeams", () => {
       },
     } as Partial<LiquipediaBody["parse"]> as LiquipediaBody["parse"],
   }
-  const mockApiRequest = (ctx: TestContext) => {
+  const mockApiRequest = () => {
     const handler = vi.fn(() => body)
 
-    ctx.agent
+    fetchMock
       .get("https://liquipedia.net")
       .intercept({
         path: /dota2.api\.php/,
@@ -57,7 +56,7 @@ describe("getTeams", () => {
 
     expect(apiHandler).toHaveBeenCalledOnce()
 
-    const data = await ctx.db.selectFrom("team").selectAll().execute()
+    const data = await ctx.db.select().from($teams).all()
     expect(data[0]).toStrictEqual({
       id: "5ManMidas",
       name: "5ManMidas",
@@ -66,7 +65,7 @@ describe("getTeams", () => {
   })
 
   it("fetches teams from cache if cached", async (ctx) => {
-    await ctx.db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
+    await ctx.db.insert($teams).values({ id: "OG", name: "OG", url: "url" }).execute()
     await ctx.env.META.put(
       MetaKey.TEAMS_LAST_FETCHED,
       (Date.now() - ms("10m")).toString(),
@@ -80,9 +79,9 @@ describe("getTeams", () => {
   })
 
   it("fetches teams from cache and updates it if soft expired", async (ctx) => {
-    const apiHandler = mockApiRequest(ctx)
+    const apiHandler = mockApiRequest()
 
-    await ctx.db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
+    await ctx.db.insert($teams).values({ id: "OG", name: "OG", url: "url" }).execute()
     const l = (Date.now() - ms("6d")).toString()
     await ctx.env.META.put(MetaKey.TEAMS_LAST_FETCHED, l)
 
@@ -92,10 +91,10 @@ describe("getTeams", () => {
     expect(result).toContain("OG")
     expect(result).not.toContain("Team Liquid")
 
-    await setTimeout(100)
+    await new Promise((resolve) => setTimeout(resolve, 100))
     // Still fetched new ones
     expect(apiHandler).toHaveBeenCalledOnce()
-    const data = await ctx.db.selectFrom("team").selectAll().orderBy("name").execute()
+    const data = await ctx.db.select().from($teams).orderBy($teams.name).execute()
     expect(data[0]).toStrictEqual({
       id: "5ManMidas",
       name: "5ManMidas",

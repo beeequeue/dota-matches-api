@@ -1,16 +1,4 @@
-import { DrizzleD1Database } from "drizzle-orm/d1"
-import type { MockAgent } from "undici-types"
-
-import { $subscriptions, $teams } from "./schema"
-
-declare module "vitest" {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-  interface TestContext {
-    agent: MockAgent
-    env: Env
-    db: DrizzleD1Database
-  }
-}
+import type { $subscriptions, $teams } from "./schema"
 
 export const GUILD_ID = "987613986523"
 export const CHANNEL_ID = "0986526095326812"

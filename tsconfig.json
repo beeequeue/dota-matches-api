@@ -1,14 +1,14 @@
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     // Output
     "noEmit": true,
     "sourceMap": true,
+    "target": "esnext",
     "module": "esnext",
 
     // Modules
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "./src",
@@ -17,6 +17,7 @@
     },
 
     // Typechecking
+    "strict": true,
     "skipLibCheck": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
@@ -24,7 +25,10 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "types": ["@cloudflare/workers-types/2022-08-04", "@total-typescript/ts-reset"],
+    "types": [
+      "@cloudflare/workers-types/2023-07-01",
+      "@total-typescript/ts-reset"
+    ],
     "lib": ["es2022", "esnext"]
   },
 
@@ -34,5 +38,5 @@
     "./worker-configuration.d.ts",
     "./vitest.setup.ts"
   ],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["node_modules", "dist", "src/**/*test*"]
 }

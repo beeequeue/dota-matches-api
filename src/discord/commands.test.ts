@@ -1,6 +1,6 @@
 import {
-  APIApplicationCommandInteractionDataOption,
-  APIChatInputApplicationCommandInteraction,
+  type APIApplicationCommandInteractionDataOption,
+  type APIChatInputApplicationCommandInteraction,
   ApplicationCommandOptionType,
   ApplicationCommandType,
   InteractionResponseType,
@@ -8,7 +8,7 @@ import {
 } from "discord-api-types/v10"
 import { beforeEach, expect, it, vi } from "vitest"
 
-import { CHANNEL_ID, createSub, createTeam, GUILD_ID } from "../test-utils"
+import { CHANNEL_ID, GUILD_ID, createSub, createTeam } from "../test-utils"
 import { MetaKey } from "../utils"
 
 import {
@@ -27,7 +27,7 @@ const createCommandInput = (
   ({
     type: InteractionType.ApplicationCommand,
     guild_id: GUILD_ID,
-    channel_id: CHANNEL_ID,
+    channel: { id: CHANNEL_ID },
     data: {
       type: ApplicationCommandType.ChatInput,
       guild_id: GUILD_ID,

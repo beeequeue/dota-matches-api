@@ -3,12 +3,12 @@ import { Hono } from "hono"
 import { createDb } from "../../db"
 import { createDotaClient } from "../../dota"
 import {
-  getCacheHeaders,
   EDGE_CACHE_TIMEOUT,
+  MetaKey,
   getBrowserCacheTtl,
+  getCacheHeaders,
   getCountry,
   getTtl,
-  MetaKey,
 } from "../../utils"
 
 import { discordRouter } from "./discord"
@@ -22,7 +22,7 @@ v1Router.get("/matches", async (c) => {
   if (cached != null) {
     const lastFetched = Number((await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
-    return c.json(await cached.json(), {
+    return c.json((await cached.json()) as Record<string, unknown>, {
       ...cached,
       headers: {
         ...cached.headers,

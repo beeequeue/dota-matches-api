@@ -1,9 +1,9 @@
 import { addDays, addHours } from "date-fns"
-import { APIEmbedField } from "discord-api-types/payloads/v10/channel"
-import { APIEmbed } from "discord-api-types/v10"
-import { beforeAll, beforeEach, expect, it, Mock, vi } from "vitest"
+import type { APIEmbedField } from "discord-api-types/payloads/v10/channel"
+import type { APIEmbed } from "discord-api-types/v10"
+import { type Mock, beforeAll, beforeEach, expect, it, vi } from "vitest"
 
-import { MatchTable } from "./db"
+import type { MatchTable } from "./db"
 import * as Discord from "./discord/index"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify"
@@ -107,7 +107,7 @@ describe("notifier", () => {
     await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
-    // eslint-disable-next-line prefer-destructuring
+
     const [channelId, embed] = sendMessageMock.mock.calls[0] as [string, APIEmbed]
     expect(channelId).toMatchInlineSnapshot('"0986526095326812"')
 
@@ -160,17 +160,17 @@ describe("notifier", () => {
     await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
-    // eslint-disable-next-line prefer-destructuring
+
     const embed = sendMessageMock.mock.calls[0][1] as APIEmbed
 
     expect(extractDateFromEmbedField(embed?.fields?.[0])).toStrictEqual(
-      new Date(matches[1].startsAt!),
+      new Date(matches[1].startsAt),
     )
     expect(extractDateFromEmbedField(embed?.fields?.[1])).toStrictEqual(
-      new Date(matches[2].startsAt!),
+      new Date(matches[2].startsAt),
     )
     expect(extractDateFromEmbedField(embed?.fields?.[2])).toStrictEqual(
-      new Date(matches[0].startsAt!),
+      new Date(matches[0].startsAt),
     )
   })
 })

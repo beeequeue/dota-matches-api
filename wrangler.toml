@@ -1,8 +1,9 @@
 name = "dota-matches-api"
 account_id = "a2ae71949fd5eaebc354f81fb3b1deab"
 compatibility_date = "2023-12-01"
-node_compat = false
+compatibility_flags = []
 
+main = "dist/index.js"
 triggers = { crons = ["0 8 * * *"] }
 
 [route]
@@ -33,8 +34,4 @@ DISCORD_PUBLIC_KEY = "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14
 
 [build]
 command = "pnpm --silent build"
-# The directory to watch for changes while using `wrangler dev`, defaults to the current working directory
 watch_dir = "src"
-[build.upload]
-format = "modules"
-main = "index.mjs"

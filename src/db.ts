@@ -1,5 +1,5 @@
 import { eq, sql } from "drizzle-orm"
-import { drizzle, DrizzleD1Database } from "drizzle-orm/d1"
+import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1"
 import { alias } from "drizzle-orm/sqlite-core"
 import { chunk, pick } from "remeda"
 
