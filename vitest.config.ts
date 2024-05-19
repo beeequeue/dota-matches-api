@@ -1,6 +1,6 @@
-import { defineConfig } from "vitest/config"
+import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config"
 
-export default defineConfig(({ command }) => ({
+export default defineWorkersConfig({
   define: {
     GIT_SHA: JSON.stringify("GIT_SHA"),
   },
@@ -8,9 +8,12 @@ export default defineConfig(({ command }) => ({
   test: {
     include: ["src/**/*.test.ts"],
     setupFiles: "vitest.setup.ts",
-
-    environment: "miniflare",
-
     reporters: "verbose",
+
+    poolOptions: {
+      workers: {
+        wrangler: { configPath: "./wrangler.toml" },
+      },
+    },
   },
-}))
+})

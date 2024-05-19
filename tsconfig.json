@@ -25,7 +25,10 @@
     "forceConsistentCasingInFileNames": true,
 
     // Extra types
-    "types": ["@cloudflare/workers-types/2022-08-04", "@total-typescript/ts-reset"],
+    "types": [
+      "@cloudflare/workers-types/2023-07-01",
+      "@total-typescript/ts-reset"
+    ],
     "lib": ["es2022", "esnext"]
   },
 
@@ -34,5 +37,6 @@
     "e2e/**/*.ts",
     "./worker-configuration.d.ts",
     "./vitest.setup.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "dist", "src/**/*test*"]
 }

@@ -1,11 +1,26 @@
-import { beforeEach } from "vitest"
+// @ts-expect-error: stupid
+import { createExecutionContext, env, fetchMock } from "cloudflare:test"
+import type { DrizzleD1Database } from "drizzle-orm/d1"
+import { beforeAll, beforeEach } from "vitest"
 
 import { createDb } from "./src/db"
 
-beforeEach((ctx: any) => {
-  ctx.agent = getMiniflareFetchMock()
-  ctx.env = getMiniflareBindings()
-  ctx.db = createDb(ctx.env)
+declare module "vitest" {
+  interface TestContext {
+    cf: ExecutionContext
+    env: Env
+    db: DrizzleD1Database
+  }
+}
 
-  ctx.agent.disableNetConnect()
+beforeAll(() => {
+  fetchMock.activate()
+  fetchMock.disableNetConnect()
 })
+
+beforeEach((ctx) => {
+  ctx.cf = createExecutionContext()
+  ctx.env = env as Env
+  ctx.db = createDb(ctx.env)
+})
+

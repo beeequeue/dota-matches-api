@@ -1,7 +1,7 @@
 name = "dota-matches-api"
 account_id = "a2ae71949fd5eaebc354f81fb3b1deab"
 compatibility_date = "2023-12-01"
-node_compat = false
+compatibility_flags = []
 
 triggers = { crons = ["0 8 * * *"] }
 
@@ -37,4 +37,4 @@ command = "pnpm --silent build"
 watch_dir = "src"
 [build.upload]
 format = "modules"
-main = "index.mjs"
+main = "index.js"

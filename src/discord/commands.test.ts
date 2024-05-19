@@ -27,7 +27,7 @@ const createCommandInput = (
   ({
     type: InteractionType.ApplicationCommand,
     guild_id: GUILD_ID,
-    channel_id: CHANNEL_ID,
+    channel: { id: CHANNEL_ID },
     data: {
       type: ApplicationCommandType.ChatInput,
       guild_id: GUILD_ID,
