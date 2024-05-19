@@ -1,10 +1,9 @@
-import { DrizzleD1Database } from "drizzle-orm/d1"
+import type { DrizzleD1Database } from "drizzle-orm/d1"
 import type { MockAgent } from "undici-types"
 
-import { $subscriptions, $teams } from "./schema"
+import type { $subscriptions, $teams } from "./schema"
 
 declare module "vitest" {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface TestContext {
     agent: MockAgent
     env: Env

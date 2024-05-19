@@ -1,7 +1,7 @@
 import {
-  APIApplicationCommandInteractionDataStringOption,
-  APIChatInputApplicationCommandInteraction,
-  APIInteraction,
+  type APIApplicationCommandInteractionDataStringOption,
+  type APIChatInputApplicationCommandInteraction,
+  type APIInteraction,
   InteractionResponseType,
   InteractionType,
 } from "discord-api-types/v10"

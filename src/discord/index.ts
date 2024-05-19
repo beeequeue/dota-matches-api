@@ -1,19 +1,19 @@
 import { format } from "date-fns"
 import {
-  APIEmbed,
+  type APIEmbed,
   OAuth2Scopes,
-  RESTOAuth2AuthorizationQuery,
-  RESTOAuth2BotAuthorizationQuery,
-  RESTPostAPIChannelMessageJSONBody,
-  RESTPostAPIChannelMessageResult,
-  RESTPostAPIChannelThreadsJSONBody,
-  RESTPostAPIChannelThreadsResult,
-  RESTPostOAuth2AccessTokenURLEncodedData,
+  type RESTOAuth2AuthorizationQuery,
+  type RESTOAuth2BotAuthorizationQuery,
+  type RESTPostAPIChannelMessageJSONBody,
+  type RESTPostAPIChannelMessageResult,
+  type RESTPostAPIChannelThreadsJSONBody,
+  type RESTPostAPIChannelThreadsResult,
+  type RESTPostOAuth2AccessTokenURLEncodedData,
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
-import { Context } from "hono"
-import { mande, MandeError } from "mande"
+import type { Context } from "hono"
+import { type MandeError, mande } from "mande"
 
 import { badRequest } from "../http-errors"
 

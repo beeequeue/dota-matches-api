@@ -3,6 +3,11 @@ import antfu from "@antfu/eslint-config"
 export default antfu({
   stylistic: false,
   vue: false,
+  test: {
+    overrides: {
+      "test/prefer-lowercase-title": "off",
+    },
+  },
   typescript: {
     tsconfigPath: "tsconfig.json",
     overrides: {

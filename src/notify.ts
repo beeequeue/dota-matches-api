@@ -1,5 +1,5 @@
 import { compareAsc } from "date-fns"
-import { APIEmbed, APIEmbedField } from "discord-api-types/v10"
+import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { and, eq, or, sql } from "drizzle-orm"
 import { groupBy } from "remeda"
 
@@ -28,7 +28,6 @@ export const formatMatchToEmbedField = (
     Pick<typeof $subscriptions.$inferSelect, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     .map((teamName) => `**${teamName || "?"}**`)
     .join(" _vs_ ")
 

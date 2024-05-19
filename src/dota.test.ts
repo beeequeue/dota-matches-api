@@ -1,9 +1,9 @@
-import { setTimeout } from "timers/promises"
+import { setTimeout } from "node:timers/promises"
 
 import { ms } from "milli"
-import { beforeEach, expect, it, TestContext, vi } from "vitest"
+import { type TestContext, beforeEach, expect, it, vi } from "vitest"
 
-import { getTeams, LiquipediaBody, parseTeamsPage } from "./dota"
+import { type LiquipediaBody, getTeams, parseTeamsPage } from "./dota"
 import teamsFixture from "./fixtures/teams.html?raw"
 import { MetaKey } from "./utils"
 
