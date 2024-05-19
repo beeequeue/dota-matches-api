@@ -46,8 +46,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       discord-api-types:
-        specifier: 0.37.83
-        version: 0.37.83
+        specifier: 0.37.84
+        version: 0.37.84
       discord-interactions:
         specifier: 3.4.0
         version: 3.4.0
@@ -55,23 +55,23 @@ importers:
         specifier: 16.4.5
         version: 16.4.5
       drizzle-kit:
-        specifier: 0.20.17
-        version: 0.20.17
+        specifier: 0.21.2
+        version: 0.21.2
       drizzle-orm:
-        specifier: 0.30.9
-        version: 0.30.9(@cloudflare/workers-types@4.20240512.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@9.6.0)
+        specifier: 0.30.10
+        version: 0.30.10(@cloudflare/workers-types@4.20240512.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@9.6.0)
       eslint:
         specifier: 8.57.0
         version: 8.57.0
       hono:
-        specifier: 4.2.8
-        version: 4.2.8
+        specifier: 4.3.8
+        version: 4.3.8
       lint-staged:
         specifier: 15.2.2
         version: 15.2.2
       mande:
-        specifier: 2.0.8
-        version: 2.0.8
+        specifier: 2.0.9
+        version: 2.0.9
       milli:
         specifier: 4.0.0
         version: 4.0.0
@@ -103,8 +103,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       undici-types:
-        specifier: 6.14.1
-        version: 6.14.1
+        specifier: 6.17.0
+        version: 6.17.0
       vitest:
         specifier: 1.6.0
         version: 1.6.0(@types/node@20.12.12)
@@ -826,16 +826,6 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@hono/node-server@1.11.1':
-    resolution: {integrity: sha512-GW1Iomhmm1o4Z+X57xGby8A35Cu9UZLL7pSMdqDBkD99U5cywff8F+8hLk5aBTzNubnsFAvWQ/fZjNwPsEn9lA==}
-    engines: {node: '>=18.14.1'}
-
-  '@hono/zod-validator@0.2.1':
-    resolution: {integrity: sha512-HFoxln7Q6JsE64qz2WBS28SD33UB2alp3aRKmcWnNLDzEL1BLsWfbdX6e1HIiUprHYTIXf5y7ax8eYidKUwyaA==}
-    peerDependencies:
-      hono: '>=3.9.0'
-      zod: ^3.19.1
-
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -1272,10 +1262,6 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camelcase@7.0.1:
-    resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
-    engines: {node: '>=14.16'}
-
   caniuse-lite@1.0.30001620:
     resolution: {integrity: sha512-WJvYsOjd1/BYUY6SNGUosK9DUidBPDTnOARHp3fSmFO1ekdxaY6nKRttEVrfMmYi80ctS0kz1wiWmm14fVc3ew==}
 
@@ -1383,10 +1369,6 @@ packages:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
 
-  copy-anything@3.0.5:
-    resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
-    engines: {node: '>=12.13'}
-
   core-js-compat@3.37.1:
     resolution: {integrity: sha512-9TNiImhKvQqSUkOvk/mMRZzOANTiEVC7WaBNhHcKM7x+/5E1l5NvsysR19zuDQScE8k+kfQXWRN3AtS/eOSHpg==}
 
@@ -1463,8 +1445,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.37.83:
-    resolution: {integrity: sha512-urGGYeWtWNYMKnYlZnOnDHm8fVRffQs3U0SpE8RHeiuLKb/u92APS8HoQnPTFbnXmY1vVnXjXO4dOxcAn3J+DA==}
+  discord-api-types@0.37.84:
+    resolution: {integrity: sha512-NngmTBW8vermlbO0qNtaS7SHCWB/R96ICqflTwM/cV7zsxyQGd38E2bBlwaxLbXgb2YTF3+Yx6+qGs/3sXedCw==}
 
   discord-interactions@3.4.0:
     resolution: {integrity: sha512-DG0Jxdd/FcK8liAPhIP4u5YHpnz50JWn9DK4OavxsLD49/WGimXtP3EdOY439MaWyCgQfsfFkA1GsTEyu63RzA==}
@@ -1495,12 +1477,12 @@ packages:
     resolution: {integrity: sha512-vyJTp8+mC+G+5dfgsY+r3ckxlz+QMX40VjPQsZc5gxVAxLmi64TBoVkP54A/pRAXMXsbu2GMMBrZPxNv23waMg==}
     engines: {node: '>=0.4.0'}
 
-  drizzle-kit@0.20.17:
-    resolution: {integrity: sha512-mLVDS4nXmO09wFVlzGrdshWnAL+U9eQGC5zRs6hTN6Q9arwQGWU2XnZ17I8BM8Quau8CQRx3Ms6VPgRWJFVp7Q==}
+  drizzle-kit@0.21.2:
+    resolution: {integrity: sha512-U87IhZyCt/9d0ZT/Na3KFJVY31tSxtTx/n9UMcWFpW/5c2Ede39xiCG5efNV/0iimsv97UIRtDI0ldLBW5lbcg==}
     hasBin: true
 
-  drizzle-orm@0.30.9:
-    resolution: {integrity: sha512-VOiCFsexErmgqvNCOmbzmqDCZzZsHoz6SkWAjTFxsTr1AllKDbDJ2+GgedLXsXMDgpg/ljDG1zItIFeZtiO2LA==}
+  drizzle-orm@0.30.10:
+    resolution: {integrity: sha512-IRy/QmMWw9lAQHpwbUh1b8fcn27S/a9zMIzqea1WNOxK9/4EB8gIo+FZWLiPXzl2n9ixGSv8BhsLZiOppWEwBw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -2051,8 +2033,8 @@ packages:
   heap@0.2.7:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
 
-  hono@4.2.8:
-    resolution: {integrity: sha512-re/zNrOWb7Sp9KhojlMEgcgvqsE8Rgk9IcmumqsbKa9ruPT5XuOcx1U+xuNaI4SUnwrPsiTQ72MiodtpJEVfjg==}
+  hono@4.3.8:
+    resolution: {integrity: sha512-IepU1cWz7oWY/os4Dbgq8dAjQh+APbS0LvLf85bL3cnh4sqMZ1MSBCYFkpm+MIpGoRUMmX8v9CeQh+TmBX3RUA==}
     engines: {node: '>=16.0.0'}
 
   hosted-git-info@2.8.9:
@@ -2158,10 +2140,6 @@ packages:
   is-stream@3.0.0:
     resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
-  is-what@4.1.16:
-    resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
-    engines: {node: '>=12.13'}
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -2296,8 +2274,8 @@ packages:
   magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
 
-  mande@2.0.8:
-    resolution: {integrity: sha512-nqiiaQbswPuHTvkwh8XExhY650qBwSJefyB1+P9Llj8v603aScSrUBmc124fSnVCP+MFZWNBhHKJjsxr7f1tLg==}
+  mande@2.0.9:
+    resolution: {integrity: sha512-F5kH/uSnhQBP7D5C+Y1rGt2S4lZuPfgIs5Ui49jrkjxE3sSAHwCE6r3hNo5gqihR5pZ1rGnjO7Oqnu2Lr1uG7g==}
 
   mdast-util-from-markdown@0.8.5:
     resolution: {integrity: sha512-2hkTXtYYnr+NubD/g6KGBS/0mFmBcifAsI0yIWRiRo0PjVs6SSOSOdtzbp6kSGnShDN6G5aWZpKQ2lWRy27mWQ==}
@@ -2357,10 +2335,6 @@ packages:
 
   minimatch@5.1.6:
     resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
-    engines: {node: '>=10'}
-
-  minimatch@7.4.6:
-    resolution: {integrity: sha512-sBz8G/YjVniEz6lKPNpKxXwazJe4c19fEfV2GDMX6AjFz+MX9uDWIZW8XreVhkFW3fkIdTv/gxWr/Kks5FFAVw==}
     engines: {node: '>=10'}
 
   minimatch@9.0.4:
@@ -2902,10 +2876,6 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  superjson@2.2.1:
-    resolution: {integrity: sha512-8iGv75BYOa0xRJHK5vRLEjE2H/i4lulTjzpUXic3Eg8akftYjkmQDa8JARQ42rlczXyFR3IeRoeFCc7RxHsYZA==}
-    engines: {node: '>=16'}
-
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -3047,8 +3017,8 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici-types@6.14.1:
-    resolution: {integrity: sha512-aYaPmOBKwekCVadPU9b0HW6AvXai3nHKmPWBDwjun36RLRoBgEOAfkfAH7KArVqi7o5/slRhaYkFmt0wuJyDmQ==}
+  undici-types@6.17.0:
+    resolution: {integrity: sha512-RDqsYjfPRx+zrn6nd3C7V3wJ9TVWh3/EkdaMNTEt1GjNTYyiHnEa3ZYfaWDHVb4H0H1XfwA+lytficpjwvR0IA==}
 
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
@@ -3704,13 +3674,6 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@hono/node-server@1.11.1': {}
-
-  '@hono/zod-validator@0.2.1(hono@4.2.8)(zod@3.23.8)':
-    dependencies:
-      hono: 4.2.8
-      zod: 3.23.8
-
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -4174,8 +4137,6 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camelcase@7.0.1: {}
-
   caniuse-lite@1.0.30001620: {}
 
   capnp-ts@0.7.0:
@@ -4289,10 +4250,6 @@ snapshots:
 
   cookie@0.5.0: {}
 
-  copy-anything@3.0.5:
-    dependencies:
-      is-what: 4.1.16
-
   core-js-compat@3.37.1:
     dependencies:
       browserslist: 4.23.0
@@ -4356,7 +4313,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  discord-api-types@0.37.83: {}
+  discord-api-types@0.37.84: {}
 
   discord-interactions@3.4.0:
     dependencies:
@@ -4390,29 +4347,21 @@ snapshots:
     dependencies:
       wordwrap: 1.0.0
 
-  drizzle-kit@0.20.17:
+  drizzle-kit@0.21.2:
     dependencies:
       '@esbuild-kit/esm-loader': 2.6.5
-      '@hono/node-server': 1.11.1
-      '@hono/zod-validator': 0.2.1(hono@4.2.8)(zod@3.23.8)
-      camelcase: 7.0.1
-      chalk: 5.3.0
       commander: 9.5.0
       env-paths: 3.0.0
       esbuild: 0.19.12
       esbuild-register: 3.5.0(esbuild@0.19.12)
       glob: 8.1.0
       hanji: 0.0.5
-      hono: 4.2.8
       json-diff: 0.9.0
-      minimatch: 7.4.6
-      semver: 7.6.2
-      superjson: 2.2.1
       zod: 3.23.8
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.30.9(@cloudflare/workers-types@4.20240512.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@9.6.0):
+  drizzle-orm@0.30.10(@cloudflare/workers-types@4.20240512.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@9.6.0):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240512.0
       '@types/better-sqlite3': 7.6.10
@@ -5086,7 +5035,7 @@ snapshots:
 
   heap@0.2.7: {}
 
-  hono@4.2.8: {}
+  hono@4.3.8: {}
 
   hosted-git-info@2.8.9: {}
 
@@ -5164,8 +5113,6 @@ snapshots:
   is-stream@2.0.1: {}
 
   is-stream@3.0.0: {}
-
-  is-what@4.1.16: {}
 
   isexe@2.0.0: {}
 
@@ -5304,7 +5251,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  mande@2.0.8: {}
+  mande@2.0.9: {}
 
   mdast-util-from-markdown@0.8.5:
     dependencies:
@@ -5381,10 +5328,6 @@ snapshots:
       brace-expansion: 1.1.11
 
   minimatch@5.1.6:
-    dependencies:
-      brace-expansion: 2.0.1
-
-  minimatch@7.4.6:
     dependencies:
       brace-expansion: 2.0.1
 
@@ -5916,10 +5859,6 @@ snapshots:
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
 
-  superjson@2.2.1:
-    dependencies:
-      copy-anything: 3.0.5
-
   supports-color@5.5.0:
     dependencies:
       has-flag: 3.0.0
@@ -6045,7 +5984,7 @@ snapshots:
 
   undici-types@5.26.5: {}
 
-  undici-types@6.14.1: {}
+  undici-types@6.17.0: {}
 
   undici@5.28.4:
     dependencies:

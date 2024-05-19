@@ -59,7 +59,7 @@ const registerGuild =
         status: response.status,
         body: await response.json(),
       })
-      throw response
+      throw new Error("Failed to exchange code for token", { cause: response })
     }
 
     if (permissions !== BOT_PERMISSIONS) {

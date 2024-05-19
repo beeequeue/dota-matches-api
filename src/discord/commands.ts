@@ -145,14 +145,13 @@ export const handleAutocompleteCommand = async (
   const teams = await dotaClient.getTeams(country)
   const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
 
-   
   const [idxs] = fuzzy.search(teams, value)
 
-  return c.json<APIApplicationCommandAutocompleteResponse>({
+  return c.json({
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
       choices:
         idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
     },
-  })
+  } satisfies APIApplicationCommandAutocompleteResponse)
 }

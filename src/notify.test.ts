@@ -107,7 +107,7 @@ describe("notifier", () => {
     await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
-     
+
     const [channelId, embed] = sendMessageMock.mock.calls[0] as [string, APIEmbed]
     expect(channelId).toMatchInlineSnapshot('"0986526095326812"')
 
@@ -160,7 +160,7 @@ describe("notifier", () => {
     await notifier({} as never, ctx.env, {} as never)
 
     expect(sendMessageMock).toHaveBeenCalledOnce()
-     
+
     const embed = sendMessageMock.mock.calls[0][1] as APIEmbed
 
     expect(extractDateFromEmbedField(embed?.fields?.[0])).toStrictEqual(

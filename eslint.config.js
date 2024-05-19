@@ -1,6 +1,7 @@
 import antfu from "@antfu/eslint-config"
 
 export default antfu({
+  ignores: ["**/*test*"],
   stylistic: false,
   vue: false,
   test: {
