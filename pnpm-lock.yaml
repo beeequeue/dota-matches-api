@@ -64,8 +64,8 @@ importers:
         specifier: 8.57.0
         version: 8.57.0
       hono:
-        specifier: 4.3.8
-        version: 4.3.8
+        specifier: 4.3.9
+        version: 4.3.9
       lint-staged:
         specifier: 15.2.2
         version: 15.2.2
@@ -103,8 +103,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       undici-types:
-        specifier: 6.17.0
-        version: 6.17.0
+        specifier: 6.18.0
+        version: 6.18.0
       vitest:
         specifier: 1.6.0
         version: 1.6.0(@types/node@20.12.12)
@@ -2033,8 +2033,8 @@ packages:
   heap@0.2.7:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
 
-  hono@4.3.8:
-    resolution: {integrity: sha512-IepU1cWz7oWY/os4Dbgq8dAjQh+APbS0LvLf85bL3cnh4sqMZ1MSBCYFkpm+MIpGoRUMmX8v9CeQh+TmBX3RUA==}
+  hono@4.3.9:
+    resolution: {integrity: sha512-6c5LVE23HnIS8iBhY+XPmYJlPeeClznOi7mBNsAsJCgxo8Ciz75LTjqRUf5wv4RYq8kL+1KPLUZHCtKmbZssNg==}
     engines: {node: '>=16.0.0'}
 
   hosted-git-info@2.8.9:
@@ -3017,8 +3017,8 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici-types@6.17.0:
-    resolution: {integrity: sha512-RDqsYjfPRx+zrn6nd3C7V3wJ9TVWh3/EkdaMNTEt1GjNTYyiHnEa3ZYfaWDHVb4H0H1XfwA+lytficpjwvR0IA==}
+  undici-types@6.18.0:
+    resolution: {integrity: sha512-w2f2PnG0PfXFkk+liTJUyfE+laxp1o7RFgDC+wQszkUqOwwAcUWp1vxa3YHV8bkx6cA/lhedJT4x9q+rv7Q3zw==}
 
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
@@ -5035,7 +5035,7 @@ snapshots:
 
   heap@0.2.7: {}
 
-  hono@4.3.8: {}
+  hono@4.3.9: {}
 
   hosted-git-info@2.8.9: {}
 
@@ -5984,7 +5984,7 @@ snapshots:
 
   undici-types@5.26.5: {}
 
-  undici-types@6.17.0: {}
+  undici-types@6.18.0: {}
 
   undici@5.28.4:
     dependencies:
