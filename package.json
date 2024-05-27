@@ -35,13 +35,13 @@
     "@types/node": "20.12.12",
     "better-sqlite3": "10.0.0",
     "date-fns": "3.6.0",
-    "discord-api-types": "0.37.84",
+    "discord-api-types": "0.37.85",
     "discord-interactions": "3.4.0",
     "dotenv": "16.4.5",
-    "drizzle-kit": "0.21.2",
+    "drizzle-kit": "0.21.4",
     "drizzle-orm": "0.30.10",
     "eslint": "8.57.0",
-    "hono": "4.3.9",
+    "hono": "4.3.11",
     "lint-staged": "15.2.2",
     "mande": "2.0.9",
     "milli": "4.0.0",
@@ -54,9 +54,9 @@
     "simple-git-hooks": "2.11.1",
     "tsup": "8.0.2",
     "typescript": "5.4.5",
-    "undici-types": "6.18.0",
+    "undici-types": "6.18.1",
     "vitest": "1.6.0",
-    "wrangler": "3.57.0"
+    "wrangler": "3.57.1"
   },
   "pnpm": {
     "overrides": {
