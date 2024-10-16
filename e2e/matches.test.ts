@@ -1,5 +1,4 @@
 import { mande } from "mande"
-import { keys } from "remeda"
 import { expect, test } from "vitest"
 
 import type { Match } from "../src/dota"
@@ -14,8 +13,8 @@ test("no field is missing from all matches", async () => {
   // Amount of times a field appears in a match
   const fieldAmounts: Record<string, number> = {}
   for (const match of matches) {
-    for (const field of keys.strict(match)) {
-      if (match[field] != null) {
+    for (const field of Object.keys(match)) {
+      if (match[field as keyof typeof match] != null) {
         fieldAmounts[field] ??= 0
         fieldAmounts[field]++
       }

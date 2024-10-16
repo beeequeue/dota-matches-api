@@ -53,7 +53,7 @@
     "node-html-parser": "6.1.13",
     "p-queue": "8.0.1",
     "prettier": "3.3.3",
-    "remeda": "1.61.0",
+    "rambda": "9.3.0",
     "simple-git-hooks": "2.11.1",
     "tsup": "8.3.0",
     "typescript": "5.6.3",

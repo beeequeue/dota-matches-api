@@ -11,7 +11,6 @@ import {
 import { and, eq } from "drizzle-orm"
 import type { DrizzleD1Database } from "drizzle-orm/d1"
 import type { Context } from "hono"
-import { isTruthy } from "remeda"
 
 import { createDotaClient } from "../dota"
 import { badRequest } from "../http-errors"
@@ -44,7 +43,7 @@ export const handleFollowCommand = async (
     .options!.map((option) =>
       option.type === ApplicationCommandOptionType.String ? option.value : null,
     )
-    .filter(isTruthy)
+    .filter((value) => value != null)
 
   const data: Array<typeof $subscriptions.$inferInsert> = teamNames.map((teamName) => ({
     guildId,
