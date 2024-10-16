@@ -60,7 +60,7 @@ discordRouter.post("/interactions", async (c) => {
   const body = await c.req.text()
   const signature = c.req.header("x-signature-ed25519")!
   const timestamp = c.req.header("x-signature-timestamp")!
-  if (!verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY)) {
+  if (!(await verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY))) {
     throw badRequest("Invalid c.req signature")
   }
 
