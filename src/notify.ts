@@ -7,7 +7,8 @@ import { createDb } from "./db"
 import { createDiscordClient } from "./discord"
 import { $matches, $subscriptions } from "./schema"
 
-const orEmpty = <T>(check: T | null | undefined, value: string) => (check ? value : "")
+const orEmpty = <T>(check: T | null | undefined, value: string) =>
+  check != null ? value : ""
 
 const embedTemplate: Omit<APIEmbed, "fields"> = {
   title: "Today's matches!",
@@ -28,12 +29,12 @@ export const formatMatchToEmbedField = (
     Pick<typeof $subscriptions.$inferSelect, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
+    // eslint-disable-next-line ts/strict-boolean-expressions
     .map((teamName) => `**${teamName || "?"}**`)
     .join(" _vs_ ")
 
-  const startsAtUnix = match.startsAt
-    ? Math.round(new Date(match.startsAt).getTime() / 1000)
-    : null
+  const startsAtUnix =
+    match.startsAt != null ? Math.round(new Date(match.startsAt).getTime() / 1000) : null
   const matchType = orEmpty(match.matchType, `${match.matchType!} `)
   const startsAt = orEmpty(
     startsAtUnix,

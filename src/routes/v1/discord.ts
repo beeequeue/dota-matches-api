@@ -26,7 +26,7 @@ discordRouter.get("/", (c) =>
 )
 
 if (import.meta.env.MODE !== "production") {
-  discordRouter.get("/autocomplete/teams", (c) => {
+  discordRouter.get("/autocomplete/teams", async (c) => {
     return handleAutocompleteCommand(
       c,
       createDb(c.env),

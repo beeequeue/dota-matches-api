@@ -1,5 +1,5 @@
 import type { DrizzleD1Database } from "drizzle-orm/d1"
-import { type MandeError, mande } from "mande"
+import { mande, type MandeError } from "mande"
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
 import { type HTMLElement, parse } from "node-html-parser"
@@ -75,7 +75,7 @@ const extractTeam = (team$: HTMLElement): Team => {
 
   return {
     name: name ?? null,
-    url: urlPath ? `https://liquipedia.net${urlPath}` : null,
+    url: urlPath != null ? `https://liquipedia.net${urlPath}` : null,
   }
 }
 
@@ -88,7 +88,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
   const data = await liquipediaQueue.add(
-    () =>
+    async () =>
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {
@@ -177,7 +177,7 @@ const fetchAndCacheTeams = async (
   console.log("Fetching teams...")
 
   const page = await liquipediaQueue.add(
-    () =>
+    async () =>
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {

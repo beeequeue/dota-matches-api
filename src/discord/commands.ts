@@ -1,3 +1,4 @@
+import Fuzzy from "@leeoniya/ufuzzy"
 import {
   type APIApplicationCommandAutocompleteResponse,
   type APIApplicationCommandInteractionDataStringOption,
@@ -11,8 +12,6 @@ import { and, eq } from "drizzle-orm"
 import type { DrizzleD1Database } from "drizzle-orm/d1"
 import type { Context } from "hono"
 import { isTruthy } from "remeda"
-
-import Fuzzy from "@leeoniya/ufuzzy"
 
 import { createDotaClient } from "../dota"
 import { badRequest } from "../http-errors"

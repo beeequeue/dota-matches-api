@@ -1,5 +1,5 @@
 import { eq, sql } from "drizzle-orm"
-import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1"
+import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1"
 import { alias } from "drizzle-orm/sqlite-core"
 import { chunk, pick } from "remeda"
 
@@ -9,11 +9,11 @@ import { $leagues, $matches, $teams } from "./schema"
 export const createDb = (env: Env) => drizzle(env.MATCHES)
 
 export const getTeamsFromDb = async (db: DrizzleD1Database): Promise<Team[]> => {
-  return await db.select({ name: $teams.name, url: $teams.url }).from($teams)
+  return db.select({ name: $teams.name, url: $teams.url }).from($teams)
 }
 
 export const upsertTeamsData = async (db: DrizzleD1Database, teams: Team[]) => {
-  return await Promise.all(
+  return Promise.all(
     teams.map(({ name, url }) =>
       db
         .insert($teams)

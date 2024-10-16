@@ -13,7 +13,7 @@ import {
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
 import type { Context } from "hono"
-import { type MandeError, mande } from "mande"
+import { mande, type MandeError } from "mande"
 
 import { badRequest } from "../http-errors"
 
@@ -91,7 +91,7 @@ const leaveGuild = async (env: Env, guildId: string) => {
   console.log(`Leaving guild ${guildId}`)
 
   try {
-    return discordClient.delete(Routes.userGuild(guildId), {
+    return await discordClient.delete(Routes.userGuild(guildId), {
       headers: {
         Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
       },
@@ -111,7 +111,7 @@ const createThread = (env: Env) => async (channelId: string) => {
   }
 
   try {
-    return discordClient.post<RESTPostAPIChannelThreadsResult>(
+    return await discordClient.post<RESTPostAPIChannelThreadsResult>(
       Routes.threads(channelId),
       body,
       {
@@ -139,7 +139,7 @@ const sendMessage =
           }
 
     try {
-      return discordClient.post<RESTPostAPIChannelMessageResult>(
+      return await discordClient.post<RESTPostAPIChannelMessageResult>(
         Routes.channelMessages(parentId),
         body,
         {

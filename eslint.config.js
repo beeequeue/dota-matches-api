@@ -1,14 +1,8 @@
 import antfu from "@antfu/eslint-config"
 
 export default antfu({
-  ignores: ["**/*test*"],
+  ignores: ["**/*test*", "**/package.json"],
   stylistic: false,
-  vue: false,
-  test: {
-    overrides: {
-      "test/prefer-lowercase-title": "off",
-    },
-  },
   typescript: {
     tsconfigPath: "tsconfig.json",
     overrides: {
@@ -18,7 +12,25 @@ export default antfu({
       "ts/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
       "ts/no-unsafe-argument": "off",
       "ts/no-unsafe-assignment": "off",
-      "ts/no-unsafe-member-access": "off",
+
+      "perfectionist/sort-imports": [
+        "error",
+        {
+          type: "natural",
+          internalPattern: ["@/**", "~/**"],
+          newlinesBetween: "always",
+          groups: [
+            ["builtin", "builtin-type"],
+            ["external", "external-type"],
+            ["internal", "internal-type"],
+            ["parent", "parent-type"],
+            ["sibling", "sibling-type"],
+            ["index", "index-type"],
+            "object",
+            "unknown",
+          ],
+        },
+      ],
     },
   },
 })
