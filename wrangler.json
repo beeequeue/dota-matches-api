@@ -11,6 +11,10 @@
     "watch_dir": "src"
   },
 
+  "observability": {
+    "enabled": true
+  },
+
   "triggers": {
     "crons": [
       "0 8 * * *"
