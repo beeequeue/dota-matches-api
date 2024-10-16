@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "build": {
     "command": "pnpm tsup",
-    "watch_dir": "dist"
+    "watch_dir": "src"
   },
 
   "triggers": {

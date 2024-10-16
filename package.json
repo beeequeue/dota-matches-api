@@ -18,7 +18,7 @@
     ]
   },
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev -j",
     "dev:migrate": "wrangler d1 migrations apply --local dpc",
     "build": "tsup",
     "lint": "eslint src",

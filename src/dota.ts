@@ -96,7 +96,9 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
           },
           query: {
             action: "parse",
-            page: "Liquipedia:Upcoming_and_ongoing_matches",
+            format: "json",
+            contentmodel: "wikitext",
+            text: "{{NewDota2_matches_upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National}}",
           },
         })
         .catch((error: MandeError) => error),
@@ -110,9 +112,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 
   const root = parse(data.parse.text["*"])
 
-  const $matches = root.querySelectorAll(
-    "[data-toggle-area-content='2'] .infobox_matches_content",
-  )
+  const $matches = root.querySelectorAll(".match")
   if ($matches.length === 0) return []
 
   const matches = $matches.map(($match) => {
@@ -121,15 +121,16 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     const versus$ = $match.querySelector(".versus")!
     const meta$ = $match.querySelector(".timer-object")!
     const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
+    const streamTitle$ = $match.querySelector(".match-streams a")
 
     const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
     // For some reason we have to use `innerHTML` here instead of `textContent`
     // because the abbr tag might not be parsed correctly by node-html-parser?
     const matchType = versus$.querySelector("abbr")?.innerHTML
     const startTime = meta$.attrs["data-timestamp"]
-    const streamName = meta$.attrs["data-stream-twitch"]
     const leagueName = leagueLink$.attrs.title
     const leagueUrl = leagueLink$.attrs.href
+    const streamUrl = streamTitle$?.attrs?.href
 
     return withHash({
       teams,
@@ -137,9 +138,8 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
       startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
       leagueName,
       leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
-      streamUrl: streamName
-        ? encodeURI(`https://liquipedia.net/dota2/Special:Stream/twitch/${streamName}`)
-        : null,
+      streamUrl:
+        streamUrl != null ? encodeURI(`https://liquipedia.net${streamUrl}`) : null,
     })
   })
 
