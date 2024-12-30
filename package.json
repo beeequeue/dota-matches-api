@@ -50,7 +50,7 @@
     "milli": "4.0.0",
     "miniflare": "3.20241022.0",
     "nanoid": "5.0.9",
-    "node-html-parser": "6.1.13",
+    "node-html-parser": "7.0.1",
     "p-queue": "8.0.1",
     "prettier": "3.3.3",
     "rambda": "9.3.0",
