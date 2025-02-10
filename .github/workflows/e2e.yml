@@ -8,8 +8,8 @@ on:
         default: https://dota.haglund.dev
         required: false
         description: "The base URL of the API to test"
-  schedule:
-    - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
+  #schedule:
+  #  - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
 
 env:
   API_BASE: ${{ inputs.api_base || 'https://dota.haglund.dev' }}
