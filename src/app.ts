@@ -2,7 +2,7 @@ import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { showRoutes } from "hono/dev"
 
-import { v1Router } from "./routes/v1"
+import { v1Router } from "./routes/v1/index.ts"
 
 export const createApp = () => {
   const app = new Hono<{ Bindings: Env }>()

@@ -15,7 +15,7 @@ import {
 import type { Context } from "hono"
 import { mande, type MandeError } from "mande"
 
-import { badRequest } from "../http-errors"
+import { badRequest } from "../http-errors.ts"
 
 const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as const
 export const BOT_PERMISSIONS = "309237647360"

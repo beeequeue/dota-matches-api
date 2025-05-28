@@ -1,10 +1,10 @@
 import type { HonoRequest } from "hono"
 import { ms, type StringValue } from "milli"
 
-export enum MetaKey {
-  MATCHES_LAST_FETCHED = "MATCHES_LAST_FETCHED",
-  TEAMS_LAST_FETCHED = "TEAMS_LAST_FETCHED",
-}
+export const MetaKey = {
+  MATCHES_LAST_FETCHED: "MATCHES_LAST_FETCHED",
+  TEAMS_LAST_FETCHED: "TEAMS_LAST_FETCHED",
+} as const
 
 export const ms2s = (n: number) => Math.round(n / 1000)
 

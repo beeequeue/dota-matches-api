@@ -1,7 +1,7 @@
 import { Hono } from "hono"
 
-import { createDb } from "../../db"
-import { createDotaClient } from "../../dota"
+import { createDb } from "../../db.ts"
+import { createDotaClient } from "../../dota.ts"
 import {
   EDGE_CACHE_TIMEOUT,
   getBrowserCacheTtl,
@@ -9,9 +9,9 @@ import {
   getCountry,
   getTtl,
   MetaKey,
-} from "../../utils"
+} from "../../utils.ts"
 
-import { discordRouter } from "./discord"
+import { discordRouter } from "./discord.ts"
 
 export const v1Router = new Hono<{ Bindings: Env }>()
 

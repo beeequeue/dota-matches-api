@@ -10,8 +10,8 @@ import {
   getTeamsFromDb,
   upsertMatchData,
   upsertTeamsData,
-} from "./db"
-import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils"
+} from "./db.ts"
+import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils.ts"
 
 export type Team = {
   name: string | null

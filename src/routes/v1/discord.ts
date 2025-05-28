@@ -8,16 +8,16 @@ import {
 import { verifyKey } from "discord-interactions"
 import { Hono } from "hono"
 
-import { createDb } from "../../db"
-import { createDiscordClient } from "../../discord"
+import { createDb } from "../../db.ts"
 import {
   handleAutocompleteCommand,
   handleFollowCommand,
   handleListCommand,
   handleUnfollowCommand,
-} from "../../discord/commands"
-import { badRequest } from "../../http-errors"
-import { getCountry } from "../../utils"
+} from "../../discord/commands.ts"
+import { createDiscordClient } from "../../discord/index.ts"
+import { badRequest } from "../../http-errors.ts"
+import { getCountry } from "../../utils.ts"
 
 export const discordRouter = new Hono<{ Bindings: Env }>()
 

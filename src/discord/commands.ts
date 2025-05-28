@@ -12,15 +12,15 @@ import { and, eq } from "drizzle-orm"
 import type { DrizzleD1Database } from "drizzle-orm/d1"
 import type { Context } from "hono"
 
-import { createDotaClient } from "../dota"
-import { badRequest } from "../http-errors"
-import { $subscriptions } from "../schema"
+import { createDotaClient } from "../dota.ts"
+import { badRequest } from "../http-errors.ts"
+import { $subscriptions } from "../schema.ts"
 
-export enum Command {
-  Follow = "follow",
-  Unfollow = "unfollow",
-  List = "follows",
-}
+export const Command = {
+  Follow: "follow",
+  Unfollow: "unfollow",
+  List: "follows",
+} as const
 
 const createCommandResponse = (
   content: string,

@@ -3,8 +3,8 @@ import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1"
 import { alias } from "drizzle-orm/sqlite-core"
 import { pick, splitEvery } from "rambda"
 
-import type { Match, Team } from "./dota"
-import { $leagues, $matches, $teams } from "./schema"
+import type { Match, Team } from "./dota.ts"
+import { $leagues, $matches, $teams } from "./schema.ts"
 
 export const createDb = (env: Env) => drizzle(env.MATCHES)
 

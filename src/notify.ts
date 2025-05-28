@@ -3,9 +3,9 @@ import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { and, eq, or, sql } from "drizzle-orm"
 import { groupBy } from "rambda"
 
-import { createDb } from "./db"
-import { createDiscordClient } from "./discord"
-import { $matches, $subscriptions } from "./schema"
+import { createDb } from "./db.ts"
+import { createDiscordClient } from "./discord/index.ts"
+import { $matches, $subscriptions } from "./schema.ts"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) =>
   check != null ? value : ""
@@ -29,8 +29,7 @@ export const formatMatchToEmbedField = (
     Pick<typeof $subscriptions.$inferSelect, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
-    // eslint-disable-next-line ts/strict-boolean-expressions
-    .map((teamName) => `**${teamName || "?"}**`)
+    .map((teamName) => `**${teamName ?? "?"}**`)
     .join(" _vs_ ")
 
   const startsAtUnix =

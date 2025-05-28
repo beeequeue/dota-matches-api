@@ -1,5 +1,5 @@
-import { createApp } from "./app"
-import { notifier } from "./notify"
+import { createApp } from "./app.ts"
+import { notifier } from "./notify.ts"
 
 const app = createApp()
 

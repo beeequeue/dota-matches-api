@@ -25,5 +25,5 @@
     "types": ["@cloudflare/workers-types/2023-07-01", "@total-typescript/ts-reset"],
     "lib": ["esnext"]
   },
-  "include": ["src/**/*.ts", "e2e/**/*.ts", "./worker-configuration.d.ts"]
+  "include": ["src/**/*.ts", "./worker-configuration.d.ts"]
 }
