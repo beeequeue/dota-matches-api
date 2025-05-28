@@ -98,8 +98,8 @@ importers:
         specifier: 9.3.0
         version: 9.3.0
       simple-git-hooks:
-        specifier: 2.11.1
-        version: 2.11.1
+        specifier: 2.13.0
+        version: 2.13.0
       tsup:
         specifier: 8.3.5
         version: 8.3.5(postcss@8.4.47)(typescript@5.8.3)(yaml@2.8.0)
@@ -2639,8 +2639,8 @@ packages:
   simple-get@4.0.1:
     resolution: {integrity: sha512-brv7p5WgH0jmQJr1ZDDfKDOSeWWg+OVypG99A/5vYGPqJ6pxiaHLy8nxtFjBA7oMa01ebA9gfh1uMCFqOuXxvA==}
 
-  simple-git-hooks@2.11.1:
-    resolution: {integrity: sha512-tgqwPUMDcNDhuf1Xf6KTUsyeqGdgKMhzaH4PAZZuzguOgTl5uuyeYe/8mWgAr6IBxB5V06uqEf6Dy37gIWDtDg==}
+  simple-git-hooks@2.13.0:
+    resolution: {integrity: sha512-N+goiLxlkHJlyaYEglFypzVNMaNplPAk5syu0+OPp/Bk6dwVoXF6FfOw2vO0Dp+JHsBaI+w6cm8TnFl2Hw6tDA==}
     hasBin: true
 
   sisteransi@1.0.5:
@@ -5157,7 +5157,7 @@ snapshots:
       once: 1.4.0
       simple-concat: 1.0.1
 
-  simple-git-hooks@2.11.1: {}
+  simple-git-hooks@2.13.0: {}
 
   sisteransi@1.0.5: {}
 
