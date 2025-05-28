@@ -1,13 +1,11 @@
 {
+  "extends": ["@tsconfig/node24/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
   "compilerOptions": {
     // Output
     "noEmit": true,
-    "sourceMap": true,
-    "target": "esnext",
-    "module": "esnext",
 
     // Modules
-    "isolatedModules": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -16,22 +14,18 @@
       "~/*": ["src/*"]
     },
 
-    // Typechecking
-    "strict": true,
-    "skipLibCheck": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "forceConsistentCasingInFileNames": true,
+    // Lessen strictness
+    "importsNotUsedAsValues": "remove",
+    "noImplicitReturns": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    "verbatimModuleSyntax": true,
 
     // Extra types
-    "types": [
-      "@cloudflare/workers-types/2023-07-01",
-      "@total-typescript/ts-reset"
-    ],
-    "lib": ["es2022", "esnext"]
+    "types": ["@cloudflare/workers-types/2023-07-01", "@total-typescript/ts-reset"],
+    "lib": ["esnext"]
   },
-
   "include": [
     "src/**/*.ts",
     "e2e/**/*.ts",

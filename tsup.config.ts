@@ -27,7 +27,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   platform: "browser",
-  target: "node22",
+  target: "node24",
   format: ["esm"],
 
   clean: true,
