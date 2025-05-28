@@ -10,10 +10,10 @@
     "node": "^24"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "node_modules/.bin/nano-staged"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,json5,yaml,yml,css,scss,md}": [
+  "nano-staged": {
+    "*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,json5,yaml,yml,css,scss,md}": [
       "prettier --write"
     ]
   },
@@ -31,7 +31,7 @@
     "esbuild": "0.24.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "3.9.2",
+    "@antfu/eslint-config": "4.13.2",
     "@cloudflare/workers-types": "4.20241022.0",
     "@leeoniya/ufuzzy": "1.0.14",
     "@total-typescript/ts-reset": "0.6.1",
@@ -45,21 +45,21 @@
     "dotenv": "16.4.5",
     "drizzle-kit": "0.27.1",
     "drizzle-orm": "0.36.0",
-    "eslint": "9.15.0",
+    "eslint": "9.27.0",
     "hono": "4.6.8",
-    "lint-staged": "15.2.10",
     "mande": "2.0.9",
     "milli": "4.0.0",
     "miniflare": "3.20241022.0",
+    "nano-staged": "0.8.0",
     "nanoid": "5.0.9",
     "node-html-parser": "7.0.1",
     "p-queue": "8.0.1",
-    "prettier": "3.3.3",
+    "prettier": "3.5.3",
     "rambda": "9.3.0",
     "simple-git-hooks": "2.11.1",
     "tsup": "8.3.5",
-    "typescript": "5.6.3",
-    "undici-types": "7.3.0",
+    "typescript": "5.8.3",
+    "undici-types": "7.10.0",
     "vitest": "3.0.2",
     "wrangler": "3.84.1"
   },
