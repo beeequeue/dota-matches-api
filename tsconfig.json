@@ -1,18 +1,18 @@
 {
-  "extends": ["@tsconfig/node24/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
+  "extends": [
+    "@tsconfig/node24/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node-ts/tsconfig.json"
+  ],
   "compilerOptions": {
     // Output
     "noEmit": true,
 
     // Modules
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": "./src",
-    "paths": {
-      "~/*": ["src/*"]
-    },
 
     // Lessen strictness
     "importsNotUsedAsValues": "remove",
@@ -20,17 +20,10 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false,
-    "verbatimModuleSyntax": true,
 
     // Extra types
     "types": ["@cloudflare/workers-types/2023-07-01", "@total-typescript/ts-reset"],
     "lib": ["esnext"]
   },
-  "include": [
-    "src/**/*.ts",
-    "e2e/**/*.ts",
-    "./worker-configuration.d.ts",
-    "./vitest.setup.ts"
-  ],
-  "exclude": ["node_modules", "dist", "src/**/*test*"]
+  "include": ["src/**/*.ts", "e2e/**/*.ts", "./worker-configuration.d.ts"]
 }
