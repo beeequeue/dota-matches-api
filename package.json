@@ -22,7 +22,7 @@
     "dev:migrate": "wrangler d1 migrations apply --local dpc",
     "build": "tsup",
     "lint": "eslint src",
-    "test": "node --test",
+    "test": "node --test src/**/*.test.ts",
     "test:e2e": "echo 'TODO' && exit 1",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "prepare": "simple-git-hooks"
