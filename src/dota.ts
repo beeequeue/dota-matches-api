@@ -1,4 +1,3 @@
-import type { DrizzleD1Database } from "drizzle-orm/d1"
 import { mande, type MandeError } from "mande"
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
@@ -169,11 +168,7 @@ export const parseTeamsPage = (html: string): Team[] => {
   return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
 
-const fetchAndCacheTeams = async (
-  env: Env,
-  db: DrizzleD1Database,
-  country: string,
-): Promise<Team[]> => {
+const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
   const page = await liquipediaQueue.add(
@@ -201,7 +196,7 @@ const fetchAndCacheTeams = async (
   const teams = parseTeamsPage(page.parse.text["*"])
   if (teams.length === 0) return []
 
-  await upsertTeamsData(db, teams)
+  await upsertTeamsData(teams)
   await env.META.put(MetaKey.TEAMS_LAST_FETCHED, Date.now().toString(), {
     expirationTtl: seconds("30d"),
   })
@@ -210,37 +205,37 @@ const fetchAndCacheTeams = async (
 }
 
 export const getTeams =
-  (env: Env, db: DrizzleD1Database) =>
+  (env: Env) =>
   async (country: string): Promise<string[]> => {
     const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
     console.log(`Teams were last fetched at ${lastFetched}`)
     if (lastFetched !== -1) {
       if (Date.now() > lastFetched + ms("12h")) {
         console.log(`Teams are stale, refreshing...`)
-        void fetchAndCacheTeams(env, db, country)
+        void fetchAndCacheTeams(env, country)
       }
 
       console.log(`Retrieving teams from DB...`)
-      const teams = await getTeamsFromDb(db)
-      return teams.map(({ name }) => name!)
+      const result = await getTeamsFromDb()
+      return result.rows.map(({ name }) => name)
     }
 
     console.log(`Fetching teams from Liquipedia...`)
-    const teams = await fetchAndCacheTeams(env, db, country)
+    const teams = await fetchAndCacheTeams(env, country)
     return teams.map(({ name }) => name!)
   }
 
-const getMatches = (env: Env, db: DrizzleD1Database) => async (country: string) => {
+const getMatches = (env: Env) => async (country: string) => {
   console.log(`Getting match data...`)
 
   let lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED)) ?? -1)
   if (lastFetched !== -1) {
-    return { lastFetched: Number(lastFetched), matches: await getMatchDataFromDb(db) }
+    return { lastFetched: Number(lastFetched), matches: await getMatchDataFromDb() }
   }
 
   const matches = await fetchMatches(country)
 
-  await upsertMatchData(db, matches)
+  await upsertMatchData(matches)
 
   lastFetched = Date.now()
   await env.META.put(MetaKey.MATCHES_LAST_FETCHED, lastFetched.toString(), {
@@ -250,7 +245,7 @@ const getMatches = (env: Env, db: DrizzleD1Database) => async (country: string) 
   return { lastFetched, matches }
 }
 
-export const createDotaClient = (env: Env, db: DrizzleD1Database) => ({
-  getMatches: getMatches(env, db),
-  getTeams: getTeams(env, db),
+export const createDotaClient = (env: Env) => ({
+  getMatches: getMatches(env),
+  getTeams: getTeams(env),
 })

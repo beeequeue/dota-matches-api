@@ -1,6 +1,5 @@
 import { Hono } from "hono"
 
-import { createDb } from "../../db.ts"
 import { createDotaClient } from "../../dota.ts"
 import {
   EDGE_CACHE_TIMEOUT,
@@ -22,18 +21,15 @@ v1Router.get("/matches", async (c) => {
   if (cached != null) {
     const lastFetched = Number((await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
 
-    return c.json((await cached.json()) as Record<string, unknown>, {
-      ...cached,
-      headers: {
-        ...cached.headers,
-        "Cache-Control": `public, max-age=${getBrowserCacheTtl(
-          getTtl(lastFetched, EDGE_CACHE_TIMEOUT),
-        )}`,
-      },
+    return c.json((await cached.json()) as Record<string, unknown>, 200, {
+      ...cached.headers,
+      "Cache-Control": `public, max-age=${getBrowserCacheTtl(
+        getTtl(lastFetched, EDGE_CACHE_TIMEOUT),
+      )}`,
     })
   }
 
-  const dota = createDotaClient(c.env, createDb(c.env))
+  const dota = createDotaClient(c.env)
 
   const country = getCountry(c.req)
   const { matches, lastFetched } = await dota.getMatches(country)

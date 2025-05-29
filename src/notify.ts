@@ -1,11 +1,10 @@
 import { compareAsc } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
-import { and, eq, or, sql } from "drizzle-orm"
 import { groupBy } from "es-toolkit"
 
-import { createDb } from "./db.ts"
+import { db } from "./db.ts"
 import { createDiscordClient } from "./discord/index.ts"
-import { $matches, $subscriptions } from "./schema.ts"
+import type { Match$, Subscription$ } from "./schema"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) =>
   check != null ? value : ""
@@ -25,8 +24,7 @@ const embedTemplate: Omit<APIEmbed, "fields"> = {
 }
 
 export const formatMatchToEmbedField = (
-  match: Omit<typeof $matches.$inferSelect, "id"> &
-    Pick<typeof $subscriptions.$inferSelect, "channel">,
+  match: Omit<Match$, "id"> & Pick<Subscription$, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
     .map((teamName) => `**${teamName ?? "?"}**`)
@@ -53,37 +51,35 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   _controller,
   env: Env,
 ) => {
-  const db = createDb(env)
+  globalThis.__env__ = env
 
   const now = new Date()
 
   const subscribedMatchesInTimeframe = await db
-    .select({
-      id: $matches.id,
-      matchType: $matches.matchType,
-      teamOneId: $matches.teamOneId,
-      teamTwoId: $matches.teamTwoId,
-      leagueName: $matches.leagueName,
-      streamUrl: $matches.streamUrl,
-      startsAt: $matches.startsAt,
+    .selectFrom("matches")
+    .innerJoin("subscriptions", (join) =>
+      join.on((eb) =>
+        eb.or([
+          eb("teamOneId", "=", "subscriptions.teamName"),
+          eb("teamTwoId", "=", "subscriptions.teamName"),
+        ]),
+      ),
+    )
+    .select([
+      "matches.id",
+      "matches.matchType",
+      "matches.teamOneId",
+      "matches.teamTwoId",
+      "matches.leagueName",
+      "matches.streamUrl",
+      "matches.startsAt",
 
-      channel: $subscriptions.channel,
-    })
-    .from($subscriptions)
-    .leftJoin(
-      $matches,
-      or(
-        eq($matches.teamOneId, $subscriptions.teamName),
-        eq($matches.teamTwoId, $subscriptions.teamName),
-      ),
-    )
-    .where(
-      and(
-        sql`datetime(${$matches.startsAt}) > datetime(${now.toISOString()})`,
-        sql`datetime(${$matches.startsAt}) < datetime(${now.toISOString()}, '1 day')`,
-      ),
-    )
-    .groupBy(($result) => [$result.id, $result.channel])
+      "subscriptions.channel",
+    ])
+    .where("startsAt", ">", `datetime(${now.toISOString()})`)
+    .where("startsAt", "<", `datetime(${now.toISOString()}, '1 day')`)
+    .groupBy(["id", "channel"])
+    .execute()
 
   const matchesByChannel = groupBy(subscribedMatchesInTimeframe, (match) => match.channel)
 

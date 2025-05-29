@@ -8,7 +8,6 @@ import {
 import { verifyKey } from "discord-interactions"
 import { Hono } from "hono"
 
-import { createDb } from "../../db.ts"
 import {
   handleAutocompleteCommand,
   handleFollowCommand,
@@ -27,12 +26,7 @@ discordRouter.get("/", (c) =>
 
 if (import.meta.env.NODE_ENV !== "production") {
   discordRouter.get("/autocomplete/teams", async (c) => {
-    return handleAutocompleteCommand(
-      c,
-      createDb(c.env),
-      "main",
-      c.req.query().query ?? "",
-    )
+    return handleAutocompleteCommand(c, "main", c.req.query().query ?? "")
   })
 }
 
@@ -55,8 +49,6 @@ discordRouter.get("/callback", async (c) => {
 })
 
 discordRouter.post("/interactions", async (c) => {
-  const db = createDb(c.env)
-
   const body = await c.req.text()
   const signature = c.req.header("x-signature-ed25519")!
   const timestamp = c.req.header("x-signature-timestamp")!
@@ -81,7 +73,7 @@ discordRouter.post("/interactions", async (c) => {
 
     if (value == null) throw badRequest()
 
-    return handleAutocompleteCommand(c, db, country, value)
+    return handleAutocompleteCommand(c, country, value)
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
@@ -89,7 +81,6 @@ discordRouter.post("/interactions", async (c) => {
       case "follow": {
         return handleFollowCommand(
           c,
-          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
@@ -97,7 +88,6 @@ discordRouter.post("/interactions", async (c) => {
       case "unfollow": {
         return handleUnfollowCommand(
           c,
-          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
@@ -105,7 +95,6 @@ discordRouter.post("/interactions", async (c) => {
       case "follows": {
         return handleListCommand(
           c,
-          db,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
