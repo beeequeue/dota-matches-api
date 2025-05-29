@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "wrangler dev -j",
     "dev:migrate": "wrangler d1 migrations apply --local dpc",
-    "build": "tsup",
+    "build": "tsdown",
     "lint": "eslint src",
     "test": "node --test src/**/*.test.ts",
     "test:e2e": "echo 'TODO' && exit 1",
@@ -40,7 +40,6 @@
     "date-fns": "4.1.0",
     "discord-api-types": "0.38.8",
     "discord-interactions": "4.3.0",
-    "dotenv": "16.4.5",
     "drizzle-kit": "0.27.1",
     "drizzle-orm": "0.36.0",
     "eslint": "9.27.0",
@@ -55,7 +54,7 @@
     "prettier": "3.5.3",
     "rambda": "9.3.0",
     "simple-git-hooks": "2.13.0",
-    "tsup": "8.3.5",
+    "tsdown": "0.12.4",
     "typescript": "5.8.3",
     "wrangler": "4.17.0"
   }

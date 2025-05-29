@@ -30,7 +30,7 @@ export type Match = {
 
 const liquipediaQueue = new PQueue({
   intervalCap: 1,
-  interval: import.meta.env.MODE === "test" ? 0 : 30_000,
+  interval: import.meta.env.NODE_ENV === "test" ? 0 : 30_000,
 })
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
@@ -92,7 +92,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {
-            "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+            "User-Agent": `dota-matches-api-${country}`,
           },
           query: {
             action: "parse",
@@ -181,7 +181,7 @@ const fetchAndCacheTeams = async (
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {
-            "User-Agent": `dota-matches-api-${country}/${GIT_SHA}`,
+            "User-Agent": `dota-matches-api-${country}`,
           },
           query: {
             action: "parse",

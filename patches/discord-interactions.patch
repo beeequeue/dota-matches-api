@@ -1,0 +1,19 @@
+diff --git a/dist/util.js b/dist/util.js
+index 3b52b9d46455084f8caed85bb2c170cee7c525c1..296248eb0a74f165182bfd4b093943fca0a051c2 100644
+--- a/dist/util.js
++++ b/dist/util.js
+@@ -15,14 +15,6 @@ function getSubtleCrypto() {
+     if (typeof crypto !== 'undefined') {
+         return crypto.subtle;
+     }
+-    if (typeof require === 'function') {
+-        // Cloudflare Workers are doing what appears to be a regex check to look and
+-        // warn for this pattern. We should never get here in a Cloudflare Worker, so
+-        // I am being coy to avoid detection and a warning.
+-        const cryptoPackage = 'node:crypto';
+-        const crypto = require(cryptoPackage);
+-        return crypto.webcrypto.subtle;
+-    }
+     throw new Error('No Web Crypto API implementation found');
+ }
+ exports.subtleCrypto = getSubtleCrypto();

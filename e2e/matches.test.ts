@@ -4,7 +4,7 @@ import { expect } from "vitest"
 import type { Match } from "../src/dota.ts"
 
 it("no field is missing from all matches", async () => {
-  const matches = await mande(process.env.API_BASE!).get<Match[]>("/v1/matches", {
+  const matches = await mande(import.meta.env.API_BASE!).get<Match[]>("/v1/matches", {
     headers: {
       "User-Agent": "github.com/BeeeQueue/dota-matches-api (e2e)",
     },

@@ -21,7 +21,7 @@ const SCOPES = `${OAuth2Scopes.Bot} ${OAuth2Scopes.ApplicationsCommands}` as con
 export const BOT_PERMISSIONS = "309237647360"
 
 const baseUrl = "https://discord.com/api/v10"
-const userAgent = `dota-matches-api (https://github.com/beeequeue/dota-matches-api, ${GIT_SHA})`
+const userAgent = `dota-matches-api (https://github.com/beeequeue/dota-matches-api)`
 const discordClient = mande(baseUrl, {
   responseAs: "json",
   headers: {

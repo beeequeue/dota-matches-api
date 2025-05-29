@@ -5,9 +5,9 @@
   "compatibility_date": "2023-12-01",
   "compatibility_flags": [],
 
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "build": {
-    "command": "pnpm tsup",
+    "command": "node --run build",
     "watch_dir": "src"
   },
 

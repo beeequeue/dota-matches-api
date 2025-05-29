@@ -25,7 +25,7 @@ discordRouter.get("/", (c) =>
   c.redirect(createDiscordClient(c).getAuthorizeUrl().toString(), 302),
 )
 
-if (import.meta.env.MODE !== "production") {
+if (import.meta.env.NODE_ENV !== "production") {
   discordRouter.get("/autocomplete/teams", async (c) => {
     return handleAutocompleteCommand(
       c,
