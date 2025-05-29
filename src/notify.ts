@@ -1,7 +1,7 @@
 import { compareAsc } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { and, eq, or, sql } from "drizzle-orm"
-import { groupBy } from "rambda"
+import { groupBy } from "es-toolkit"
 
 import { createDb } from "./db.ts"
 import { createDiscordClient } from "./discord/index.ts"
@@ -85,7 +85,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     )
     .groupBy(($result) => [$result.id, $result.channel])
 
-  const matchesByChannel = groupBy((match) => match.channel, subscribedMatchesInTimeframe)
+  const matchesByChannel = groupBy(subscribedMatchesInTimeframe, (match) => match.channel)
 
   const messages = Object.entries(matchesByChannel).map(([channelId, matches]) => {
     matches.sort((a, b) => compareAsc(new Date(a.startsAt!), new Date(b.startsAt!)))

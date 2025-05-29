@@ -69,6 +69,9 @@ importers:
       drizzle-orm:
         specifier: 0.36.0
         version: 0.36.0(@cloudflare/workers-types@4.20250528.0)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.10)(better-sqlite3@11.5.0)
+      es-toolkit:
+        specifier: 1.38.0
+        version: 1.38.0
       eslint:
         specifier: 9.27.0
         version: 9.27.0(jiti@2.4.2)
@@ -99,9 +102,6 @@ importers:
       prettier:
         specifier: 3.5.3
         version: 3.5.3
-      rambda:
-        specifier: 9.3.0
-        version: 9.3.0
       simple-git-hooks:
         specifier: 2.13.0
         version: 2.13.0
@@ -1807,6 +1807,9 @@ packages:
   es-module-lexer@1.6.0:
     resolution: {integrity: sha512-qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==}
 
+  es-toolkit@1.38.0:
+    resolution: {integrity: sha512-OT3AxczYYd3W50bCj4V0hKoOAfqIy9tof0leNQYekEDxVKir3RTVTJOLij7VAe6fsCNsGhC0JqIkURpMXTCSEA==}
+
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
     peerDependencies:
@@ -2463,9 +2466,6 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
-
-  rambda@9.3.0:
-    resolution: {integrity: sha512-cl/7DCCKNxmsbc0dXZTJTY08rvDdzLhVfE6kPBson1fWzDapLzv0RKSzjpmAqP53fkQqAvq05gpUVHTrUNsuxg==}
 
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -4090,6 +4090,8 @@ snapshots:
   es-module-lexer@1.6.0:
     optional: true
 
+  es-toolkit@1.38.0: {}
+
   esbuild-register@3.6.0(esbuild@0.19.12):
     dependencies:
       debug: 4.4.1
@@ -4850,8 +4852,6 @@ snapshots:
   quansync@0.2.10: {}
 
   queue-microtask@1.2.3: {}
-
-  rambda@9.3.0: {}
 
   rc@1.2.8:
     dependencies:

@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm"
 import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1"
 import { alias } from "drizzle-orm/sqlite-core"
-import { pick, splitEvery } from "rambda"
+import { chunk, pick } from "es-toolkit"
 
 import type { Match, Team } from "./dota.ts"
 import { $leagues, $matches, $teams } from "./schema.ts"
@@ -116,7 +116,7 @@ export const upsertMatchData = async (db: DrizzleD1Database, matches: Match[]) =
   console.log("Inserting matches...")
   await Promise.all(
     // For some reason this is erroring with "too many SQL variables" if we don't chunk it
-    splitEvery(5, matchData).map((matchChunk) => db.insert($matches).values(matchChunk)),
+    chunk(matchData, 5).map((matchChunk) => db.insert($matches).values(matchChunk)),
   )
 
   console.log("Inserting teams...")

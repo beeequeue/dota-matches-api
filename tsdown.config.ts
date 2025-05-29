@@ -11,7 +11,6 @@ export default defineConfig({
   target: "node24",
   platform: "node",
   format: "esm",
-  dts: true,
   fixedExtension: true,
 
   minify: true,
