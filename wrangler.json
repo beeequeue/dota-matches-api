@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/snilan/wrangler-json-schema/main/wrangler.schema.json",
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "dota-matches-api",
   "account_id": "a2ae71949fd5eaebc354f81fb3b1deab",
   "compatibility_date": "2023-12-01",
