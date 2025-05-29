@@ -56,25 +56,25 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   const now = new Date()
 
   const subscribedMatchesInTimeframe = await db
-    .selectFrom("matches")
-    .innerJoin("subscriptions", (join) =>
+    .selectFrom("match")
+    .innerJoin("subscription", (join) =>
       join.on((eb) =>
         eb.or([
-          eb("teamOneId", "=", "subscriptions.teamName"),
-          eb("teamTwoId", "=", "subscriptions.teamName"),
+          eb("teamOneId", "=", "subscription.teamName"),
+          eb("teamTwoId", "=", "subscription.teamName"),
         ]),
       ),
     )
     .select([
-      "matches.id",
-      "matches.matchType",
-      "matches.teamOneId",
-      "matches.teamTwoId",
-      "matches.leagueName",
-      "matches.streamUrl",
-      "matches.startsAt",
+      "match.id",
+      "match.matchType",
+      "match.teamOneId",
+      "match.teamTwoId",
+      "match.leagueName",
+      "match.streamUrl",
+      "match.startsAt",
 
-      "subscriptions.channel",
+      "subscription.channel",
     ])
     .where("startsAt", ">", `datetime(${now.toISOString()})`)
     .where("startsAt", "<", `datetime(${now.toISOString()}, '1 day')`)

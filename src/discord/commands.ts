@@ -49,7 +49,7 @@ export const handleFollowCommand = async (
     teamName,
   }))
   await db
-    .insertInto("subscriptions")
+    .insertInto("subscription")
     .values(data)
     .onConflict((c) => c.doNothing())
     .execute()
@@ -74,7 +74,7 @@ export const handleUnfollowCommand = async (
   }
 
   const removed = await db
-    .deleteFrom("subscriptions")
+    .deleteFrom("subscription")
     .where("guildId", "=", guildId)
     .where("channel", "=", body.channel.id)
     .where("teamName", "=", teamOption.value)
@@ -97,7 +97,7 @@ export const handleListCommand = async (
   body: APIChatInputApplicationCommandInteraction,
 ) => {
   const subscriptions = await db
-    .selectFrom("subscriptions")
+    .selectFrom("subscription")
     .select(["teamName"])
     .where("guildId", "=", body.guild_id!)
     .where("channel", "=", body.channel.id)

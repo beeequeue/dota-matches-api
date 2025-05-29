@@ -26,8 +26,8 @@ export type Subscription$ = {
 }
 
 export type Tables = {
-  matches: Match$
-  leagues: League$
-  teams: Team$
-  subscriptions: Subscription$
+  match: Match$
+  league: League$
+  team: Team$
+  subscription: Subscription$
 }

@@ -12,7 +12,7 @@ export const db = new Kysely<Tables>({
   dialect: new D1Dialect({ database: globalThis.__env__.MATCHES }),
 })
 
-const teamsQuery = db.selectFrom("teams").select(["name", "url"]).compile()
+const teamsQuery = db.selectFrom("team").select(["name", "url"]).compile()
 export const getTeamsFromDb = async () => {
   return db.executeQuery(teamsQuery)
 }
@@ -21,7 +21,7 @@ export const upsertTeamsData = async (teams: Team[]) => {
   return Promise.all(
     teams.map(({ name, url }) =>
       db
-        .insertInto("teams")
+        .insertInto("team")
         .values({ id: name!, name: name!, url })
         .onConflict((c) => c.column("id").doUpdateSet({ name: name!, url: url! })),
     ),
@@ -29,17 +29,17 @@ export const upsertTeamsData = async (teams: Team[]) => {
 }
 
 const matchDataQuery = db
-  .selectFrom("matches")
-  .innerJoin("leagues", "matches.leagueName", "leagues.name")
-  .innerJoin("teams as teamOne", "matches.teamOneId", "teamOne.id")
-  .innerJoin("teams as teamTwo", "matches.teamTwoId", "teamTwo.id")
+  .selectFrom("match")
+  .innerJoin("league", "match.leagueName", "league.name")
+  .innerJoin("team as teamOne", "match.teamOneId", "teamOne.id")
+  .innerJoin("team as teamTwo", "match.teamTwoId", "teamTwo.id")
   .select([
-    "matches.id as id",
-    "matches.matchType as matchType",
-    "matches.streamUrl as streamUrl",
-    "matches.startsAt as startsAt",
-    "matches.leagueName as leagueName",
-    "leagues.url as leagueUrl",
+    "match.id as id",
+    "match.matchType as matchType",
+    "match.streamUrl as streamUrl",
+    "match.startsAt as startsAt",
+    "match.leagueName as leagueName",
+    "league.url as leagueUrl",
 
     "teamOne.id as teamOneId",
     "teamOne.name as teamOneName",
@@ -111,19 +111,19 @@ export const upsertMatchData = async (matches: Match[]) => {
   }
 
   console.log("Deleting old matches...")
-  await db.deleteFrom("matches").execute()
+  await db.deleteFrom("match").execute()
 
   console.log("Inserting matches...")
   await Promise.all(
     // For some reason this is erroring with "too many SQL variables" if we don't chunk it
-    chunk(matchData, 20).map((matchChunk) => db.insertInto("matches").values(matchChunk)),
+    chunk(matchData, 20).map((matchChunk) => db.insertInto("match").values(matchChunk)),
   )
 
   console.log("Inserting teams...")
   await Promise.all(
     [...teams.values()].map((team) =>
       db
-        .insertInto("teams")
+        .insertInto("team")
         .values(team)
         .onConflict((c) => c.column("id").doUpdateSet(team)),
     ),
@@ -133,7 +133,7 @@ export const upsertMatchData = async (matches: Match[]) => {
   await Promise.all(
     [...leagues.values()].map((league) =>
       db
-        .insertInto("leagues")
+        .insertInto("league")
         .values(league)
         .onConflict((c) => c.column("name").doUpdateSet(league)),
     ),
