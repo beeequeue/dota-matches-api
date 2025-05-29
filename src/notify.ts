@@ -2,6 +2,7 @@ import { compareAsc } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
 
+import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"
 import { createDiscordClient } from "./discord/index.ts"
 import type { Match$, Subscription$ } from "./schema"
@@ -51,7 +52,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   _controller,
   env: Env,
 ) => {
-  globalThis.__env__ = env
+  registerEnv(env)
 
   const now = new Date()
 

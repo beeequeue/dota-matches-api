@@ -1,15 +1,15 @@
-// import { createDatabase } from "db0"
-// import sqlite from "db0/connectors/cloudflare-d1"
+import { createDatabase } from "db0"
+import d1 from "db0/connectors/cloudflare-d1"
 import { chunk, pick } from "es-toolkit"
 import { Kysely } from "kysely"
-import { D1Dialect } from "kysely-d1"
 
+import { Db0SqliteDialect } from "./db0-dialect/sqlite"
 import type { Match, Team } from "./dota.ts"
 import type { League$, Match$, Tables, Team$ } from "./schema.ts"
 
-// export const db0 = createDatabase(sqlite({ bindingName: "MATCHES" }))
+const db0 = createDatabase(d1({ bindingName: "MATCHES" }))
 export const db = new Kysely<Tables>({
-  dialect: new D1Dialect({ database: globalThis.__env__.MATCHES }),
+  dialect: new Db0SqliteDialect(db0),
 })
 
 const teamsQuery = db.selectFrom("team").select(["name", "url"]).compile()

@@ -1,16 +1,12 @@
 import { createApp } from "./app.ts"
+import { registerEnv } from "./db0-dialect/d1-register"
 import { notifier } from "./notify.ts"
-
-declare global {
-  // eslint-disable-next-line no-var,vars-on-top
-  var __env__: Env
-}
 
 const app = createApp()
 
 const worker: ExportedHandler<Env> = {
   fetch: async (request, env, ctx) => {
-    globalThis.__env__ = env
+    registerEnv(env)
 
     return app.fetch(request, env, ctx)
   },
