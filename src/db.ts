@@ -3,7 +3,7 @@ import d1 from "db0/connectors/cloudflare-d1"
 import { chunk, pick } from "es-toolkit"
 import { Kysely } from "kysely"
 
-import { Db0SqliteDialect } from "./db0-dialect/sqlite"
+import { Db0SqliteDialect } from "./db0-dialect/sqlite.ts"
 import type { Match, Team } from "./dota.ts"
 import type { League$, Match$, Tables, Team$ } from "./schema.ts"
 

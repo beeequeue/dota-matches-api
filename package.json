@@ -49,12 +49,12 @@
     "miniflare": "4.20250523.0",
     "nano-staged": "0.8.0",
     "nanoid": "5.1.5",
-    "node-html-parser": "7.0.1",
     "p-queue": "8.1.0",
     "prettier": "3.5.3",
     "simple-git-hooks": "2.13.0",
     "tsdown": "0.12.4",
     "typescript": "5.8.3",
+    "ultrahtml": "1.6.0",
     "wrangler": "4.17.0"
   }
 }

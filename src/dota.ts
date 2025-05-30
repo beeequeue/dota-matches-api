@@ -1,8 +1,9 @@
 import { mande, type MandeError } from "mande"
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
-import { type HTMLElement, parse } from "node-html-parser"
 import PQueue from "p-queue"
+import { type ElementNode, parse, TEXT_NODE } from "ultrahtml"
+import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
 import {
   getMatchDataFromDb,
@@ -10,7 +11,7 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db.ts"
-import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils.ts"
+import { EDGE_CACHE_TIMEOUT, getNodeText, MetaKey, seconds } from "./utils.ts"
 
 export type Team = {
   name: string | null
@@ -29,7 +30,7 @@ export type Match = {
 
 const liquipediaQueue = new PQueue({
   intervalCap: 1,
-  interval: import.meta.env.NODE_ENV === "test" ? 0 : 30_000,
+  interval: process.env.NODE_ENV === "test" ? 0 : 30_000,
 })
 const liquipediaClient = mande("https://liquipedia.net/dota2", {
   responseAs: "json",
@@ -58,19 +59,21 @@ export type LiquipediaBody = {
   }
 }
 
-const extractTeam = (team$: HTMLElement): Team => {
-  if (team$.textContent.trim() === "TDB") {
+const extractTeam = (team$: ElementNode): Team => {
+  if (getNodeText(team$).trim() === "TDB") {
     return {
       name: "TBD",
       url: null,
     }
   }
 
-  const name = team$
-    .querySelector(".team-template-text > a")
-    ?.attrs?.title?.replace(/\(.*?\)/g, "")
+  const name = (
+    querySelector(team$, ".team-template-text > a") as ElementNode
+  )?.attributes?.title
+    ?.replace(/\(.*?\)/g, "")
     ?.trim()
-  const urlPath = team$.querySelector("[href^='/dota2/']")?.attrs?.href
+  const urlPath = (querySelector(team$, '[href^="/dota2/"]') as ElementNode)?.attributes
+    ?.href
 
   return {
     name: name ?? null,
@@ -109,27 +112,30 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     throw new Error("Failed to fetch match data", { cause: data })
   }
 
-  const root = parse(data.parse.text["*"])
+  const root = parse(data.parse.text["*"]) as ElementNode
 
-  const $matches = root.querySelectorAll(".match")
+  const $matches = querySelectorAll(root, ".match")
   if ($matches.length === 0) return []
 
   const matches = $matches.map(($match) => {
-    const teamLeft$ = $match.querySelector(".team-left")!
-    const teamRight$ = $match.querySelector(".team-right")!
-    const versus$ = $match.querySelector(".versus")!
-    const meta$ = $match.querySelector(".timer-object")!
-    const leagueLink$ = $match.querySelector(".league-icon-small-image > a")!
-    const streamTitle$ = $match.querySelector(".match-streams a")
+    const teamLeft$ = querySelector($match, ".team-left") as ElementNode
+    const teamRight$ = querySelector($match, ".team-right") as ElementNode
+    const versus$ = querySelector($match, ".versus") as ElementNode
+    const meta$ = querySelector($match, ".timer-object") as ElementNode
+    const leagueLink$ = querySelector(
+      $match,
+      ".league-icon-small-image > a",
+    ) as ElementNode
+    const streamTitle$ = querySelector($match, ".match-streams a") as ElementNode
 
     const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
     // For some reason we have to use `innerHTML` here instead of `textContent`
     // because the abbr tag might not be parsed correctly by node-html-parser?
-    const matchType = versus$.querySelector("abbr")?.innerHTML
-    const startTime = meta$.attrs["data-timestamp"]
-    const leagueName = leagueLink$.attrs.title
-    const leagueUrl = leagueLink$.attrs.href
-    const streamUrl = streamTitle$?.attrs?.href
+    const matchType = getNodeText(querySelector(versus$, "abbr") as ElementNode)
+    const startTime = meta$.attributes["data-timestamp"]
+    const leagueName = leagueLink$.attributes.title
+    const leagueUrl = leagueLink$.attributes.href
+    const streamUrl = streamTitle$?.attributes?.href
 
     return withHash({
       teams,
@@ -152,16 +158,25 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 }
 
 export const parseTeamsPage = (html: string): Team[] => {
-  const root = parse(html)
+  const root = parse(html) as ElementNode
 
-  const notableTeamsContainer$ = root.querySelector(
-    "h2:has(#Notable_Active_Teams) + div",
-  )!
-  const notableTeams$ = notableTeamsContainer$.querySelectorAll(".team-template-text")
-  const data: Team[] = notableTeams$?.map((el$) => {
+  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
+  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
+    (el) => el === notableTeamsTitle$.parent,
+  )
+
+  const notableTeams$ = querySelectorAll(
+    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
+    ".team-template-text > a",
+  ) as ElementNode[]
+  const data: Team[] = notableTeams$.map((el$) => {
+    if (el$.children[0].type !== TEXT_NODE) {
+      throw new Error("Couldn't find text in team element")
+    }
+
     return {
-      name: el$.textContent.trim(),
-      url: `https://liquipedia.net${el$.querySelector("a")!.attrs.href}`,
+      name: getNodeText(el$),
+      url: `https://liquipedia.net${el$.attributes.href}`,
     }
   })
 

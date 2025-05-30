@@ -1,9 +1,26 @@
 import assert from "node:assert/strict"
+import { readFileSync } from "node:fs"
 import { before, describe, it, mock } from "node:test"
 
 import { addSeconds } from "date-fns"
 
+import { parseTeamsPage } from "./dota.ts"
 import { getTtl } from "./utils.ts"
+
+describe("parseTeamsPage", () => {
+  it("correctly parses the body", (t) => {
+    const result = parseTeamsPage(readFileSync("./src/fixtures/teams.html", "utf-8"))
+
+    assert.notEqual(result, null)
+
+    assert.equal(result.length, 87)
+    assert.deepStrictEqual(result[0], {
+      name: "5ManMidas",
+      url: "https://liquipedia.net/dota2/5ManMidas",
+    })
+    t.assert.snapshot(result)
+  })
+})
 
 describe("getTtl", () => {
   before(() => {
