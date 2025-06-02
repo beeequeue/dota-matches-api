@@ -132,7 +132,7 @@ jobs:
     needs:
       - build
       - lint
-      #      - test
+      - test
       - typecheck
 
     steps:
