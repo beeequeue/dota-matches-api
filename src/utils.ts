@@ -14,17 +14,19 @@ export const nowSeconds = () => ms2s(Date.now())
 export const seconds = (input: StringValue) => ms2s(ms(input))
 
 export const getNodeText = (node: ElementNode): string => {
-  return node.children.reduce((accum, child) => {
-    if (child.type === ELEMENT_NODE) {
-      return accum + getNodeText(child)
-    }
+  return node.children
+    .reduce((accum, child) => {
+      if (child.type === ELEMENT_NODE) {
+        return accum + getNodeText(child)
+      }
 
-    if (child.type === TEXT_NODE) {
-      return accum + child.value
-    }
+      if (child.type === TEXT_NODE) {
+        return accum + child.value
+      }
 
-    return accum
-  }, "")
+      return accum
+    }, "")
+    .trim()
 }
 
 export const getCountry = (request: HonoRequest<string>): string => {

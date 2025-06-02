@@ -1,36 +1,20 @@
 exports[`parseTeamsPage > correctly parses the body 1`] = `
 [
   {
-    "name": "5ManMidas",
-    "url": "https://liquipedia.net/dota2/5ManMidas"
+    "name": "1win Team",
+    "url": "https://liquipedia.net/dota2/1win_Team"
   },
   {
-    "name": "5RATFORCESTAFF",
-    "url": "https://liquipedia.net/dota2/5RATFORCESTAFF"
+    "name": "Aurora Gaming",
+    "url": "https://liquipedia.net/dota2/Aurora_Gaming"
   },
   {
-    "name": "Alliance",
-    "url": "https://liquipedia.net/dota2/Alliance"
+    "name": "AVULUS",
+    "url": "https://liquipedia.net/dota2/AVULUS"
   },
   {
-    "name": "Arkosh Gaming",
-    "url": "https://liquipedia.net/dota2/Arkosh_Gaming"
-  },
-  {
-    "name": "Army Geniuses",
-    "url": "https://liquipedia.net/dota2/Army_Geniuses"
-  },
-  {
-    "name": "Aster.Aries",
-    "url": "https://liquipedia.net/dota2/Aster.Aries"
-  },
-  {
-    "name": "Balrogs",
-    "url": "https://liquipedia.net/dota2/Balrogs"
-  },
-  {
-    "name": "beastcoast",
-    "url": "https://liquipedia.net/dota2/Beastcoast"
+    "name": "Azure Ray",
+    "url": "https://liquipedia.net/dota2/Azure_Ray"
   },
   {
     "name": "BetBoom Team",
@@ -41,64 +25,28 @@ exports[`parseTeamsPage > correctly parses the body 1`] = `
     "url": "https://liquipedia.net/dota2/BOOM_Esports"
   },
   {
-    "name": "Brame",
-    "url": "https://liquipedia.net/dota2/Brame"
+    "name": "CDUB Esports",
+    "url": "https://liquipedia.net/dota2/CDUB_Esports"
   },
   {
-    "name": "CDEC Gaming",
-    "url": "https://liquipedia.net/dota2/CDEC_Gaming"
-  },
-  {
-    "name": "cybercats",
-    "url": "https://liquipedia.net/dota2/Cybercats"
-  },
-  {
-    "name": "Dandelion Esport Club",
-    "url": "https://liquipedia.net/dota2/Dandelion_Esport_Club"
-  },
-  {
-    "name": "Dreamers Esports",
-    "url": "https://liquipedia.net/dota2/Dreamers_Esports"
-  },
-  {
-    "name": "EHOME",
-    "url": "https://liquipedia.net/dota2/EHOME"
-  },
-  {
-    "name": "Entity",
-    "url": "https://liquipedia.net/dota2/Entity"
-  },
-  {
-    "name": "Evil Geniuses",
-    "url": "https://liquipedia.net/dota2/Evil_Geniuses"
+    "name": "Edge",
+    "url": "https://liquipedia.net/dota2/Edge_(team)"
   },
   {
     "name": "Execration",
     "url": "https://liquipedia.net/dota2/Execration"
   },
   {
-    "name": "felt",
-    "url": "https://liquipedia.net/dota2/Felt"
-  },
-  {
-    "name": "Fnatic",
-    "url": "https://liquipedia.net/dota2/Fnatic"
+    "name": "Fart Studios",
+    "url": "https://liquipedia.net/dota2/Fart_Studios"
   },
   {
     "name": "Gaimin Gladiators",
     "url": "https://liquipedia.net/dota2/Gaimin_Gladiators"
   },
   {
-    "name": "goonsquad",
-    "url": "https://liquipedia.net/dota2/Goonsquad"
-  },
-  {
-    "name": "Gorillaz-Pride",
-    "url": "https://liquipedia.net/dota2/Gorillaz-Pride"
-  },
-  {
-    "name": "HellRaisers",
-    "url": "https://liquipedia.net/dota2/HellRaisers"
+    "name": "HEROIC",
+    "url": "https://liquipedia.net/dota2/HEROIC"
   },
   {
     "name": "Hokori",
@@ -109,208 +57,96 @@ exports[`parseTeamsPage > correctly parses the body 1`] = `
     "url": "https://liquipedia.net/dota2/HYDRA"
   },
   {
-    "name": "iG Vitality",
-    "url": "https://liquipedia.net/dota2/IG_Vitality"
-  },
-  {
     "name": "Infamous",
-    "url": "https://liquipedia.net/dota2/Infamous"
+    "url": "https://liquipedia.net/dota2/Infamous_Gaming"
   },
   {
     "name": "Infinity",
     "url": "https://liquipedia.net/dota2/Infinity"
   },
   {
-    "name": "Into The Breach",
-    "url": "https://liquipedia.net/dota2/Into_The_Breach"
+    "name": "L1GA TEAM",
+    "url": "https://liquipedia.net/dota2/L1GA_TEAM"
   },
   {
-    "name": "Invictus Gaming",
-    "url": "https://liquipedia.net/dota2/Invictus_Gaming"
+    "name": "Lava Esports",
+    "url": "https://liquipedia.net/dota2/Lava_Esports"
   },
   {
-    "name": "IVY",
-    "url": "https://liquipedia.net/dota2/IVY"
+    "name": "MOUZ",
+    "url": "https://liquipedia.net/dota2/MOUZ"
   },
   {
-    "name": "jfshfh178",
-    "url": "https://liquipedia.net/dota2/Jfshfh178"
-  },
-  {
-    "name": "KBU.US",
-    "url": "https://liquipedia.net/dota2/KBU.US"
-  },
-  {
-    "name": "Lava",
-    "url": "https://liquipedia.net/dota2/Lava"
-  },
-  {
-    "name": "LBZS",
-    "url": "https://liquipedia.net/dota2/LBZS"
-  },
-  {
-    "name": "Lilgun",
-    "url": "https://liquipedia.net/dota2/Lilgun"
-  },
-  {
-    "name": "Mad Kings",
-    "url": "https://liquipedia.net/dota2/Mad_Kings"
-  },
-  {
-    "name": "Mind Games",
-    "url": "https://liquipedia.net/dota2/Mind_Games"
+    "name": "Myth Avenue Gaming",
+    "url": "https://liquipedia.net/dota2/Myth_Avenue_Gaming"
   },
   {
     "name": "Natus Vincere",
     "url": "https://liquipedia.net/dota2/Natus_Vincere"
   },
   {
-    "name": "Nemiga Gaming",
-    "url": "https://liquipedia.net/dota2/Nemiga_Gaming"
+    "name": "NAVI Junior",
+    "url": "https://liquipedia.net/dota2/NAVI_Junior"
   },
   {
-    "name": "Neon Esports",
-    "url": "https://liquipedia.net/dota2/Neon_Esports"
+    "name": "Nemiga Gaming",
+    "url": "https://liquipedia.net/dota2/Nemiga_Gaming"
   },
   {
     "name": "Nigma Galaxy",
     "url": "https://liquipedia.net/dota2/Nigma_Galaxy"
   },
   {
-    "name": "Nigma Galaxy SEA",
-    "url": "https://liquipedia.net/dota2/Nigma_Galaxy_SEA"
-  },
-  {
-    "name": "NoPing e-sports",
-    "url": "https://liquipedia.net/dota2/NoPing_e-sports"
-  },
-  {
-    "name": "nouns",
-    "url": "https://liquipedia.net/dota2/Nouns"
-  },
-  {
     "name": "OG",
     "url": "https://liquipedia.net/dota2/OG"
   },
   {
-    "name": "Omega Gaming",
-    "url": "https://liquipedia.net/dota2/Omega_Gaming"
+    "name": "OG.LATAM",
+    "url": "https://liquipedia.net/dota2/OG.LATAM"
   },
   {
     "name": "One Move",
     "url": "https://liquipedia.net/dota2/One_Move"
   },
   {
-    "name": "Outsiders",
-    "url": "https://liquipedia.net/dota2/Outsiders"
+    "name": "PARIVISION",
+    "url": "https://liquipedia.net/dota2/PARIVISION"
   },
   {
-    "name": "Pari Parni",
-    "url": "https://liquipedia.net/dota2/Pari_Parni"
+    "name": "Shopify Rebellion",
+    "url": "https://liquipedia.net/dota2/Shopify_Rebellion"
   },
   {
-    "name": "Pavaga Gaming",
-    "url": "https://liquipedia.net/dota2/Pavaga_Gaming"
-  },
-  {
-    "name": "Polaris Esports",
-    "url": "https://liquipedia.net/dota2/Polaris_Esports"
-  },
-  {
-    "name": "PSG.LGD",
-    "url": "https://liquipedia.net/dota2/PSG.LGD"
-  },
-  {
-    "name": "PuckChamp",
-    "url": "https://liquipedia.net/dota2/PuckChamp_(Russian_team)"
-  },
-  {
-    "name": "Royal Never Give Up",
-    "url": "https://liquipedia.net/dota2/Royal_Never_Give_Up"
-  },
-  {
-    "name": "RSG",
-    "url": "https://liquipedia.net/dota2/RSG"
-  },
-  {
-    "name": "SG esports",
-    "url": "https://liquipedia.net/dota2/SG_esports"
-  },
-  {
-    "name": "ShenZhen",
-    "url": "https://liquipedia.net/dota2/ShenZhen"
-  },
-  {
-    "name": "simply TOOBASED",
-    "url": "https://liquipedia.net/dota2/Simply_TOOBASED"
-  },
-  {
-    "name": "Soniqs",
-    "url": "https://liquipedia.net/dota2/Soniqs"
-  },
-  {
-    "name": "Sparking Arrow Gaming",
-    "url": "https://liquipedia.net/dota2/Sparking_Arrow_Gaming"
-  },
-  {
-    "name": "T1",
-    "url": "https://liquipedia.net/dota2/T1"
+    "name": "SIBE Team",
+    "url": "https://liquipedia.net/dota2/SIBE_Team"
   },
   {
     "name": "Talon Esports",
     "url": "https://liquipedia.net/dota2/Talon_Esports"
   },
   {
-    "name": "Team Aster",
-    "url": "https://liquipedia.net/dota2/Team_Aster"
-  },
-  {
-    "name": "Team Bald Reborn",
-    "url": "https://liquipedia.net/dota2/Team_Bald_Reborn"
-  },
-  {
-    "name": "Team DogChamp",
-    "url": "https://liquipedia.net/dota2/Team_DogChamp"
+    "name": "Team Falcons",
+    "url": "https://liquipedia.net/dota2/Team_Falcons"
   },
   {
     "name": "Team Liquid",
     "url": "https://liquipedia.net/dota2/Team_Liquid"
   },
   {
-    "name": "Team MagMa",
-    "url": "https://liquipedia.net/dota2/Team_MagMa"
-  },
-  {
     "name": "Team Secret",
     "url": "https://liquipedia.net/dota2/Team_Secret"
   },
   {
-    "name": "Team SMG",
-    "url": "https://liquipedia.net/dota2/Team_SMG"
+    "name": "Team Spirit",
+    "url": "https://liquipedia.net/dota2/Team_Spirit"
   },
   {
-    "name": "Team Unique",
-    "url": "https://liquipedia.net/dota2/Team_Unique"
-  },
-  {
-    "name": "Tempest",
-    "url": "https://liquipedia.net/dota2/Tempest_(South_American_team)"
-  },
-  {
-    "name": "The Cut",
-    "url": "https://liquipedia.net/dota2/The_Cut"
-  },
-  {
-    "name": "Thunder Awaken",
-    "url": "https://liquipedia.net/dota2/Thunder_Awaken"
+    "name": "The MongolZ",
+    "url": "https://liquipedia.net/dota2/The_MongolZ"
   },
   {
     "name": "TNC Predator",
     "url": "https://liquipedia.net/dota2/TNC_Predator"
-  },
-  {
-    "name": "TSM",
-    "url": "https://liquipedia.net/dota2/TSM"
   },
   {
     "name": "Tundra Esports",
@@ -321,32 +157,28 @@ exports[`parseTeamsPage > correctly parses the body 1`] = `
     "url": "https://liquipedia.net/dota2/Vici_Gaming"
   },
   {
-    "name": "Vicious Gaming",
-    "url": "https://liquipedia.net/dota2/Vicious_Gaming"
-  },
-  {
     "name": "Virtus.pro",
     "url": "https://liquipedia.net/dota2/Virtus.pro"
   },
   {
-    "name": "Wildcard Gaming",
-    "url": "https://liquipedia.net/dota2/Wildcard_Gaming"
+    "name": "Wildcard",
+    "url": "https://liquipedia.net/dota2/Wildcard"
   },
   {
-    "name": "Wolf Team",
-    "url": "https://liquipedia.net/dota2/Wolf_Team"
+    "name": "Winter Bear",
+    "url": "https://liquipedia.net/dota2/Winter_Bear"
   },
   {
     "name": "Xtreme Gaming",
-    "url": "https://liquipedia.net/dota2/Xtreme_Gaming_(Chinese_team)"
+    "url": "https://liquipedia.net/dota2/Xtreme_Gaming"
+  },
+  {
+    "name": "Yakult Brothers",
+    "url": "https://liquipedia.net/dota2/Yakult_Brothers"
   },
   {
     "name": "Yangon Galacticos",
     "url": "https://liquipedia.net/dota2/Yangon_Galacticos"
-  },
-  {
-    "name": "Ybb Gaming",
-    "url": "https://liquipedia.net/dota2/Ybb_Gaming"
   }
 ]
 `;

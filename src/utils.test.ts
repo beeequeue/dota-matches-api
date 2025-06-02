@@ -13,10 +13,10 @@ describe("parseTeamsPage", () => {
 
     assert.notEqual(result, null)
 
-    assert.equal(result.length, 87)
-    assert.deepStrictEqual(result[0], {
-      name: "5ManMidas",
-      url: "https://liquipedia.net/dota2/5ManMidas",
+    assert.equal(result.length, 45)
+    assert.deepStrictEqual(result[32], {
+      name: "Team Liquid",
+      url: "https://liquipedia.net/dota2/Team_Liquid",
     })
     t.assert.snapshot(result)
   })
