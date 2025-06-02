@@ -221,12 +221,7 @@ export const getTeams =
   async (country: string): Promise<string[]> => {
     const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
     console.log(`Teams were last fetched at ${lastFetched}`)
-    if (lastFetched !== -1) {
-      if (Date.now() > lastFetched + ms("12h")) {
-        console.log(`Teams are stale, refreshing...`)
-        void fetchAndCacheTeams(env, country)
-      }
-
+    if (lastFetched !== -1 && Date.now() <= lastFetched + ms("12h")) {
       console.log(`Retrieving teams from DB...`)
       const result = await getTeamsFromDb()
       return result.rows.map(({ name }) => name)
