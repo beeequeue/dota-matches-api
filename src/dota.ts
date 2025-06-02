@@ -1,9 +1,9 @@
-import { mande, type MandeError } from "mande"
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
 import PQueue from "p-queue"
 import { type ElementNode, parse, TEXT_NODE } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
+import { isXiorError, Xior, type XiorError } from "xior"
 
 import {
   getMatchDataFromDb,
@@ -32,11 +32,9 @@ const liquipediaQueue = new PQueue({
   intervalCap: 1,
   interval: process.env.NODE_ENV === "test" ? 0 : 30_000,
 })
-const liquipediaClient = mande("https://liquipedia.net/dota2", {
-  responseAs: "json",
-  query: {
-    format: "json",
-  },
+const liquipediaClient = new Xior({
+  baseURL: "https://liquipedia.net/dota2",
+  responseType: "json",
   headers: {
     "Accept-Encoding": "gzip",
   },
@@ -89,30 +87,29 @@ const withHash = (match: Omit<Match, "hash">): Match => ({
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
-  const data = await liquipediaQueue.add(
+  const response = await liquipediaQueue.add(
     async () =>
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {
             "User-Agent": `dota-matches-api-${country}`,
           },
-          query: {
+          params: {
             action: "parse",
             format: "json",
             contentmodel: "wikitext",
             text: "{{NewDota2_matches_upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National}}",
           },
         })
-        .catch((error: MandeError) => error),
+        .catch((error: XiorError) => error),
     { throwOnTimeout: true },
   )
 
-  if (data instanceof Error) {
-    // eslint-disable-next-line unicorn/prefer-type-error
-    throw new Error("Failed to fetch match data", { cause: data })
+  if (isXiorError(response)) {
+    throw new Error("Failed to fetch match data", { cause: response })
   }
 
-  const root = parse(data.parse.text["*"]) as ElementNode
+  const root = parse(response.data.parse.text["*"]) as ElementNode
 
   const $matches = querySelectorAll(root, ".match")
   if ($matches.length === 0) return []
@@ -186,29 +183,29 @@ export const parseTeamsPage = (html: string): Team[] => {
 const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
-  const page = await liquipediaQueue.add(
+  const response = await liquipediaQueue.add(
     async () =>
       liquipediaClient
         .get<LiquipediaBody>("/api.php", {
           headers: {
             "User-Agent": `dota-matches-api-${country}`,
           },
-          query: {
+          params: {
             action: "parse",
+            format: "json",
             page: "Portal:Teams",
           },
         })
-        .catch((error: MandeError) => error),
+        .catch((error: XiorError) => error),
     { throwOnTimeout: true },
   )
 
   console.log("Fetched teams!")
-  if (page instanceof Error) {
-    // eslint-disable-next-line unicorn/prefer-type-error
-    throw new Error("Failed to fetch team data", { cause: page })
+  if (isXiorError(response)) {
+    throw new Error("Failed to fetch team data", { cause: response })
   }
 
-  const teams = parseTeamsPage(page.parse.text["*"])
+  const teams = parseTeamsPage(response.data.parse.text["*"])
   if (teams.length === 0) return []
 
   await upsertTeamsData(teams)

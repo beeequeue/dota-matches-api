@@ -13,7 +13,7 @@ import {
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
 import type { Context } from "hono"
-import { mande, type MandeError } from "mande"
+import { Xior, type XiorError } from "xior"
 
 import { badRequest } from "../http-errors.ts"
 
@@ -22,8 +22,9 @@ export const BOT_PERMISSIONS = "309237647360"
 
 const baseUrl = "https://discord.com/api/v10"
 const userAgent = `dota-matches-api (https://github.com/beeequeue/dota-matches-api)`
-const discordClient = mande(baseUrl, {
-  responseAs: "json",
+const discordClient = new Xior({
+  baseURL: baseUrl,
+  responseType: "json",
   headers: {
     "User-Agent": userAgent,
   },
@@ -97,7 +98,7 @@ const leaveGuild = async (env: Env, guildId: string) => {
       },
     })
   } catch (error) {
-    throw new Error("Failed to leave guild", { cause: error as MandeError })
+    throw new Error("Failed to leave guild", { cause: error as XiorError })
   }
 }
 
@@ -121,7 +122,7 @@ const createThread = (env: Env) => async (channelId: string) => {
       },
     )
   } catch (error) {
-    throw new Error("Failed to create a thread", { cause: error as MandeError })
+    throw new Error("Failed to create a thread", { cause: error as XiorError })
   }
 }
 
@@ -149,7 +150,7 @@ const sendMessage =
         },
       )
     } catch (error) {
-      throw new Error("Failed to send message", { cause: error as MandeError })
+      throw new Error("Failed to send message", { cause: error as XiorError })
     }
   }
 

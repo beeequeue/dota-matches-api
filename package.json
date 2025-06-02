@@ -44,7 +44,6 @@
     "eslint": "9.27.0",
     "hono": "4.7.10",
     "kysely": "0.28.2",
-    "mande": "2.0.9",
     "milli": "4.0.0",
     "miniflare": "4.20250523.0",
     "nano-staged": "0.8.0",
@@ -55,6 +54,7 @@
     "tsdown": "0.12.4",
     "typescript": "5.8.3",
     "ultrahtml": "1.6.0",
-    "wrangler": "4.17.0"
+    "wrangler": "4.17.0",
+    "xior": "0.7.8"
   }
 }
