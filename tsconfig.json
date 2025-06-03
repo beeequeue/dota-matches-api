@@ -7,22 +7,23 @@
   "compilerOptions": {
     // Output
     "noEmit": true,
-
     // Modules
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-
     // Lessen strictness
     "importsNotUsedAsValues": "remove",
     "noImplicitReturns": false,
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false,
-
     // Extra types
-    "types": ["@cloudflare/workers-types/2023-07-01", "@total-typescript/ts-reset"],
+    "types": [
+      "@cloudflare/workers-types/2023-07-01",
+      "@total-typescript/ts-reset",
+      "@cloudflare/vitest-pool-workers"
+    ],
     "lib": ["esnext"]
   },
   "include": ["src/**/*.ts", "./worker-configuration.d.ts"]

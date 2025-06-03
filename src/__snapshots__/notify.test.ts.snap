@@ -30,12 +30,12 @@ exports[`notifier > sends messages to channels 2`] = `
   "fields": [
     {
       "name": "**Team Liquid** _vs_ **Nigma Galaxy**",
-      "value": "Bo2 @<t:1577847600:t> (<t:1577847600:R>)
+      "value": "Bo2 @<t:1749740400:t> (<t:1749740400:R>)
 ",
     },
     {
       "name": "**Nigma Galaxy** _vs_ **OG**",
-      "value": "Bo2 @<t:1577880000:t> (<t:1577880000:R>)
+      "value": "Bo2 @<t:1749772800:t> (<t:1749772800:R>)
 ",
     },
   ],

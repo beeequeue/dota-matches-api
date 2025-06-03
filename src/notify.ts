@@ -1,6 +1,7 @@
 import { compareAsc } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
+import { sql } from "kysely"
 
 import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"
@@ -61,8 +62,8 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     .innerJoin("subscription", (join) =>
       join.on((eb) =>
         eb.or([
-          eb("teamOneId", "=", "subscription.teamName"),
-          eb("teamTwoId", "=", "subscription.teamName"),
+          eb(eb.ref("teamOneId"), "=", eb.ref("subscription.teamName")),
+          eb(eb.ref("teamTwoId"), "=", eb.ref("subscription.teamName")),
         ]),
       ),
     )
@@ -77,8 +78,8 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
 
       "subscription.channel",
     ])
-    .where("startsAt", ">", `datetime(${now.toISOString()})`)
-    .where("startsAt", "<", `datetime(${now.toISOString()}, '1 day')`)
+    .where(sql`datetime("startsAt")`, ">", sql`datetime(${now.toISOString()})`)
+    .where(sql`datetime("startsAt")`, "<", sql`datetime(${now.toISOString()}, '1 day')`)
     .groupBy(["id", "channel"])
     .execute()
 
@@ -95,7 +96,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, embed] as const
   })
 
-  const discordClient = createDiscordClient({ env } as never)
+  const discordClient = createDiscordClient({ env })
   await Promise.all(
     messages.map(async ([channelId, embed]) => {
       await discordClient.sendMessage(channelId, embed)

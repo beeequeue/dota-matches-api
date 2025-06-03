@@ -2,8 +2,8 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "dota-matches-api",
   "account_id": "a2ae71949fd5eaebc354f81fb3b1deab",
-  "compatibility_date": "2023-12-01",
-  "compatibility_flags": [],
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["no_nodejs_compat_v2"],
 
   "main": "dist/index.mjs",
   "build": {

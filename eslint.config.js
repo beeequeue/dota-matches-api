@@ -28,7 +28,12 @@ export default antfu({
   jsonc: false,
   jsx: false,
   toml: false,
-  test: { overrides: { "test/no-import-node-test": "off" } },
+  test: {
+    overrides: {
+      "test/no-import-node-test": "off",
+      "test/prefer-lowercase-title": "off",
+    },
+  },
   typescript: {
     tsconfigPath: "tsconfig.json",
     ignoresTypeAware: ["copy.ts", "*.config.*"],

@@ -154,9 +154,9 @@ const sendMessage =
     }
   }
 
-export const createDiscordClient = (c: Context<{ Bindings: Env }>) => ({
+export const createDiscordClient = (c: { env: Env } | Context<{ Bindings: Env }>) => ({
   getAuthorizeUrl: getAuthorizeUrl(c.env),
-  registerGuild: registerGuild(c),
+  registerGuild: registerGuild(c as Context<{ Bindings: Env }>),
   createThread: createThread(c.env),
   sendMessage: sendMessage(c.env),
   leaveGuild,

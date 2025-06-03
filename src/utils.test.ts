@@ -1,30 +1,26 @@
 import assert from "node:assert/strict"
-import { readFileSync } from "node:fs"
-import { before, describe, it, mock } from "node:test"
 
+import { env } from "cloudflare:test"
 import { addSeconds } from "date-fns"
+import { beforeAll, describe, expect, it, vi } from "vitest"
 
 import { parseTeamsPage } from "./dota.ts"
 import { getTtl } from "./utils.ts"
 
 describe("parseTeamsPage", () => {
-  it("correctly parses the body", (t) => {
-    const result = parseTeamsPage(readFileSync("./src/fixtures/teams.html", "utf-8"))
+  it("correctly parses the body", async () => {
+    const result = parseTeamsPage(
+      await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) => r.text()),
+    )
 
-    assert.notEqual(result, null)
-
-    assert.equal(result.length, 45)
-    assert.deepStrictEqual(result[32], {
-      name: "Team Liquid",
-      url: "https://liquipedia.net/dota2/Team_Liquid",
-    })
-    t.assert.snapshot(result)
+    expect(result).toBeDefined()
+    expect(result).toMatchSnapshot()
   })
 })
 
 describe("getTtl", () => {
-  before(() => {
-    mock.timers.enable({ apis: ["Date"], now: new Date("2022-02-02 12:00") })
+  beforeAll(() => {
+    vi.setSystemTime(new Date("2022-02-02 12:00"))
   })
 
   it("should return 0", () => {

@@ -19,7 +19,7 @@ export const createApp = () => {
 
   app.get("/", (c) => c.redirect("https://github.com/BeeeQueue/dota-matches-api", 302))
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "production") {
     showRoutes(app)
   }
 
