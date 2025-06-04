@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "4.13.2",
-    "@cloudflare/vitest-pool-workers": "0.8.34",
-    "@cloudflare/workers-types": "4.20250601.0",
+    "@cloudflare/vitest-pool-workers": "0.8.36",
+    "@cloudflare/workers-types": "4.20250603.0",
     "@leeoniya/ufuzzy": "1.0.18",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node-ts": "23.6.1",
@@ -47,7 +47,7 @@
     "kysely": "0.28.2",
     "mentoss": "0.11.0",
     "milli": "4.0.0",
-    "miniflare": "4.20250525.0",
+    "miniflare": "4.20250525.1",
     "nano-staged": "0.8.0",
     "nanoid": "5.1.5",
     "p-queue": "8.1.0",
@@ -56,8 +56,8 @@
     "tsdown": "0.12.6",
     "typescript": "5.8.3",
     "ultrahtml": "1.6.0",
-    "vitest": "3.2.0",
-    "wrangler": "4.18.0",
+    "vitest": "3.2.1",
+    "wrangler": "4.19.1",
     "xior": "0.7.8"
   }
 }

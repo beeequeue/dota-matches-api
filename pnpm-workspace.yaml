@@ -10,9 +10,11 @@ overrides:
   "@antfu/eslint-config>jsonc-eslint-parser": "-"
   "@antfu/eslint-config>toml-eslint-parser": "-"
   "@antfu/eslint-config>vitest": "-"
+  esbuild: 0.25.5
   eslint-plugin-pnpm>jsonc-eslint-parser: "-"
   is-core-module: npm:@nolyfill/is-core-module@^1
   safe-buffer: npm:@nolyfill/safe-buffer@^1
+  zod: 3.25.50
 
 patchedDependencies:
   discord-interactions: patches/discord-interactions.patch
