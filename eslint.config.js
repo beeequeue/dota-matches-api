@@ -39,6 +39,21 @@ export default antfu({
     ignoresTypeAware: ["copy.ts", "*.config.*"],
 
     overridesTypeAware: {
+      "no-restricted-globals": [
+        "warn",
+        {
+          name: "global",
+          message: "Use globalThis instead.",
+        },
+        {
+          name: "self",
+          message: "Use globalThis instead.",
+        },
+        {
+          name: "Date",
+          message: "Use Temporal instead.",
+        },
+      ],
       "ts/no-floating-promises": [
         "error",
         {

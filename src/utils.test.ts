@@ -19,7 +19,10 @@ describe("parseTeamsPage", () => {
 
 describe("getTtl", () => {
   beforeAll(() => {
-    vi.setSystemTime(new Date("2022-02-02 12:00"))
+    vi.setSystemTime(
+      Temporal.PlainDateTime.from("2022-02-02 12:00").toZonedDateTime("utc")
+        .epochMilliseconds,
+    )
   })
 
   it("should return 0", () => {

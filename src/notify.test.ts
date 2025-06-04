@@ -19,18 +19,18 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   const [, value] = /@<t:(\d+):t>/.exec(field.value) ?? []
   if (value == null) return null
 
-  return new Date(Number(value) * 1000)
+  return Temporal.Instant.fromEpochMilliseconds(Number(value) * 1000)
 }
 
 beforeEach(() => {
-  vi.setSystemTime(new Date("2025-06-12T12:00:00.000Z"))
+  vi.setSystemTime(Temporal.Instant.from("2025-06-12T12:00:00.000Z").epochMilliseconds)
 
   return () => vi.setSystemTime(vi.getRealSystemTime())
 })
 
 describe("formatMatchToEmbedField", () => {
   beforeAll(() => {
-    vi.setSystemTime(new Date("2022-07-31T14:00:00.000Z"))
+    vi.setSystemTime(Temporal.Instant.from("2022-07-31T14:00:00.000Z").epochMilliseconds)
 
     return () => vi.setSystemTime(vi.getRealSystemTime())
   })
@@ -169,14 +169,14 @@ describe("notifier", () => {
 
     const embed = sendMessageMock.mock.calls[0][1] as APIEmbed
 
-    expect(extractDateFromEmbedField(embed?.fields?.[0])).toStrictEqual(
-      new Date(matches[1].startsAt!),
+    expect(extractDateFromEmbedField(embed?.fields?.[0])).toEqual(
+      Temporal.Instant.from(matches[1].startsAt!),
     )
-    expect(extractDateFromEmbedField(embed?.fields?.[1])).toStrictEqual(
-      new Date(matches[2].startsAt!),
+    expect(extractDateFromEmbedField(embed?.fields?.[1])).toEqual(
+      Temporal.Instant.from(matches[2].startsAt!),
     )
-    expect(extractDateFromEmbedField(embed?.fields?.[2])).toStrictEqual(
-      new Date(matches[0].startsAt!),
+    expect(extractDateFromEmbedField(embed?.fields?.[2])).toEqual(
+      Temporal.Instant.from(matches[0].startsAt!),
     )
   })
 })

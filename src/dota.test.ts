@@ -1,6 +1,7 @@
 import { env } from "cloudflare:test"
 import { FetchMocker, MockServer } from "mentoss"
 import { ms } from "milli"
+import { Temporal } from "temporal-polyfill"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { registerEnv } from "./db0-dialect/d1-register"
@@ -32,7 +33,9 @@ describe("getTeams", async () => {
     registerEnv(env)
 
     vi.resetAllMocks()
-    vi.setSystemTime(new Date("2020-01-01"))
+    vi.setSystemTime(
+      Temporal.PlainDate.from("2020-01-01").toZonedDateTime("utc").epochMilliseconds,
+    )
 
     mocker.clearAll()
     liquipediaMock.get("/dota2/api.php?*", { status: 200, body: mockBody })

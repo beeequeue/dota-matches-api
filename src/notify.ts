@@ -25,6 +25,9 @@ const embedTemplate: Omit<APIEmbed, "fields"> = {
   },
 }
 
+const isoDateStringToUnixTime = (input?: string | null) =>
+  input != null ? Math.round(Temporal.Instant.from(input).epochMilliseconds / 1000) : null
+
 export const formatMatchToEmbedField = (
   match: Omit<Match$, "id"> & Pick<Subscription$, "channel">,
 ): APIEmbedField => {
@@ -32,8 +35,7 @@ export const formatMatchToEmbedField = (
     .map((teamName) => `**${teamName ?? "?"}**`)
     .join(" _vs_ ")
 
-  const startsAtUnix =
-    match.startsAt != null ? Math.round(new Date(match.startsAt).getTime() / 1000) : null
+  const startsAtUnix = isoDateStringToUnixTime(match.startsAt)
   const matchType = orEmpty(match.matchType, `${match.matchType!} `)
   const startsAt = orEmpty(
     startsAtUnix,
@@ -55,7 +57,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
 ) => {
   registerEnv(env)
 
-  const now = new Date()
+  const now = Temporal.Now.instant().toString()
 
   const subscribedMatchesInTimeframe = await db
     .selectFrom("match")
@@ -78,8 +80,8 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
 
       "subscription.channel",
     ])
-    .where(sql`datetime("startsAt")`, ">", sql`datetime(${now.toISOString()})`)
-    .where(sql`datetime("startsAt")`, "<", sql`datetime(${now.toISOString()}, '1 day')`)
+    .where(sql`datetime("startsAt")`, ">", sql`datetime(${now})`)
+    .where(sql`datetime("startsAt")`, "<", sql`datetime(${now}, '1 day')`)
     .groupBy(["id", "channel"])
     .execute()
 

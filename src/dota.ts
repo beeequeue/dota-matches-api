@@ -1,6 +1,7 @@
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
 import PQueue from "p-queue"
+import { Temporal } from "temporal-polyfill"
 import { type ElementNode, parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 import { isXiorError, Xior, type XiorError } from "xior"
@@ -143,7 +144,9 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     return withHash({
       teams,
       matchType: matchType ?? null,
-      startsAt: startTime ? new Date(Number(startTime) * 1000).toISOString() : null,
+      startsAt: startTime
+        ? Temporal.Instant.fromEpochMilliseconds(Number(startTime) * 1000).toString()
+        : null,
       leagueName,
       leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
       streamUrl:
@@ -225,7 +228,7 @@ const getMatches = (env: Env) => async (country: string) => {
 
   await upsertMatchData(matches)
 
-  lastFetched = Date.now()
+  lastFetched = Temporal.Now.instant().epochMilliseconds
   await env.META.put(MetaKey.MATCHES_LAST_FETCHED, lastFetched.toString(), {
     expirationTtl: EDGE_CACHE_TIMEOUT,
   })
