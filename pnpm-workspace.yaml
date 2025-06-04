@@ -1,5 +1,14 @@
 packages: []
 
+ignoredBuiltDependencies:
+  - esbuild
+  - sharp
+  - simple-git-hooks
+  - unrs-resolver
+
+onlyBuiltDependencies:
+  - workerd
+
 overrides:
   "@antfu/eslint-config>@eslint/markdown": "-"
   "@antfu/eslint-config>@stylistic/eslint-plugin": "-"
