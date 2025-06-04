@@ -33,7 +33,7 @@ export default defineWorkersConfig({
       optimizer: {
         ssr: {
           enabled: true,
-          include: ["discord-api-types/v10", "node-html-parser"],
+          include: ["discord-api-types/v10"],
         },
       },
     },
