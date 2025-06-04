@@ -49,8 +49,5 @@ jobs:
           url: ${{ secrets.NTFY_URL }}
           topic: ${{ secrets.NTFY_TOPIC }}
           headers: ${{ secrets.NTFY_TOKEN }}
-          priority: 2
           title: dota-matches-api warning
-          icon: https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/dpc.svg
           tags: warning
-          actions: '[{"action": "view", "label": "Check API", "url": "https://dota.haglund.dev/v1/matches"}, {"action": "view", "label": "Check CI", "url": "${{ github.repositoryUrl }}"}]'
