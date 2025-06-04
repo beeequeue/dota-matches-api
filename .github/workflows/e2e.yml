@@ -48,14 +48,9 @@ jobs:
         with:
           url: ${{ secrets.NTFY_URL }}
           topic: ${{ secrets.NTFY_TOPIC }}
+          headers: ${{ secrets.NTFY_TOKEN }}
           priority: 2
           title: dota-matches-api warning
           icon: https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/dpc.svg
           tags: warning
           actions: "view, Check API, https://dota.haglund.dev/v1/matches; view, Check CI, ${{ github.repositoryUrl }}, clear=true"
-
-      - name: Create issue!
-        if: ${{ failure() }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh issue create --title "E2E test(s) failed!" --body "This is an automated issue to notify @BeeeQueue that the e2e tests failed - https://github.com/BeeeQueue/dota-matches-api/actions/runs/${{ github.run_id }}"
