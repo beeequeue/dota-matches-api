@@ -1,7 +1,7 @@
 import { ms } from "milli"
 import { nanoid } from "nanoid/non-secure"
 import PQueue from "p-queue"
-import { type ElementNode, parse, TEXT_NODE } from "ultrahtml"
+import { type ElementNode, parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 import { isXiorError, Xior, type XiorError } from "xior"
 
@@ -11,7 +11,13 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db.ts"
-import { EDGE_CACHE_TIMEOUT, getNodeText, MetaKey, seconds } from "./utils.ts"
+import {
+  EDGE_CACHE_TIMEOUT,
+  getNodeText,
+  MetaKey,
+  parseTeamsPage,
+  seconds,
+} from "./utils.ts"
 
 export type Team = {
   name: string | null
@@ -152,32 +158,6 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 
     return a.startsAt.localeCompare(b.startsAt)
   })
-}
-
-export const parseTeamsPage = (html: string): Team[] => {
-  const root = parse(html) as ElementNode
-
-  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
-  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
-    (el) => el === notableTeamsTitle$.parent,
-  )
-
-  const notableTeams$ = querySelectorAll(
-    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
-    ".team-template-text > a",
-  ) as ElementNode[]
-  const data: Team[] = notableTeams$.map((el$) => {
-    if (el$.children[0].type !== TEXT_NODE) {
-      throw new Error("Couldn't find text in team element")
-    }
-
-    return {
-      name: getNodeText(el$),
-      url: `https://liquipedia.net${el$.attributes.href}`,
-    }
-  })
-
-  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
 
 const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {

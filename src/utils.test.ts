@@ -4,8 +4,7 @@ import { env } from "cloudflare:test"
 import { Temporal } from "temporal-polyfill"
 import { beforeAll, describe, expect, it, vi } from "vitest"
 
-import { parseTeamsPage } from "./dota.ts"
-import { getTtl } from "./utils.ts"
+import { getTtl, parseTeamsPage } from "./utils.ts"
 
 describe("parseTeamsPage", () => {
   it("correctly parses the body", async () => {

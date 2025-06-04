@@ -1,6 +1,9 @@
 import type { HonoRequest } from "hono"
 import { ms, type StringValue } from "milli"
-import { ELEMENT_NODE, type ElementNode, TEXT_NODE } from "ultrahtml"
+import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
+import { querySelector, querySelectorAll } from "ultrahtml/selector"
+
+import type { Team } from "./dota"
 
 export const MetaKey = {
   MATCHES_LAST_FETCHED: "MATCHES_LAST_FETCHED",
@@ -56,4 +59,30 @@ export const getCacheHeaders = (lastFetched: number) => {
   return {
     "Cache-Control": `public, s-maxage=${ttl} max-age=${getBrowserCacheTtl(ttl)}`,
   }
+}
+
+export const parseTeamsPage = (html: string): Team[] => {
+  const root = parse(html) as ElementNode
+
+  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
+  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
+    (el) => el === notableTeamsTitle$.parent,
+  )
+
+  const notableTeams$ = querySelectorAll(
+    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
+    ".team-template-text > a",
+  ) as ElementNode[]
+  const data: Team[] = notableTeams$.map((el$) => {
+    if (el$.children[0].type !== TEXT_NODE) {
+      throw new Error("Couldn't find text in team element")
+    }
+
+    return {
+      name: getNodeText(el$),
+      url: `https://liquipedia.net${el$.attributes.href}`,
+    }
+  })
+
+  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }
