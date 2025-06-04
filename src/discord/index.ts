@@ -105,7 +105,7 @@ const leaveGuild = async (env: Env, guildId: string) => {
 const createThread = (env: Env) => async (channelId: string) => {
   console.log(`Creating thread in ${channelId}`)
 
-  const now = Temporal.Now.plainTimeISO()
+  const now = Temporal.Now.plainTimeISO().toString()
   const body: RESTPostAPIChannelThreadsJSONBody = {
     type: 11, // public thread
     name: `Match Schedule ${now}`,
