@@ -44,7 +44,7 @@ jobs:
       - run: node --run test:e2e
 
       - name: ntfy_action
-        uses: NiNiyas/ntfy-action@9c6dc60073292f562769f83df2ace9f64ab31c78
+        uses: NiNiyas/ntfy-action@2e4de8e810b0b28dba54344de960426adbfe136e
         with:
           url: ${{ secrets.NTFY_URL }}
           topic: ${{ secrets.NTFY_TOPIC }}
