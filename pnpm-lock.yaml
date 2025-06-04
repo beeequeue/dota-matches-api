@@ -56,9 +56,6 @@ importers:
       '@types/node':
         specifier: 22.15.29
         version: 22.15.29
-      date-fns:
-        specifier: 4.1.0
-        version: 4.1.0
       db0:
         specifier: 0.3.2
         version: 0.3.2
@@ -104,6 +101,9 @@ importers:
       simple-git-hooks:
         specifier: 2.13.0
         version: 2.13.0
+      temporal-polyfill:
+        specifier: 0.3.0
+        version: 0.3.0
       tsdown:
         specifier: 0.12.6
         version: 0.12.6(typescript@5.8.3)
@@ -1204,9 +1204,6 @@ packages:
   data-uri-to-buffer@2.0.2:
     resolution: {integrity: sha512-ND9qDTLc6diwj+Xe5cdAgVTbLVdXbtxTJRXRhli8Mowuaan+0EJOtdqJ0QCHNSSPyoXGx9HX2/VMnKeC34AChA==}
 
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
-
   db0@0.3.2:
     resolution: {integrity: sha512-xzWNQ6jk/+NtdfLyXEipbX55dmDSeteLFt/ayF+wZUU5bzKgmrDOxmInUTbyVRp46YwnJdkDA1KhB7WIXFofJw==}
     peerDependencies:
@@ -2038,6 +2035,12 @@ packages:
   tapable@2.2.2:
     resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
     engines: {node: '>=6'}
+
+  temporal-polyfill@0.3.0:
+    resolution: {integrity: sha512-qNsTkX9K8hi+FHDfHmf22e/OGuXmfBm9RqNismxBrnSmZVJKegQ+HYYXT+R7Ha8F/YSm2Y34vmzD4cxMu2u95g==}
+
+  temporal-spec@0.3.0:
+    resolution: {integrity: sha512-n+noVpIqz4hYgFSMOSiINNOUOMFtV5cZQNCmmszA6GiVFVRt3G7AqVyhXjhCSmowvQn+NsGn+jMDMKJYHd3bSQ==}
 
   tiny-lru@11.3.2:
     resolution: {integrity: sha512-JOHabNXZYoaa41/vcpUaq2UxyFts5xXS1qc+Dj00HsGXGYqdtUx79a8xNv38Cy0qgUQH9OdMXvsk6NETsAGxyQ==}
@@ -3184,8 +3187,6 @@ snapshots:
 
   data-uri-to-buffer@2.0.2: {}
 
-  date-fns@4.1.0: {}
-
   db0@0.3.2: {}
 
   debug@3.2.7:
@@ -4035,6 +4036,12 @@ snapshots:
     optional: true
 
   tapable@2.2.2: {}
+
+  temporal-polyfill@0.3.0:
+    dependencies:
+      temporal-spec: 0.3.0
+
+  temporal-spec@0.3.0: {}
 
   tiny-lru@11.3.2: {}
 

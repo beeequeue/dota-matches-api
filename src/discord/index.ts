@@ -1,4 +1,3 @@
-import { format } from "date-fns"
 import {
   type APIEmbed,
   OAuth2Scopes,
@@ -13,6 +12,7 @@ import {
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
 import type { Context } from "hono"
+import { Temporal } from "temporal-polyfill"
 import { Xior, type XiorError } from "xior"
 
 import { badRequest } from "../http-errors.ts"
@@ -105,9 +105,10 @@ const leaveGuild = async (env: Env, guildId: string) => {
 const createThread = (env: Env) => async (channelId: string) => {
   console.log(`Creating thread in ${channelId}`)
 
+  const now = Temporal.Now.plainTimeISO()
   const body: RESTPostAPIChannelThreadsJSONBody = {
     type: 11, // public thread
-    name: `Match Schedule ${format(new Date(), "MMM ddd")}`,
+    name: `Match Schedule ${now}`,
     auto_archive_duration: ThreadAutoArchiveDuration.OneDay,
   }
 

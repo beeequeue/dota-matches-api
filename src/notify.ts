@@ -1,7 +1,7 @@
-import { compareAsc } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
 import { sql } from "kysely"
+import { Temporal } from "temporal-polyfill"
 
 import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"
@@ -86,7 +86,12 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
   const matchesByChannel = groupBy(subscribedMatchesInTimeframe, (match) => match.channel)
 
   const messages = Object.entries(matchesByChannel).map(([channelId, matches]) => {
-    matches.sort((a, b) => compareAsc(new Date(a.startsAt!), new Date(b.startsAt!)))
+    matches.sort((a, b) =>
+      Temporal.Instant.compare(
+        Temporal.Instant.from(a.startsAt!),
+        Temporal.Instant.from(b.startsAt!),
+      ),
+    )
 
     const embed: APIEmbed = {
       ...embedTemplate,

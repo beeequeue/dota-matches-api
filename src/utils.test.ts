@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 
 import { env } from "cloudflare:test"
-import { addSeconds } from "date-fns"
+import { Temporal } from "temporal-polyfill"
 import { beforeAll, describe, expect, it, vi } from "vitest"
 
 import { parseTeamsPage } from "./dota.ts"
@@ -25,7 +25,7 @@ describe("getTtl", () => {
 
   it("should return 0", () => {
     // Fetched 10 seconds ago
-    const fetchedAt = addSeconds(new Date(), -10).getTime()
+    const fetchedAt = Temporal.Now.instant().add({ seconds: -10 }).epochMilliseconds
 
     // Should expire 10 seconds after `fetchedAt`
     assert.equal(getTtl(fetchedAt, 10), 0)
@@ -41,7 +41,7 @@ describe("getTtl", () => {
 
   it("should return 0 because it expired", () => {
     // Fetched 20 seconds ago
-    const fetchedAt = addSeconds(new Date(), -20).getTime()
+    const fetchedAt = Temporal.Now.instant().add({ seconds: -20 }).epochMilliseconds
 
     // Should expire 10 seconds after `fetchedAt`
     assert.equal(getTtl(fetchedAt, 10), 0)

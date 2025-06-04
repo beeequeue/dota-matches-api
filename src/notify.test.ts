@@ -1,6 +1,6 @@
 import { env } from "cloudflare:test"
-import { addDays, addHours, setMilliseconds } from "date-fns"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
+import { Temporal } from "temporal-polyfill"
 import { beforeAll, beforeEach, describe, expect, it, type Mock, vi } from "vitest"
 
 import { db } from "./db.ts"
@@ -58,14 +58,14 @@ describe("notifier", () => {
   })
 
   it("sends messages to channels", async () => {
-    const now = new Date()
+    const now = Temporal.Now.instant()
     const matches: Match$[] = [
       {
         id: "1",
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "Nigma Galaxy",
-        startsAt: setMilliseconds(addHours(now, 3), 0).toISOString(),
+        startsAt: now.add({ hours: 3 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -74,7 +74,7 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "Nigma Galaxy",
         teamTwoId: "OG",
-        startsAt: setMilliseconds(addHours(now, 12), 0).toISOString(),
+        startsAt: now.add({ hours: 12 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -83,7 +83,10 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "something",
         teamTwoId: "someone",
-        startsAt: setMilliseconds(addHours(now, 4.5), 0).toISOString(),
+        startsAt: now
+          .add({ hours: 4, minutes: 30 })
+          .round({ smallestUnit: "seconds" })
+          .toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -92,7 +95,10 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "OG",
         teamTwoId: "Too Late To Be Included",
-        startsAt: setMilliseconds(addDays(now, 4), 0).toISOString(),
+        startsAt: Temporal.Now.zonedDateTimeISO()
+          .add({ days: 4 })
+          .round({ smallestUnit: "seconds" })
+          .toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -120,14 +126,14 @@ describe("notifier", () => {
   })
 
   it("orders matches correctly", async () => {
-    const now = new Date()
+    const now = Temporal.Now.instant()
     const matches: Match$[] = [
       {
         id: "3",
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
-        startsAt: setMilliseconds(addHours(now, 22), 0).toISOString(),
+        startsAt: now.add({ hours: 22 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -136,7 +142,7 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
-        startsAt: setMilliseconds(addHours(now, 6), 0).toISOString(),
+        startsAt: now.add({ hours: 6 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -145,7 +151,7 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
-        startsAt: setMilliseconds(addHours(now, 12), 0).toISOString(),
+        startsAt: now.add({ hours: 12 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
