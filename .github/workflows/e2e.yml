@@ -8,8 +8,8 @@ on:
         default: https://dota.haglund.dev
         required: false
         description: "The base URL of the API to test"
-  #schedule:
-  #  - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
+  schedule:
+    - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
 
 env:
   API_BASE: ${{ inputs.api_base || 'https://dota.haglund.dev' }}
@@ -41,7 +41,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - run: pnpm test:e2e run
+      - run: node --run test:e2e
+
+      - name: ntfy_action
+        uses: NiNiyas/ntfy-action@9c6dc60073292f562769f83df2ace9f64ab31c78
+        with:
+          url: ${{ secrets.NTFY_URL }}
+          topic: ${{ secrets.NTFY_TOPIC }}
+          priority: 2
+          title: dota-matches-api warning
+          icon: https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/dpc.svg
+          tags: warning
+          actions: "view, Check API, https://dota.haglund.dev/v1/matches; view, Check CI, ${{ github.repositoryUrl }}, clear=true"
 
       - name: Create issue!
         if: ${{ failure() }}

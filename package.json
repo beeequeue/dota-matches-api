@@ -23,7 +23,7 @@
     "build": "tsdown",
     "lint": "eslint src",
     "test": "vitest",
-    "test:e2e": "echo 'TODO' && exit 1",
+    "test:e2e": "vitest  -c vitest.e2e.config.ts",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "prepare": "simple-git-hooks"
   },
