@@ -19,7 +19,7 @@ export const getTeamsFromDb = async () => {
 
 export const upsertTeamsData = async (teams: Team[]) => {
   return Promise.all(
-    chunk(teams, 20).map(async (chunk) =>
+    chunk(teams, 10).map(async (chunk) =>
       db
         .insertInto("team")
         .values(
@@ -28,6 +28,22 @@ export const upsertTeamsData = async (teams: Team[]) => {
         .onConflict((c) =>
           c
             .column("id")
+            .doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
+        )
+        .execute(),
+    ),
+  )
+}
+
+export const upsertLeaguesData = async (teams: League$[]) => {
+  return Promise.all(
+    chunk(teams, 10).map(async (chunk) =>
+      db
+        .insertInto("league")
+        .values(chunk)
+        .onConflict((c) =>
+          c
+            .column("name")
             .doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
         )
         .execute(),
@@ -123,30 +139,14 @@ export const upsertMatchData = async (matches: Match[]) => {
   console.log("Inserting matches...")
   await Promise.all(
     // For some reason this is erroring with "too many SQL variables" if we don't chunk it
-    chunk(matchData, 20).map(async (matchChunk) =>
+    chunk(matchData, 10).map(async (matchChunk) =>
       db.insertInto("match").values(matchChunk).execute(),
     ),
   )
 
   console.log("Inserting teams...")
-  await Promise.all(
-    [...teams.values()].map(async (team) =>
-      db
-        .insertInto("team")
-        .values(team)
-        .onConflict((c) => c.column("id").doUpdateSet(team))
-        .execute(),
-    ),
-  )
+  await upsertTeamsData(Array.from(teams.values()))
 
   console.log("Inserting leagues...")
-  await Promise.all(
-    [...leagues.values()].map(async (league) =>
-      db
-        .insertInto("league")
-        .values(league)
-        .onConflict((c) => c.column("name").doUpdateSet(league))
-        .execute(),
-    ),
-  )
+  await upsertLeaguesData(Array.from(leagues.values()))
 }
