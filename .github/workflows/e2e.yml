@@ -53,4 +53,4 @@ jobs:
           title: dota-matches-api warning
           icon: https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/dpc.svg
           tags: warning
-          actions: "view, Check API, https://dota.haglund.dev/v1/matches; view, Check CI, ${{ github.repositoryUrl }}, clear=true"
+          actions: '[{"action": "view", "label": "Check API", "url": "https://dota.haglund.dev/v1/matches"}, {"action": "view", "label": "Check CI", "url": "${{ github.repositoryUrl }}"}]'
