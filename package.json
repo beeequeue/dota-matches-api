@@ -5,7 +5,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@10.11.1",
+  "packageManager": "pnpm@10.12.1",
   "engines": {
     "node": "^24"
   },
@@ -30,17 +30,17 @@
   "devDependencies": {
     "@antfu/eslint-config": "4.13.2",
     "@cloudflare/vitest-pool-workers": "0.8.36",
-    "@cloudflare/workers-types": "4.20250603.0",
+    "@cloudflare/workers-types": "4.20250607.0",
     "@leeoniya/ufuzzy": "1.0.18",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node-ts": "23.6.1",
     "@tsconfig/node24": "24.0.1",
     "@tsconfig/strictest": "2.0.5",
-    "@types/node": "22.15.29",
+    "@types/node": "22.15.30",
     "db0": "0.3.2",
-    "discord-api-types": "0.38.10",
+    "discord-api-types": "0.38.11",
     "discord-interactions": "4.3.0",
-    "es-toolkit": "1.38.0",
+    "es-toolkit": "1.39.3",
     "eslint": "9.28.0",
     "hono": "4.7.11",
     "kysely": "0.28.2",
@@ -53,10 +53,10 @@
     "prettier": "3.5.3",
     "simple-git-hooks": "2.13.0",
     "temporal-polyfill": "0.3.0",
-    "tsdown": "0.12.6",
+    "tsdown": "0.12.7",
     "typescript": "5.8.3",
     "ultrahtml": "1.6.0",
-    "vitest": "3.2.1",
+    "vitest": "3.2.2",
     "wrangler": "4.19.1",
     "xior": "0.7.8"
   }
