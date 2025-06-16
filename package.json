@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "4.14.1",
-    "@cloudflare/vitest-pool-workers": "0.8.36",
-    "@cloudflare/workers-types": "4.20250607.0",
+    "@cloudflare/vitest-pool-workers": "0.8.38",
+    "@cloudflare/workers-types": "4.20250614.0",
     "@leeoniya/ufuzzy": "1.0.18",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node-ts": "23.6.1",
     "@tsconfig/node24": "24.0.1",
     "@tsconfig/strictest": "2.0.5",
-    "@types/node": "22.15.30",
+    "@types/node": "22.15.31",
     "db0": "0.3.2",
     "discord-api-types": "0.38.11",
     "discord-interactions": "4.3.0",
@@ -46,7 +46,7 @@
     "kysely": "0.28.2",
     "mentoss": "0.11.0",
     "milli": "4.0.0",
-    "miniflare": "4.20250525.1",
+    "miniflare": "4.20250604.1",
     "nano-staged": "0.8.0",
     "nanoid": "5.1.5",
     "p-queue": "8.1.0",
@@ -56,8 +56,8 @@
     "tsdown": "0.12.7",
     "typescript": "5.8.3",
     "ultrahtml": "1.6.0",
-    "vitest": "3.2.2",
-    "wrangler": "4.19.1",
+    "vitest": "3.2.3",
+    "wrangler": "4.20.0",
     "xior": "0.7.8"
   }
 }
