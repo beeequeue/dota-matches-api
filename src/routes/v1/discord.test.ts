@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest"
 import { BOT_PERMISSIONS } from "../../discord/index.ts"
 import { GUILD_ID } from "../../test-utils.ts"
 
-describe("POST /api/discord/callback", () => {
+describe("pOST /api/discord/callback", () => {
   it("returns 400 on missing parameters", async () => {
     const params = new URLSearchParams({})
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)

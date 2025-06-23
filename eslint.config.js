@@ -28,32 +28,12 @@ export default antfu({
   jsonc: false,
   jsx: false,
   toml: false,
-  test: {
-    overrides: {
-      "test/no-import-node-test": "off",
-      "test/prefer-lowercase-title": "off",
-    },
-  },
+  test: { overrides: { "test/no-import-node-test": "off" } },
   typescript: {
     tsconfigPath: "tsconfig.json",
     ignoresTypeAware: ["copy.ts", "*.config.*"],
 
     overridesTypeAware: {
-      "no-restricted-globals": [
-        "warn",
-        {
-          name: "global",
-          message: "Use globalThis instead.",
-        },
-        {
-          name: "self",
-          message: "Use globalThis instead.",
-        },
-        {
-          name: "Date",
-          message: "Use Temporal instead.",
-        },
-      ],
       "ts/no-floating-promises": [
         "error",
         {
@@ -67,10 +47,9 @@ export default antfu({
     overrides: {
       "no-console": "off",
       "antfu/no-top-level-await": "off",
-      "import/consistent-type-specifier-style": "off",
+      "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
       "node/prefer-global/process": "off",
       "ts/consistent-type-definitions": "off",
-      "ts/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
       "ts/no-unsafe-argument": "off",
       "ts/no-unsafe-assignment": "off",
       "ts/no-use-before-define": "off",

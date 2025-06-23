@@ -1,5 +1,5 @@
 declare global {
-  // eslint-disable-next-line no-var,vars-on-top
+  // eslint-disable-next-line vars-on-top
   var __env__: Env
 }
 
