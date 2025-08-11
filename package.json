@@ -28,7 +28,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "4.19.0",
+    "@antfu/eslint-config": "5.2.1",
     "@cloudflare/vitest-pool-workers": "0.8.61",
     "@cloudflare/workers-types": "4.20250810.0",
     "@leeoniya/ufuzzy": "1.0.18",
