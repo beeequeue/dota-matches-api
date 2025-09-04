@@ -72,8 +72,8 @@ importers:
         specifier: 9.34.0
         version: 9.34.0(jiti@2.4.2)
       hono:
-        specifier: 4.9.4
-        version: 4.9.4
+        specifier: 4.9.6
+        version: 4.9.6
       kysely:
         specifier: 0.28.5
         version: 0.28.5
@@ -1492,8 +1492,8 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hono@4.9.4:
-    resolution: {integrity: sha512-61hl6MF6ojTl/8QSRu5ran6GXt+6zsngIUN95KzF5v5UjiX/xnrLR358BNRawwIRO49JwUqJqQe3Rb2v559R8Q==}
+  hono@4.9.6:
+    resolution: {integrity: sha512-doVjXhSFvYZ7y0dNokjwwSahcrAfdz+/BCLvAMa/vHLzjj8+CFyV5xteThGUsKdkaasgN+gF2mUxao+SGLpUeA==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -3410,7 +3410,7 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hono@4.9.4: {}
+  hono@4.9.6: {}
 
   hookable@5.5.3: {}
 
