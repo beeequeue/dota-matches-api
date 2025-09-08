@@ -28,7 +28,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "5.2.1",
+    "@antfu/eslint-config": "5.2.2",
     "@cloudflare/vitest-pool-workers": "0.8.70",
     "@cloudflare/workers-types": "4.20250906.0",
     "@leeoniya/ufuzzy": "1.0.19",
@@ -41,7 +41,7 @@
     "discord-api-types": "0.38.23",
     "discord-interactions": "4.3.0",
     "es-toolkit": "1.39.10",
-    "eslint": "9.34.0",
+    "eslint": "9.35.0",
     "hono": "4.9.6",
     "kysely": "0.28.5",
     "mentoss": "0.11.0",
