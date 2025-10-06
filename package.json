@@ -41,7 +41,7 @@
     "discord-api-types": "0.38.28",
     "discord-interactions": "4.3.0",
     "es-toolkit": "1.39.10",
-    "eslint": "9.36.0",
+    "eslint": "9.37.0",
     "hono": "4.9.10",
     "kysely": "0.28.7",
     "mentoss": "0.11.0",
