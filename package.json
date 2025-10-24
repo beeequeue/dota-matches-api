@@ -42,7 +42,7 @@
     "discord-interactions": "4.4.0",
     "es-toolkit": "1.40.0",
     "eslint": "9.38.0",
-    "hono": "4.10.2",
+    "hono": "4.10.3",
     "kysely": "0.28.8",
     "mentoss": "0.12.0",
     "milli": "4.0.0",
