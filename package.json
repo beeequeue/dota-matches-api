@@ -5,7 +5,7 @@
   "author": "BeeeQueue <adam@haglund.dev>",
   "license": "CC-BY-SA-3.0-US",
   "private": true,
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.26.1",
   "engines": {
     "node": "^24"
   },
@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "5.4.1",
-    "@cloudflare/vitest-pool-workers": "0.10.15",
-    "@cloudflare/workers-types": "4.20251213.0",
+    "@cloudflare/vitest-pool-workers": "0.11.1",
+    "@cloudflare/workers-types": "4.20251221.0",
     "@leeoniya/ufuzzy": "1.0.19",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node-ts": "23.6.2",
@@ -46,18 +46,18 @@
     "kysely": "0.28.9",
     "mentoss": "0.12.0",
     "milli": "4.0.0",
-    "miniflare": "4.20251210.0",
+    "miniflare": "4.20251217.0",
     "nano-staged": "0.9.0",
     "nanoid": "5.1.6",
     "p-queue": "8.1.1",
     "prettier": "3.7.4",
     "simple-git-hooks": "2.13.1",
     "temporal-polyfill": "0.3.0",
-    "tsdown": "0.17.4",
+    "tsdown": "0.18.2",
     "typescript": "5.9.3",
     "ultrahtml": "1.6.0",
     "vitest": "3.2.4",
-    "wrangler": "4.54.0",
-    "xior": "0.8.1"
+    "wrangler": "4.56.0",
+    "xior": "0.8.2"
   }
 }
