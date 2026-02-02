@@ -49,7 +49,7 @@
     "miniflare": "4.20260114.0",
     "nano-staged": "0.9.0",
     "nanoid": "5.1.6",
-    "p-queue": "8.1.1",
+    "p-queue": "9.1.0",
     "prettier": "3.8.0",
     "simple-git-hooks": "2.13.1",
     "temporal-polyfill": "0.3.0",
