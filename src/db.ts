@@ -145,8 +145,8 @@ export const upsertMatchData = async (matches: Match[]) => {
   )
 
   console.log("Inserting teams...")
-  await upsertTeamsData(Array.from(teams.values()))
+  await upsertTeamsData([...teams.values()])
 
   console.log("Inserting leagues...")
-  await upsertLeaguesData(Array.from(leagues.values()))
+  await upsertLeaguesData([...leagues.values()])
 }

@@ -75,6 +75,7 @@ const extractTeam = (team$: ElementNode): Team => {
   const name = (
     querySelector(team$, ".team-template-text > a") as ElementNode
   )?.attributes?.title
+    // eslint-disable-next-line e18e/prefer-static-regex
     ?.replace(/\(.*?\)/g, "")
     ?.trim()
   const urlPath = (querySelector(team$, '[href^="/dota2/"]') as ElementNode)?.attributes

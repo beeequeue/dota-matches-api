@@ -1,13 +1,13 @@
 packages: []
 
-ignoredBuiltDependencies:
-  - esbuild
-  - sharp
-  - simple-git-hooks
-  - unrs-resolver
+minimumReleaseAge: 0
 
-onlyBuiltDependencies:
-  - workerd
+allowBuilds:
+  esbuild: false
+  sharp: false
+  simple-git-hooks: false
+  unrs-resolver: false
+  workerd: true
 
 overrides:
   "@antfu/eslint-config>@eslint/markdown": "-"
@@ -19,11 +19,8 @@ overrides:
   "@antfu/eslint-config>jsonc-eslint-parser": "-"
   "@antfu/eslint-config>toml-eslint-parser": "-"
   "@antfu/eslint-config>vitest": "-"
-  esbuild: 0.25.5
+  esbuild: 0.27.3
   eslint-plugin-pnpm>jsonc-eslint-parser: "-"
-  is-core-module: npm:@nolyfill/is-core-module@^1
-  safe-buffer: npm:@nolyfill/safe-buffer@^1
-  zod: 3.25.50
 
 patchedDependencies:
   discord-interactions: patches/discord-interactions.patch

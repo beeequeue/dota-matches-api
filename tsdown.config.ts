@@ -8,8 +8,8 @@ export default defineConfig({
     NODE_ENV: process.env.NODE_ENV === "development" ? "development" : "production",
   },
 
-  target: "node24",
-  platform: "node",
+  target: "node25",
+  platform: "browser",
   format: "esm",
   fixedExtension: true,
 

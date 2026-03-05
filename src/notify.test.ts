@@ -16,6 +16,7 @@ const mockedDiscord = vi.mocked(Discord)
 const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   if (field == null) return null
 
+  // eslint-disable-next-line e18e/prefer-static-regex
   const [, value] = /@<t:(\d+):t>/.exec(field.value) ?? []
   if (value == null) return null
 
