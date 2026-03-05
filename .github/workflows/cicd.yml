@@ -128,6 +128,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - run: node --run build
       - run: node --run test
 
   deploy:
