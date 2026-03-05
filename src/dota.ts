@@ -95,22 +95,20 @@ const withHash = (match: Omit<Match, "hash">): Match => ({
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
-  const response = await liquipediaQueue.add(
-    async () =>
-      liquipediaClient
-        .get<LiquipediaBody>("/api.php", {
-          headers: {
-            "User-Agent": `dota-matches-api-${country}`,
-          },
-          params: {
-            action: "parse",
-            format: "json",
-            contentmodel: "wikitext",
-            text: "{{NewDota2_matches_upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National}}",
-          },
-        })
-        .catch((error: XiorError) => error),
-    { throwOnTimeout: true },
+  const response = await liquipediaQueue.add(async () =>
+    liquipediaClient
+      .get<LiquipediaBody>("/api.php", {
+        headers: {
+          "User-Agent": `dota-matches-api-${country}`,
+        },
+        params: {
+          action: "parse",
+          format: "json",
+          contentmodel: "wikitext",
+          text: "{{NewDota2_matches_upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National}}",
+        },
+      })
+      .catch((error: XiorError) => error),
   )
 
   if (isXiorError(response)) {
@@ -167,21 +165,19 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
-  const response = await liquipediaQueue.add(
-    async () =>
-      liquipediaClient
-        .get<LiquipediaBody>("/api.php", {
-          headers: {
-            "User-Agent": `dota-matches-api-${country}`,
-          },
-          params: {
-            action: "parse",
-            format: "json",
-            page: "Portal:Teams",
-          },
-        })
-        .catch((error: XiorError) => error),
-    { throwOnTimeout: true },
+  const response = await liquipediaQueue.add(async () =>
+    liquipediaClient
+      .get<LiquipediaBody>("/api.php", {
+        headers: {
+          "User-Agent": `dota-matches-api-${country}`,
+        },
+        params: {
+          action: "parse",
+          format: "json",
+          page: "Portal:Teams",
+        },
+      })
+      .catch((error: XiorError) => error),
   )
 
   console.log("Fetched teams!")
