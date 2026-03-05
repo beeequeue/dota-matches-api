@@ -11,6 +11,13 @@ on:
   #schedule:
   #  - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
 
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e
+  cancel-in-progress: true
+
 env:
   API_BASE: ${{ inputs.api_base || 'https://dota.haglund.dev' }}
 
@@ -19,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          node-version: 24
+          node-version: 25
 
       - run: corepack enable
 
@@ -31,7 +38,7 @@ jobs:
         id: cache
         run: echo "path=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: ${{ steps.cache.outputs.path }}
           key: v1-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -44,7 +51,7 @@ jobs:
       - run: node --run test:e2e
 
       - name: ntfy_action
-        uses: NiNiyas/ntfy-action@2e4de8e810b0b28dba54344de960426adbfe136e
+        uses: NiNiyas/ntfy-action@2ebc39afb288e8b01804a6ec1be0db2e7a458387 # V1.0.5
         if: ${{ failure() }}
         with:
           url: ${{ secrets.NTFY_URL }}
