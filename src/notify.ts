@@ -1,7 +1,6 @@
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
 import { sql } from "kysely"
-import { Temporal } from "temporal-polyfill"
 
 import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"

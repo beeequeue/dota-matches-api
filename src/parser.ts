@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid/non-secure"
-import { Temporal } from "temporal-polyfill"
 import { type ElementNode, parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 

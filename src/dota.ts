@@ -1,6 +1,5 @@
 import { ms } from "milli"
 import PQueue from "p-queue"
-import { Temporal } from "temporal-polyfill"
 import { isXiorError, Xior, type XiorError } from "xior"
 
 import {

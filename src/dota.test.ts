@@ -1,7 +1,6 @@
 import { env } from "cloudflare:test"
 import { FetchMocker, MockServer } from "mentoss"
 import { ms } from "milli"
-import { Temporal } from "temporal-polyfill"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { registerEnv } from "./db0-dialect/d1-register"

@@ -1,7 +1,6 @@
 import assert from "node:assert/strict"
 
 // import { env } from "cloudflare:test"
-import { Temporal } from "temporal-polyfill"
 import { beforeAll, describe, it, vi } from "vitest"
 
 import { getTtl } from "./utils.ts"

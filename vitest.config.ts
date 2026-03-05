@@ -11,6 +11,7 @@ export default defineConfig({
         test: {
           name: "node",
           include: ["src/**/*.node.test.ts"],
+          setupFiles: ["temporal-polyfill/global"],
         },
       },
       defineWorkersConfig({
@@ -23,7 +24,7 @@ export default defineConfig({
           include: ["src/**/*.test.ts"],
           exclude: ["src/**/*.node.test.ts"],
           reporters: "verbose",
-          setupFiles: ["./vitest.setup.ts"],
+          setupFiles: ["temporal-polyfill/global", "./vitest.setup.ts"],
 
           env: {
             NODE_ENV: "test",

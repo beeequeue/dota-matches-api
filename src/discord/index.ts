@@ -12,7 +12,6 @@ import {
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
 import type { Context } from "hono"
-import { Temporal } from "temporal-polyfill"
 import { Xior, type XiorError } from "xior"
 
 import { badRequest } from "../http-errors.ts"

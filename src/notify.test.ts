@@ -1,6 +1,5 @@
 import { env } from "cloudflare:test"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
-import { Temporal } from "temporal-polyfill"
 import { beforeAll, beforeEach, describe, expect, it, type Mock, vi } from "vitest"
 
 import { db } from "./db.ts"
