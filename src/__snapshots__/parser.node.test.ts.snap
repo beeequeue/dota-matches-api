@@ -1,0 +1,856 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseMatchesPage > correctly parses the body 1`] = `
+[
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "OG",
+        "url": "https://liquipedia.net/dota2/OG",
+      },
+      {
+        "name": "Vici Gaming",
+        "url": "https://liquipedia.net/dota2/Vici_Gaming",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "PARIVISION",
+        "url": "https://liquipedia.net/dota2/PARIVISION",
+      },
+      {
+        "name": "Yellow Submarine",
+        "url": "https://liquipedia.net/dota2/Yellow_Submarine",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Xtreme Gaming",
+        "url": "https://liquipedia.net/dota2/Xtreme_Gaming",
+      },
+      {
+        "name": "Team Spirit",
+        "url": "https://liquipedia.net/dota2/Team_Spirit",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Aurora Gaming",
+        "url": "https://liquipedia.net/dota2/Aurora_Gaming",
+      },
+      {
+        "name": "MOUZ",
+        "url": "https://liquipedia.net/dota2/MOUZ",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Team Liquid",
+        "url": "https://liquipedia.net/dota2/Team_Liquid",
+      },
+      {
+        "name": "BetBoom Team",
+        "url": "https://liquipedia.net/dota2/BetBoom_Team",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Team Falcons",
+        "url": "https://liquipedia.net/dota2/Team_Falcons",
+      },
+      {
+        "name": "Team Nemesis",
+        "url": "https://liquipedia.net/dota2/Team_Nemesis",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Tundra Esports",
+        "url": "https://liquipedia.net/dota2/Tundra_Esports",
+      },
+      {
+        "name": "Natus Vincere",
+        "url": "https://liquipedia.net/dota2/Natus_Vincere",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 1",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_1",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-07T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "Team Yandex",
+        "url": "https://liquipedia.net/dota2/Team_Yandex",
+      },
+      {
+        "name": "HEROIC",
+        "url": "https://liquipedia.net/dota2/HEROIC",
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 2",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_2",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-08T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 3",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_3",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-09T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 4",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_4",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-10T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 5",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_5",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-11T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 5",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_5",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-11T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7/Group Stage#Round 5",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7/Group_Stage#Round_5",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-11T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-12T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-12T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-12T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-12T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-13T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-13T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-13T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-13T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-14T08:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-14T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-14T14:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-14T17:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo3",
+    "startsAt": "2026-03-15T09:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "PGL/Wallachia/7#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/PGL/Wallachia/7#Playoffs",
+    "matchType": "Bo5",
+    "startsAt": "2026-03-15T13:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "Esports League Super Cup/Media Division#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/Esports_League_Super_Cup/Media_Division#Playoffs",
+    "matchType": "Bo1",
+    "startsAt": "2026-03-21T11:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "Esports League Super Cup/Media Division#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/Esports_League_Super_Cup/Media_Division#Playoffs",
+    "matchType": "Bo1",
+    "startsAt": "2026-03-21T11:30:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+  {
+    "leagueName": "Esports League Super Cup/Media Division#Playoffs",
+    "leagueUrl": "https://liquipedia.net/dota2/Esports_League_Super_Cup/Media_Division#Playoffs",
+    "matchType": "Bo1",
+    "startsAt": "2026-03-21T12:00:00Z",
+    "streamUrl": null,
+    "teams": [
+      {
+        "name": "TBD",
+        "url": null,
+      },
+      {
+        "name": "TBD",
+        "url": null,
+      },
+    ],
+  },
+]
+`;

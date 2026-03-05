@@ -7,6 +7,7 @@ import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"
 import { createDiscordClient } from "./discord/index.ts"
 import type { Match$, Subscription$ } from "./schema"
+import { ms2s } from "./utils"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) =>
   check != null ? value : ""
@@ -26,7 +27,7 @@ const embedTemplate: Omit<APIEmbed, "fields"> = {
 }
 
 const isoDateStringToUnixTime = (input?: string | null) =>
-  input != null ? Math.round(Temporal.Instant.from(input).epochMilliseconds / 1000) : null
+  input != null ? ms2s(Temporal.Instant.from(input).epochMilliseconds) : null
 
 export const formatMatchToEmbedField = (
   match: Omit<Match$, "id"> & Pick<Subscription$, "channel">,

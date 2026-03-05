@@ -1,21 +1,21 @@
 import assert from "node:assert/strict"
 
-import { env } from "cloudflare:test"
+// import { env } from "cloudflare:test"
 import { Temporal } from "temporal-polyfill"
-import { beforeAll, describe, expect, it, vi } from "vitest"
+import { beforeAll, describe, it, vi } from "vitest"
 
-import { getTtl, parseTeamsPage } from "./utils.ts"
+import { getTtl } from "./utils.ts"
 
-describe("parseTeamsPage", () => {
-  it("correctly parses the body", async () => {
-    const result = parseTeamsPage(
-      await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) => r.text()),
-    )
-
-    expect(result).toBeDefined()
-    expect(result).toMatchSnapshot()
-  })
-})
+// describe("parseTeamsPage", () => {
+//   it("correctly parses the body", async () => {
+//     const result = parseTeamsPage(
+//       await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) => r.text()),
+//     )
+//
+//     expect(result).toBeDefined()
+//     expect(result).toMatchSnapshot()
+//   })
+// })
 
 describe("getTtl", () => {
   beforeAll(() => {

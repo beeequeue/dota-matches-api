@@ -1,9 +1,6 @@
 import { ms } from "milli"
-import { nanoid } from "nanoid/non-secure"
 import PQueue from "p-queue"
 import { Temporal } from "temporal-polyfill"
-import { type ElementNode, parse } from "ultrahtml"
-import { querySelector, querySelectorAll } from "ultrahtml/selector"
 import { isXiorError, Xior, type XiorError } from "xior"
 
 import {
@@ -12,13 +9,8 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db.ts"
-import {
-  EDGE_CACHE_TIMEOUT,
-  getNodeText,
-  MetaKey,
-  parseTeamsPage,
-  seconds,
-} from "./utils.ts"
+import { parseMatchesPage } from "./parser"
+import { EDGE_CACHE_TIMEOUT, MetaKey, parseTeamsPage, seconds } from "./utils.ts"
 
 export type Team = {
   name: string | null
@@ -64,34 +56,6 @@ export type LiquipediaBody = {
   }
 }
 
-const extractTeam = (team$: ElementNode): Team => {
-  if (getNodeText(team$).trim() === "TDB") {
-    return {
-      name: "TBD",
-      url: null,
-    }
-  }
-
-  const name = (
-    querySelector(team$, ".team-template-text > a") as ElementNode
-  )?.attributes?.title
-    // eslint-disable-next-line e18e/prefer-static-regex
-    ?.replace(/\(.*?\)/g, "")
-    ?.trim()
-  const urlPath = (querySelector(team$, '[href^="/dota2/"]') as ElementNode)?.attributes
-    ?.href
-
-  return {
-    name: name ?? null,
-    url: urlPath != null ? `https://liquipedia.net${urlPath}` : null,
-  }
-}
-
-const withHash = (match: Omit<Match, "hash">): Match => ({
-  hash: nanoid(8),
-  ...match,
-})
-
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
@@ -115,51 +79,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
     throw new Error("Failed to fetch match data", { cause: response })
   }
 
-  const root = parse(response.data.parse.text["*"]) as ElementNode
-
-  const $matches = querySelectorAll(root, ".match")
-  if ($matches.length === 0) return []
-
-  const matches = $matches.map(($match) => {
-    const teamLeft$ = querySelector($match, ".team-left") as ElementNode
-    const teamRight$ = querySelector($match, ".team-right") as ElementNode
-    const versus$ = querySelector($match, ".versus") as ElementNode
-    const meta$ = querySelector($match, ".timer-object") as ElementNode
-    const leagueLink$ = querySelector(
-      $match,
-      ".league-icon-small-image > a",
-    ) as ElementNode
-    const streamTitle$ = querySelector($match, ".match-streams a") as ElementNode
-
-    const teams = [extractTeam(teamLeft$), extractTeam(teamRight$)] as Match["teams"]
-    // For some reason we have to use `innerHTML` here instead of `textContent`
-    // because the abbr tag might not be parsed correctly by node-html-parser?
-    const matchType = getNodeText(querySelector(versus$, "abbr") as ElementNode)
-    const startTime = meta$.attributes["data-timestamp"]
-    const leagueName = leagueLink$.attributes.title
-    const leagueUrl = leagueLink$.attributes.href
-    const streamUrl = streamTitle$?.attributes?.href
-
-    return withHash({
-      teams,
-      matchType: matchType ?? null,
-      startsAt: startTime
-        ? Temporal.Instant.fromEpochMilliseconds(Number(startTime) * 1000).toString()
-        : null,
-      leagueName,
-      leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
-      streamUrl:
-        streamUrl != null ? encodeURI(`https://liquipedia.net${streamUrl}`) : null,
-    })
-  })
-
-  // Orders by start time, but puts matches with no start time at the end
-  return matches.sort((a, b) => {
-    if (a.startsAt == null) return 1
-    if (b.startsAt == null) return -1
-
-    return a.startsAt.localeCompare(b.startsAt)
-  })
+  return parseMatchesPage(response.data.parse.text["*"])
 }
 
 const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {
