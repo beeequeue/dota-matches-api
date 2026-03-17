@@ -19,7 +19,7 @@ v1Router.route("/discord", discordRouter)
 v1Router.get("/matches", async (c) => {
   const cached = await caches.default.match(c.req.url)
   if (cached != null) {
-    const lastFetched = Number((await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED))!)
+    const lastFetched = Number((await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED)))
 
     return c.json((await cached.json()) as Record<string, unknown>, 200, {
       ...cached.headers,
