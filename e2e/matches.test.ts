@@ -1,5 +1,5 @@
-import xior from "xior"
 import { expect, it } from "vitest"
+import xior from "xior"
 
 import type { Match } from "../src/dota.ts"
 

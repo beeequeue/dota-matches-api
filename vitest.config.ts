@@ -1,10 +1,18 @@
-import {
-  defineWorkersConfig,
-  readD1Migrations,
-} from "@cloudflare/vitest-pool-workers/config"
+import { cloudflareTest, readD1Migrations } from "@cloudflare/vitest-pool-workers"
 import { defineConfig } from "vitest/config"
 
 export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      wrangler: { configPath: "./wrangler.json" },
+      miniflare: {
+        assets: {
+          directory: "./src/fixtures",
+          binding: "FIXTURES",
+        },
+      },
+    }),
+  ],
   test: {
     projects: [
       {
@@ -14,32 +22,29 @@ export default defineConfig({
           setupFiles: ["temporal-polyfill/global"],
         },
       },
-      defineWorkersConfig({
+      {
         define: {
           MIGRATIONS: await readD1Migrations("./migrations"),
         },
-
+        plugins: [
+          cloudflareTest({
+            wrangler: { configPath: "./wrangler.json" },
+            miniflare: {
+              assets: {
+                directory: "./src/fixtures",
+                binding: "FIXTURES",
+              },
+            },
+          }),
+        ],
         test: {
           name: "cf-worker",
           include: ["src/**/*.test.ts"],
           exclude: ["src/**/*.node.test.ts"],
-          reporters: "verbose",
           setupFiles: ["temporal-polyfill/global", "./vitest.setup.ts"],
 
           env: {
             NODE_ENV: "test",
-          },
-
-          poolOptions: {
-            workers: {
-              wrangler: { configPath: "./wrangler.json" },
-              miniflare: {
-                assets: {
-                  directory: "./src/fixtures",
-                  binding: "FIXTURES",
-                },
-              },
-            },
           },
 
           deps: {
@@ -51,7 +56,7 @@ export default defineConfig({
             },
           },
         },
-      }),
+      },
     ],
   },
 })

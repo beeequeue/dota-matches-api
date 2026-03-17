@@ -17,7 +17,7 @@ type SqliteDatabase =
   | import("node:sqlite").DatabaseSync
   // | import("better-sqlite3").DatabaseSync
   // | import("sqlite3").DatabaseSync
-  | import("@cloudflare/workers-types/latest").D1Database
+  | import("@cloudflare/workers-types").D1Database
 
 /**
  * todo docs

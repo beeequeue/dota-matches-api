@@ -1,4 +1,4 @@
-import { SELF } from "cloudflare:test"
+import { exports } from "cloudflare:workers"
 import { FetchMocker, MockServer } from "mentoss"
 import { describe, expect, it } from "vitest"
 
@@ -10,7 +10,7 @@ describe("pOST /api/discord/callback", () => {
     const params = new URLSearchParams({})
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
-    const response = await SELF.fetch(request)
+    const response = await exports.default.fetch(request)
 
     expect(response.status).toBe(400)
   })
@@ -37,7 +37,7 @@ describe("pOST /api/discord/callback", () => {
     })
     const url = new URL(`https://localhost:8787/v1/discord/callback?${params.toString()}`)
     const request = new Request(url.toString())
-    const response = await SELF.fetch(request)
+    const response = await exports.default.fetch(request)
 
     expect(response.status).toBe(200)
   })
