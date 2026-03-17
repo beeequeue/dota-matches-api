@@ -28,7 +28,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "7.7.2",
+    "@antfu/eslint-config": "7.7.3",
     "@cloudflare/vitest-pool-workers": "0.13.1",
     "@cloudflare/workers-types": "4.20260317.1",
     "@e18e/eslint-plugin": "0.2.0",
@@ -57,7 +57,7 @@
     "tsdown": "0.21.4",
     "typescript": "5.9.3",
     "ultrahtml": "1.6.0",
-    "vitest": "3.2.4",
+    "vitest": "4.1.0",
     "wrangler": "4.74.0",
     "xior": "0.8.3"
   }
