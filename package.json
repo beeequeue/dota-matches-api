@@ -21,16 +21,16 @@
     "dev": "wrangler dev",
     "dev:migrate": "wrangler d1 migrations apply --local dpc",
     "build": "tsdown",
+    "gen:types": "wrangler types",
     "lint": "eslint src",
     "test": "vitest",
     "test:e2e": "vitest  -c vitest.e2e.config.ts",
-    "typecheck": "tsc --noEmit --project tsconfig.json",
+    "typecheck": "tsc",
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
     "@antfu/eslint-config": "7.7.3",
     "@cloudflare/vitest-pool-workers": "0.13.1",
-    "@cloudflare/workers-types": "4.20260317.1",
     "@e18e/eslint-plugin": "0.2.0",
     "@leeoniya/ufuzzy": "1.0.19",
     "@total-typescript/ts-reset": "0.6.1",

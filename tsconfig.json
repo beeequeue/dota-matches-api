@@ -20,7 +20,6 @@
     "exactOptionalPropertyTypes": false,
     // Extra types
     "types": [
-      "@cloudflare/workers-types/2023-07-01",
       "@total-typescript/ts-reset",
       "@cloudflare/vitest-pool-workers/types",
       "temporal-polyfill/global"
