@@ -1,6 +1,7 @@
 node_modules
 
-.idea
-.wrangler
-dist
 .env
+.idea/
+.wrangler/
+dist/
+worker-configuration.d.ts

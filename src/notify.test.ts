@@ -1,4 +1,4 @@
-import { env } from "cloudflare:test"
+import { env } from "cloudflare:workers"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { beforeAll, beforeEach, describe, expect, it, type Mock, vi } from "vitest"
 
@@ -22,8 +22,15 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   return Temporal.Instant.fromEpochMilliseconds(Number(value) * 1000)
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   vi.setSystemTime(Temporal.Instant.from("2025-06-12T12:00:00.000Z").epochMilliseconds)
+
+  await Promise.all([
+    db.deleteFrom("match").execute(),
+    db.deleteFrom("team").execute(),
+    db.deleteFrom("league").execute(),
+    db.deleteFrom("subscription").execute(),
+  ])
 
   return () => vi.setSystemTime(vi.getRealSystemTime())
 })
