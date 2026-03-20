@@ -44,7 +44,7 @@
     "es-toolkit": "1.45.1",
     "eslint": "10.0.3",
     "hono": "4.12.7",
-    "kysely": "0.28.11",
+    "kysely": "0.28.12",
     "mentoss": "0.13.0",
     "milli": "4.0.0",
     "miniflare": "4.20260301.1",
