@@ -75,8 +75,8 @@ importers:
         specifier: 4.12.7
         version: 4.12.7
       kysely:
-        specifier: 0.28.11
-        version: 0.28.11
+        specifier: 0.28.12
+        version: 0.28.12
       mentoss:
         specifier: 0.13.0
         version: 0.13.0
@@ -1677,8 +1677,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  kysely@0.28.11:
-    resolution: {integrity: sha512-zpGIFg0HuoC893rIjYX1BETkVWdDnzTzF5e0kWXJFg5lE0k1/LfNWBejrcnOFu8Q2Rfq/hTDTU7XLUM8QOrpzg==}
+  kysely@0.28.12:
+    resolution: {integrity: sha512-kWiueDWXhbCchgiotwXkwdxZE/6h56IHAeFWg4euUfW0YsmO9sxbAxzx1KLLv2lox15EfuuxHQvgJ1qIfZuHGw==}
     engines: {node: '>=20.0.0'}
 
   levn@0.4.1:
@@ -3561,7 +3561,7 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  kysely@0.28.11: {}
+  kysely@0.28.12: {}
 
   levn@0.4.1:
     dependencies:
