@@ -57,7 +57,7 @@
     "tsdown": "0.21.0",
     "typescript": "5.9.3",
     "ultrahtml": "1.6.0",
-    "vitest": "3.2.4",
+    "vitest": "4.1.2",
     "wrangler": "4.71.0",
     "xior": "0.8.3"
   }
