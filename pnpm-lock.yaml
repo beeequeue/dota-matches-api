@@ -72,8 +72,8 @@ importers:
         specifier: 10.0.3
         version: 10.0.3(jiti@2.5.1)
       hono:
-        specifier: 4.12.7
-        version: 4.12.7
+        specifier: 4.12.12
+        version: 4.12.12
       kysely:
         specifier: 0.28.14
         version: 0.28.14
@@ -1600,8 +1600,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  hono@4.12.7:
-    resolution: {integrity: sha512-jq9l1DM0zVIvsm3lv9Nw9nlJnMNPOcAtsbsgiUhWcFzPE99Gvo6yRTlszSLLYacMeQ6quHD6hMfId8crVHvexw==}
+  hono@4.12.12:
+    resolution: {integrity: sha512-p1JfQMKaceuCbpJKAPKVqyqviZdS0eUxH9v82oWo1kb9xjQ5wA6iP3FNVAPDFlz5/p7d45lO+BpSk1tuSZMF4Q==}
     engines: {node: '>=16.9.0'}
 
   hookable@6.0.1:
@@ -3512,7 +3512,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  hono@4.12.7: {}
+  hono@4.12.12: {}
 
   hookable@6.0.1: {}
 
