@@ -19,7 +19,7 @@ overrides:
   "@antfu/eslint-config>jsonc-eslint-parser": "-"
   "@antfu/eslint-config>toml-eslint-parser": "-"
   "@antfu/eslint-config>vitest": "-"
-  esbuild: 0.27.3
+  esbuild: 0.28.1
   eslint-plugin-pnpm>jsonc-eslint-parser: "-"
 
 patchedDependencies:
