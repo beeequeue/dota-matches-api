@@ -9,6 +9,7 @@ interface __BaseEnv_Env {
   DISCORD_CLIENT_SECRET: string
   DISCORD_PUBLIC_KEY: "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
   MATCHES: D1Database
+  FIXTURES: Fetcher
 }
 declare namespace Cloudflare {
   interface GlobalProps {
