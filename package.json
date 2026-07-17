@@ -49,7 +49,7 @@
     "mentoss": "0.13.0",
     "milli": "4.0.0",
     "miniflare": "4.20260714.0",
-    "nano-staged": "0.9.0",
+    "nano-staged": "1.0.2",
     "nanoid": "6.0.0",
     "p-queue": "9.1.0",
     "prettier": "3.8.1",
