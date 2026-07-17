@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "dev:migrate": "wrangler d1 migrations apply --local dpc",
+    "gen:types": "wrangler types",
     "build": "tsdown",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
     "test": "vitest",

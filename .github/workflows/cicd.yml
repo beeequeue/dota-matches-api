@@ -70,6 +70,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - run: node --run gen:types
       - run: node --run lint
 
   typecheck:
@@ -99,6 +100,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - run: node --run gen:types
       - run: node --run typecheck
 
   test:

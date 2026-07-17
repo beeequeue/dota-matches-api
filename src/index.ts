@@ -8,13 +8,11 @@ if (!("Temporal" in globalThis)) {
 
 const app = createApp()
 
-const worker: ExportedHandler<Env> = {
+export default {
   fetch: async (request, env, ctx) => {
     registerEnv(env)
 
     return app.fetch(request, env, ctx)
   },
   scheduled: notifier,
-}
-
-export default worker
+} satisfies ExportedHandler<Env>
