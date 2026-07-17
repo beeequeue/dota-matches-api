@@ -1,16 +1,17 @@
 import { env } from "cloudflare:workers"
 import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
-import { beforeAll, beforeEach, describe, expect, it, type Mock, vi } from "vitest"
+import { FetchMocker, MockServer, type ResponseCreator } from "mentoss"
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { db } from "./db.ts"
-import * as Discord from "./discord/index.ts"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify.ts"
 import type { Match$ } from "./schema.ts"
-import { createSub } from "./test-utils.ts"
+import { CHANNEL_ID, createSub } from "./test-utils.ts"
 
-vi.mock("./discord/index")
-const mockedDiscord = vi.mocked(Discord)
+const server = new MockServer("https://discord.com/api/v10")
+const mocker = new FetchMocker({ servers: [server] })
+mocker.mockGlobal()
 
 const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   if (field == null) return null
@@ -24,6 +25,8 @@ const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
 
 beforeEach(async () => {
   vi.setSystemTime(Temporal.Instant.from("2025-06-12T12:00:00.000Z").epochMilliseconds)
+
+  mocker.clearAll()
 
   await Promise.all([
     db.deleteFrom("match").execute(),
@@ -50,18 +53,18 @@ describe("formatMatchToEmbedField", () => {
 })
 
 describe("notifier", () => {
-  let sendMessageMock: Mock<
-    ReturnType<(typeof Discord)["createDiscordClient"]>["sendMessage"]
-  >
+  const responseFn = vi.fn<ResponseCreator>(() => ({
+    status: 200,
+    body: null,
+  }))
 
   beforeEach(() => {
-    sendMessageMock = vi.fn(async () => Promise.resolve(null)) as never
+    server.post(`/channels/${CHANNEL_ID}/messages`, responseFn)
+    // sendMessageMock = vi.fn(async () => Promise.resolve(null)) as never
 
-    mockedDiscord.createDiscordClient.mockReturnValue({
-      sendMessage: sendMessageMock,
-    } as Partial<ReturnType<(typeof Discord)["createDiscordClient"]>> as ReturnType<
-      (typeof Discord)["createDiscordClient"]
-    >)
+    // mockedDiscord.createDiscordClient.mockReturnValue({
+    //   sendMessage: sendMessageMock,
+    // } as Partial<ReturnType<(typeof Discord)["createDiscordClient"]>>)
   })
 
   it("sends messages to channels", async () => {
@@ -119,10 +122,11 @@ describe("notifier", () => {
 
     await notifier({} as never, env, {} as never)
 
-    expect(sendMessageMock).toHaveBeenCalledOnce()
+    server.assertAllRoutesCalled()
 
-    const [channelId, embed] = sendMessageMock.mock.calls[0] as [string, APIEmbed]
-    expect(channelId).toMatchInlineSnapshot('"0986526095326812"')
+    const [request] = responseFn.mock.calls[0]
+    const data = (await request.json()) as { embeds: APIEmbed[] }
+    const embed = data.embeds[0]
 
     expect(JSON.stringify(embed.fields)).toContain(
       "**Team Liquid** _vs_ **Nigma Galaxy**",
@@ -172,9 +176,11 @@ describe("notifier", () => {
 
     await notifier({} as never, env, {} as never)
 
-    expect(sendMessageMock).toHaveBeenCalledOnce()
+    server.assertAllRoutesCalled()
 
-    const embed = sendMessageMock.mock.calls[0][1] as APIEmbed
+    const [request] = responseFn.mock.calls[0]
+    const data = (await request.json()) as { embeds: APIEmbed[] }
+    const embed = data.embeds[0]
 
     expect(extractDateFromEmbedField(embed?.fields?.[0])).toEqual(
       Temporal.Instant.from(matches[1].startsAt!),

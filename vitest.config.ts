@@ -20,6 +20,8 @@ export default defineConfig({
           name: "node",
           include: ["src/**/*.node.test.ts"],
           setupFiles: ["temporal-polyfill/global"],
+          mockReset: true,
+          clearMocks: true,
         },
       },
       {
@@ -42,6 +44,8 @@ export default defineConfig({
           include: ["src/**/*.test.ts"],
           exclude: ["src/**/*.node.test.ts"],
           setupFiles: ["temporal-polyfill/global", "./vitest.setup.ts"],
+          mockReset: true,
+          clearMocks: true,
 
           env: {
             NODE_ENV: "test",

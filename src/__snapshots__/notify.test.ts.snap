@@ -24,7 +24,7 @@ EPL World Series: America Season 2",
 }
 `;
 
-exports[`notifier > sends messages to channels 2`] = `
+exports[`notifier > sends messages to channels 1`] = `
 {
   "color": 10038562,
   "fields": [
