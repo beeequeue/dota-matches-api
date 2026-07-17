@@ -7,7 +7,7 @@ on:
         type: string
         default: https://dota.haglund.dev
         required: false
-        description: "The base URL of the API to test"
+        description: The base URL of the API to test
   #schedule:
   #  - cron: "0 */4 * * *" # https://crontab.guru/#0_*/4_*_*_*
 
@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 25
 
@@ -38,7 +38,7 @@ jobs:
         id: cache
         run: echo "path=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ steps.cache.outputs.path }}
           key: v1-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -51,7 +51,7 @@ jobs:
       - run: node --run test:e2e
 
       - name: ntfy_action
-        uses: NiNiyas/ntfy-action@2ebc39afb288e8b01804a6ec1be0db2e7a458387 # V1.0.5
+        uses: NiNiyas/ntfy-action@2fd8963f2092903578ac7303d30be47a675fc182 # v1.0.6
         if: ${{ failure() }}
         with:
           url: ${{ secrets.NTFY_URL }}

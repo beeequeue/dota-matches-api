@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
 
-// import { env } from "cloudflare:test"
+// import { env } from "cloudflare:workers"
 import { beforeAll, describe, it, vi } from "vitest"
 
 import { getTtl } from "./utils.ts"

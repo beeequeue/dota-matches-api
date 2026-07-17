@@ -1,4 +1,4 @@
-import { env } from "cloudflare:test"
+import { env } from "cloudflare:workers"
 import { FetchMocker, MockServer } from "mentoss"
 import { ms } from "milli"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
@@ -7,12 +7,6 @@ import { registerEnv } from "./db0-dialect/d1-register"
 import { db } from "./db.ts"
 import { getTeams, type LiquipediaBody } from "./dota.ts"
 import { MetaKey } from "./utils.ts"
-
-declare module "cloudflare:test" {
-  interface ProvidedEnv extends Cloudflare.Env {
-    FIXTURES: Fetcher
-  }
-}
 
 describe("getTeams", async () => {
   const mockBody: LiquipediaBody = {
@@ -38,6 +32,13 @@ describe("getTeams", async () => {
 
     mocker.clearAll()
     liquipediaMock.get("/dota2/api.php?*", { status: 200, body: mockBody })
+
+    await Promise.all([
+      db.deleteFrom("match").execute(),
+      db.deleteFrom("team").execute(),
+      db.deleteFrom("league").execute(),
+      db.deleteFrom("subscription").execute(),
+    ])
   })
 
   it("fetches teams from api if not cached", async () => {

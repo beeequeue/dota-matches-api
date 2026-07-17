@@ -5,7 +5,7 @@
   "compatibility_date": "2026-03-01",
   "compatibility_flags": ["no_nodejs_compat_v2"],
 
-  "main": "dist/index.mjs",
+  "main": "src/index.ts",
   "build": {
     "command": "node --run build",
     "watch_dir": "src"
@@ -29,6 +29,9 @@
     "API_BASE": "https://dota.haglund.dev",
     "DISCORD_CLIENT_ID": "999099490273337354",
     "DISCORD_PUBLIC_KEY": "7df58ea4839882888b45f9b56936b0e5e2f6f49fe1d0e88d2637cb4e14ce849c"
+  },
+  "secrets": {
+    "required": ["DISCORD_BOT_TOKEN", "DISCORD_CLIENT_SECRET"]
   },
 
   "kv_namespaces": [
