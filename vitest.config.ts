@@ -19,7 +19,6 @@ export default defineConfig({
         test: {
           name: "node",
           include: ["src/**/*.node.test.ts"],
-          setupFiles: ["temporal-polyfill/global"],
           mockReset: true,
           clearMocks: true,
         },
@@ -43,7 +42,7 @@ export default defineConfig({
           name: "cf-worker",
           include: ["src/**/*.test.ts"],
           exclude: ["src/**/*.node.test.ts"],
-          setupFiles: ["temporal-polyfill/global", "./vitest.setup.ts"],
+          setupFiles: ["./vitest.setup.ts"],
           mockReset: true,
           clearMocks: true,
 
