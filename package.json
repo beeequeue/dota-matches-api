@@ -29,10 +29,10 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "7.7.2",
+    "@antfu/eslint-config": "7.7.3",
     "@cloudflare/vitest-pool-workers": "0.18.6",
     "@cloudflare/workers-types": "5.20260717.1",
-    "@e18e/eslint-plugin": "0.2.0",
+    "@e18e/eslint-plugin": "0.5.1",
     "@leeoniya/ufuzzy": "1.0.19",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node-ts": "23.6.4",
@@ -43,7 +43,7 @@
     "discord-api-types": "0.38.50",
     "discord-interactions": "4.4.0",
     "es-toolkit": "1.45.1",
-    "eslint": "10.0.3",
+    "eslint": "10.7.0",
     "hono": "4.12.25",
     "kysely": "0.28.17",
     "mentoss": "0.13.0",
