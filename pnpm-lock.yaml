@@ -69,9 +69,9 @@ importers:
       eslint:
         specifier: 10.7.0
         version: 10.7.0
-      hono:
-        specifier: 4.12.25
-        version: 4.12.25
+      h3:
+        specifier: 2.0.1-rc.25
+        version: 2.0.1-rc.25
       kysely:
         specifier: 0.29.4
         version: 0.29.4
@@ -99,6 +99,9 @@ importers:
       simple-git-hooks:
         specifier: 2.13.1
         version: 2.13.1
+      temporal-polyfill-lite:
+        specifier: 0.4.2
+        version: 0.4.2
       tsdown:
         specifier: 0.22.9
         version: 0.22.9(typescript@6.0.3)
@@ -1648,9 +1651,15 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  hono@4.12.25:
-    resolution: {integrity: sha512-2NFaIyNVgJmBs/ecmtGzlmluTFs5cHEWGTdu0t1HBwYzoGXOL5nUQBRMXsXWla5i4KkG//QMzVP88m1+I3fdAQ==}
-    engines: {node: '>=16.9.0'}
+  h3@2.0.1-rc.25:
+    resolution: {integrity: sha512-uIK++Up28xDt4n0+bSWfVssRivNXpUmMmA6CCiK6j9+utLcBMcFK97Gn9PlSZwAPW9oLy3CjGJ4ag40CY9YYtQ==}
+    engines: {node: '>=20.11.1'}
+    hasBin: true
+    peerDependencies:
+      crossws: ^0.4.9
+    peerDependenciesMeta:
+      crossws:
+        optional: true
 
   hookable@6.1.1:
     resolution: {integrity: sha512-U9LYDy1CwhMCnprUfeAZWZGByVbhd54hwepegYTK7Pi5NvqEj63ifz5z+xukznehT7i6NIZRu89Ay1AZmRsLEQ==}
@@ -1934,6 +1943,9 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
+  rou3@0.9.1:
+    resolution: {integrity: sha512-z/sSmzvtwMDDnxsPVhfWMuG6F6mbmhFDXoVqLmMfbpDD9qfV3GDmSQpf0+W296/ZDIpW2wcMmBfpVFzcnOi/nA==}
+
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
@@ -1978,6 +1990,11 @@ packages:
   spdx-license-ids@3.0.23:
     resolution: {integrity: sha512-CWLcCCH7VLu13TgOH+r8p1O/Znwhqv/dbb6lqWy67G+pT1kHmeD/+V36AVb/vq8QMIQwVShJ6Ssl5FPh0fuSdw==}
 
+  srvx@0.11.22:
+    resolution: {integrity: sha512-LqZxxBDMKuMAZzFzJnDCkFOrs9MZQZr0LvHiO/SuSZVdQaXD7xQ5UWTUxheJrQPve1qk9MG2B/yttUvJxw8egQ==}
+    engines: {node: '>=20.16.0'}
+    hasBin: true
+
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
 
@@ -1995,6 +2012,9 @@ packages:
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
+
+  temporal-polyfill-lite@0.4.2:
+    resolution: {integrity: sha512-AguA4sTLtAnpoJ62dk/kjssR5Tt1JmodrjS4r1o9IDkmxWJsqLJNsyicAZTpMY/Dt5AKF1tbkL9P84wGsXPhAQ==}
 
   tiny-lru@11.4.7:
     resolution: {integrity: sha512-w/Te7uMUVeH0CR8vZIjr+XiN41V+30lkDdK+NRIDCUYKKuL9VcmaUEmaPISuwGhLlrTGh5yu18lENtR9axSxYw==}
@@ -3484,7 +3504,10 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  hono@4.12.25: {}
+  h3@2.0.1-rc.25:
+    dependencies:
+      rou3: 0.9.1
+      srvx: 0.11.22
 
   hookable@6.1.1: {}
 
@@ -3761,6 +3784,8 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.59.0
       fsevents: 2.3.3
 
+  rou3@0.9.1: {}
+
   scslre@0.3.0:
     dependencies:
       '@eslint-community/regexpp': 4.12.2
@@ -3823,6 +3848,8 @@ snapshots:
 
   spdx-license-ids@3.0.23: {}
 
+  srvx@0.11.22: {}
+
   stackback@0.0.2: {}
 
   std-env@4.2.0: {}
@@ -3832,6 +3859,8 @@ snapshots:
   supports-color@10.2.2: {}
 
   tapable@2.3.3: {}
+
+  temporal-polyfill-lite@0.4.2: {}
 
   tiny-lru@11.4.7: {}
 

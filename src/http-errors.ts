@@ -1,3 +1,4 @@
-import { HTTPException } from "hono/http-exception"
+import { HTTPError } from "h3"
 
-export const badRequest = (message = "Bad request") => new HTTPException(400, { message })
+export const badRequest = (message = "Bad request") =>
+  new HTTPError(message, { status: 400 })

@@ -1,24 +1,4 @@
 {
-  extends: [
-    "config:js-app",
-    "helpers:disableTypesNodeMajor",
-    "schedule:earlyMondays",
-    "group:allNonMajor",
-  ],
-  prHourlyLimit: 5,
-  prConcurrentLimit: 5,
-  branchConcurrentLimit: 5,
-  labels: ["dependencies"],
-  baseBranches: ["main"],
-  packageRules: [
-    {
-      matchUpdateTypes: ["patch", "minor"],
-      matchManagers: ["npm"],
-      automerge: true,
-    },
-    {
-      packagePatterns: ["lint", "!lint-staged"],
-      groupName: "Linting",
-    },
-  ],
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["github>BeeeQueue/renovate-config:js-lib.json"],
 }

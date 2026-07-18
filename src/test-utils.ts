@@ -1,4 +1,4 @@
-import type { Subscription$, Team$ } from "./schema"
+import type { Subscription$, Team$ } from "./schema.ts"
 
 export const GUILD_ID = "987613986523"
 export const CHANNEL_ID = "0986526095326812"

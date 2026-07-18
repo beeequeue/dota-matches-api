@@ -1,9 +1,11 @@
-import type { HonoRequest } from "hono"
+import type { H3Event } from "h3"
 import { ms, type StringValue } from "milli"
 import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
-import type { Team } from "./dota"
+import type { Team } from "./dota.ts"
+
+export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
 
 export const MetaKey = {
   MATCHES_LAST_FETCHED: "MATCHES_LAST_FETCHED",
@@ -32,10 +34,8 @@ export const getNodeText = (node: ElementNode): string => {
     .trim()
 }
 
-export const getCountry = (request: HonoRequest<string>): string => {
-  if (request.raw.cf?.country != null) {
-    return request.raw.cf.country as string
-  }
+export const getCountry = (event: H3Event): string => {
+  if (event.req.cf?.country != null) return event.req.cf.country as string
 
   return "UNKNOWN"
 }
@@ -59,6 +59,10 @@ export const getCacheHeaders = (lastFetched: number) => {
   return {
     "Cache-Control": `public, s-maxage=${ttl} max-age=${getBrowserCacheTtl(ttl)}`,
   }
+}
+
+export const setCacheHeaders = (event: H3Event, lastFetched: number) => {
+  event.res.headers.set("Cache-Control", getCacheHeaders(lastFetched)["Cache-Control"])
 }
 
 export const parseTeamsPage = (html: string): Team[] => {

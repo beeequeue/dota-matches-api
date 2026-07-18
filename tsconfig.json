@@ -19,7 +19,11 @@
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false,
     // Extra types
-    "types": ["@total-typescript/ts-reset", "@cloudflare/vitest-pool-workers/types"],
+    "types": [
+      "@total-typescript/ts-reset",
+      "@cloudflare/vitest-pool-workers/types",
+      "temporal-polyfill-lite/global"
+    ],
     "lib": ["esnext"]
   },
   "include": ["./", "./worker-configuration.d.ts"]

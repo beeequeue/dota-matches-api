@@ -2,11 +2,11 @@ import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
 import { sql } from "kysely"
 
-import { registerEnv } from "./db0-dialect/d1-register"
+import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { db } from "./db.ts"
 import { createDiscordClient } from "./discord/index.ts"
-import type { Match$, Subscription$ } from "./schema"
-import { ms2s } from "./utils"
+import type { Match$, Subscription$ } from "./schema.ts"
+import { ms2s } from "./utils.ts"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) =>
   check != null ? value : ""
@@ -51,10 +51,7 @@ export const formatMatchToEmbedField = (
   }
 }
 
-export const notifier: ExportedHandlerScheduledHandler<Env> = async (
-  _controller,
-  env: Env,
-) => {
+export const notifier: ExportedHandlerScheduledHandler<Env> = async (_, env: Env) => {
   registerEnv(env)
 
   const now = Temporal.Now.instant().toString()
@@ -103,7 +100,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, embed] as const
   })
 
-  const discordClient = createDiscordClient({ env })
+  const discordClient = createDiscordClient(env)
   await Promise.all(
     messages.map(async ([channelId, embed]) => {
       await discordClient.sendMessage(channelId, embed)

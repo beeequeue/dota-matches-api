@@ -11,7 +11,7 @@ import {
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
-import type { Context } from "hono"
+import type { EventHandlerResponse } from "h3"
 import { Xior, type XiorError } from "xior"
 
 import { badRequest } from "../http-errors.ts"
@@ -36,14 +36,18 @@ type RegisterGuildOptions = {
 }
 
 const registerGuild =
-  (c: Context<{ Bindings: Env }>) =>
-  async ({ code, guildId, permissions }: RegisterGuildOptions): Promise<Response> => {
+  (env: Env) =>
+  async ({
+    code,
+    guildId,
+    permissions,
+  }: RegisterGuildOptions): Promise<EventHandlerResponse> => {
     const urlEncodedBody = {
       grant_type: "authorization_code",
-      client_id: c.env.DISCORD_CLIENT_ID,
-      client_secret: c.env.DISCORD_CLIENT_SECRET,
+      client_id: env.DISCORD_CLIENT_ID,
+      client_secret: env.DISCORD_CLIENT_SECRET,
       code,
-      redirect_uri: getRedirectUri(c.env),
+      redirect_uri: getRedirectUri(env),
     } satisfies RESTPostOAuth2AccessTokenURLEncodedData
     const response = await fetch(`${baseUrl}${Routes.oauth2TokenExchange()}`, {
       method: "POST",
@@ -64,12 +68,12 @@ const registerGuild =
 
     if (permissions !== BOT_PERMISSIONS) {
       console.log(`Got invalid permissions: ${permissions}`)
-      await leaveGuild(c.env, guildId)
+      await leaveGuild(env, guildId)
 
       throw badRequest("All the required permissions were not given.")
     }
 
-    return c.text("Ok")
+    return "Ok"
   }
 
 const getRedirectUri = (env: Env) => `${env.API_BASE}/v1/discord/callback`
@@ -154,10 +158,10 @@ const sendMessage =
     }
   }
 
-export const createDiscordClient = (c: { env: Env } | Context<{ Bindings: Env }>) => ({
-  getAuthorizeUrl: getAuthorizeUrl(c.env),
-  registerGuild: registerGuild(c as Context<{ Bindings: Env }>),
-  createThread: createThread(c.env),
-  sendMessage: sendMessage(c.env),
+export const createDiscordClient = (env: Env) => ({
+  getAuthorizeUrl: getAuthorizeUrl(env),
+  registerGuild: registerGuild(env),
+  createThread: createThread(env),
+  sendMessage: sendMessage(env),
   leaveGuild,
 })
