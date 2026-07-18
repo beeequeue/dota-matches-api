@@ -8,7 +8,7 @@ import {
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import type { Context } from "hono"
+import type { H3Event } from "h3"
 
 import { db } from "../db.ts"
 import { createDotaClient } from "../dota.ts"
@@ -33,9 +33,8 @@ const createCommandResponse = (
 })
 
 export const handleFollowCommand = async (
-  c: Context<{ Bindings: Env }>,
   body: APIChatInputApplicationCommandInteraction,
-) => {
+): Promise<APIInteractionResponse> => {
   const guildId = body.guild_id!
   const teamNames = body.data
     .options!.map((option) =>
@@ -45,7 +44,7 @@ export const handleFollowCommand = async (
 
   const data: Array<Subscription$> = teamNames.map((teamName) => ({
     guildId,
-    channel: body.channel_id,
+    channel: body.channel.id,
     teamName,
   }))
   await db
@@ -54,15 +53,12 @@ export const handleFollowCommand = async (
     .onConflict((c) => c.doNothing())
     .execute()
 
-  return c.json(
-    createCommandResponse(`Okay, I will now notify you those teams' matches.`),
-  )
+  return createCommandResponse(`Okay, I will now notify you those teams' matches.`)
 }
 
 export const handleUnfollowCommand = async (
-  c: Context<{ Bindings: Env }>,
   body: APIChatInputApplicationCommandInteraction,
-) => {
+): Promise<APIInteractionResponse> => {
   const guildId = body.guild_id!
   const teamOption = body.data.options!.find(
     (option): option is APIApplicationCommandInteractionDataStringOption =>
@@ -85,17 +81,14 @@ export const handleUnfollowCommand = async (
     throw badRequest("Guild not registered.")
   }
 
-  return c.json(
-    createCommandResponse(
-      `Okay, you will no longer receive notifications for ${teamOption.value} anymore.`,
-    ),
+  return createCommandResponse(
+    `Okay, you will no longer receive notifications for ${teamOption.value} anymore.`,
   )
 }
 
 export const handleListCommand = async (
-  c: Context<{ Bindings: Env }>,
   body: APIChatInputApplicationCommandInteraction,
-) => {
+): Promise<APIInteractionResponse> => {
   const subscriptions = await db
     .selectFrom("subscription")
     .select(["teamName"])
@@ -104,43 +97,39 @@ export const handleListCommand = async (
     .execute()
 
   if (subscriptions.length === 0) {
-    const response: APIInteractionResponse = {
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
         content: `This channel is not following any teams. Follow some with \`/follow <team>\`!`,
       },
     }
-
-    return c.json(response)
   }
 
-  return c.json(
-    createCommandResponse(
-      `This channel is following:
+  return createCommandResponse(
+    `This channel is following:
 \`\`\`
 ${subscriptions.map((sub) => sub.teamName).join("\n")}
 \`\`\``,
-    ),
   )
 }
 
 export const handleAutocompleteCommand = async (
-  c: Context<{ Bindings: Env }>,
+  event: H3Event,
   country: string,
   value: string,
-) => {
-  const dotaClient = createDotaClient(c.env)
+): Promise<APIApplicationCommandAutocompleteResponse> => {
+  const dotaClient = createDotaClient(event)
   const teams = await dotaClient.getTeams(country)
   const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
 
   const [idxs] = fuzzy.search(teams, value)
 
-  return c.json({
+  return {
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
       choices:
         idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
     },
-  } satisfies APIApplicationCommandAutocompleteResponse)
+  }
 }

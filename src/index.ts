@@ -9,10 +9,10 @@ if (!("Temporal" in globalThis)) {
 const app = createApp()
 
 export default {
-  fetch: async (request, env, ctx) => {
+  fetch: async (request, env) => {
     registerEnv(env)
 
-    return app.fetch(request, env, ctx)
+    return app.fetch(request)
   },
   scheduled: notifier,
 } satisfies ExportedHandler<Env>

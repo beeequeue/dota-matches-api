@@ -6,7 +6,7 @@ import {
   InteractionType,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
-import { Hono } from "hono"
+import { getQuery, H3, redirect } from "h3"
 
 import {
   handleAutocompleteCommand,
@@ -16,26 +16,27 @@ import {
 } from "../../discord/commands.ts"
 import { createDiscordClient } from "../../discord/index.ts"
 import { badRequest } from "../../http-errors.ts"
-import { getCountry } from "../../utils.ts"
+import { getCountry, getEnv } from "../../utils.ts"
 
-export const discordRouter = new Hono<{ Bindings: Env }>()
+export const discordRouter = new H3()
 
-discordRouter.get("/", (c) =>
-  c.redirect(createDiscordClient(c).getAuthorizeUrl().toString(), 302),
+discordRouter.get("/", (event) =>
+  redirect(createDiscordClient(getEnv(event)).getAuthorizeUrl().toString(), 302),
 )
 
 if (process.env.NODE_ENV !== "production") {
-  discordRouter.get("/autocomplete/teams", async (c) => {
-    return handleAutocompleteCommand(c, "main", c.req.query().query ?? "")
+  discordRouter.get("/autocomplete/teams", async (event) => {
+    const query = getQuery(event)
+    return handleAutocompleteCommand(event, "main", query.query ?? "")
   })
 }
 
 const isValidCallback = (params: URLSearchParams) =>
   params.has("code") && params.has("guild_id") && params.has("permissions")
 
-discordRouter.get("/callback", async (c) => {
-  const discordClient = createDiscordClient(c)
-  const url = new URL(c.req.url)
+discordRouter.get("/callback", async (event) => {
+  const discordClient = createDiscordClient(getEnv(event))
+  const url = new URL(event.req.url)
 
   if (!isValidCallback(url.searchParams)) {
     throw badRequest("Missing or invalid callback parameters")
@@ -48,11 +49,11 @@ discordRouter.get("/callback", async (c) => {
   })
 })
 
-discordRouter.post("/interactions", async (c) => {
-  const body = await c.req.text()
-  const signature = c.req.header("x-signature-ed25519")!
-  const timestamp = c.req.header("x-signature-timestamp")!
-  if (!(await verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY))) {
+discordRouter.post("/interactions", async (event) => {
+  const body = await event.req.text()
+  const signature = event.req.headers.get("x-signature-ed25519")!
+  const timestamp = event.req.headers.get("x-signature-timestamp")!
+  if (!(await verifyKey(body, signature, timestamp, getEnv(event).DISCORD_PUBLIC_KEY))) {
     throw badRequest("Invalid c.req signature")
   }
 
@@ -60,11 +61,11 @@ discordRouter.post("/interactions", async (c) => {
   const { type, data } = parsedBody
 
   if (type === InteractionType.Ping) {
-    return c.json({ type: InteractionResponseType.Pong })
+    return { type: InteractionResponseType.Pong }
   }
 
   if (type === InteractionType.ApplicationCommandAutocomplete) {
-    const country = getCountry(c.req)
+    const country = getCountry(event)
     const { value } =
       data.options.find(
         (option): option is APIApplicationCommandInteractionDataStringOption =>
@@ -73,35 +74,30 @@ discordRouter.post("/interactions", async (c) => {
 
     if (value == null) throw badRequest()
 
-    return handleAutocompleteCommand(c, country, value)
+    return handleAutocompleteCommand(event, country, value)
   }
 
   if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
       case "follow": {
         return handleFollowCommand(
-          c,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "unfollow": {
         return handleUnfollowCommand(
-          c,
           parsedBody as APIChatInputApplicationCommandInteraction,
         )
       }
 
       case "follows": {
-        return handleListCommand(
-          c,
-          parsedBody as APIChatInputApplicationCommandInteraction,
-        )
+        return handleListCommand(parsedBody as APIChatInputApplicationCommandInteraction)
       }
     }
 
     throw badRequest("Invalid command")
   }
 
-  return c.text("Ok")
+  return "Ok"
 })

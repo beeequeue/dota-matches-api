@@ -51,10 +51,7 @@ export const formatMatchToEmbedField = (
   }
 }
 
-export const notifier: ExportedHandlerScheduledHandler<Env> = async (
-  _controller,
-  env: Env,
-) => {
+export const notifier: ExportedHandlerScheduledHandler<Env> = async (_, env: Env) => {
   registerEnv(env)
 
   const now = Temporal.Now.instant().toString()
@@ -103,7 +100,7 @@ export const notifier: ExportedHandlerScheduledHandler<Env> = async (
     return [channelId, embed] as const
   })
 
-  const discordClient = createDiscordClient({ env })
+  const discordClient = createDiscordClient(env)
   await Promise.all(
     messages.map(async ([channelId, embed]) => {
       await discordClient.sendMessage(channelId, embed)

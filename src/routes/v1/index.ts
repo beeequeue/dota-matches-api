@@ -1,4 +1,4 @@
-import { Hono } from "hono"
+import { H3 } from "h3"
 
 import { createDotaClient } from "../../dota.ts"
 import {
@@ -6,46 +6,50 @@ import {
   getBrowserCacheTtl,
   getCacheHeaders,
   getCountry,
+  getEnv,
   getTtl,
   MetaKey,
+  setCacheHeaders,
 } from "../../utils.ts"
 
 import { discordRouter } from "./discord.ts"
 
-export const v1Router = new Hono<{ Bindings: Env }>()
+export const v1Router = new H3()
 
-v1Router.route("/discord", discordRouter)
+v1Router.mount("/discord", discordRouter)
 
-v1Router.get("/matches", async (c) => {
-  const cached = await caches.default.match(c.req.url)
+v1Router.get("/matches", async (event) => {
+  const env = getEnv(event)
+
+  const cached = await caches.default.match(event.req.url)
   if (cached != null) {
-    const lastFetched = Number(await c.env.META.get(MetaKey.MATCHES_LAST_FETCHED))
+    const lastFetched = Number(await env.META.get(MetaKey.MATCHES_LAST_FETCHED))
 
-    return c.json((await cached.json()) as Record<string, unknown>, 200, {
-      ...cached.headers,
-      "Cache-Control": `public, max-age=${getBrowserCacheTtl(
-        getTtl(lastFetched, EDGE_CACHE_TIMEOUT),
-      )}`,
-    })
+    // TODO: test handleCacheHeaders
+    event.res.headers.set(
+      "Cache-Control",
+      `public, max-age=${getBrowserCacheTtl(getTtl(lastFetched, EDGE_CACHE_TIMEOUT))}`,
+    )
+    return cached.json()
   }
 
-  const dota = createDotaClient(c.env)
+  const dota = createDotaClient(env)
 
-  const country = getCountry(c.req)
+  const country = getCountry(event)
   const { matches, lastFetched } = await dota.getMatches(country)
 
-  c.executionCtx.waitUntil(
+  event.waitUntil(
     caches.default
       .put(
-        c.req.url,
-        c.json(matches, {
+        event.req.url,
+        Response.json(matches, {
           headers: getCacheHeaders(lastFetched),
         }),
       )
       .catch((error: Error) => console.log(`Failed to cache response: ${error.message}`)),
   )
 
-  return c.json(matches, {
-    headers: getCacheHeaders(lastFetched),
-  })
+  setCacheHeaders(event, lastFetched)
+
+  return matches
 })
