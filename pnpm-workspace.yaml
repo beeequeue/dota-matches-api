@@ -19,8 +19,10 @@ overrides:
   "@antfu/eslint-config>jsonc-eslint-parser": "-"
   "@antfu/eslint-config>toml-eslint-parser": "-"
   "@antfu/eslint-config>vitest": "-"
-  esbuild: 0.28.1
   eslint-plugin-pnpm>jsonc-eslint-parser: "-"
+  lightningcss: "-"
+  postcss: "-"
+  rolldown: 1.2.0
 
 patchedDependencies:
   discord-interactions: patches/discord-interactions.patch
