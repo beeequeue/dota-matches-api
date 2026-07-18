@@ -99,6 +99,9 @@ importers:
       simple-git-hooks:
         specifier: 2.13.1
         version: 2.13.1
+      temporal-polyfill-lite:
+        specifier: 0.4.2
+        version: 0.4.2
       tsdown:
         specifier: 0.22.9
         version: 0.22.9(typescript@6.0.3)
@@ -1996,6 +1999,9 @@ packages:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
 
+  temporal-polyfill-lite@0.4.2:
+    resolution: {integrity: sha512-AguA4sTLtAnpoJ62dk/kjssR5Tt1JmodrjS4r1o9IDkmxWJsqLJNsyicAZTpMY/Dt5AKF1tbkL9P84wGsXPhAQ==}
+
   tiny-lru@11.4.7:
     resolution: {integrity: sha512-w/Te7uMUVeH0CR8vZIjr+XiN41V+30lkDdK+NRIDCUYKKuL9VcmaUEmaPISuwGhLlrTGh5yu18lENtR9axSxYw==}
     engines: {node: '>=12'}
@@ -3832,6 +3838,8 @@ snapshots:
   supports-color@10.2.2: {}
 
   tapable@2.3.3: {}
+
+  temporal-polyfill-lite@0.4.2: {}
 
   tiny-lru@11.4.7: {}
 

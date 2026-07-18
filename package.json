@@ -54,6 +54,7 @@
     "p-queue": "9.1.0",
     "prettier": "3.9.5",
     "simple-git-hooks": "2.13.1",
+    "temporal-polyfill-lite": "0.4.2",
     "tsdown": "0.22.9",
     "typescript": "6.0.3",
     "ultrahtml": "1.7.0",
