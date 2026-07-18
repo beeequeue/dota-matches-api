@@ -1,26 +1,13 @@
 import assert from "node:assert/strict"
 
-// import { env } from "cloudflare:workers"
 import { beforeAll, describe, it, vi } from "vitest"
 
 import { getTtl } from "./utils.ts"
 
-// describe("parseTeamsPage", () => {
-//   it("correctly parses the body", async () => {
-//     const result = parseTeamsPage(
-//       await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) => r.text()),
-//     )
-//
-//     expect(result).toBeDefined()
-//     expect(result).toMatchSnapshot()
-//   })
-// })
-
 describe("getTtl", () => {
   beforeAll(() => {
     vi.setSystemTime(
-      Temporal.PlainDateTime.from("2022-02-02 12:00").toZonedDateTime("utc")
-        .epochMilliseconds,
+      Temporal.PlainDateTime.from("2022-02-02 12:00").toZonedDateTime("utc").epochMilliseconds,
     )
   })
 

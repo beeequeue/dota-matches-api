@@ -2,12 +2,7 @@ import { ms } from "milli"
 import PQueue from "p-queue"
 import { isXiorError, Xior, type XiorError } from "xior"
 
-import {
-  getMatchDataFromDb,
-  getTeamsFromDb,
-  upsertMatchData,
-  upsertTeamsData,
-} from "./db.ts"
+import { getMatchDataFromDb, getTeamsFromDb, upsertMatchData, upsertTeamsData } from "./db.ts"
 import { parseMatchesPage, parseTeamsPage } from "./parser.ts"
 import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils.ts"
 
@@ -137,7 +132,7 @@ const getMatches = (env: Env) => async (country: string) => {
 
   let lastFetched = Number((await env.META.get(MetaKey.MATCHES_LAST_FETCHED)) ?? -1)
   if (lastFetched !== -1) {
-    return { lastFetched: Number(lastFetched), matches: await getMatchDataFromDb() }
+    return { lastFetched: lastFetched, matches: await getMatchDataFromDb() }
   }
 
   const matches = await fetchMatches(country)

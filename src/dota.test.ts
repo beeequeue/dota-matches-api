@@ -3,8 +3,8 @@ import { FetchMocker, MockServer } from "mentoss"
 import { ms } from "milli"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
-import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { db } from "./db.ts"
+import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { getTeams, type LiquipediaBody } from "./dota.ts"
 import { MetaKey } from "./utils.ts"
 
@@ -12,9 +12,7 @@ describe("getTeams", async () => {
   const mockBody: LiquipediaBody = {
     parse: {
       text: {
-        "*": await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) =>
-          r.text(),
-        ),
+        "*": await env.FIXTURES.fetch("http://localhost/teams.html").then(async (r) => r.text()),
       },
     } as Partial<LiquipediaBody["parse"]> as LiquipediaBody["parse"],
   }
@@ -26,9 +24,7 @@ describe("getTeams", async () => {
     registerEnv(env)
 
     vi.resetAllMocks()
-    vi.setSystemTime(
-      Temporal.PlainDate.from("2020-01-01").toZonedDateTime("utc").epochMilliseconds,
-    )
+    vi.setSystemTime(Temporal.PlainDate.from("2020-01-01").toZonedDateTime("utc").epochMilliseconds)
 
     mocker.clearAll()
     liquipediaMock.get("/dota2/api.php?*", { status: 200, body: mockBody })

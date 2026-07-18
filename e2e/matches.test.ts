@@ -1,7 +1,7 @@
 import { expect, it } from "vitest"
 import xior from "xior"
 
-import type { Match } from "../src/dota.ts"
+import { type Match } from "../src/dota.ts"
 
 it("no field is missing from all matches", async () => {
   const response = await xior.get<Match[]>(`${process.env.API_BASE!}/v1/matches`, {
@@ -23,9 +23,6 @@ it("no field is missing from all matches", async () => {
   }
 
   for (const field in fieldAmounts) {
-    expect(
-      fieldAmounts[field],
-      `Expected '${field}' to exist for all matches`,
-    ).toBeGreaterThan(0)
+    expect(fieldAmounts[field], `Expected '${field}' to exist for all matches`).toBeGreaterThan(0)
   }
 })

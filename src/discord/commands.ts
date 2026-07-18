@@ -8,12 +8,12 @@ import {
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import type { H3Event } from "h3"
+import { type H3Event } from "h3"
 
 import { db } from "../db.ts"
 import { createDotaClient } from "../dota.ts"
 import { badRequest } from "../http-errors.ts"
-import type { Subscription$ } from "../schema.ts"
+import { type Subscription$ } from "../schema.ts"
 import { getEnv } from "../utils.ts"
 
 export const Command = {
@@ -22,10 +22,7 @@ export const Command = {
   List: "follows",
 } as const
 
-const createCommandResponse = (
-  content: string,
-  ephemeral = true,
-): APIInteractionResponse => ({
+const createCommandResponse = (content: string, ephemeral = true): APIInteractionResponse => ({
   type: InteractionResponseType.ChannelMessageWithSource,
   data: {
     flags: ephemeral ? MessageFlags.Ephemeral : undefined,
@@ -129,8 +126,7 @@ export const handleAutocompleteCommand = async (
   return {
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
-      choices:
-        idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
+      choices: idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
     },
   }
 }

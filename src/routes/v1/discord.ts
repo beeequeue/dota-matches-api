@@ -80,15 +80,11 @@ discordRouter.post("/interactions", async (event) => {
   if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
       case "follow": {
-        return handleFollowCommand(
-          parsedBody as APIChatInputApplicationCommandInteraction,
-        )
+        return handleFollowCommand(parsedBody as APIChatInputApplicationCommandInteraction)
       }
 
       case "unfollow": {
-        return handleUnfollowCommand(
-          parsedBody as APIChatInputApplicationCommandInteraction,
-        )
+        return handleUnfollowCommand(parsedBody as APIChatInputApplicationCommandInteraction)
       }
 
       case "follows": {

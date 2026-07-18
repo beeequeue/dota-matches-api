@@ -1,12 +1,12 @@
 import { env } from "cloudflare:workers"
-import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
+import { type APIEmbed, type APIEmbedField } from "discord-api-types/v10"
 import { FetchMocker, MockServer, type ResponseCreator } from "mentoss"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { db } from "./db.ts"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify.ts"
-import type { Match$ } from "./schema.ts"
+import { type Match$ } from "./schema.ts"
 import { CHANNEL_ID, createSub } from "./test-utils.ts"
 
 const server = new MockServer("https://discord.com/api/v10")
@@ -16,7 +16,6 @@ mocker.mockGlobal()
 const extractDateFromEmbedField = (field: APIEmbedField | undefined) => {
   if (field == null) return null
 
-  // eslint-disable-next-line e18e/prefer-static-regex
   const [, value] = /@<t:(\d+):t>/.exec(field.value) ?? []
   if (value == null) return null
 
@@ -93,10 +92,7 @@ describe("notifier", () => {
         matchType: "Bo2",
         teamOneId: "something",
         teamTwoId: "someone",
-        startsAt: now
-          .add({ hours: 4, minutes: 30 })
-          .round({ smallestUnit: "seconds" })
-          .toString(),
+        startsAt: now.add({ hours: 4, minutes: 30 }).round({ smallestUnit: "seconds" }).toString(),
         leagueName: null,
         streamUrl: null,
       },
@@ -128,9 +124,7 @@ describe("notifier", () => {
     const data = (await request.json()) as { embeds: APIEmbed[] }
     const embed = data.embeds[0]
 
-    expect(JSON.stringify(embed.fields)).toContain(
-      "**Team Liquid** _vs_ **Nigma Galaxy**",
-    )
+    expect(JSON.stringify(embed.fields)).toContain("**Team Liquid** _vs_ **Nigma Galaxy**")
     expect(JSON.stringify(embed.fields)).not.toContain("Too Late To Be Included")
 
     expect(embed).toMatchSnapshot()

@@ -1,11 +1,11 @@
 import { createDatabase } from "db0"
 import d1 from "db0/connectors/cloudflare-d1"
-import { chunk, pick } from "es-toolkit"
+import { chunk } from "es-toolkit"
 import { Kysely } from "kysely"
 
 import { Db0SqliteDialect } from "./db0-dialect/sqlite.ts"
-import type { Match, Team } from "./dota.ts"
-import type { League$, Match$, Tables, Team$ } from "./schema.ts"
+import { type Match, type Team } from "./dota.ts"
+import { type League$, type Match$, type Tables, type Team$ } from "./schema.ts"
 
 const db0 = createDatabase(d1({ bindingName: "MATCHES" }))
 export const db = new Kysely<Tables>({
@@ -22,13 +22,9 @@ export const upsertTeamsData = async (teams: Team[]) => {
     chunk(teams, 10).map(async (chunk) =>
       db
         .insertInto("team")
-        .values(
-          chunk.map((team) => ({ id: team.name!, name: team.name!, url: team.url })),
-        )
+        .values(chunk.map((team) => ({ id: team.name!, name: team.name!, url: team.url })))
         .onConflict((c) =>
-          c
-            .column("id")
-            .doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
+          c.column("id").doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
         )
         .execute(),
     ),
@@ -42,9 +38,7 @@ export const upsertLeaguesData = async (teams: League$[]) => {
         .insertInto("league")
         .values(chunk)
         .onConflict((c) =>
-          c
-            .column("name")
-            .doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
+          c.column("name").doUpdateSet((eb) => ({ name: eb.ref("name"), url: eb.ref("url") })),
         )
         .execute(),
     ),
@@ -79,7 +73,11 @@ export const getMatchDataFromDb = async (): Promise<Match[]> => {
 
   return result.rows.map((match) => ({
     hash: match.id,
-    ...pick(match, ["matchType", "streamUrl", "startsAt", "leagueName", "leagueUrl"]),
+    matchType: match.matchType,
+    streamUrl: match.streamUrl,
+    startsAt: match.startsAt,
+    leagueName: match.leagueName,
+    leagueUrl: match.leagueUrl,
     teams: [
       { name: match.teamOneName, url: match.teamOneUrl },
       { name: match.teamTwoName, url: match.teamTwoUrl },

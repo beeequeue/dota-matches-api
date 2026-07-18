@@ -1,4 +1,4 @@
-import type { Connector, Database, Primitive } from "db0"
+import { type Connector, type Database, type Primitive } from "db0"
 import {
   type CompiledQuery,
   type DatabaseConnection,
@@ -76,11 +76,9 @@ class Db0SqliteDriver implements Driver {
   async destroy(): Promise<void> {
     const instance = await this.#db.getInstance()
 
-    // eslint-disable-next-line ts/no-unsafe-member-access
     if (typeof (instance as any).close === "function") {
       return (instance as never as { close: () => Promise<void> }).close()
     }
-    // eslint-disable-next-line ts/no-unsafe-member-access
     if (typeof (instance as any).destroy === "function") {
       return (instance as never as { destroy: () => Promise<void> }).destroy()
     }
@@ -116,8 +114,7 @@ class Db0SqliteConnection implements DatabaseConnection {
     }
 
     console.dir(results)
-    const numAffectedRows =
-      results.data.length > 0 ? BigInt(results.data.length) : undefined
+    const numAffectedRows = results.data.length > 0 ? BigInt(results.data.length) : undefined
 
     return {
       // insertId:

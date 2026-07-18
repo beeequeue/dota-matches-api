@@ -11,8 +11,8 @@ import {
   Routes,
   ThreadAutoArchiveDuration,
 } from "discord-api-types/v10"
-import type { EventHandlerResponse } from "h3"
-import { Xior, type XiorError } from "xior"
+import { type EventHandlerResponse } from "h3"
+import { Xior } from "xior"
 
 import { badRequest } from "../http-errors.ts"
 
@@ -37,11 +37,7 @@ type RegisterGuildOptions = {
 
 const registerGuild =
   (env: Env) =>
-  async ({
-    code,
-    guildId,
-    permissions,
-  }: RegisterGuildOptions): Promise<EventHandlerResponse> => {
+  async ({ code, guildId, permissions }: RegisterGuildOptions): Promise<EventHandlerResponse> => {
     const urlEncodedBody = {
       grant_type: "authorization_code",
       client_id: env.DISCORD_CLIENT_ID,
@@ -101,7 +97,7 @@ const leaveGuild = async (env: Env, guildId: string) => {
       },
     })
   } catch (error) {
-    throw new Error("Failed to leave guild", { cause: error as XiorError })
+    throw new Error("Failed to leave guild", { cause: error })
   }
 }
 
@@ -126,37 +122,36 @@ const createThread = (env: Env) => async (channelId: string) => {
       },
     )
   } catch (error) {
-    throw new Error("Failed to create a thread", { cause: error as XiorError })
+    throw new Error("Failed to create a thread", { cause: error })
   }
 }
 
-const sendMessage =
-  (env: Env) => async (parentId: string, content: string | APIEmbed) => {
-    console.log(`Sending message to ${parentId}`)
+const sendMessage = (env: Env) => async (parentId: string, content: string | APIEmbed) => {
+  console.log(`Sending message to ${parentId}`)
 
-    const body: RESTPostAPIChannelMessageJSONBody =
-      typeof content === "string"
-        ? {
-            content,
-          }
-        : {
-            embeds: [content],
-          }
+  const body: RESTPostAPIChannelMessageJSONBody =
+    typeof content === "string"
+      ? {
+          content,
+        }
+      : {
+          embeds: [content],
+        }
 
-    try {
-      return await discordClient.post<RESTPostAPIChannelMessageResult>(
-        Routes.channelMessages(parentId),
-        body,
-        {
-          headers: {
-            Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
-          },
+  try {
+    return await discordClient.post<RESTPostAPIChannelMessageResult>(
+      Routes.channelMessages(parentId),
+      body,
+      {
+        headers: {
+          Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
         },
-      )
-    } catch (error) {
-      throw new Error("Failed to send message", { cause: error as XiorError })
-    }
+      },
+    )
+  } catch (error) {
+    throw new Error("Failed to send message", { cause: error })
   }
+}
 
 export const createDiscordClient = (env: Env) => ({
   getAuthorizeUrl: getAuthorizeUrl(env),

@@ -1,4 +1,4 @@
-import type { H3Event } from "h3"
+import { type H3Event } from "h3"
 import { ms, type StringValue } from "milli"
 
 export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
