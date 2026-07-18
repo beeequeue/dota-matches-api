@@ -194,3 +194,213 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
   },
 ]
 `;
+
+exports[`parseTeamsPage > correctly parses the body 1`] = `
+[
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/5/5c/1win_Team_2024_allmode.png/100px-1win_Team_2024_allmode.png",
+    "name": "1w",
+    "url": "https://liquipedia.net/dota2/1w",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/1/1e/Amaru_Gaming_allmode.png/61px-Amaru_Gaming_allmode.png",
+    "name": "Amaru Gaming",
+    "url": "https://liquipedia.net/dota2/Amaru_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/1/1c/Aurora_Gaming_2025_allmode.png/50px-Aurora_Gaming_2025_allmode.png",
+    "name": "Aurora Gaming",
+    "url": "https://liquipedia.net/dota2/Aurora_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/5/5b/BetBoom_Team_2024_allmode.png/56px-BetBoom_Team_2024_allmode.png",
+    "name": "BB Team",
+    "url": "https://liquipedia.net/dota2/BB_Team",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/f/fb/Carstensz_Esports_allmode.png/96px-Carstensz_Esports_allmode.png",
+    "name": "Carstensz Esports",
+    "url": "https://liquipedia.net/dota2/Carstensz_Esports",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/2/26/CDUB_Esports_allmode.png/62px-CDUB_Esports_allmode.png",
+    "name": "CDUB Esports",
+    "url": "https://liquipedia.net/dota2/CDUB_Esports",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/4/44/Execration_2024_allmode.png/42px-Execration_2024_allmode.png",
+    "name": "Execration",
+    "url": "https://liquipedia.net/dota2/Execration",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/6/69/GamerLegion_2023_lightmode.png/93px-GamerLegion_2023_lightmode.png",
+    "name": "GamerLegion",
+    "url": "https://liquipedia.net/dota2/GamerLegion",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/8/8c/GLYPH_lightmode.png/45px-GLYPH_lightmode.png",
+    "name": "GLYPH",
+    "url": "https://liquipedia.net/dota2/GLYPH",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/d/d0/Hokori_2021_allmode.png/47px-Hokori_2021_allmode.png",
+    "name": "Hokori",
+    "url": "https://liquipedia.net/dota2/Hokori",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/c/c6/Inner_Circle_2025_allmode.png/43px-Inner_Circle_2025_allmode.png",
+    "name": "IC x Insanity",
+    "url": "https://liquipedia.net/dota2/Inner_Circle_x_Insanity",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/5/58/Infamous_2020_allmode.png/51px-Infamous_2020_allmode.png",
+    "name": "Infamous",
+    "url": "https://liquipedia.net/dota2/Infamous_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/b/b7/Ivory_2024_allmode.png/48px-Ivory_2024_allmode.png",
+    "name": "Ivory",
+    "url": "https://liquipedia.net/dota2/Ivory",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/4/45/L1GA_TEAM_2026_lightmode.png/50px-L1GA_TEAM_2026_lightmode.png",
+    "name": "L1 TEAM",
+    "url": "https://liquipedia.net/dota2/L1_TEAM",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/2/2c/Level_Up_Esports_2021_allmode.png/42px-Level_Up_Esports_2021_allmode.png",
+    "name": "Level UP",
+    "url": "https://liquipedia.net/dota2/Level_UP",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/2/2f/LGD_Gaming_Dec_2019_allmode.png/50px-LGD_Gaming_Dec_2019_allmode.png",
+    "name": "LGD Gaming",
+    "url": "https://liquipedia.net/dota2/LGD_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/c/c2/MOUZ_2021_allmode.png/47px-MOUZ_2021_allmode.png",
+    "name": "MOUZ",
+    "url": "https://liquipedia.net/dota2/MOUZ",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/3/3f/Natus_Vincere_2021_lightmode.png/57px-Natus_Vincere_2021_lightmode.png",
+    "name": "Natus Vincere",
+    "url": "https://liquipedia.net/dota2/Natus_Vincere",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/b/bb/Nemiga_Gaming_2020_temporary.png/50px-Nemiga_Gaming_2020_temporary.png",
+    "name": "Nemiga Gaming",
+    "url": "https://liquipedia.net/dota2/Nemiga_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/6/67/Nigma_Galaxy_allmode.png/50px-Nigma_Galaxy_allmode.png",
+    "name": "Nigma Galaxy",
+    "url": "https://liquipedia.net/dota2/Nigma_Galaxy",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/7/7b/OG_2026_allmode.png/36px-OG_2026_allmode.png",
+    "name": "OG",
+    "url": "https://liquipedia.net/dota2/OG",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/f/f4/Dota_2_default_allmode.png/50px-Dota_2_default_allmode.png",
+    "name": "Poor Rangers",
+    "url": "https://liquipedia.net/dota2/Poor_Rangers",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/3/39/PlayTime_allmode.png/49px-PlayTime_allmode.png",
+    "name": "PTime",
+    "url": "https://liquipedia.net/dota2/PTime",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/9/9d/PARIVISION_allmode.png/56px-PARIVISION_allmode.png",
+    "name": "PVISION",
+    "url": "https://liquipedia.net/dota2/PVISION",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/3/30/REKONIX_lightmode.png/37px-REKONIX_lightmode.png",
+    "name": "REKONIX",
+    "url": "https://liquipedia.net/dota2/REKONIX",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/b/be/Rune_Eaters_Esports_lightmode.png/39px-Rune_Eaters_Esports_lightmode.png",
+    "name": "Rune Eaters",
+    "url": "https://liquipedia.net/dota2/Rune_Eaters",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/8/83/Team_Falcons_2022_allmode.png/41px-Team_Falcons_2022_allmode.png",
+    "name": "Team Falcons",
+    "url": "https://liquipedia.net/dota2/Team_Falcons",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/0/01/Team_Liquid_2024_lightmode.png/44px-Team_Liquid_2024_lightmode.png",
+    "name": "Team Liquid",
+    "url": "https://liquipedia.net/dota2/Team_Liquid",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/4/43/Team_Lynx_lightmode.png/37px-Team_Lynx_lightmode.png",
+    "name": "Team Lynx",
+    "url": "https://liquipedia.net/dota2/Team_Lynx",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/e/ed/Team_Nem_lightmode.png/56px-Team_Nem_lightmode.png",
+    "name": "Team Nemesis",
+    "url": "https://liquipedia.net/dota2/Team_Nemesis",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/b/bd/Team_Resilience_%28DOTA2%29_lightmode.png/79px-Team_Resilience_%28DOTA2%29_lightmode.png",
+    "name": "Team Resilience",
+    "url": "https://liquipedia.net/dota2/Team_Resilience",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/6/66/Team_Spirit_2022_lightmode.png/43px-Team_Spirit_2022_lightmode.png",
+    "name": "Team Spirit",
+    "url": "https://liquipedia.net/dota2/Team_Spirit",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/9/9c/Team_Yandex_2026_lightmode.png/56px-Team_Yandex_2026_lightmode.png",
+    "name": "Team Yandex",
+    "url": "https://liquipedia.net/dota2/Team_Yandex",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/c/ce/VICI_Gaming_allmode.png/49px-VICI_Gaming_allmode.png",
+    "name": "Vici Gaming",
+    "url": "https://liquipedia.net/dota2/Vici_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/c/c0/Virtus.pro_2019_allmode.png/51px-Virtus.pro_2019_allmode.png",
+    "name": "Virtus.pro",
+    "url": "https://liquipedia.net/dota2/Virtus.pro",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/d/d0/VP.Prodigy_allmode.png/50px-VP.Prodigy_allmode.png",
+    "name": "VP.Prodigy",
+    "url": "https://liquipedia.net/dota2/VP.Prodigy",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/a/a6/Winter_Bear_allmode.png/60px-Winter_Bear_allmode.png",
+    "name": "Winter Bear",
+    "url": "https://liquipedia.net/dota2/Winter_Bear",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/7/72/Xtreme_Gaming_%28China%29_allmode.png/50px-Xtreme_Gaming_%28China%29_allmode.png",
+    "name": "Xtreme Gaming",
+    "url": "https://liquipedia.net/dota2/Xtreme_Gaming",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/c/ca/Yakult_Brothers_lightmode.png/66px-Yakult_Brothers_lightmode.png",
+    "name": "Yakult Brothers",
+    "url": "https://liquipedia.net/dota2/Yakult_Brothers",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/d/db/Yangon_Galacticos_2021_allmode.png/55px-Yangon_Galacticos_2021_allmode.png",
+    "name": "Yangon Galacticos",
+    "url": "https://liquipedia.net/dota2/Yangon_Galacticos",
+  },
+  {
+    "logo": "https://liquipedia.net/commons/images/thumb/e/e8/Zero_Tenacity_2025_lightmode.png/79px-Zero_Tenacity_2025_lightmode.png",
+    "name": "Zero Tenacity",
+    "url": "https://liquipedia.net/dota2/Zero_Tenacity",
+  },
+]
+`;

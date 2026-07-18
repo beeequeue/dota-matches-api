@@ -58,9 +58,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
   const response = await liquipediaQueue.add(async () =>
     liquipediaClient
       .get<LiquipediaBody>("/api.php", {
-        headers: {
-          "User-Agent": `dota-matches-api-${country}`,
-        },
+        headers: { "User-Agent": `dota-matches-api-${country}` },
         params: {
           action: "parse",
           format: "json",
@@ -84,9 +82,7 @@ const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> =>
   const response = await liquipediaQueue.add(async () =>
     liquipediaClient
       .get<LiquipediaBody>("/api.php", {
-        headers: {
-          "User-Agent": `dota-matches-api-${country}`,
-        },
+        headers: { "User-Agent": `dota-matches-api-${country}` },
         params: {
           action: "parse",
           format: "json",

@@ -57,8 +57,6 @@ export const parseMatchesPage = async (html: string): Promise<Match[]> => {
         throw new Error("Couldn't find two team blocks in match")
       }
       const teams = [extractTeam(teamBlocks$[0]!), extractTeam(teamBlocks$[1]!)] as Match["teams"]
-      // For some reason we have to use `innerHTML` here instead of `textContent`
-      // because the abbr tag might not be parsed correctly by node-html-parser?
       const matchType = getNodeText(
         querySelector(match$, ".match-info-header-scoreholder-lower") as ElementNode,
       )?.replace(/\(?(bo\d)\)?/i, "$1")
@@ -110,23 +108,22 @@ export const parseMatchesPage = async (html: string): Promise<Match[]> => {
 export const parseTeamsPage = (html: string): Team[] => {
   const root = parse(html) as ElementNode
 
-  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
-  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
-    (el) => el === notableTeamsTitle$.parent,
+  const notableTeamsTitle$ = querySelector(root, "#Regions").parent as ElementNode
+  const notableTeamsTitleIndex = notableTeamsTitle$.parent.children.findIndex(
+    (child: ElementNode) => child === notableTeamsTitle$,
   )
-
   const notableTeams$ = querySelectorAll(
-    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2]!,
-    ".team-template-text > a",
+    notableTeamsTitle$.parent.children[notableTeamsTitleIndex + 1],
+    ".team-template-team-standard",
   ) as ElementNode[]
   const data: Team[] = notableTeams$.map((el$) => {
-    if (el$?.children[0]!.type !== TEXT_NODE) {
-      throw new Error("Couldn't find text in team element")
-    }
+    const team$ = querySelector(el$, ".team-template-text a") as ElementNode
+    const image$ = querySelector(el$, ".team-template-image-icon img") as ElementNode
 
     return {
-      name: getNodeText(el$),
-      url: `https://liquipedia.net${el$.attributes.href}`,
+      name: getNodeText(team$),
+      url: `https://liquipedia.net${team$.attributes.href}`,
+      logo: `https://liquipedia.net${image$.attributes.src}`,
     }
   })
 
