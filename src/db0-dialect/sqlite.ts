@@ -1,16 +1,14 @@
-import { type Connector, type Database, type Primitive } from "db0"
-import {
-  type CompiledQuery,
-  type DatabaseConnection,
-  type DatabaseIntrospector,
-  type Dialect,
-  type Driver,
-  type Kysely,
-  type QueryCompiler,
-  type QueryResult,
-  SqliteAdapter,
-  SqliteIntrospector,
-  SqliteQueryCompiler,
+import type { Connector, Database, Primitive } from "db0"
+import { SqliteAdapter, SqliteIntrospector, SqliteQueryCompiler } from "kysely"
+import type {
+  CompiledQuery,
+  DatabaseConnection,
+  DatabaseIntrospector,
+  Dialect,
+  Driver,
+  Kysely,
+  QueryCompiler,
+  QueryResult,
 } from "kysely"
 
 type SqliteDatabase =
@@ -121,6 +119,7 @@ class Db0SqliteConnection implements DatabaseConnection {
       //   results.meta.last_row_id === undefined || results.meta.last_row_id === null
       //     ? undefined
       //     : BigInt(results.meta.last_row_id),
+      // oxlint-disable-next-line typescript/no-unnecessary-condition
       rows: (results.data as O[]) ?? [],
       numAffectedRows,
     }
@@ -146,6 +145,7 @@ class Db0SqliteConnection implements DatabaseConnection {
     throw new Error("db0 driver does not support transactions yet.")
   }
 
+  // oxlint-disable-next-line require-yield
   async *streamQuery<O>(
     _compiledQuery: CompiledQuery,
     _chunkSize: number,

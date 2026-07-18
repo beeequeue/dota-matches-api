@@ -1,10 +1,11 @@
+import { env } from "cloudflare:workers"
 import { expect, it } from "vitest"
 import xior from "xior"
 
-import { type Match } from "../src/dota.ts"
+import type { Match } from "../src/dota.ts"
 
 it("no field is missing from all matches", async () => {
-  const response = await xior.get<Match[]>(`${process.env.API_BASE!}/v1/matches`, {
+  const response = await xior.get<Match[]>(`${env.API_BASE}/v1/matches`, {
     headers: {
       "User-Agent": "github.com/BeeeQueue/dota-matches-api (e2e)",
     },

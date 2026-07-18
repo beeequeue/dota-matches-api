@@ -1,17 +1,15 @@
-import {
-  type APIEmbed,
-  OAuth2Scopes,
-  type RESTOAuth2AuthorizationQuery,
-  type RESTOAuth2BotAuthorizationQuery,
-  type RESTPostAPIChannelMessageJSONBody,
-  type RESTPostAPIChannelMessageResult,
-  type RESTPostAPIChannelThreadsJSONBody,
-  type RESTPostAPIChannelThreadsResult,
-  type RESTPostOAuth2AccessTokenURLEncodedData,
-  Routes,
-  ThreadAutoArchiveDuration,
+import { OAuth2Scopes, Routes, ThreadAutoArchiveDuration } from "discord-api-types/v10"
+import type {
+  APIEmbed,
+  RESTOAuth2AuthorizationQuery,
+  RESTOAuth2BotAuthorizationQuery,
+  RESTPostAPIChannelMessageJSONBody,
+  RESTPostAPIChannelMessageResult,
+  RESTPostAPIChannelThreadsJSONBody,
+  RESTPostAPIChannelThreadsResult,
+  RESTPostOAuth2AccessTokenURLEncodedData,
 } from "discord-api-types/v10"
-import { type EventHandlerResponse } from "h3"
+import type { EventHandlerResponse } from "h3"
 import { Xior } from "xior"
 
 import { badRequest } from "../http-errors.ts"

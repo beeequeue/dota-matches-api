@@ -1,9 +1,10 @@
 // oxlint-disable typescript/no-unnecessary-condition
 import { stableHash } from "stable-hash"
-import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
+import { ELEMENT_NODE, parse, TEXT_NODE } from "ultrahtml"
+import type { ElementNode } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
-import { type Match, type Team } from "./dota.ts"
+import type { Match, Team } from "./dota.ts"
 
 const encoder = new TextEncoder()
 

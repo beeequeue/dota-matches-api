@@ -1,11 +1,11 @@
-import { type APIEmbed, type APIEmbedField } from "discord-api-types/v10"
+import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
 import { groupBy } from "es-toolkit"
 import { sql } from "kysely"
 
 import { db } from "./db.ts"
 import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { createDiscordClient } from "./discord/index.ts"
-import { type Match$, type Subscription$ } from "./schema.ts"
+import type { Match$, Subscription$ } from "./schema.ts"
 import { ms2s } from "./utils.ts"
 
 const orEmpty = <T>(check: T | null | undefined, value: string) => (check != null ? value : "")

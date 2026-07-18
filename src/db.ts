@@ -4,8 +4,8 @@ import { chunk } from "es-toolkit"
 import { Kysely } from "kysely"
 
 import { Db0SqliteDialect } from "./db0-dialect/sqlite.ts"
-import { type Match, type Team } from "./dota.ts"
-import { type League$, type Match$, type Tables, type Team$ } from "./schema.ts"
+import type { Match, Team } from "./dota.ts"
+import type { League$, Match$, Tables, Team$ } from "./schema.ts"
 
 const db0 = createDatabase(d1({ bindingName: "MATCHES" }))
 export const db = new Kysely<Tables>({

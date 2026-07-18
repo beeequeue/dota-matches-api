@@ -1,9 +1,8 @@
-import {
-  type APIApplicationCommandInteractionDataStringOption,
-  type APIChatInputApplicationCommandInteraction,
-  type APIInteraction,
-  InteractionResponseType,
-  InteractionType,
+import { InteractionResponseType, InteractionType } from "discord-api-types/v10"
+import type {
+  APIApplicationCommandInteractionDataStringOption,
+  APIChatInputApplicationCommandInteraction,
+  APIInteraction,
 } from "discord-api-types/v10"
 import { verifyKey } from "discord-interactions"
 import { getQuery, H3, redirect } from "h3"
@@ -77,6 +76,7 @@ discordRouter.post("/interactions", async (event) => {
     return handleAutocompleteCommand(event, country, value)
   }
 
+  // oxlint-disable-next-line typescript/no-unnecessary-condition
   if (type === InteractionType.ApplicationCommand && data != null) {
     switch (data.name) {
       case "follow": {

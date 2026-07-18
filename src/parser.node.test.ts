@@ -16,8 +16,8 @@ describe("parseMatchesPage", () => {
     --header 'Accept-Encoding: zstd,gzip'
   */
   it("correctly parses the body", async () => {
-    const withoutHashes = await parseMatchesPage(teamsPageFixture)
+    const matches = await parseMatchesPage(teamsPageFixture)
 
-    expect(withoutHashes).toMatchSnapshot()
+    expect(matches).toMatchSnapshot()
   })
 })

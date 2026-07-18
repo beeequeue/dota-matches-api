@@ -5,7 +5,8 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { db } from "./db.ts"
 import { registerEnv } from "./db0-dialect/d1-register.ts"
-import { getTeams, type LiquipediaBody } from "./dota.ts"
+import { getTeams } from "./dota.ts"
+import type { LiquipediaBody } from "./dota.ts"
 import { MetaKey } from "./utils.ts"
 
 describe("getTeams", async () => {

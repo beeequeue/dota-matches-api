@@ -1,19 +1,21 @@
 import Fuzzy from "@leeoniya/ufuzzy"
 import {
-  type APIApplicationCommandAutocompleteResponse,
-  type APIApplicationCommandInteractionDataStringOption,
-  type APIChatInputApplicationCommandInteraction,
-  type APIInteractionResponse,
   ApplicationCommandOptionType,
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import { type H3Event } from "h3"
+import type {
+  APIApplicationCommandAutocompleteResponse,
+  APIApplicationCommandInteractionDataStringOption,
+  APIChatInputApplicationCommandInteraction,
+  APIInteractionResponse,
+} from "discord-api-types/v10"
+import type { H3Event } from "h3"
 
 import { db } from "../db.ts"
 import { createDotaClient } from "../dota.ts"
 import { badRequest } from "../http-errors.ts"
-import { type Subscription$ } from "../schema.ts"
+import type { Subscription$ } from "../schema.ts"
 import { getEnv } from "../utils.ts"
 
 export const Command = {

@@ -1,4 +1,5 @@
 {
+  "ignorePatterns": ["src/fixtures/*.html"],
   "semi": false,
   "sortImports": {
     "type": "natural",

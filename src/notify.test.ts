@@ -1,12 +1,13 @@
 import { env } from "cloudflare:workers"
-import { type APIEmbed, type APIEmbedField } from "discord-api-types/v10"
-import { FetchMocker, MockServer, type ResponseCreator } from "mentoss"
+import type { APIEmbed, APIEmbedField } from "discord-api-types/v10"
+import { FetchMocker, MockServer } from "mentoss"
+import type { ResponseCreator } from "mentoss"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { db } from "./db.ts"
 import matchesFixture from "./fixtures/matches.json"
 import { formatMatchToEmbedField, notifier } from "./notify.ts"
-import { type Match$ } from "./schema.ts"
+import type { Match$ } from "./schema.ts"
 import { CHANNEL_ID, createSub } from "./test-utils.ts"
 
 const server = new MockServer("https://discord.com/api/v10")
@@ -176,12 +177,15 @@ describe("notifier", () => {
     const data = (await request.json()) as { embeds: APIEmbed[] }
     const embed = data.embeds[0]
 
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[0])).toEqual(
       Temporal.Instant.from(matches[1].startsAt!),
     )
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[1])).toEqual(
       Temporal.Instant.from(matches[2].startsAt!),
     )
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[2])).toEqual(
       Temporal.Instant.from(matches[0].startsAt!),
     )

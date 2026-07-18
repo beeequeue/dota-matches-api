@@ -1,6 +1,7 @@
 import { ms } from "milli"
 import PQueue from "p-queue"
-import { isXiorError, Xior, type XiorError } from "xior"
+import { isXiorError, Xior } from "xior"
+import type { XiorError } from "xior"
 
 import { getMatchDataFromDb, getTeamsFromDb, upsertMatchData, upsertTeamsData } from "./db.ts"
 import { parseMatchesPage, parseTeamsPage } from "./parser.ts"

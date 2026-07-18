@@ -12,7 +12,8 @@
   },
   "env": {
     "es2025": true,
-    "node": true
+    "node": true,
+    "worker": true
   },
   "plugins": [
     "eslint",
@@ -32,10 +33,10 @@
     "nursery": "warn"
   },
   "rules": {
-    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
     "typescript/consistent-type-imports": [
       "error",
-      { "fixStyle": "inline-type-imports", "disallowTypeAnnotations": false }
+      { "fixStyle": "separate-type-imports", "disallowTypeAnnotations": false }
     ],
 
     "no-console": "off",

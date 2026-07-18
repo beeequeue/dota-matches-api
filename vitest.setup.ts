@@ -1,5 +1,5 @@
-import { type D1Migration } from "@cloudflare/vitest-pool-workers"
-import { type D1Database } from "@cloudflare/workers-types"
+import type { D1Migration } from "@cloudflare/vitest-pool-workers"
+import type { D1Database } from "@cloudflare/workers-types"
 import { applyD1Migrations } from "cloudflare:test"
 import { env } from "cloudflare:workers"
 
