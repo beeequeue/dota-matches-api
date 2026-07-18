@@ -106,13 +106,16 @@ importers:
         version: 0.4.2
       tsdown:
         specifier: 0.22.9
-        version: 0.22.9(typescript@6.0.3)
+        version: 0.22.9(typescript@6.0.3)(unrun@0.3.1)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       ultrahtml:
         specifier: 1.7.0
         version: 1.7.0
+      unrun:
+        specifier: 0.3.1
+        version: 0.3.1
       vitest:
         specifier: 5.0.0-beta.6
         version: 5.0.0-beta.6(@types/node@26.1.1)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(yaml@2.9.0))
@@ -1961,6 +1964,16 @@ packages:
   unenv@2.0.0-rc.24:
     resolution: {integrity: sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==}
 
+  unrun@0.3.1:
+    resolution: {integrity: sha512-onIck/oNnCaytwths1ZVp1LK2Gq2hPoyFhiHebObuUXqR3S0uHuLLaBK8K6mRRgV7Ptip8AnNvaUsgzwWwBZuA==}
+    engines: {node: ^22.13.0 || >=24.0.0}
+    hasBin: true
+    peerDependencies:
+      synckit: ^0.11.11
+    peerDependenciesMeta:
+      synckit:
+        optional: true
+
   update-browserslist-db@1.2.3:
     resolution: {integrity: sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==}
     hasBin: true
@@ -3623,7 +3636,7 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  tsdown@0.22.9(typescript@6.0.3):
+  tsdown@0.22.9(typescript@6.0.3)(unrun@0.3.1):
     dependencies:
       ansis: 4.3.1
       cac: 7.0.0
@@ -3642,6 +3655,7 @@ snapshots:
       unconfig-core: 7.5.0
     optionalDependencies:
       typescript: 6.0.3
+      unrun: 0.3.1
     transitivePeerDependencies:
       - '@typescript/native-preview'
       - '@volar/typescript'
@@ -3673,6 +3687,10 @@ snapshots:
   unenv@2.0.0-rc.24:
     dependencies:
       pathe: 2.0.3
+
+  unrun@0.3.1:
+    dependencies:
+      rolldown: 1.2.0
 
   update-browserslist-db@1.2.3(browserslist@4.28.6):
     dependencies:
