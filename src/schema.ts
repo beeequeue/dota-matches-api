@@ -1,5 +1,7 @@
 export type Match$ = {
-  id: string
+  id: string // TODO: make optional
+  hash: string | null // TODO: change to primary key
+  realId: string | null // TODO: remove
   matchType: string | null
   teamOneId: string | null
   teamTwoId: string | null

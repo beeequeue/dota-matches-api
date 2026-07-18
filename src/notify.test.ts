@@ -72,6 +72,8 @@ describe("notifier", () => {
     const matches: Match$[] = [
       {
         id: "1",
+        realId: "1",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "Nigma Galaxy",
@@ -81,6 +83,8 @@ describe("notifier", () => {
       },
       {
         id: "2",
+        realId: "2",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "Nigma Galaxy",
         teamTwoId: "OG",
@@ -90,6 +94,8 @@ describe("notifier", () => {
       },
       {
         id: "3",
+        realId: "3",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "something",
         teamTwoId: "someone",
@@ -99,6 +105,8 @@ describe("notifier", () => {
       },
       {
         id: "4",
+        realId: "4",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "OG",
         teamTwoId: "Too Late To Be Included",
@@ -121,9 +129,9 @@ describe("notifier", () => {
 
     server.assertAllRoutesCalled()
 
-    const [request] = responseFn.mock.calls[0]
+    const [request] = responseFn.mock.calls[0]!
     const data = (await request.json()) as { embeds: APIEmbed[] }
-    const embed = data.embeds[0]
+    const embed = data.embeds[0]!
 
     expect(JSON.stringify(embed.fields)).toContain("**Team Liquid** _vs_ **Nigma Galaxy**")
     expect(JSON.stringify(embed.fields)).not.toContain("Too Late To Be Included")
@@ -136,6 +144,8 @@ describe("notifier", () => {
     const matches: Match$[] = [
       {
         id: "3",
+        realId: "3",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
@@ -145,6 +155,8 @@ describe("notifier", () => {
       },
       {
         id: "1",
+        realId: "1",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
@@ -154,6 +166,8 @@ describe("notifier", () => {
       },
       {
         id: "2",
+        realId: "2",
+        hash: crypto.randomUUID(),
         matchType: "Bo2",
         teamOneId: "Team Liquid",
         teamTwoId: "OG",
@@ -173,21 +187,18 @@ describe("notifier", () => {
 
     server.assertAllRoutesCalled()
 
-    const [request] = responseFn.mock.calls[0]
+    const [request] = responseFn.mock.calls[0]!
     const data = (await request.json()) as { embeds: APIEmbed[] }
     const embed = data.embeds[0]
 
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[0])).toEqual(
-      Temporal.Instant.from(matches[1].startsAt!),
+      Temporal.Instant.from(matches[1]!.startsAt!),
     )
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[1])).toEqual(
-      Temporal.Instant.from(matches[2].startsAt!),
+      Temporal.Instant.from(matches[2]!.startsAt!),
     )
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
     expect(extractDateFromEmbedField(embed?.fields?.[2])).toEqual(
-      Temporal.Instant.from(matches[0].startsAt!),
+      Temporal.Instant.from(matches[0]!.startsAt!),
     )
   })
 })

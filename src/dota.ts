@@ -13,7 +13,7 @@ export type Team = {
 }
 
 export type Match = {
-  id?: string
+  id: string | null
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null

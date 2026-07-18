@@ -56,7 +56,7 @@ export const parseMatchesPage = async (html: string): Promise<Match[]> => {
       if (teamBlocks$.length !== 2) {
         throw new Error("Couldn't find two team blocks in match")
       }
-      const teams = [extractTeam(teamBlocks$[0]), extractTeam(teamBlocks$[1])] as Match["teams"]
+      const teams = [extractTeam(teamBlocks$[0]!), extractTeam(teamBlocks$[1]!)] as Match["teams"]
       // For some reason we have to use `innerHTML` here instead of `textContent`
       // because the abbr tag might not be parsed correctly by node-html-parser?
       const matchType = getNodeText(
@@ -116,11 +116,11 @@ export const parseTeamsPage = (html: string): Team[] => {
   )
 
   const notableTeams$ = querySelectorAll(
-    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
+    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2]!,
     ".team-template-text > a",
   ) as ElementNode[]
   const data: Team[] = notableTeams$.map((el$) => {
-    if (el$.children[0].type !== TEXT_NODE) {
+    if (el$?.children[0]!.type !== TEXT_NODE) {
       throw new Error("Couldn't find text in team element")
     }
 

@@ -128,7 +128,7 @@ export const handleAutocompleteCommand = async (
   return {
     type: InteractionResponseType.ApplicationCommandAutocompleteResult,
     data: {
-      choices: idxs?.map((idx) => teams[idx]).map((team) => ({ name: team, value: team })) ?? [],
+      choices: idxs?.map((idx) => teams[idx]!).map((team) => ({ name: team, value: team })) ?? [],
     },
   }
 }

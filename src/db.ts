@@ -50,8 +50,9 @@ const matchDataQuery = db
   .innerJoin("league", "match.leagueName", "league.name")
   .innerJoin("team as teamOne", "match.teamOneId", "teamOne.id")
   .innerJoin("team as teamTwo", "match.teamTwoId", "teamTwo.id")
-  .select([
-    "match.id as id",
+  .select((eb) => [
+    eb.fn.coalesce("match.realId", "match.id").as("id"),
+    "match.hash as hash",
     "match.matchType as matchType",
     "match.streamUrl as streamUrl",
     "match.startsAt as startsAt",
@@ -72,7 +73,8 @@ export const getMatchDataFromDb = async (): Promise<Match[]> => {
   const result = await db.executeQuery(matchDataQuery)
 
   return result.rows.map((match) => ({
-    hash: match.id,
+    id: match.id,
+    hash: match.hash ?? match.id,
     matchType: match.matchType,
     streamUrl: match.streamUrl,
     startsAt: match.startsAt,
@@ -90,7 +92,9 @@ export const upsertMatchData = async (matches: Match[]) => {
 
   console.log("Generating new data...")
   const matchData = matches.map<Match$>((match) => ({
-    id: match.hash,
+    id: match.id ?? match.hash,
+    realId: match.id,
+    hash: match.hash,
     matchType: match.matchType,
     teamOneId: match.teams[0]?.name ?? null,
     teamTwoId: match.teams[1]?.name ?? null,

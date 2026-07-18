@@ -28,7 +28,7 @@ const isoDateStringToUnixTime = (input?: string | null) =>
   input != null ? ms2s(Temporal.Instant.from(input).epochMilliseconds) : null
 
 export const formatMatchToEmbedField = (
-  match: Omit<Match$, "id"> & Pick<Subscription$, "channel">,
+  match: Omit<Match$, "id" | "realId" | "hash"> & Pick<Subscription$, "channel">,
 ): APIEmbedField => {
   const teams = [match.teamOneId, match.teamTwoId]
     .map((teamName) => `**${teamName ?? "?"}**`)
