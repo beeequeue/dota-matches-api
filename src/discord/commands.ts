@@ -13,7 +13,8 @@ import type { H3Event } from "h3"
 import { db } from "../db.ts"
 import { createDotaClient } from "../dota.ts"
 import { badRequest } from "../http-errors.ts"
-import type { Subscription$ } from "../schema"
+import type { Subscription$ } from "../schema.ts"
+import { getEnv } from "../utils.ts"
 
 export const Command = {
   Follow: "follow",
@@ -119,7 +120,7 @@ export const handleAutocompleteCommand = async (
   country: string,
   value: string,
 ): Promise<APIApplicationCommandAutocompleteResponse> => {
-  const dotaClient = createDotaClient(event)
+  const dotaClient = createDotaClient(getEnv(event))
   const teams = await dotaClient.getTeams(country)
   const fuzzy = new Fuzzy({ intraIns: 2, interIns: 5 })
 

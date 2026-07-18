@@ -3,7 +3,7 @@ import { FetchMocker, MockServer } from "mentoss"
 import { ms } from "milli"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
-import { registerEnv } from "./db0-dialect/d1-register"
+import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { db } from "./db.ts"
 import { getTeams, type LiquipediaBody } from "./dota.ts"
 import { MetaKey } from "./utils.ts"

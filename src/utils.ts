@@ -3,7 +3,7 @@ import { ms, type StringValue } from "milli"
 import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
-import type { Team } from "./dota"
+import type { Team } from "./dota.ts"
 
 export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
 

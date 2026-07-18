@@ -8,7 +8,7 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db.ts"
-import { parseMatchesPage } from "./parser"
+import { parseMatchesPage } from "./parser.ts"
 import { EDGE_CACHE_TIMEOUT, MetaKey, parseTeamsPage, seconds } from "./utils.ts"
 
 export type Team = {

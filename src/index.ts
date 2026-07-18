@@ -1,5 +1,5 @@
 import { createApp } from "./app.ts"
-import { registerEnv } from "./db0-dialect/d1-register"
+import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { notifier } from "./notify.ts"
 
 if (!("Temporal" in globalThis)) {

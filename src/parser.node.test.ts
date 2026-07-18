@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest"
 
 import teamsPageFixture from "./fixtures/matches.html?raw"
-import { parseMatchesPage } from "./parser"
+import { parseMatchesPage } from "./parser.ts"
 
 describe("parseMatchesPage", () => {
   it("correctly parses the body", async () => {

@@ -2,8 +2,8 @@ import { nanoid } from "nanoid/non-secure"
 import { type ElementNode, parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
-import type { Match, Team } from "./dota"
-import { getNodeText } from "./utils"
+import type { Match, Team } from "./dota.ts"
+import { getNodeText } from "./utils.ts"
 
 const extractTeam = (team$: ElementNode): Team => {
   if (getNodeText(team$).trim() === "TBD") {
