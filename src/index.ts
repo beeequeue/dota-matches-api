@@ -1,18 +1,15 @@
+import { serve } from "h3"
+
 import { createApp } from "./app.ts"
-import { registerEnv } from "./db0-dialect/d1-register.ts"
 import { notifier } from "./notify.ts"
 
 if (!("Temporal" in globalThis)) {
   await import("temporal-polyfill-lite/global")
 }
 
-const app = createApp()
-
 export default {
-  fetch: async (request, env) => {
-    registerEnv(env)
-
-    return app.fetch(request)
-  },
+  ...serve(createApp(), {
+    trustProxy: true,
+  }),
   scheduled: notifier,
 } satisfies ExportedHandler<Env>

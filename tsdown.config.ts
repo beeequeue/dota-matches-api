@@ -8,6 +8,9 @@ export default defineConfig({
   env: {
     NODE_ENV: process.env.NODE_ENV === "development" ? "development" : "production",
   },
+  alias: {
+    h3: "h3/cloudflare",
+  },
 
   target: "esnext",
   platform: "browser",
