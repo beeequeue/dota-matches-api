@@ -12,6 +12,7 @@ export type Team = {
 }
 
 export type Match = {
+  id?: string
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null

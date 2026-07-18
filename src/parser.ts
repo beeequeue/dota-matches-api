@@ -1,9 +1,11 @@
 // oxlint-disable typescript/no-unnecessary-condition
-import { nanoid } from "nanoid/non-secure"
+import { stableHash } from "stable-hash"
 import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
 import { type Match, type Team } from "./dota.ts"
+
+const encoder = new TextEncoder()
 
 export const getNodeText = (node: ElementNode): string => {
   return node.children
@@ -37,52 +39,63 @@ const extractTeam = (team$: ElementNode): Team => {
   }
 }
 
-const withHash = (match: Omit<Match, "hash">): Match => ({
-  hash: nanoid(8),
-  ...match,
-})
-
-export const parseMatchesPage = (html: string) => {
+export const parseMatchesPage = async (html: string): Promise<Match[]> => {
   const root = parse(html) as ElementNode
 
   const $matches = querySelectorAll(root, ".match-info")
   if ($matches.length === 0) return []
 
-  const matches = $matches.map((match$) => {
-    const teamBlocks$ = querySelectorAll(match$, ".block-team") as ElementNode[]
-    const meta$ = querySelector(match$, ".timer-object") as ElementNode
-    const leagueLink$ = querySelector(match$, ".match-info-tournament-name > a") as ElementNode
-    const streamTitles$ = querySelectorAll(match$, ".match-info-links a") as ElementNode[]
+  const matches = await Promise.all(
+    $matches.map(async (match$) => {
+      const teamBlocks$ = querySelectorAll(match$, ".block-team") as ElementNode[]
+      const meta$ = querySelector(match$, ".timer-object") as ElementNode
+      const leagueLink$ = querySelector(match$, ".match-info-tournament-name > a") as ElementNode
+      const streamTitles$ = querySelectorAll(match$, ".match-info-links a") as ElementNode[]
 
-    if (teamBlocks$.length !== 2) {
-      throw new Error("Couldn't find two team blocks in match")
-    }
-    const teams = [extractTeam(teamBlocks$[0]), extractTeam(teamBlocks$[1])] as Match["teams"]
-    // For some reason we have to use `innerHTML` here instead of `textContent`
-    // because the abbr tag might not be parsed correctly by node-html-parser?
-    const matchType = getNodeText(
-      querySelector(match$, ".match-info-header-scoreholder-lower") as ElementNode,
-    )?.replace(/\(?(bo\d)\)?/i, "$1")
-    const startTime = meta$.attributes["data-timestamp"]
-    const leagueName = getNodeText(leagueLink$)
-    const leagueUrl = leagueLink$.attributes.href
-    const streamUrl = streamTitles$.find(
-      (stream) =>
-        stream.attributes?.href?.includes("/twitch/") ||
-        stream.attributes?.href?.includes("/youtube/"),
-    )?.attributes?.href
+      if (teamBlocks$.length !== 2) {
+        throw new Error("Couldn't find two team blocks in match")
+      }
+      const teams = [extractTeam(teamBlocks$[0]), extractTeam(teamBlocks$[1])] as Match["teams"]
+      // For some reason we have to use `innerHTML` here instead of `textContent`
+      // because the abbr tag might not be parsed correctly by node-html-parser?
+      const matchType = getNodeText(
+        querySelector(match$, ".match-info-header-scoreholder-lower") as ElementNode,
+      )?.replace(/\(?(bo\d)\)?/i, "$1")
+      const startTime = meta$.attributes["data-timestamp"]
+      const leagueName = getNodeText(leagueLink$)
+      const leagueUrl = leagueLink$.attributes.href
+      const streamUrl = streamTitles$.find(
+        (stream) =>
+          stream.attributes?.href?.includes("/twitch/") ||
+          stream.attributes?.href?.includes("/youtube/"),
+      )?.attributes?.href
+      const id$ = querySelector(match$, '[title^="Match:ID"]') as ElementNode
+      const idTitle = id$?.attributes?.title
+        ?.replace(/^Match:ID\s*/, "")
+        ?.replace(/\s*\(.+?\)$/, "")
 
-    return withHash({
-      teams,
-      matchType: matchType ?? null,
-      startsAt: startTime
-        ? Temporal.Instant.fromEpochMilliseconds(Number(startTime) * 1000).toString()
-        : null,
-      leagueName,
-      leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
-      streamUrl: streamUrl != null ? encodeURI(`https://liquipedia.net${streamUrl}`) : null,
-    })
-  })
+      const match = {
+        id: idTitle?.split(" ")?.join(":") ?? null,
+        hash: null!,
+        teams,
+        matchType: matchType ?? null,
+        startsAt: startTime
+          ? Temporal.Instant.fromEpochMilliseconds(Number(startTime) * 1000).toString()
+          : null,
+        leagueName,
+        leagueUrl: leagueUrl ? encodeURI(`https://liquipedia.net${leagueUrl}`) : null,
+        streamUrl: streamUrl != null ? encodeURI(`https://liquipedia.net${streamUrl}`) : null,
+      } satisfies Match as Match
+
+      const hash = await crypto.subtle.digest(
+        "SHA-256",
+        encoder.encode(stableHash(match.id ?? match)),
+      )
+      match.hash = new Uint8Array(hash).toHex()
+
+      return match
+    }),
+  )
 
   // Orders by start time, but puts matches with no start time at the end
   return matches.toSorted((a, b) => {

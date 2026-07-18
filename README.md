@@ -19,6 +19,8 @@ type Team = {
 }
 
 type Match = {
+  id: string | null
+  /** Either a hash of the match ID or the entire match object if it's missing */
   hash: string
   teams: [Team | null, Team | null]
   matchType: string | null

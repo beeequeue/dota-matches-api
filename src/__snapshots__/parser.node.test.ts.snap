@@ -3,6 +3,8 @@
 exports[`parseMatchesPage > correctly parses the body 1`] = `
 [
   {
+    "hash": "246733d43a6cdeefd6c599dc97dd282442f17d714d2adda99aafe3560d3ba2eb",
+    "id": "Vx9d4v00PV:R02-M001",
     "leagueName": "EWC 2026 - Playoffs",
     "leagueUrl": "https://liquipedia.net/dota2/Esports_World_Cup/2026#Playoffs",
     "matchType": "Bo3",
@@ -20,6 +22,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "c79a016e64692a1bf39afc1b9f764fdc15b3a04f7dccaa40ca42705304fb3017",
+    "id": "Vx9d4v00PV:R02-M002",
     "leagueName": "EWC 2026 - Playoffs",
     "leagueUrl": "https://liquipedia.net/dota2/Esports_World_Cup/2026#Playoffs",
     "matchType": "Bo3",
@@ -37,6 +41,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "e4a9880636b16f5d70bdc8c6194ac38d8d91612afba88036af9f98421c404e1e",
+    "id": "Vx9d4v00PV:RxMTP",
     "leagueName": "EWC 2026 - Playoffs",
     "leagueUrl": "https://liquipedia.net/dota2/Esports_World_Cup/2026#Playoffs",
     "matchType": "Bo3",
@@ -54,6 +60,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "47271d72ef7e3dc0ada3c531b0ae33c4b052d649abb83ed674b5808b7a58b102",
+    "id": "Vx9d4v00PV:R03-M001",
     "leagueName": "EWC 2026 - Playoffs",
     "leagueUrl": "https://liquipedia.net/dota2/Esports_World_Cup/2026#Playoffs",
     "matchType": "Bo5",
@@ -71,6 +79,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "5f8f2dcb97d3b18ae749556d4af2492cbe56fa84c914a8f5b2a9525cdbe0e1bf",
+    "id": "NnV02jmwdA:0001",
     "leagueName": "EPL Masters I: Play-In - July 20",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_20",
     "matchType": "Bo3",
@@ -88,6 +98,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "edd874d3539cffe98561a9454b9b53800885c4e6fc0030c0dab9ea8f9eafe7d1",
+    "id": "NnV02jmwdA:0002",
     "leagueName": "EPL Masters I: Play-In - July 20",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_20",
     "matchType": "Bo3",
@@ -105,6 +117,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "4318b46c2027e96cb2c37b9e1ea2bdb9ca994ec13bcdac5624ad43896589fc02",
+    "id": "NnV02jmwdA:0003",
     "leagueName": "EPL Masters I: Play-In - July 20",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_20",
     "matchType": "Bo3",
@@ -122,6 +136,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "a4b1a1fe33ed16b9a6ec9f75624985abab84c3959b6d8ddb6a55b15ded28d961",
+    "id": "NnV02jmwdA:0004",
     "leagueName": "EPL Masters I: Play-In - July 20",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_20",
     "matchType": "Bo3",
@@ -139,6 +155,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "960a1bf3ea3b5d00008ea75ca5c803e746b639a901918d1d186bfcfed77cf6c3",
+    "id": "NnV02jmwdA:0005",
     "leagueName": "EPL Masters I: Play-In - July 20",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_20",
     "matchType": "Bo3",
@@ -156,6 +174,8 @@ exports[`parseMatchesPage > correctly parses the body 1`] = `
     ],
   },
   {
+    "hash": "914127993a198ccc012dd7ac64776b44b0075601c91583b8c12113baed37459c",
+    "id": "NnV02jmwdB:0001",
     "leagueName": "EPL Masters I: Play-In - July 21",
     "leagueUrl": "https://liquipedia.net/dota2/EPL/Masters/1/Play-In#July_21",
     "matchType": "Bo3",
