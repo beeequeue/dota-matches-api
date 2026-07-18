@@ -1,16 +1,28 @@
 import { nanoid } from "nanoid/non-secure"
-import { type ElementNode, parse } from "ultrahtml"
+import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 
 import type { Match, Team } from "./dota.ts"
-import { getNodeText } from "./utils.ts"
+
+export const getNodeText = (node: ElementNode): string => {
+  return node.children
+    .reduce((accum, child) => {
+      if (child.type === ELEMENT_NODE) {
+        return accum + getNodeText(child)
+      }
+
+      if (child.type === TEXT_NODE) {
+        return accum + child.value
+      }
+
+      return accum
+    }, "")
+    .trim()
+}
 
 const extractTeam = (team$: ElementNode): Team => {
   if (getNodeText(team$).trim() === "TBD") {
-    return {
-      name: "TBD",
-      url: null,
-    }
+    return { name: "TBD", url: null }
   }
 
   const name = (querySelector(team$, ".name > a") as ElementNode)?.attributes?.title
@@ -41,9 +53,9 @@ export const parseMatchesPage = (html: string) => {
     const meta$ = querySelector(match$, ".timer-object") as ElementNode
     const leagueLink$ = querySelector(
       match$,
-      ".league-icon-small-image > a",
+      ".match-info-tournament-name > a",
     ) as ElementNode
-    const streamTitle$ = querySelector(match$, ".match-streams a") as ElementNode
+    const streamTitles$ = querySelectorAll(match$, ".match-info-links a") as ElementNode[]
 
     if (teamBlocks$.length !== 2) {
       throw new Error("Couldn't find two team blocks in match")
@@ -59,9 +71,13 @@ export const parseMatchesPage = (html: string) => {
       // eslint-disable-next-line e18e/prefer-static-regex
     )?.replace(/\(?(bo\d)\)?/i, "$1")
     const startTime = meta$.attributes["data-timestamp"]
-    const leagueName = leagueLink$.attributes.title
+    const leagueName = getNodeText(leagueLink$)
     const leagueUrl = leagueLink$.attributes.href
-    const streamUrl = streamTitle$?.attributes?.href
+    const streamUrl = streamTitles$.find(
+      (stream) =>
+        stream.attributes?.href?.includes("/twitch/") ||
+        stream.attributes?.href?.includes("/youtube/"),
+    )?.attributes?.href
 
     return withHash({
       teams,
@@ -83,4 +99,30 @@ export const parseMatchesPage = (html: string) => {
 
     return a.startsAt.localeCompare(b.startsAt)
   })
+}
+
+export const parseTeamsPage = (html: string): Team[] => {
+  const root = parse(html) as ElementNode
+
+  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
+  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
+    (el) => el === notableTeamsTitle$.parent,
+  )
+
+  const notableTeams$ = querySelectorAll(
+    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
+    ".team-template-text > a",
+  ) as ElementNode[]
+  const data: Team[] = notableTeams$.map((el$) => {
+    if (el$.children[0].type !== TEXT_NODE) {
+      throw new Error("Couldn't find text in team element")
+    }
+
+    return {
+      name: getNodeText(el$),
+      url: `https://liquipedia.net${el$.attributes.href}`,
+    }
+  })
+
+  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }

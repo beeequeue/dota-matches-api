@@ -1,9 +1,5 @@
 import type { H3Event } from "h3"
 import { ms, type StringValue } from "milli"
-import { ELEMENT_NODE, type ElementNode, parse, TEXT_NODE } from "ultrahtml"
-import { querySelector, querySelectorAll } from "ultrahtml/selector"
-
-import type { Team } from "./dota.ts"
 
 export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
 
@@ -17,22 +13,6 @@ export const ms2s = (n: number) => Math.round(n / 1000)
 export const nowSeconds = () => ms2s(Date.now())
 
 export const seconds = (input: StringValue) => ms2s(ms(input))
-
-export const getNodeText = (node: ElementNode): string => {
-  return node.children
-    .reduce((accum, child) => {
-      if (child.type === ELEMENT_NODE) {
-        return accum + getNodeText(child)
-      }
-
-      if (child.type === TEXT_NODE) {
-        return accum + child.value
-      }
-
-      return accum
-    }, "")
-    .trim()
-}
 
 export const getCountry = (event: H3Event): string => {
   if (event.req.cf?.country != null) return event.req.cf.country as string
@@ -63,30 +43,4 @@ export const getCacheHeaders = (lastFetched: number) => {
 
 export const setCacheHeaders = (event: H3Event, lastFetched: number) => {
   event.res.headers.set("Cache-Control", getCacheHeaders(lastFetched)["Cache-Control"])
-}
-
-export const parseTeamsPage = (html: string): Team[] => {
-  const root = parse(html) as ElementNode
-
-  const notableTeamsTitle$ = querySelector(root, "#Notable_Active_Teams") as ElementNode
-  const titleIndex = (notableTeamsTitle$.parent.parent as ElementNode).children.findIndex(
-    (el) => el === notableTeamsTitle$.parent,
-  )
-
-  const notableTeams$ = querySelectorAll(
-    (notableTeamsTitle$.parent.parent as ElementNode).children[titleIndex + 2],
-    ".team-template-text > a",
-  ) as ElementNode[]
-  const data: Team[] = notableTeams$.map((el$) => {
-    if (el$.children[0].type !== TEXT_NODE) {
-      throw new Error("Couldn't find text in team element")
-    }
-
-    return {
-      name: getNodeText(el$),
-      url: `https://liquipedia.net${el$.attributes.href}`,
-    }
-  })
-
-  return data.sort((a, b) => a.name!.localeCompare(b.name!))
 }

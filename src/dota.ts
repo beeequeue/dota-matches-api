@@ -8,8 +8,8 @@ import {
   upsertMatchData,
   upsertTeamsData,
 } from "./db.ts"
-import { parseMatchesPage } from "./parser.ts"
-import { EDGE_CACHE_TIMEOUT, MetaKey, parseTeamsPage, seconds } from "./utils.ts"
+import { parseMatchesPage, parseTeamsPage } from "./parser.ts"
+import { EDGE_CACHE_TIMEOUT, MetaKey, seconds } from "./utils.ts"
 
 export type Team = {
   name: string | null
@@ -34,7 +34,7 @@ const liquipediaClient = new Xior({
   baseURL: "https://liquipedia.net/dota2",
   responseType: "json",
   headers: {
-    "Accept-Encoding": "gzip",
+    "Accept-Encoding": "zstd,brotli,gzip",
   },
 })
 
@@ -68,7 +68,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
           action: "parse",
           format: "json",
           contentmodel: "wikitext",
-          text: "{{NewDota2_matches_upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National}}",
+          text: "{{#invoke:Lua|invoke|module=MatchTicker/Custom|fn=mainPage|dev=false|type=upcoming|limit=50|filterbuttons-liquipediatier=1,2|filterbuttons-liquipediatiertype=Monthly,Weekly,Qualifier,Misc,Showmatch,National,monthly,weekly,qualifier,misc,showmatch,national}}",
         },
       })
       .catch((error: XiorError) => error),
