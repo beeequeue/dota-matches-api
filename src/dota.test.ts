@@ -49,9 +49,9 @@ describe("getTeams", async () => {
 
     const data = await db.selectFrom("team").selectAll().limit(1).execute()
     expect(data[0]).toStrictEqual({
-      id: "1win Team",
-      name: "1win Team",
-      url: "https://liquipedia.net/dota2/1win_Team",
+      id: "1w",
+      name: "1w",
+      url: "https://liquipedia.net/dota2/1w",
     })
   })
 
@@ -81,7 +81,7 @@ describe("getTeams", async () => {
     // Still fetched new ones
     expect(liquipediaMock.uncalledRoutes).toHaveLength(0)
     const data = await db.selectFrom("team").selectAll().orderBy("team.name").execute()
-    expect(data[33]).toStrictEqual({
+    expect(data[27]).toStrictEqual({
       id: "Team Liquid",
       name: "Team Liquid",
       url: "https://liquipedia.net/dota2/Team_Liquid",
