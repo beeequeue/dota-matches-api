@@ -30,7 +30,7 @@ describe("parseTeamsPage", () => {
     TODO
   */
   it("correctly parses the body", async () => {
-    const matches = await parseTeamsPage(teamsPageFixture)
+    const matches = parseTeamsPage(teamsPageFixture)
 
     expect(matches).toMatchSnapshot()
   })
