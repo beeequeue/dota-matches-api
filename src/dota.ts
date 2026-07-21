@@ -1,5 +1,5 @@
+import { createLimiter } from "alleviate"
 import { ms } from "milli"
-import PQueue from "p-queue"
 import { isXiorError, Xior } from "xior"
 import type { XiorError } from "xior"
 
@@ -23,9 +23,9 @@ export type Match = {
   streamUrl: string | null
 }
 
-const liquipediaQueue = new PQueue({
-  intervalCap: 1,
-  interval: process.env.NODE_ENV === "test" ? 0 : 30_000,
+const liquipediaQueue = createLimiter({
+  pool: 1,
+  refillInterval: process.env.NODE_ENV === "test" ? 0 : 30_000,
 })
 const liquipediaClient = new Xior({
   baseURL: "https://liquipedia.net/dota2",
@@ -55,7 +55,7 @@ export type LiquipediaBody = {
 const fetchMatches = async (country: string): Promise<Match[]> => {
   console.log("Fetching match data...")
 
-  const response = await liquipediaQueue.add(async () =>
+  const response = await liquipediaQueue.run(async () =>
     liquipediaClient
       .get<LiquipediaBody>("/api.php", {
         headers: { "User-Agent": `dota-matches-api-${country}` },
@@ -79,7 +79,7 @@ const fetchMatches = async (country: string): Promise<Match[]> => {
 const fetchAndCacheTeams = async (env: Env, country: string): Promise<Team[]> => {
   console.log("Fetching teams...")
 
-  const response = await liquipediaQueue.add(async () =>
+  const response = await liquipediaQueue.run(async () =>
     liquipediaClient
       .get<LiquipediaBody>("/api.php", {
         headers: { "User-Agent": `dota-matches-api-${country}` },
