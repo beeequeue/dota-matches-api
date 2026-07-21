@@ -1,5 +1,5 @@
+import { parse } from "@lukeed/ms"
 import { createLimiter } from "alleviate"
-import { ms } from "milli"
 import { isXiorError, Xior } from "xior"
 import type { XiorError } from "xior"
 
@@ -114,7 +114,7 @@ export const getTeams =
     const lastFetched = Number((await env.META.get(MetaKey.TEAMS_LAST_FETCHED)) ?? -1)
     console.log(`Teams were last fetched at ${lastFetched}`)
 
-    if (lastFetched !== -1 && Date.now() <= lastFetched + ms("12h")) {
+    if (lastFetched !== -1 && Date.now() <= lastFetched + parse("12h")!) {
       console.log(`Retrieving teams from DB...`)
       const result = await getTeamsFromDb()
       return result.rows.map(({ name }) => name)

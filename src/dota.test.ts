@@ -1,6 +1,6 @@
+import { parse } from "@lukeed/ms"
 import { env } from "cloudflare:workers"
 import { FetchMocker, MockServer } from "mentoss"
-import { ms } from "milli"
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { db } from "./db.ts"
@@ -57,7 +57,7 @@ describe("getTeams", async () => {
 
   it("fetches teams from cache if cached", async () => {
     await db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
-    await env.META.put(MetaKey.TEAMS_LAST_FETCHED, (Date.now() - ms("10m")).toString())
+    await env.META.put(MetaKey.TEAMS_LAST_FETCHED, (Date.now() - parse("10m")!).toString())
 
     const result = await getTeams(env)("test")
 
@@ -70,7 +70,7 @@ describe("getTeams", async () => {
 
   it("fetches teams from cache and updates it if expired", async () => {
     await db.insertInto("team").values({ id: "OG", name: "OG", url: "url" }).execute()
-    const l = (Date.now() - ms("6d")).toString()
+    const l = (Date.now() - parse("6d")!).toString()
     await env.META.put(MetaKey.TEAMS_LAST_FETCHED, l)
 
     const result = await getTeams(env)("test")

@@ -28,6 +28,9 @@ importers:
       '@leeoniya/ufuzzy':
         specifier: 1.0.19
         version: 1.0.19
+      '@lukeed/ms':
+        specifier: 2.0.2
+        version: 2.0.2
       '@total-typescript/ts-reset':
         specifier: 0.6.1
         version: 0.6.1
@@ -67,9 +70,6 @@ importers:
       mentoss:
         specifier: 0.13.0
         version: 0.13.0
-      milli:
-        specifier: 4.0.0
-        version: 4.0.0
       miniflare:
         specifier: 4.20260714.0
         version: 4.20260714.0
@@ -569,6 +569,10 @@ packages:
 
   '@leeoniya/ufuzzy@1.0.19':
     resolution: {integrity: sha512-0pikDeYt0IHEUPza5RTCDXc/17S1pTrYnReEMp8Aa6k1ovzw5QdZLwicW8TjljwEZRb6oYag0xmALohrcq/yOQ==}
+
+  '@lukeed/ms@2.0.2':
+    resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
+    engines: {node: '>=8'}
 
   '@napi-rs/wasm-runtime@1.1.6':
     resolution: {integrity: sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg==}
@@ -1467,10 +1471,6 @@ packages:
     resolution: {integrity: sha512-hWibd61D8WRnntW4eCdvPYCLeuoxbNSqbN0I8n0lpYe+7Slp8hSIq/1sNYuX0SvAzaXsuITV0dnGyO10kkwAQQ==}
     engines: {node: '>=18.18'}
 
-  milli@4.0.0:
-    resolution: {integrity: sha512-dPraPFbxB843sOFmsmT8Cbdog412DQZdJZWNNNgubUnlm0kAzFlHOwpCKzKr3qsTuVLmXaFieokx1gUK4k1GOg==}
-    engines: {node: '>=18'}
-
   miniflare@4.20260714.0:
     resolution: {integrity: sha512-MYlTCLdWCPqvrYY2uLwOjXwmglXuiHE3TGGkbOW4BwjUPa1r07E0iuHwrNDIs/sxK21r+o90Jx58AV2KeNdJZw==}
     engines: {node: '>=22.0.0'}
@@ -2224,6 +2224,8 @@ snapshots:
 
   '@leeoniya/ufuzzy@1.0.19': {}
 
+  '@lukeed/ms@2.0.2': {}
+
   '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)':
     dependencies:
       '@emnapi/core': 1.11.2
@@ -2876,8 +2878,6 @@ snapshots:
   mentoss@0.13.0:
     dependencies:
       urlpattern-polyfill: 10.1.0
-
-  milli@4.0.0: {}
 
   miniflare@4.20260714.0:
     dependencies:

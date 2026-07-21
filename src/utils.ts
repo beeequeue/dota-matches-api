@@ -1,6 +1,5 @@
+import { parse } from "@lukeed/ms"
 import type { H3Event } from "h3"
-import { ms } from "milli"
-import type { StringValue } from "milli"
 
 export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
 
@@ -9,11 +8,11 @@ export const MetaKey = {
   TEAMS_LAST_FETCHED: "TEAMS_LAST_FETCHED",
 } as const
 
-export const ms2s = (n: number) => Math.round(n / 1000)
+export const ms2s = (n: number): number => Math.round(n / 1000)
 
-export const nowSeconds = () => ms2s(Date.now())
+export const nowSeconds = (): number => ms2s(Date.now())
 
-export const seconds = (input: StringValue) => ms2s(ms(input))
+export const seconds = (input: string): number => ms2s(parse(input)!)
 
 export const getCountry = (event: H3Event): string => {
   if (event.req.cf?.country != null) return event.req.cf.country as string
