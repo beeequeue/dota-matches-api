@@ -1,7 +1,8 @@
 import { parse } from "@lukeed/ms"
 import type { H3Event } from "h3"
 
-export const getEnv = (event: H3Event) => event.req.runtime!.cloudflare!.env
+// @ts-expect-error: Bad types
+export const getEnv = (event: H3Event): Env => event.req.runtime!.cloudflare!.env
 
 export const MetaKey = {
   MATCHES_LAST_FETCHED: "MATCHES_LAST_FETCHED",
