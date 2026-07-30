@@ -54,7 +54,8 @@ export const parseMatchesPage = async (html: string): Promise<Match[]> => {
       const streamTitles$ = querySelectorAll(match$, ".match-info-links a") as ElementNode[]
 
       if (teamBlocks$.length !== 2) {
-        throw new Error("Couldn't find two team blocks in match")
+        console.warn("Couldn't find two team blocks in match, skipping...")
+        return
       }
       const teams = [extractTeam(teamBlocks$[0]!), extractTeam(teamBlocks$[1]!)] as Match["teams"]
       const matchType = getNodeText(
@@ -97,7 +98,7 @@ export const parseMatchesPage = async (html: string): Promise<Match[]> => {
   )
 
   // Orders by start time, but puts matches with no start time at the end
-  return matches.toSorted((a, b) => {
+  return matches.filter(Boolean).toSorted((a, b) => {
     if (a.startsAt == null) return 1
     if (b.startsAt == null) return -1
 
