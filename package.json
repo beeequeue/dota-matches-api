@@ -58,7 +58,7 @@
     "typescript": "6.0.3",
     "ultrahtml": "1.7.0",
     "unrun": "0.3.1",
-    "vitest": "5.0.0-beta.6",
+    "vitest": "5.0.0-rc.4",
     "wrangler": "4.115.0",
     "xior": "0.8.3"
   }
