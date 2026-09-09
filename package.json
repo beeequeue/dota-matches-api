@@ -40,7 +40,7 @@
     "@types/node": "26.1.2",
     "alleviate": "0.2.3",
     "db0": "0.3.4",
-    "discord-api-types": "0.38.52",
+    "discord-api-types": "0.38.55",
     "discord-interactions": "4.4.0",
     "es-toolkit": "1.50.0",
     "h3": "2.0.1-rc.26",

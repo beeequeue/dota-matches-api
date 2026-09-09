@@ -53,8 +53,8 @@ importers:
         specifier: 0.3.4
         version: 0.3.4
       discord-api-types:
-        specifier: 0.38.52
-        version: 0.38.52
+        specifier: 0.38.55
+        version: 0.38.55
       discord-interactions:
         specifier: 4.4.0
         version: 4.4.0(patch_hash=2b61cda2627880f0ce34ab2cd30dd06eb6d6efe7bb717def3684357023685829)
@@ -1277,8 +1277,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.38.52:
-    resolution: {integrity: sha512-uwe9EKfbjsmgWc2fdFjvDbj+dQqx3lp7wqDCmIha0jInuU+xeQjkCK9tMMn+p7RXfdVQORCInq4cD3U2ymDmyg==}
+  discord-api-types@0.38.55:
+    resolution: {integrity: sha512-ytuaRTzdnHUCXJ6KjL9MrItQX0xKncBKEeYI1Bst4+ud47eejH3cG6gaesYakjpPcUhh68XYS2YwGq3mmujFsA==}
 
   discord-interactions@4.4.0:
     resolution: {integrity: sha512-jjJx8iwAeJcj8oEauV43fue9lNqkf38fy60aSs2+G8D1nJmDxUIrk08o3h0F3wgwuBWWJUZO+X/VgfXsxpCiJA==}
@@ -2673,7 +2673,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  discord-api-types@0.38.52: {}
+  discord-api-types@0.38.55: {}
 
   discord-interactions@4.4.0(patch_hash=2b61cda2627880f0ce34ab2cd30dd06eb6d6efe7bb717def3684357023685829): {}
 
